@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tractors24/sign_up.dart';
-import 'package:tractors24/buyer_page.dart';
-import 'homepage.dart';
+import 'package:tractors24/auth/sign_up.dart';
+import 'package:tractors24/screens/buyer_page.dart';
+import '../screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'buyer_page.dart';
-import 'homepage.dart';
+import '../screens/buyer_page.dart';
+import '../screens/homepage.dart';
 import 'sign_up.dart';
 
 class LoginPage extends StatefulWidget {

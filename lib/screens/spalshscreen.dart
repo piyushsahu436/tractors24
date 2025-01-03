@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
-import 'main.dart'; // Import main.dart for MyHomePage
+import '../auth/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,21 +11,20 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<int> _textAnimation;
-  final String _text = "Tractors 24"; // Text to display
-  final int _textLength = 8; // Total number of characters
+  final String _text = "Let us wheel \n Your Dreams"; // Text to display
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize the animation controller
+    // Initialize the animation controller with appropriate duration
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2), // Animation duration
+      duration: Duration(milliseconds: _text.length * 250), // 250 ms per character
     );
 
     // Create an integer animation for the text length
-    _textAnimation = IntTween(begin: 0, end: _textLength).animate(_controller)
+    _textAnimation = IntTween(begin: 0, end: _text.length).animate(_controller)
       ..addListener(() {
         setState(() {}); // Rebuild on every animation frame
       });
@@ -34,12 +32,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     // Start the animation
     _controller.forward();
 
-    // Navigate to the home page after the animation and delay
-    Future.delayed(const Duration(seconds: 3), () {
+    // Use a non-nullable duration
+    Future.delayed(_controller.duration!, () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginPage(),
+          builder: (context) =>  LoginPage(),
         ),
       );
     });
@@ -54,17 +52,18 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
             Text(
-              _text.substring(0, _textAnimation.value), // Display partial text
+              _text.substring(0, _textAnimation.value.clamp(0, _text.length)), // Clamp the value
               style: const TextStyle(
-                fontSize: 60,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
+                color: Colors.white,
               ),
             ),
           ],

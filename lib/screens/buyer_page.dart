@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tractors24/login_page.dart';
+import 'package:tractors24/auth/login_page.dart';
+
+import 'emi_cal.dart';
 
 
 class BuyerScreen extends StatefulWidget {
@@ -12,6 +14,8 @@ class BuyerScreen extends StatefulWidget {
 class _BuyerScreenState extends State<BuyerScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final TextEditingController _searchController = TextEditingController();
+  int _selectedIndex = 0;
 
   String? userType;
   String? userName;
@@ -42,112 +46,8 @@ class _BuyerScreenState extends State<BuyerScreen> {
     }
   }
 
-
-  Future<void> _addToCart(Map<String, dynamic> vehicle) async {
-    try {
-      final String userId = auth.currentUser?.uid ?? '';
-      await firestore.collection('cart').add({
-        'userId': userId,
-        'brandName': vehicle['brandName'],
-        'description': vehicle['description'],
-        'horsePower': vehicle['horsePower'],
-        'sellPrice': vehicle['sellPrice'],
-        'timestamp': FieldValue.serverTimestamp(),
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${vehicle['brandName']} added to cart')),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to add to cart: $e')),
-      );
-    }
-  }
-  final TextEditingController _searchController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90), // Adjust the height of the AppBar
-        child: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.white, // Set the drawer icon color
-          ),
-
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/banner2.jpeg'),
-                fit: BoxFit.cover, // Ensures the image covers the entire area
-              ),
-            ),
-          ),
-          title: const Text(
-            'The Prefect Tractors \n Wheels your dreams ',
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold ),
-          ),
-
-        ),
-      ),
-      drawer: Drawer(
-
-        child: ListView(
-          children: [
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.lightBlue),
-              accountName: Padding(
-                padding: const EdgeInsets.only(top: 20.0), // Add padding for spacing
-                child: Text(
-                  userName ?? 'Guest',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              accountEmail: Text(auth.currentUser?.email ?? ''),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: NetworkImage(
-                  userPhoto ?? 'https://via.placeholder.com/150',
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('My Profile'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.dashboard),
-              title: Text('My Dashboard'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.subscriptions),
-              title: Text('My Subscription'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () async {
-                await FirebaseAuth.instance.signOut();
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                      (route) => false,
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-      body: Column(
+  Widget _buildHomeScreen() {
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
@@ -194,7 +94,6 @@ class _BuyerScreenState extends State<BuyerScreen> {
                 ElevatedButton(
                   onPressed: () {
                     String query = _searchController.text;
-                    // Handle search logic here
                     print('Searching for: $query');
                   },
                   style: ElevatedButton.styleFrom(
@@ -206,7 +105,6 @@ class _BuyerScreenState extends State<BuyerScreen> {
             ),
           ),
         ),
-        // Add ListView.builder under Column
         Expanded(
           child: StreamBuilder<QuerySnapshot>(
             stream: firestore.collection('tractors24').snapshots(),
@@ -228,7 +126,6 @@ class _BuyerScreenState extends State<BuyerScreen> {
                 itemBuilder: (context, docIndex) {
                   final doc = snapshot.data!.docs[docIndex];
                   final vehicles = (doc.data() as Map<String, dynamic>)['vehicles'] as List<dynamic>? ?? [];
-                  final sellerPhone = (doc.data() as Map<String, dynamic>)['phone'] ?? 'N/A';
 
                   if (vehicles.isEmpty) return const SizedBox.shrink();
 
@@ -286,31 +183,22 @@ class _BuyerScreenState extends State<BuyerScreen> {
                                           // Handle button press
                                         },
                                         style: TextButton.styleFrom(
-                                          backgroundColor: Colors.blue, // Background color
-                                          foregroundColor: Colors.white, // Text color
-                                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Optional: Adjust padding
+                                          backgroundColor: Colors.blue,
+                                          foregroundColor: Colors.white,
+                                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8.0), // Optional: Rounded corners
+                                            borderRadius: BorderRadius.circular(8.0),
                                           ),
                                         ),
                                         child: const Text('Contact Seller'),
                                       )
-
                                     ],
                                   ),
                                   Text(
                                     'Price: ₹${vehicle['sellPrice'] ?? ''}',
-                                    style: const TextStyle(fontSize: 16.0 , fontWeight: FontWeight.bold, color: Colors.black),
+                                    style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
                                   ),
                                   const SizedBox(height: 8.0),
-                                  // ElevatedButton(
-                                  //   onPressed: () => _addToCart(vehicle),
-                                  //   style: ElevatedButton.styleFrom(
-                                  //     backgroundColor: Colors.teal,
-                                  //     minimumSize: const Size(double.infinity, 36),
-                                  //   ),
-                                  //   child: const Text('Add to Cart'),
-                                  // ),
                                 ],
                               ),
                             ),
@@ -325,8 +213,199 @@ class _BuyerScreenState extends State<BuyerScreen> {
           ),
         ),
       ],
-    ),
-
     );
   }
-}
+
+  Widget _buildProfileScreen() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(height: 40),
+          CircleAvatar(
+            radius: 60,
+            backgroundImage: NetworkImage(
+              userPhoto ?? 'https://via.placeholder.com/150',
+            ),
+            backgroundColor: Colors.blue,
+          ),
+          const SizedBox(height: 24),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Profile Information',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  const Divider(height: 20),
+                  ListTile(
+                    leading: const Icon(Icons.person_outline, color: Colors.blue),
+                    title: const Text('Name'),
+                    subtitle: Text(
+                      userName ?? 'Guest User',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.email_outlined, color: Colors.blue),
+                    title: const Text('Email'),
+                    subtitle: Text(
+                      auth.currentUser?.email ?? 'No email set',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.phone_outlined, color: Colors.blue),
+                    title: const Text('Phone Number'),
+                    subtitle: Text(
+                      auth.currentUser?.phoneNumber ?? 'No phone number set',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> _pages = [
+      _buildHomeScreen(),
+      EMICalculatorScreen(),
+      _buildProfileScreen(),
+    ];
+
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80),
+        child: AppBar(
+          backgroundColor: Colors.blue,
+          iconTheme: IconThemeData(color: Colors.white),
+          flexibleSpace: _selectedIndex == 0
+              ? Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/banner2.jpeg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          )
+              : null,
+          title: _selectedIndex == 0
+              ? const Text(
+            'The Perfect Tractors \n Wheels your dreams',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+              : Center(
+                child: Text(
+                            _selectedIndex == 1 ? 'EMI Calculator' : 'Profile Screen ',
+                            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                            ),
+                          ),
+              ),
+        ),
+      ),
+      drawer: _selectedIndex == 0
+          ? Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: Colors.lightBlue),
+              accountName: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text(
+                  userName ?? 'Guest',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              accountEmail: Text(auth.currentUser?.email ?? ''),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(
+                  userPhoto ?? 'https://via.placeholder.com/150',
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text('My Profile'),
+              onTap: () {
+                setState(() {
+                  _selectedIndex = 2;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.calculate),
+              title: Text('EMI Calculator'),
+              onTap: () {
+                setState(() {
+                  _selectedIndex = 1;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                      (route) => false,
+                );
+              },
+            ),
+          ],
+        ),
+      )
+          : null,
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calculate),
+            label: 'EMI Calc',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        selectedItemColor: Colors.blue,
+      ),
+    );
+
+  }
+  }
