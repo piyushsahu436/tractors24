@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tractors24/login_page.dart';
+import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/rto_page.dart';
 
-import 'main.dart';
+import 'emi_cal.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -107,10 +109,6 @@ class _HomePageState extends State<HomePage> {
                         Text('Sell Price: ₹${vehicle['sellPrice']}',
                             style: const TextStyle(fontSize: 16.0, color: Colors.black,)),
                         const SizedBox(height: 8.0),
-                        // Text(
-                        //   'Added on: ${vehicle['timestamp'] != null ? (vehicle['timestamp'] as Timestamp).toDate().toString() : "Unknown"}',
-                        //   style: const TextStyle(fontSize: 14.0, color: Colors.grey),
-                        // ),
                       ],
                     ),
                   ),
@@ -156,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                     leading: const Icon(Icons.person_outline, color: Colors.blue),
                     title: const Text('Name'),
                     subtitle: Text(
-                      currentUser?.displayName ?? 'Not set',
+                      currentUser?.displayName ?? 'Piyush Sahu',
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
@@ -164,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                     leading: const Icon(Icons.email_outlined, color: Colors.blue),
                     title: const Text('Email'),
                     subtitle: Text(
-                      currentUser?.email ?? 'Not set',
+                      currentUser?.email ?? 'No set',
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
@@ -172,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                     leading: const Icon(Icons.phone_outlined, color: Colors.blue),
                     title: const Text('Phone Number'),
                     subtitle: Text(
-                      currentUser?.phoneNumber ?? 'Not set',
+                      currentUser?.phoneNumber ?? '+91 8960995237',
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
@@ -188,6 +186,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildSettingsPage() {
     return ListView(
       children: [
+        SizedBox(height: 40),
         ListTile(
           leading: const Icon(Icons.person_outline),
           title: const Text('Account Settings'),
@@ -204,7 +203,7 @@ class _HomePageState extends State<HomePage> {
         ),
         ListTile(
           leading: const Icon(Icons.security_outlined),
-          title: const Text('Vehicle Security'),
+          title: const Text('RTO Mangement'),
           onTap: () {
             Navigator.push(
               context,
@@ -212,6 +211,7 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
+        Spacer(),
         ListTile(
           leading: const Icon(Icons.logout),
           title: const Text('Logout'),
@@ -221,19 +221,37 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  String _getAppBarTitle() {
+    switch (_selectedIndex) {
+      case 0:
+        return "Home Screen";
+      case 1:
+        return "EMI Calculator";
+      case 2:
+        return "Profile Screen";
+      case 3:
+        return "Settings Screen";
+      default:
+        return "Home Screen";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> _pages = [
       _buildMainContent(),
+      EMICalculatorScreen(),
       _buildProfilePage(),
       _buildSettingsPage(),
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Tractors24 ${_selectedIndex == 0 ? "Home" : _selectedIndex == 1 ? "Profile" : "Settings"}',
-          style: const TextStyle(color: Colors.white),
+        title: Center(
+          child: Text(
+            _getAppBarTitle(),
+            style: const TextStyle(color: Colors.white),
+          ),
         ),
         backgroundColor: Colors.blue,
       ),
@@ -245,10 +263,15 @@ class _HomePageState extends State<HomePage> {
             _selectedIndex = index;
           });
         },
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calculate),
+            label: 'EMI Calc',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -278,12 +301,11 @@ class _HomePageState extends State<HomePage> {
     final TextEditingController insuranceSecurityController = TextEditingController();
     final TextEditingController sellPriceController = TextEditingController();
 
-    // Retrieve additional user details
     final User? currentUser = firebaseAuth.currentUser;
     final String email = currentUser?.email ?? '';
     final String name = currentUser?.displayName ?? 'Unknown';
     final String phone = currentUser?.phoneNumber ?? 'Unknown';
-    const String userType = "seller"; // Define the user type manually or retrieve from Firestore.
+    const String userType = "seller";
 
     showDialog(
       context: context,
@@ -346,12 +368,10 @@ class _HomePageState extends State<HomePage> {
                 }
 
                 try {
-                  // Add vehicle details along with user info
                   final DocumentReference sellerRef =
                   firestore.collection('tractors24').doc(sellerId);
 
                   await sellerRef.set({
-
                     'vehicles': FieldValue.arrayUnion([
                       {
                         'brandName': brandName,
@@ -359,10 +379,9 @@ class _HomePageState extends State<HomePage> {
                         'horsePower': horsePower,
                         'insuranceSecurity': insuranceSecurity,
                         'sellPrice': sellPrice,
-                        // Add current time
                       }
                     ])
-                  }, SetOptions(merge: true)); // Merge if the document already exists
+                  }, SetOptions(merge: true));
 
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -382,6 +401,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
-
