@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             FadeTransition(
               opacity: _controller.drive(CurveTween(curve: Curves.easeInOut)),
               child: Image.asset(
-                "assets/Tractors.png",
+                "assets/images/Tractors.png",
                 height: 250,
                 width: 350,
                 fit: BoxFit.cover,

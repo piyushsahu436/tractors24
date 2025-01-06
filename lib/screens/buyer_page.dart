@@ -143,7 +143,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
                             ClipRRect(
                               borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
                               child: Image.asset(
-                                'assets/Tractors.png',
+                                'assets/images/Tractors.png',
                                 height: 150,
                                 width: MediaQuery.of(context).size.width*0.9,
                                 fit: BoxFit.cover,
@@ -298,7 +298,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
               ? Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/banner2.jpeg'),
+                image: AssetImage('assets/images/banner2.jpeg'),
                 fit: BoxFit.cover,
               ),
             ),

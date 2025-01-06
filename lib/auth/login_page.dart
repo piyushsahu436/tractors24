@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tractors24/auth/sign_up.dart';
 import 'package:tractors24/screens/buyer_page.dart';
-import '../screens/homepage.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../screens/buyer_page.dart';
-import '../screens/homepage.dart';
-import 'sign_up.dart';
+import 'package:tractors24/screens/homepage.dart';
+import 'package:tractors24/data/services/translation_service.dart';
+import 'package:tractors24/data/repositories/firebase_auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,50 +11,61 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final FirebaseAuthService _authService = FirebaseAuthService();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isLoading = false;
+  bool isHindi = false;
+  Map<String, String> translations = {
+    'Welcome Back!': 'Welcome Back!',
+    'Email Address': 'Email Address',
+    'Password': 'Password',
+    'Login': 'Login',
+    "Don't have an account? Sign Up": "Don't have an account? Sign Up",
+  };
+
+  Future<void> translateAllTexts() async {
+    if (isHindi) {
+      Map<String, String> newTranslations = {};
+      for (String key in translations.keys) {
+        String translatedText = await TranslationService.translateText(key);
+        newTranslations[key] = translatedText;
+      }
+      setState(() => translations = newTranslations);
+    } else {
+      setState(() => translations = {
+        'Welcome Back!': 'Welcome Back!',
+        'Email Address': 'Email Address',
+        'Password': 'Password',
+        'Login': 'Login',
+        "Don't have an account? Sign Up": "Don't have an account? Sign Up",
+      });
+    }
+  }
 
   Future<void> _login(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
 
     setState(() => isLoading = true);
     try {
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
+      final result = await _authService.loginUser(
+        email: emailController.text,
+        password: passwordController.text,
       );
 
       if (!mounted) return;
 
-      final userDoc = await FirebaseFirestore.instance
-          .collection('tractors24')
-          .doc(userCredential.user?.uid)
-          .get();
-
-      if (!userDoc.exists) {
-        throw 'User data not found';
+      if (result['success']) {
+        final route = MaterialPageRoute(
+          builder: (_) => result['userType'] == 'Customer'
+              ? BuyerScreen()
+              : HomePage(),
+        );
+        Navigator.pushReplacement(context, route);
+      } else {
+        _showError(result['message']);
       }
-
-      if (!mounted) return;
-
-      final userType = userDoc.data()?['userType'] as String?;
-      final route = MaterialPageRoute(
-        builder: (_) => userType == 'Customer' ? BuyerScreen() : HomePage(),
-      );
-
-      Navigator.pushReplacement(context, route);
-
-    } on FirebaseAuthException catch (e) {
-      final message = switch (e.code) {
-        'user-not-found' => 'No user found for that email',
-        'wrong-password' => 'Wrong password provided',
-        _ => 'Authentication failed: ${e.message}',
-      };
-      _showError(message);
-    } catch (e) {
-      _showError(e.toString());
     } finally {
       if (mounted) setState(() => isLoading = false);
     }
@@ -77,7 +82,47 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.language),
+            onPressed: () async {
+              String? selectedLanguage = await showDialog<String>(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Choose Language'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: Text('English'),
+                          onTap: () => Navigator.pop(context, 'en'),
+                        ),
+                        ListTile(
+                          title: Text('Hindi'),
+                          onTap: () => Navigator.pop(context, 'hi'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
 
+              if (selectedLanguage != null) {
+                setState(() => isHindi = selectedLanguage == 'hi');
+                await translateAllTexts();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      isHindi ? "Switched to Hindi" : "Switched to English",
+                    ),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              }
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -88,18 +133,17 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(15),  // Adjust the radius as needed
+                borderRadius: BorderRadius.circular(15),
                 child: Image.asset(
-                  'assets/banner1.jpg',
+                  'assets/images/banner1.jpg',
                   height: 150,
                   width: 150,
-                  fit: BoxFit.cover,  // Optional: Adjusts the image to cover the container
+                  fit: BoxFit.cover,
                 ),
-              )
-,
+              ),
               const SizedBox(height: 32),
-              const Text(
-                'Welcome Back!',
+              Text(
+                translations['Welcome Back!']!,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -110,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
               TextFormField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  labelText: 'Email Address',
+                  labelText: translations['Email Address'],
                   prefixIcon: const Icon(Icons.email),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -118,9 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'Please enter your email';
-                  }
+                  if (value?.isEmpty ?? true) return 'Please enter your email';
                   if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
                       .hasMatch(value!)) {
                     return 'Please enter a valid email';
@@ -132,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
               TextFormField(
                 controller: passwordController,
                 decoration: InputDecoration(
-                  labelText: 'Password',
+                  labelText: translations['Password'],
                   prefixIcon: const Icon(Icons.lock),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -145,7 +187,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-
                 onPressed: isLoading ? null : () => _login(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
@@ -156,8 +197,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: isLoading
                     ? const CircularProgressIndicator()
-                    : const Text(
-                  'Login',
+                    : Text(
+                  translations['Login']!,
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
@@ -167,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                   context,
                   MaterialPageRoute(builder: (_) => SignUpPage()),
                 ),
-                child: const Text("Don't have an account? Sign Up"),
+                child: Text(translations["Don't have an account? Sign Up"]!),
               ),
             ],
           ),
