@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/news.dart';
 import 'package:tractors24/screens/rto_page.dart';
 import 'package:tractors24/data/repositories/firebase_home_service.dart';
 import 'emi_cal.dart';
+import 'package:tractors24/screens/customer_inquiries_screen.dart';
+import 'package:tractors24/screens/policies_screen.dart';
+import 'package:tractors24/screens/update_profile_screen.dart';
+import 'news.dart';
+import 'faq_screen.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,7 +26,7 @@ class _HomePageState extends State<HomePage> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => LoginPage()),
-            (route) => false,
+        (route) => false,
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -79,7 +85,8 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(10.0)),
             child: Image.asset(
               'assets/images/Tractors.png',
               height: 150,
@@ -107,7 +114,8 @@ class _HomePageState extends State<HomePage> {
                 Text('Insurance: ${vehicle['insuranceSecurity']}',
                     style: const TextStyle(fontSize: 16.0, color: Colors.grey)),
                 Text('Sell Price: ₹${vehicle['sellPrice']}',
-                    style: const TextStyle(fontSize: 16.0, color: Colors.black)),
+                    style:
+                        const TextStyle(fontSize: 16.0, color: Colors.black)),
               ],
             ),
           ),
@@ -146,7 +154,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const Divider(height: 20),
                   ListTile(
-                    leading: const Icon(Icons.person_outline, color: Colors.blue),
+                    leading:
+                        const Icon(Icons.person_outline, color: Colors.blue),
                     title: const Text('Name'),
                     subtitle: Text(
                       currentUser?.displayName ?? 'Piyush Sahu',
@@ -154,7 +163,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.email_outlined, color: Colors.blue),
+                    leading:
+                        const Icon(Icons.email_outlined, color: Colors.blue),
                     title: const Text('Email'),
                     subtitle: Text(
                       currentUser?.email ?? 'No set',
@@ -162,7 +172,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.phone_outlined, color: Colors.blue),
+                    leading:
+                        const Icon(Icons.phone_outlined, color: Colors.blue),
                     title: const Text('Phone Number'),
                     subtitle: Text(
                       currentUser?.phoneNumber ?? '+91 8960995237',
@@ -182,7 +193,8 @@ class _HomePageState extends State<HomePage> {
     final TextEditingController brandNameController = TextEditingController();
     final TextEditingController descriptionController = TextEditingController();
     final TextEditingController horsePowerController = TextEditingController();
-    final TextEditingController insuranceSecurityController = TextEditingController();
+    final TextEditingController insuranceSecurityController =
+        TextEditingController();
     final TextEditingController sellPriceController = TextEditingController();
 
     showDialog(
@@ -205,12 +217,14 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 8.0),
                 TextField(
                   controller: horsePowerController,
-                  decoration: const InputDecoration(labelText: 'Horsepower (HP)'),
+                  decoration:
+                      const InputDecoration(labelText: 'Horsepower (HP)'),
                 ),
                 const SizedBox(height: 8.0),
                 TextField(
                   controller: insuranceSecurityController,
-                  decoration: const InputDecoration(labelText: 'Insurance Security'),
+                  decoration:
+                      const InputDecoration(labelText: 'Insurance Security'),
                 ),
                 const SizedBox(height: 8.0),
                 TextField(
@@ -231,7 +245,8 @@ class _HomePageState extends State<HomePage> {
                 final String brandName = brandNameController.text.trim();
                 final String description = descriptionController.text.trim();
                 final String horsePower = horsePowerController.text.trim();
-                final String insuranceSecurity = insuranceSecurityController.text.trim();
+                final String insuranceSecurity =
+                    insuranceSecurityController.text.trim();
                 final String sellPrice = sellPriceController.text.trim();
 
                 if (brandName.isEmpty ||
@@ -291,10 +306,10 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: _buildBottomNav(),
       floatingActionButton: _selectedIndex == 0
           ? FloatingActionButton(
-        onPressed: () => _showAddVehicleDialog(context),
-        child: const Icon(Icons.add),
-        backgroundColor: Colors.blue,
-      )
+              onPressed: () => _showAddVehicleDialog(context),
+              child: const Icon(Icons.add),
+              backgroundColor: Colors.blue,
+            )
           : null,
     );
   }
@@ -321,12 +336,16 @@ class _HomePageState extends State<HomePage> {
         ListTile(
           leading: const Icon(Icons.person_outline),
           title: const Text('Account Settings'),
-          onTap: () {},
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => UpdateProfileScreen())),
         ),
         ListTile(
           leading: const Icon(Icons.notifications_outlined),
-          title: const Text('Notifications'),
-          onTap: () {},
+          title: const Text('Customer Enquiry'),
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CustomerInquiriesScreen())),
         ),
         ListTile(
           leading: const Icon(Icons.security_outlined),
@@ -334,6 +353,28 @@ class _HomePageState extends State<HomePage> {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => VehicleDetailsForm()),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.newspaper),
+          title: const Text('News'),
+          onTap: () {}
+          ),
+
+        ListTile(
+          leading: const Icon(Icons.question_answer),
+          title: const Text('Frequently asked questions'),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FAQScreen()),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.policy),
+          title: const Text('Policies'),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => PoliciesScreen()),
           ),
         ),
         ListTile(
