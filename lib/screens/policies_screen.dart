@@ -9,8 +9,8 @@ class PoliciesScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Policies',
-          style: TextStyle(color: Colors.white),),
-backgroundColor: Colors.blue,
+            style: TextStyle(color: Colors.white),),
+          backgroundColor: Colors.blue,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/drawer.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'emi_cal.dart';
 import 'package:tractors24/screens/enquiry_screen.dart';
+import 'update_profile_screen.dart';
 
 class BuyerScreen extends StatefulWidget {
   @override
@@ -360,76 +362,8 @@ class _BuyerScreenState extends State<BuyerScreen> {
         ),
       ),
       drawer: _selectedIndex == 0
-          ? Drawer(
-              child: ListView(
-                children: [
-                  UserAccountsDrawerHeader(
-                    decoration: BoxDecoration(color: Colors.lightBlue),
-                    accountName: Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Text(
-                        userName ?? 'Guest',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    accountEmail: Text(auth.currentUser?.email ?? ''),
-                    currentAccountPicture: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        userPhoto ?? 'https://via.placeholder.com/150',
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.person),
-                    title: Text('My Profile'),
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = 2;
-                      });
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.calculate),
-                    title: Text('EMI Calculator'),
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = 1;
-                      });
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.question_answer),
-                    title: const Text('Frequently asked questions'),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => FAQScreen()),
-                    ),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.policy),
-                    title: const Text('Policies'),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PoliciesScreen()),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text('Logout'),
-                    onTap: () async {
-                      await FirebaseAuth.instance.signOut();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                        (route) => false,
-                      );
-                    },
-                  ),
-                ],
-              ),
-            )
+          ?
+      CustomDrawer()
           : null,
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -447,10 +381,6 @@ class _BuyerScreenState extends State<BuyerScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.calculate),
             label: 'EMI Calc',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
           ),
         ],
         selectedItemColor: Colors.blue,

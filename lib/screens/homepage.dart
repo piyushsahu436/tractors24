@@ -8,7 +8,6 @@ import 'emi_cal.dart';
 import 'package:tractors24/screens/customer_inquiries_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
-import 'news.dart';
 import 'faq_screen.dart';
 
 class HomePage extends StatefulWidget {
