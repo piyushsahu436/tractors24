@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/screens/ContactInfo.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
+import 'package:tractors24/screens/drawer.dart';
 
 import 'emi_cal.dart';
 
@@ -235,6 +236,8 @@ class _BuyerScreenState extends State<BuyerScreen> {
               }
 
               return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(8.0),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, docIndex) {
@@ -581,60 +584,61 @@ class _BuyerScreenState extends State<BuyerScreen> {
                 : null),
       ),
       drawer: _selectedIndex == 0
-          ? Drawer(
-              child: ListView(
-                children: [
-                  UserAccountsDrawerHeader(
-                    decoration: const BoxDecoration(color: Colors.lightBlue),
-                    accountName: Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Text(
-                        userName ?? 'Guest',
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                    ),
-                    accountEmail: Text(auth.currentUser?.email ?? ''),
-                    currentAccountPicture: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        userPhoto ?? 'https://via.placeholder.com/150',
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.person),
-                    title: const Text('My Profile'),
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = 2;
-                      });
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.calculate),
-                    title: const Text('EMI Calculator'),
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = 1;
-                      });
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.logout),
-                    title: const Text('Logout'),
-                    onTap: () async {
-                      await FirebaseAuth.instance.signOut();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                        (route) => false,
-                      );
-                    },
-                  ),
-                ],
-              ),
-            )
+              ? const CustomDrawer()
+          // ? Drawer(
+          //     child: ListView(
+          //       children: [
+          //         UserAccountsDrawerHeader(
+          //           decoration: const BoxDecoration(color: Colors.lightBlue),
+          //           accountName: Padding(
+          //             padding: const EdgeInsets.only(top: 20.0),
+          //             child: Text(
+          //               userName ?? 'Guest',
+          //               style: const TextStyle(fontSize: 18),
+          //             ),
+          //           ),
+          //           accountEmail: Text(auth.currentUser?.email ?? ''),
+          //           currentAccountPicture: CircleAvatar(
+          //             backgroundImage: NetworkImage(
+          //               userPhoto ?? 'https://via.placeholder.com/150',
+          //             ),
+          //           ),
+          //         ),
+          //         ListTile(
+          //           leading: const Icon(Icons.person),
+          //           title: const Text('My Profile'),
+          //           onTap: () {
+          //             setState(() {
+          //               _selectedIndex = 2;
+          //             });
+          //             Navigator.pop(context);
+          //           },
+          //         ),
+          //         ListTile(
+          //           leading: const Icon(Icons.calculate),
+          //           title: const Text('EMI Calculator'),
+          //           onTap: () {
+          //             setState(() {
+          //               _selectedIndex = 1;
+          //             });
+          //             Navigator.pop(context);
+          //           },
+          //         ),
+          //         ListTile(
+          //           leading: const Icon(Icons.logout),
+          //           title: const Text('Logout'),
+          //           onTap: () async {
+          //             await FirebaseAuth.instance.signOut();
+          //             Navigator.pushAndRemoveUntil(
+          //               context,
+          //               MaterialPageRoute(builder: (context) => LoginPage()),
+          //               (route) => false,
+          //             );
+          //           },
+          //         ),
+          //       ],
+          //     ),
+          //   )
           : null,
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
