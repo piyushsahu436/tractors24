@@ -28,7 +28,6 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
     double totalPayment = emi * tenureInMonths;
     double interestAmount = totalPayment - loanAmount;
 
-
     return Scaffold(
 
       body: Padding(

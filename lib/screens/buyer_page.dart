@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/ContactInfo.dart';
+import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/drawer.dart';
-import 'package:tractors24/screens/faq_screen.dart';
-import 'package:tractors24/screens/policies_screen.dart';
+
 import 'emi_cal.dart';
-import 'package:tractors24/screens/enquiry_screen.dart';
-import 'update_profile_screen.dart';
 
 class BuyerScreen extends StatefulWidget {
   @override
@@ -51,44 +50,141 @@ class _BuyerScreenState extends State<BuyerScreen> {
   }
 
   Widget _buildHomeScreen() {
+    Size size = MediaQuery.of(context).size;
+    int selectedIndex = 0;
+    final List<Map<String, dynamic>> vehicleCategories = [
+      {'icon': Icons.local_shipping, 'label': 'Truck'},
+      {'icon': Icons.construction, 'label': 'Equipment'},
+      {'icon': Icons.directions_bus, 'label': 'Bus'},
+      {'icon': Icons.agriculture, 'label': 'Tractor'},
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            "Let's Find your ",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 10, top: 8),
+                  child: Text(
+                    "Let's Find your ",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 4, 0, 7),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Dream Tractor",
+                        style: TextStyle(
+                            color: Colors.blue[400],
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const Text(
+                        " now!",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 9.0),
+              child: ToggleButtons(
+                borderRadius: BorderRadius.circular(8),
+                borderWidth: 1.5,
+                borderColor: Colors.blue[200],
+                selectedBorderColor: Colors.blue[200],
+                fillColor: Colors.blue[200],
+                selectedColor: Colors.white,
+                disabledColor: Colors.blue[200],
+                color: Colors.blue[200],
+                constraints: const BoxConstraints(minWidth: 70, minHeight: 32),
+                isSelected: [selectedIndex == 0, selectedIndex == 1],
+                onPressed: (int index) {
+                  setState(() {
+                    selectedIndex = index; // Update the selected index
+                  });
+                },
+                children: const [
+                  Text('New', style: TextStyle(fontSize: 16)),
+                  Text('Used', style: TextStyle(fontSize: 16)),
+                ],
+              ),
+            )
+          ],
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(8, 0, 0, 7),
-          child: Text(
-            "dream Tractor now!",
-            style: TextStyle(
-                color: Colors.blue,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: vehicleCategories.map((category) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(color: Colors.blue.shade200, width: 1.5),
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white, // Light blue background
+                    ),
+                    child: Icon(
+                      category['icon'],
+                      color: Colors.blue[200],
+                      size: 30, // Uniform icon size
+                    ),
+                  ),
+                  const SizedBox(height: 8), // Space between icon and label
+                  Text(
+                    category['label'],
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 12, // Uniform text size
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              );
+            }).toList(),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Container(
+            height: size.height * 0.06,
             decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(15.0),
+              border: Border.all(width: 1, color: Colors.grey.shade400),
+              borderRadius: BorderRadius.circular(14.0),
             ),
             child: Row(
               children: [
                 Expanded(
+                  flex: 2,
                   child: TextField(
                     controller: _searchController,
                     decoration: InputDecoration(
-                      hintText: 'Type to Select Your Tractor Name',
-                      hintStyle: TextStyle(
+                      hintText: 'Select your Tractor name',
+                      filled: false,
+                      // enabledBorder: OutlineInputBorder(
+                      //   borderSide: BorderSide(color: Colors.grey.shade400,width: 1)
+                      // ),
+                      fillColor: Colors.white,
+                      hintStyle: const TextStyle(
                         color: Colors.grey,
                         fontSize: 13.0,
                         fontWeight: FontWeight.w400,
@@ -96,21 +192,29 @@ class _BuyerScreenState extends State<BuyerScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      prefixIcon: Icon(Icons.search),
+                      prefixIcon: const Icon(Icons.search),
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    String query = _searchController.text;
-                    print('Searching for: $query');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                Expanded(
+                  flex: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 0, bottom: 0, right: 5),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        String query = _searchController.text;
+                        print('Searching for: $query');
+                      },
+                      style: ElevatedButton.styleFrom(
+                          // fixedSize:,
+                          backgroundColor: Colors.blue[200],
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(11))),
+                      child: const Text('Find Tractor',
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ),
-                  child: const Text('Find Tractor',
-                      style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
@@ -132,6 +236,8 @@ class _BuyerScreenState extends State<BuyerScreen> {
               }
 
               return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(8.0),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, docIndex) {
@@ -146,97 +252,193 @@ class _BuyerScreenState extends State<BuyerScreen> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ...vehicles.map((vehicle) => Card(
-                            elevation: 5,
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 5.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(10.0)),
-                                  child: Image.asset(
-                                    'assets/images/Tractors.png',
-                                    height: 150,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.9,
-                                    fit: BoxFit.cover,
+                      ...vehicles.map((vehicle) => GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  (context),
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CarDetailsPage()));
+                            },
+                            child: Card(
+                              elevation: 1,
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 5.0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(10.0)),
+                                    child: Image.asset(
+                                      'assets/banner1.jpg',
+                                      height: 150,
+                                      width:
+                                          MediaQuery.of(context).size.width * 1,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        vehicle['brandName'] ?? '',
-                                        style: const TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5.0),
-                                      Text(
-                                        'Description: ${vehicle['description'].toString().toUpperCase() ?? ''}',
-                                        style: const TextStyle(fontSize: 16.0),
-                                      ),
-                                      Text(
-                                        'Horsepower: ${vehicle['horsePower'] ?? ''} HP',
-                                        style: const TextStyle(fontSize: 16.0),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Insurance: ${vehicle['insuranceSecurity'] ?? ''}',
-                                            style:
-                                                const TextStyle(fontSize: 16.0),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              // Navigate to the EnquiryScreen
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      EnquiryScreen(), // Navigate to EnquiryScreen
-                                                ),
-                                              );
-                                            },
-                                            style: TextButton.styleFrom(
-                                              backgroundColor: Colors.blue,
-                                              foregroundColor: Colors.white,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 16.0,
-                                                      vertical: 8.0),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                            ),
-                                            child: const Text('Contact Seller'),
-                                          )
-                                        ],
-                                      ),
-                                      Text(
-                                        'Price: ₹${vehicle['sellPrice'] ?? ''}',
-                                        style: const TextStyle(
-                                            fontSize: 16.0,
+                                  Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          vehicle['brandName'] ?? 'Mahindra Go',
+                                          style: const TextStyle(
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                      const SizedBox(height: 8.0),
-                                    ],
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5.0),
+                                        const Text(
+                                          'Mahindra',
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w200,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Container(
+                                                height: size.height * 0.03,
+                                                width: size.width * 0.1,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey[200],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "2022",
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  ),
+                                                )),
+                                            Container(
+                                                height: size.height * 0.03,
+                                                width: size.width * 0.22,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey[200],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "450000 kms",
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  ),
+                                                )),
+                                            Container(
+                                                height: size.height * 0.03,
+                                                width: size.width * 0.11,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey[200],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "Petrol",
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  ),
+                                                )),
+                                            Container(
+                                                height: size.height * 0.03,
+                                                width: size.width * 0.14,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey[200],
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
+                                                child: const Center(
+                                                  child: Text(
+                                                    "566 HP",
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  ),
+                                                )),
+                                            const SizedBox(
+                                              width: 80,
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        // Text(
+                                        //   ' ${vehicle['description'].toString().toUpperCase() ?? 'TATA'}',
+                                        //   style: const TextStyle(fontSize: 16.0),
+                                        // ),
+                                        // Text(
+                                        //   'Horsepower: ${vehicle['horsePower'] ?? ''} HP',
+                                        //   style: const TextStyle(fontSize: 16.0),
+                                        // ),
+
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            // Text(
+                                            //   'Insurance: ${vehicle['insuranceSecurity'] ?? ''}',
+                                            //   style: const TextStyle(fontSize: 16.0),
+                                            // ),
+                                            Text(
+                                              '₹${vehicle['sellPrice'] ?? ''}',
+                                              style: const TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    (context),
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ContactSellerScreen())); // Handle button press
+                                              },
+                                              style: TextButton.styleFrom(
+                                                backgroundColor:
+                                                    Colors.blue[300],
+                                                foregroundColor: Colors.white,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 16.0,
+                                                        vertical: 8.0),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                              ),
+                                              child:
+                                                  const Text('Contact Seller'),
+                                            )
+                                          ],
+                                        ),
+                                        // Text(
+                                        //   'Price: ₹${vehicle['sellPrice'] ?? ''}',
+                                        //   style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
+                                        // ),
+                                        // const SizedBox(height: 8.0),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ))
                     ],
@@ -326,44 +528,117 @@ class _BuyerScreenState extends State<BuyerScreen> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80),
+        preferredSize: _selectedIndex == 0
+            ? const Size.fromHeight(240)
+            : const Size.fromHeight(80),
         child: AppBar(
-          backgroundColor: Colors.blue,
-          iconTheme: IconThemeData(color: Colors.white),
-          flexibleSpace: _selectedIndex == 0
-              ? Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/banner2.jpeg'),
-                      fit: BoxFit.cover,
+            backgroundColor: Colors.blue,
+            iconTheme: const IconThemeData(color: Colors.white),
+            flexibleSpace: _selectedIndex == 0
+                ? Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            'https://img.pikbest.com/wp/202402/tractor-3d-illustration-of-high-tech-farm-constructed-with-luminescent-points-and-lines_9825055.jpg!w700wp'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                : null,
+            title: _selectedIndex == 0
+                ? null
+                : Center(
+                    child: Text(
+                      _selectedIndex == 1
+                          ? 'EMI Calculator'
+                          : 'Profile Screen ',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                )
-              : null,
-          title: _selectedIndex == 0
-              ? const Text(
-                  'The Perfect Tractors \n Wheels your dreams',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              : Center(
-                  child: Text(
-                    _selectedIndex == 1 ? 'EMI Calculator' : 'Profile Screen ',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-        ),
+            actions: _selectedIndex == 0
+                ? [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 10, top: 10),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.location_on_outlined,
+                            color: Colors.white,
+                            size: 18,
+                          ),
+                          SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            'Indore',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    )
+                  ]
+                : null),
       ),
       drawer: _selectedIndex == 0
-          ?
-      CustomDrawer()
+              ? const CustomDrawer()
+          // ? Drawer(
+          //     child: ListView(
+          //       children: [
+          //         UserAccountsDrawerHeader(
+          //           decoration: const BoxDecoration(color: Colors.lightBlue),
+          //           accountName: Padding(
+          //             padding: const EdgeInsets.only(top: 20.0),
+          //             child: Text(
+          //               userName ?? 'Guest',
+          //               style: const TextStyle(fontSize: 18),
+          //             ),
+          //           ),
+          //           accountEmail: Text(auth.currentUser?.email ?? ''),
+          //           currentAccountPicture: CircleAvatar(
+          //             backgroundImage: NetworkImage(
+          //               userPhoto ?? 'https://via.placeholder.com/150',
+          //             ),
+          //           ),
+          //         ),
+          //         ListTile(
+          //           leading: const Icon(Icons.person),
+          //           title: const Text('My Profile'),
+          //           onTap: () {
+          //             setState(() {
+          //               _selectedIndex = 2;
+          //             });
+          //             Navigator.pop(context);
+          //           },
+          //         ),
+          //         ListTile(
+          //           leading: const Icon(Icons.calculate),
+          //           title: const Text('EMI Calculator'),
+          //           onTap: () {
+          //             setState(() {
+          //               _selectedIndex = 1;
+          //             });
+          //             Navigator.pop(context);
+          //           },
+          //         ),
+          //         ListTile(
+          //           leading: const Icon(Icons.logout),
+          //           title: const Text('Logout'),
+          //           onTap: () async {
+          //             await FirebaseAuth.instance.signOut();
+          //             Navigator.pushAndRemoveUntil(
+          //               context,
+          //               MaterialPageRoute(builder: (context) => LoginPage()),
+          //               (route) => false,
+          //             );
+          //           },
+          //         ),
+          //       ],
+          //     ),
+          //   )
           : null,
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -381,6 +656,10 @@ class _BuyerScreenState extends State<BuyerScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.calculate),
             label: 'EMI Calc',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
         selectedItemColor: Colors.blue,

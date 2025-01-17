@@ -2,7 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tractors24/firebase_options.dart';
 import 'package:tractors24/screens/buyer_page.dart';
+import 'package:tractors24/screens/chatbot.dart';
+import 'package:tractors24/screens/loanEnquire.dart';
+import 'package:tractors24/screens/phoneauth.dart';
 import 'package:tractors24/screens/spalshscreen.dart';
 
 import 'auth/login_page.dart'; // Your Login Page
@@ -77,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             FadeTransition(
               opacity: _controller.drive(CurveTween(curve: Curves.easeInOut)),
               child: Image.asset(
-                "assets/images/Tractors.png",
+                "assets/Tractors.png",
                 height: 250,
                 width: 350,
                 fit: BoxFit.cover,
