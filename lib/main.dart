@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SplashScreen()),
+        MaterialPageRoute(builder: (context) => BuyerScreen()),
       );
     });
   }
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             FadeTransition(
               opacity: _controller.drive(CurveTween(curve: Curves.easeInOut)),
               child: Image.asset(
-                "assets/Tractors.png",
+                "assets/images/Tractors.png",
                 height: 250,
                 width: 350,
                 fit: BoxFit.cover,

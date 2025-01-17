@@ -56,6 +56,14 @@ class _VehicleDetailsFormState extends State<VehicleDetailsForm> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title:
+          Text(
+            'Enter Vehicle Details',
+
+            textAlign: TextAlign.center,
+          ),
+        ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Form(
@@ -63,17 +71,8 @@ class _VehicleDetailsFormState extends State<VehicleDetailsForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
-                  'Enter Vehicle Details',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
                 const SizedBox(height: 16),
                 ..._buildTextFields(),
-                const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: isLoading ? null : _submitForm,
                   style: ElevatedButton.styleFrom(
