@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tractors24/screens/faq_screen.dart';
+import 'package:tractors24/screens/news.dart';
+import 'package:tractors24/screens/emi_cal.dart';
+import 'package:tractors24/screens/update_profile_screen.dart';
+import 'package:tractors24/screens/policies_screen.dart';
+import 'package:tractors24/screens/testimonials.dart';
 
 class CustomDrawer extends StatelessWidget {
   // Dummy data
@@ -73,46 +79,98 @@ class CustomDrawer extends StatelessWidget {
           _buildMenuListTile(
             icon: Icons.person,
             title: 'My Profile',
+            onTap: () {
+
+            },
           ),
           _buildMenuListTile(
             icon: Icons.settings,
             title: 'Account Settings',
+            onTap: () {
+              Navigator.push(
+                  (context),
+                  MaterialPageRoute(builder: (context) =>UpdateProfileScreen())
+              );
+            },
           ),
           _buildMenuListTile(
             icon: Icons.calculate,
             title: 'EMI Calculator',
+            onTap: () {
+              Navigator.push(
+                  (context),
+                MaterialPageRoute(builder: (context) => EMICalculatorScreen())
+              );
+
+            },
           ),
           _buildMenuListTile(
             icon: Icons.newspaper,
             title: 'News',
+            onTap: () {
+              Navigator.push(
+                  (context),
+                  MaterialPageRoute(builder: (context)=> SavedArticlesScreen ()),
+              );
+            },
           ),
           _buildMenuListTile(
             icon: Icons.favorite_outline,
             title: 'My Favourites',
+            onTap: () {
+
+            },
           ),
           _buildMenuListTile(
             icon: Icons.notifications,
             title: 'Notifications',
+            onTap: () {
+
+
+            },
           ),
           _buildMenuListTile(
             icon: Icons.share,
             title: 'Share App',
+            onTap: () {
+
+            },
           ),
           _buildMenuListTile(
             icon: Icons.reviews,
             title: 'Testimonials',
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> Testimonials()));
+
+            },
           ),
           _buildMenuListTile(
             icon: Icons.question_answer,
             title: 'Frequently Asked Questions',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FAQScreen()),
+              );
+
+            },
           ),
           _buildMenuListTile(
             icon: Icons.policy,
             title: 'Policies',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PoliciesScreen()),
+              );
+            },
           ),
           _buildMenuListTile(
             icon: Icons.report,
             title: 'Grievance Redressel',
+            onTap: () {
+
+            },
           ),
 
           const Divider(height: 1),
