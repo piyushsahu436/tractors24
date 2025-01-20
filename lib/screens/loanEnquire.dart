@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Loanenquire extends StatefulWidget {
@@ -11,6 +12,38 @@ final TextEditingController _mobileNumberController = TextEditingController();
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _amountController = TextEditingController();
 final TextEditingController _vehicleController = TextEditingController();
+
+Future<void> addLoanEnquiry(BuildContext context) async {
+  try {
+    // Firestore instance
+    final firestore = FirebaseFirestore.instance;
+
+    // Adding data to loan_enquiries collection
+    await firestore.collection('loan_enquiries').add({
+      'Name': _nameController.text.trim(),
+      'ContactNo': _mobileNumberController.text.trim(),
+      'Email': _emailController.text.trim(),
+      'Loan_Amount': _amountController.text.trim(),
+      'Vehicle_Model': _vehicleController.text.trim(),
+      'timestamp': FieldValue.serverTimestamp(), // Optional for sorting
+    });
+
+    // Clear input fields
+    _nameController.clear();
+    _mobileNumberController.clear();
+    _emailController.clear();
+    _amountController.clear();
+    _vehicleController.clear();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('User added successfully!')),
+    );
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to add user: $e')),
+    );
+  }
+}
 
 
 class _LoanenquireState extends State<Loanenquire> {
@@ -50,9 +83,7 @@ class _LoanenquireState extends State<Loanenquire> {
                 Container(width: size.width*0.5,
                   height: size.height*0.06,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Handle button press logic here
-                    },
+                    onPressed: () => addLoanEnquiry(context),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue[200],
                       shape: RoundedRectangleBorder(

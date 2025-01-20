@@ -58,170 +58,170 @@ class _BuyerScreenState extends State<BuyerScreen> {
       {'icon': Icons.directions_bus, 'label': 'Bus'},
       {'icon': Icons.agriculture, 'label': 'Tractor'},
     ];
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 10, top: 8),
-                  child: Text(
-                    "Let's Find your ",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 10, top: 8),
+                    child: Text(
+                      "Let's Find your ",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 4, 0, 7),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Dream Tractor",
-                        style: TextStyle(
-                            color: Colors.blue[400],
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      const Text(
-                        " now!",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 4, 0, 7),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Dream Tractor",
+                          style: TextStyle(
+                              color: Colors.blue[400],
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Text(
+                          " now!",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 9.0),
-              child: ToggleButtons(
-                borderRadius: BorderRadius.circular(8),
-                borderWidth: 1.5,
-                borderColor: Colors.blue[200],
-                selectedBorderColor: Colors.blue[200],
-                fillColor: Colors.blue[200],
-                selectedColor: Colors.white,
-                disabledColor: Colors.blue[200],
-                color: Colors.blue[200],
-                constraints: const BoxConstraints(minWidth: 70, minHeight: 32),
-                isSelected: [selectedIndex == 0, selectedIndex == 1],
-                onPressed: (int index) {
-                  setState(() {
-                    selectedIndex = index; // Update the selected index
-                  });
-                },
-                children: const [
-                  Text('New', style: TextStyle(fontSize: 16)),
-                  Text('Used', style: TextStyle(fontSize: 16)),
                 ],
               ),
-            )
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: vehicleCategories.map((category) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Colors.blue.shade200, width: 1.5),
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.white, // Light blue background
+              Padding(
+                padding: const EdgeInsets.only(right: 9.0),
+                child: ToggleButtons(
+                  borderRadius: BorderRadius.circular(8),
+                  borderWidth: 1.5,
+                  borderColor: Colors.blue[200],
+                  selectedBorderColor: Colors.blue[200],
+                  fillColor: Colors.blue[200],
+                  selectedColor: Colors.white,
+                  disabledColor: Colors.blue[200],
+                  color: Colors.blue[200],
+                  constraints: const BoxConstraints(minWidth: 70, minHeight: 32),
+                  isSelected: [selectedIndex == 0, selectedIndex == 1],
+                  onPressed: (int index) {
+                    setState(() {
+                      selectedIndex = index; // Update the selected index
+                    });
+                  },
+                  children: const [
+                    Text('New', style: TextStyle(fontSize: 16)),
+                    Text('Used', style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+              )
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: vehicleCategories.map((category) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Colors.blue.shade200, width: 1.5),
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white, // Light blue background
+                      ),
+                      child: Icon(
+                        category['icon'],
+                        color: Colors.blue[200],
+                        size: 30, // Uniform icon size
+                      ),
                     ),
-                    child: Icon(
-                      category['icon'],
-                      color: Colors.blue[200],
-                      size: 30, // Uniform icon size
+                    const SizedBox(height: 8), // Space between icon and label
+                    Text(
+                      category['label'],
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 12, // Uniform text size
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Container(
+              height: size.height * 0.06,
+              decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Colors.grey.shade400),
+                borderRadius: BorderRadius.circular(14.0),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: TextField(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        hintText: 'Select your Tractor name',
+                        filled: false,
+                        // enabledBorder: OutlineInputBorder(
+                        //   borderSide: BorderSide(color: Colors.grey.shade400,width: 1)
+                        // ),
+                        fillColor: Colors.white,
+                        hintStyle: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        prefixIcon: const Icon(Icons.search),
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 8), // Space between icon and label
-                  Text(
-                    category['label'],
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 12, // Uniform text size
-                      color: Colors.black,
+                  const SizedBox(width: 8),
+                  Expanded(
+                    flex: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 0, bottom: 0, right: 5),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          String query = _searchController.text;
+                          print('Searching for: $query');
+                        },
+                        style: ElevatedButton.styleFrom(
+                            // fixedSize:,
+                            backgroundColor: Colors.blue[200],
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(11))),
+                        child: const Text('Find Tractor',
+                            style: TextStyle(color: Colors.white)),
+                      ),
                     ),
                   ),
                 ],
-              );
-            }).toList(),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Container(
-            height: size.height * 0.06,
-            decoration: BoxDecoration(
-              border: Border.all(width: 1, color: Colors.grey.shade400),
-              borderRadius: BorderRadius.circular(14.0),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      hintText: 'Select your Tractor name',
-                      filled: false,
-                      // enabledBorder: OutlineInputBorder(
-                      //   borderSide: BorderSide(color: Colors.grey.shade400,width: 1)
-                      // ),
-                      fillColor: Colors.white,
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      prefixIcon: const Icon(Icons.search),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  flex: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 0, bottom: 0, right: 5),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        String query = _searchController.text;
-                        print('Searching for: $query');
-                      },
-                      style: ElevatedButton.styleFrom(
-                          // fixedSize:,
-                          backgroundColor: Colors.blue[200],
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(11))),
-                      child: const Text('Find Tractor',
-                          style: TextStyle(color: Colors.white)),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-        Expanded(
-          child: StreamBuilder<QuerySnapshot>(
+          StreamBuilder<QuerySnapshot>(
             stream: firestore.collection('tractors24').snapshots(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -237,7 +237,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
 
               return ListView.builder(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 padding: const EdgeInsets.all(8.0),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, docIndex) {
@@ -447,8 +447,8 @@ class _BuyerScreenState extends State<BuyerScreen> {
               );
             },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

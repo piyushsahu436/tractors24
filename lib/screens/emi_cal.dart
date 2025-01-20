@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:tractors24/screens/loanEnquire.dart';
 
 
 
@@ -109,7 +110,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
             Container(
               width: 300, // Set the desired width
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context)=> Loanenquire()));},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   padding: EdgeInsets.symmetric(vertical: 15),
