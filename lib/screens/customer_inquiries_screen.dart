@@ -128,11 +128,11 @@ class InquiryCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            Row(
+            const Row(
               children: [
-                const Icon(Icons.phone, size: 20),
-                const SizedBox(width: 8),
-                const Text('Invalid Date'),
+                Icon(Icons.phone, size: 20),
+                SizedBox(width: 8),
+                Text('Invalid Date'),
               ],
             ),
             const SizedBox(height: 8),

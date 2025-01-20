@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 
 class FAQScreen extends StatefulWidget {
+  const FAQScreen({super.key});
+
   @override
   _FAQScreenState createState() => _FAQScreenState();
 }
@@ -90,7 +92,7 @@ class _FAQScreenState extends State<FAQScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'FAQs',
           style: TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18.0),
@@ -101,8 +103,8 @@ class _FAQScreenState extends State<FAQScreen> {
         children: [
           Container(
             color: Colors.blue[900],
-            padding: EdgeInsets.all(10.0),
-            child: Text(
+            padding: const EdgeInsets.all(10.0),
+            child: const Text(
               '     Tractors 24',
               style: TextStyle(
                   color: Colors.white,
@@ -113,8 +115,8 @@ class _FAQScreenState extends State<FAQScreen> {
           Container(
             color: Colors.blue,
             alignment: Alignment.center,
-            padding: EdgeInsets.all(35.0),
-            child: Text(
+            padding: const EdgeInsets.all(35.0),
+            child: const Text(
               'Tractors24 FAQs ',
               style: TextStyle(
                 color: Colors.white,
@@ -137,11 +139,11 @@ class _FAQScreenState extends State<FAQScreen> {
 
   Widget _buildHeader() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
+          const Center(
             child: Text(
               'We are here to help you',
               style: TextStyle(
@@ -151,7 +153,7 @@ class _FAQScreenState extends State<FAQScreen> {
               ),
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             'Questions commonly asked by Buyers and Sellers',
             style: TextStyle(
@@ -166,11 +168,11 @@ class _FAQScreenState extends State<FAQScreen> {
 
   Widget _buildFAQList() {
     return ListView.builder(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       itemCount: faqData.length,
       itemBuilder: (context, sectionIndex) {
         return Card(
-          margin: EdgeInsets.only(bottom: 35),
+          margin: const EdgeInsets.only(bottom: 35),
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -200,11 +202,11 @@ class _FAQScreenState extends State<FAQScreen> {
         });
       },
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(
-            top: Radius.circular(12),
+            top: const Radius.circular(12),
             bottom: Radius.circular(
               expandedSectionIndex == sectionIndex ? 0 : 12,
             ),
@@ -215,7 +217,7 @@ class _FAQScreenState extends State<FAQScreen> {
           children: [
             Text(
               faqData[sectionIndex]['title'],
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -234,7 +236,7 @@ class _FAQScreenState extends State<FAQScreen> {
   Widget _buildQuestionsList(int sectionIndex) {
     return ListView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: faqData[sectionIndex]['questions'].length,
       itemBuilder: (context, questionIndex) {
         return Column(
@@ -260,8 +262,8 @@ class _FAQScreenState extends State<FAQScreen> {
         });
       },
       child: Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
           color: Color(0xFFE3F2FD),
           border: Border(
             bottom: BorderSide(
@@ -276,7 +278,7 @@ class _FAQScreenState extends State<FAQScreen> {
             Expanded(
               child: Text(
                 faqData[sectionIndex]['questions'][questionIndex]['question'],
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
@@ -294,11 +296,11 @@ class _FAQScreenState extends State<FAQScreen> {
 
   Widget _buildAnswerTile(int sectionIndex, int questionIndex) {
     return Container(
-      padding: EdgeInsets.all(16),
-      color: Color(0xFFBBDEFB),
+      padding: const EdgeInsets.all(16),
+      color: const Color(0xFFBBDEFB),
       child: Text(
         faqData[sectionIndex]['questions'][questionIndex]['answer'],
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           color: Colors.black87,
         ),

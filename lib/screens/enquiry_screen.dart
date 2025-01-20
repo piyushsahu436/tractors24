@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class EnquiryScreen extends StatefulWidget {
+  const EnquiryScreen({super.key});
+
   @override
   _EnquiryScreenState createState() => _EnquiryScreenState();
 }
@@ -17,7 +19,7 @@ class _EnquiryScreenState extends State<EnquiryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Contact Seller')),
+        title: const Center(child: Text('Contact Seller')),
         backgroundColor: Colors.blue,
       ),
       body: SingleChildScrollView(
@@ -47,26 +49,26 @@ class _EnquiryScreenState extends State<EnquiryScreen> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       // Dealer details
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Massey Ferguson tafe 235',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Text(
                               'Indore, Madhya Pradesh',
                               style: TextStyle(color: Colors.grey[600]),
                             ),
-                            SizedBox(height: 8),
-                            Text(
+                            const SizedBox(height: 8),
+                            const Text(
                               '₹ 34444 Lakh*',
                               style: TextStyle(
                                 fontSize: 16,
@@ -82,64 +84,64 @@ class _EnquiryScreenState extends State<EnquiryScreen> {
                 ),
               ),
 
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
 
               // Form Fields
               TextField(
                 controller: _nameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Full Name *',
                   prefixIcon: Icon(Icons.person),
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               TextField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Mobile Number *',
                   prefixIcon: Icon(Icons.phone),
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email Address (Optional)',
                   prefixIcon: Icon(Icons.email),
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               TextField(
                 controller: _pincodeController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Pincode *',
                   prefixIcon: Icon(Icons.location_on),
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               TextField(
                 controller: _messageController,
                 maxLines: 4,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Message (Optional)',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
 
               // Information text
-              Center(
+              const Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -149,10 +151,10 @@ class _EnquiryScreenState extends State<EnquiryScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               // View Seller Details Button
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
@@ -160,18 +162,18 @@ class _EnquiryScreenState extends State<EnquiryScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SellerDetailsPage(), // Create this page separately
+                        builder: (context) => const SellerDetailsPage(), // Create this page separately
                       ),
                     );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     'View Seller Details',
                     style: TextStyle(fontSize: 16 ,
                     color: Colors.white),
@@ -198,13 +200,15 @@ class _EnquiryScreenState extends State<EnquiryScreen> {
 
 // Create a basic SellerDetailsPage
 class SellerDetailsPage extends StatelessWidget {
+  const SellerDetailsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Seller Details'),
+        title: const Text('Seller Details'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Seller Details will be displayed here'),
       ),
     );

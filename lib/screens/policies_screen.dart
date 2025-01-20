@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PoliciesScreen extends StatelessWidget {
-  const PoliciesScreen({Key? key}) : super(key: key);
+  const PoliciesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

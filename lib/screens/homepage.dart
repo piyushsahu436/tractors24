@@ -8,6 +8,8 @@ import 'emi_cal.dart';
 
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -22,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       await FirebaseAuth.instance.signOut();
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(builder: (context) => const LoginPage()),
             (route) => false,
       );
     } catch (e) {
@@ -186,7 +188,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildSettingsPage() {
     return ListView(
       children: [
-        SizedBox(height: 40),
+        const SizedBox(height: 40),
         ListTile(
           leading: const Icon(Icons.person_outline),
           title: const Text('Account Settings'),
@@ -207,11 +209,11 @@ class _HomePageState extends State<HomePage> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => VehicleDetailsForm()),
+              MaterialPageRoute(builder: (context) => const VehicleDetailsForm()),
             );
           },
         ),
-        Spacer(),
+        const Spacer(),
         ListTile(
           leading: const Icon(Icons.logout),
           title: const Text('Logout'),
@@ -238,9 +240,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _pages = [
+    final List<Widget> pages = [
       _buildMainContent(),
-      EMICalculatorScreen(),
+      const EMICalculatorScreen(),
       _buildProfilePage(),
       _buildSettingsPage(),
     ];
@@ -255,7 +257,7 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: Colors.blue,
       ),
-      body: _pages[_selectedIndex],
+      body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) {
@@ -287,8 +289,8 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: _selectedIndex == 0
           ? FloatingActionButton(
         onPressed: () => _showAddVehicleDialog(context, firebaseAuth.currentUser?.uid ?? ''),
-        child: const Icon(Icons.add),
         backgroundColor: Colors.blue,
+        child: const Icon(Icons.add),
       )
           : null,
     );

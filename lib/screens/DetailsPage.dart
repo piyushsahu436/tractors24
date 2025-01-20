@@ -306,10 +306,10 @@ class CarDetailsPage extends StatelessWidget {
             ),
 
             // Tabs
-            TabBarSection(),
+            const TabBarSection(),
 
             // Details
-            DetailsSection(),
+            const DetailsSection(),
             SizedBox(height: size.height*0.015,),
             const Padding(
               padding: EdgeInsets.only(left: 18.0,top: 15),
@@ -350,8 +350,8 @@ class CarDetailsPage extends StatelessWidget {
               child:  Row(mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Image(image: AssetImage("assets/man.png"),height: size.height*0.2,),
-                  Image(image: AssetImage("assets/animetractor.png"),height: size.height*0.15,)
+                  Image(image: const AssetImage("assets/images/man.png"),height: size.height*0.2,),
+                  Image(image: const AssetImage("assets/images/animetractor.png"),height: size.height*0.15,)
                 ],
               ),
             )
@@ -363,6 +363,8 @@ class CarDetailsPage extends StatelessWidget {
 }
 
 class TabBarSection extends StatelessWidget {
+  const TabBarSection({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const DefaultTabController(
@@ -388,6 +390,8 @@ class TabBarSection extends StatelessWidget {
 }
 
 class DetailsSection extends StatelessWidget {
+  const DetailsSection({super.key});
+
   @override
   Widget build(BuildContext context) {
     final details = [

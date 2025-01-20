@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 
 class EMICalculatorScreen extends StatefulWidget {
+  const EMICalculatorScreen({super.key});
+
   @override
   _EMICalculatorScreenState createState() => _EMICalculatorScreenState();
 }
@@ -35,7 +37,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
         child: Column(
           children: [
             Text('Loan Amount: ₹${loanAmount.toInt()}',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             Slider(
               value: loanAmount,
               min: 100000,
@@ -49,7 +51,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
               },
             ),
             Text('Tenure: ${tenureInMonths ~/ 12} years',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             Slider(
               value: tenureInMonths.toDouble(),
               min: 12,
@@ -63,7 +65,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
               },
             ),
             Text('Interest Rate: ${interestRate.toStringAsFixed(1)}%',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             Slider(
               value: interestRate,
               min: 5,
@@ -76,45 +78,45 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                 });
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               decoration: BoxDecoration(
                 color: Colors.blue.shade50,
                 borderRadius: BorderRadius.circular(8),
               ),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
 
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('EMI Breakdown',
+                  const Text('EMI Breakdown',
                       style: TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text('Monthly EMI: ₹${emi.toStringAsFixed(2)}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 5),
+                      style: const TextStyle(fontSize: 16)),
+                  const SizedBox(height: 5),
                   Text('Principal Amount: ₹${loanAmount.toInt()}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 5),
+                      style: const TextStyle(fontSize: 16)),
+                  const SizedBox(height: 5),
                   Text('Interest Amount: ₹${interestAmount.toStringAsFixed(2)}',
-                      style: TextStyle(fontSize: 16)),
-                  SizedBox(height: 5),
+                      style: const TextStyle(fontSize: 16)),
+                  const SizedBox(height: 5),
                   Text('Total Payment: ₹${totalPayment.toStringAsFixed(2)}',
-                      style: TextStyle(fontSize: 16)),
+                      style: const TextStyle(fontSize: 16)),
                 ],
               ),
             ),
-            SizedBox(height: 40),
-            Container(
+            const SizedBox(height: 40),
+            SizedBox(
               width: 300, // Set the desired width
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                 ),
-                child: Text(
+                child: const Text(
                   'Apply for Loan',
                   style: TextStyle(color: Colors.white),
                 ),

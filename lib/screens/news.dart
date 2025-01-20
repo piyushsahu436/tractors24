@@ -62,6 +62,8 @@ class NewsService {
 
 
 class SavedArticlesScreen extends StatefulWidget {
+  const SavedArticlesScreen({super.key});
+
   @override
   _SavedArticlesScreenState createState() => _SavedArticlesScreenState();
 }
@@ -98,10 +100,10 @@ class _SavedArticlesScreenState extends State<SavedArticlesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Automobile News'),
+        title: const Text('Automobile News'),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             onPressed: () {
               // Implement search functionality
             },
@@ -109,19 +111,19 @@ class _SavedArticlesScreenState extends State<SavedArticlesScreen> {
         ],
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         itemCount: articles.length,
         itemBuilder: (context, index) {
           final article = articles[index];
           return Card(
-            margin: EdgeInsets.only(bottom: 16),
+            margin: const EdgeInsets.only(bottom: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.vertical(
+                  borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(8),
                   ),
                   child: Image.network(
@@ -132,12 +134,12 @@ class _SavedArticlesScreenState extends State<SavedArticlesScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 8,
                           vertical: 4,
                         ),
@@ -147,21 +149,21 @@ class _SavedArticlesScreenState extends State<SavedArticlesScreen> {
                         ),
                         child: Text(
                           article.category,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 12,
                           ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         article.title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         article.description,
                         style: TextStyle(

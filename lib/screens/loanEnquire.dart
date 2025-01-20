@@ -47,7 +47,7 @@ class _LoanenquireState extends State<Loanenquire> {
             const Spacer(),
             Column(
               children: [
-                Container(width: size.width*0.5,
+                SizedBox(width: size.width*0.5,
                   height: size.height*0.06,
                   child: ElevatedButton(
                     onPressed: () {

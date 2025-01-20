@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ContactSellerScreen extends StatefulWidget {
+  const ContactSellerScreen({super.key});
+
   @override
   _ContactSellerScreenState createState() => _ContactSellerScreenState();
 }
@@ -42,7 +44,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
             const Spacer(),
             Column(
               children: [
-                Container(width: size.width*0.5,
+                SizedBox(width: size.width*0.5,
                   height: size.height*0.06,
                   child: ElevatedButton(
                     onPressed: () {

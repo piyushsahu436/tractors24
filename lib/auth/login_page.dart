@@ -4,14 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tractors24/auth/sign_up.dart';
 import 'package:tractors24/screens/buyer_page.dart';
 import '../screens/homepage.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../screens/buyer_page.dart';
-import '../screens/homepage.dart';
-import 'sign_up.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -47,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
 
       final userType = userDoc.data()?['userType'] as String?;
       final route = MaterialPageRoute(
-        builder: (_) => userType == 'Customer' ? BuyerScreen() : HomePage(),
+        builder: (_) => userType == 'Customer' ? const BuyerScreen() : const HomePage(),
       );
 
       Navigator.pushReplacement(context, route);
@@ -165,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
               TextButton(
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => SignUpPage()),
+                  MaterialPageRoute(builder: (_) => const SignUpPage()),
                 ),
                 child: const Text("Don't have an account? Sign Up"),
               ),

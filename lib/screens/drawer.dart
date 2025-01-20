@@ -63,7 +63,7 @@ class CustomDrawer extends StatelessWidget {
               child: Text(userName, style: _userNameStyle),
             ),
             accountEmail: Text(userEmail, style: _userEmailStyle),
-            currentAccountPicture: CircleAvatar(
+            currentAccountPicture: const CircleAvatar(
               child: Icon(Icons.person_4_outlined),
 
             ),

@@ -30,7 +30,7 @@ class _otpScreenState extends State<otpScreen> {
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 hintText: "Enter OTP",
-                suffixIcon: Icon(Icons.phone),
+                suffixIcon: const Icon(Icons.phone),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
@@ -42,11 +42,11 @@ class _otpScreenState extends State<otpScreen> {
               onPressed: () async {
                 try {
                   PhoneAuthCredential credential =
-                      await PhoneAuthProvider.credential(
+                      PhoneAuthProvider.credential(
                           verificationId: widget.verificationid,
                           smsCode: otpController.text.toString());
                   FirebaseAuth.instance.signInWithCredential(credential).then((value){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const HomePage()));
                   });
                 } catch (ex) {
                   log(ex.toString());

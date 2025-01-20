@@ -5,7 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
-  const UpdateProfileScreen({Key? key}) : super(key: key);
+  const UpdateProfileScreen({super.key});
 
   @override
   _UpdateProfileScreenState createState() => _UpdateProfileScreenState();

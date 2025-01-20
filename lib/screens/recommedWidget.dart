@@ -1,0 +1,298 @@
+import 'package:flutter/material.dart';
+import 'package:tractors24/screens/AllItems.dart';
+import 'package:tractors24/screens/ContactInfo.dart';
+import 'package:tractors24/screens/DetailsPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class Recommend extends StatefulWidget {
+  final Size size;
+  const Recommend({super.key, required this.size});
+
+  @override
+  State<Recommend> createState() => _RecommendState();
+}
+
+class _RecommendState extends State<Recommend> {
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return DefaultTabController(
+      length: 4,
+      child: SizedBox(
+        height: size.height * 0.48,
+        child: TabBarView(
+          physics: const ClampingScrollPhysics(),
+          children: [
+            buildCustomCard(context),
+            buildCustomCard(context),
+            buildCustomCard(context),
+            buildCustomCard(context), // For Certified Tab
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+Widget buildCustomCard(BuildContext context) {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  Size size = MediaQuery.of(context).size;
+  return StreamBuilder<QuerySnapshot>(
+    stream: firestore.collection('tractors24').snapshots(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const Center(child: CircularProgressIndicator());
+      }
+
+      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+        return const Center(
+          child: Text('No vehicles available.',
+              style: TextStyle(fontSize: 18, color: Colors.grey)),
+        );
+      }
+
+      return Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+              padding: const EdgeInsets.all(8.0),
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, docIndex) {
+                final doc = snapshot.data!.docs[docIndex];
+                final vehicles =
+                    (doc.data() as Map<String, dynamic>)['vehicles']
+                            as List<dynamic>? ??
+                        [];
+
+                if (vehicles.isEmpty) return const SizedBox.shrink();
+
+                return Row(
+                  children: [
+                    ...vehicles.map((vehicle) => GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                (context),
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CarDetailsPage()));
+                          },
+                          child: Card(
+                            elevation: 1,
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 5.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Column(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(10.0)),
+                                  child: Image.asset(
+                                    'assets/images/banner1.jpg',
+                                    height: 150,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 12.0,
+                                      top: 12,
+                                      right: 5,
+                                      bottom: 10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        vehicle['brandName'] ?? 'Mahindra Go',
+                                        style: const TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5.0),
+                                      const Text(
+                                        'Mahindra',
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w200,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: size.height * 0.01,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Container(
+                                              height: size.height * 0.03,
+                                              width: size.width * 0.1,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey[200],
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
+                                              child: const Center(
+                                                child: Text(
+                                                  "2022",
+                                                  style:
+                                                      TextStyle(fontSize: 12),
+                                                ),
+                                              )),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                              height: size.height * 0.03,
+                                              width: size.width * 0.22,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey[200],
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
+                                              child: const Center(
+                                                child: Text(
+                                                  "450000 kms",
+                                                  style:
+                                                      TextStyle(fontSize: 12),
+                                                ),
+                                              )),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                              height: size.height * 0.03,
+                                              width: size.width * 0.11,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey[200],
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
+                                              child: const Center(
+                                                child: Text(
+                                                  "Petrol",
+                                                  style:
+                                                      TextStyle(fontSize: 12),
+                                                ),
+                                              )),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                              height: size.height * 0.03,
+                                              width: size.width * 0.14,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey[200],
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
+                                              child: const Center(
+                                                child: Text(
+                                                  "566 HP",
+                                                  style:
+                                                      TextStyle(fontSize: 12),
+                                                ),
+                                              )),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: size.height * 0.01,
+                                      ),
+                                      // Text(
+                                      //   ' ${vehicle['description'].toString().toUpperCase() ?? 'TATA'}',
+                                      //   style: const TextStyle(fontSize: 16.0),
+                                      // ),
+                                      // Text(
+                                      //   'Horsepower: ${vehicle['horsePower'] ?? ''} HP',
+                                      //   style: const TextStyle(fontSize: 16.0),
+                                      // ),
+
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          // Text(
+                                          //   'Insurance: ${vehicle['insuranceSecurity'] ?? ''}',
+                                          //   style: const TextStyle(fontSize: 16.0),
+                                          // ),
+                                          Text(
+                                            '₹${vehicle['sellPrice'] ?? ''}',
+                                            style: const TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.1,
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  (context),
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const ContactSellerScreen())); // Handle button press
+                                            },
+                                            style: TextButton.styleFrom(
+                                              backgroundColor: Colors.blue[300],
+                                              foregroundColor: Colors.white,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16.0,
+                                                      vertical: 8.0),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
+                                            child: const Text('Contact Seller'),
+                                          )
+                                        ],
+                                      ),
+                                      // Text(
+                                      //   'Price: ₹${vehicle['sellPrice'] ?? ''}',
+                                      //   style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
+                                      // ),
+                                      // const SizedBox(height: 8.0),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ))
+                  ],
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0),
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AllItems(),
+                  ),
+                );
+              },
+              child: Text(
+                'View All',
+                style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    color: Colors.blue[200],
+                    decorationColor: Colors.blue[200]),
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}

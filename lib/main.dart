@@ -1,20 +1,17 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tractors24/firebase_options.dart';
 import 'package:tractors24/screens/buyer_page.dart';
-import 'package:tractors24/screens/chatbot.dart';
-import 'package:tractors24/screens/loanEnquire.dart';
-import 'package:tractors24/screens/phoneauth.dart';
-import 'package:tractors24/screens/spalshscreen.dart';
+import 'package:tractors24/screens/faq_screen.dart';
+import 'package:tractors24/screens/recommedWidget.dart';
+import 'package:tractors24/screens/update_profile_screen.dart';
 
-import 'auth/login_page.dart'; // Your Login Page
+// Your Login Page
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(); // Initialize Firebase here
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +27,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(title: 'Tractors 24'),
+      home: const MyHomePage(title: 'Tractors 24'),
     );
   }
 }
@@ -59,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => BuyerScreen()),
+        MaterialPageRoute(builder: (context) => const BuyerScreen()),
       );
     });
   }
@@ -81,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             FadeTransition(
               opacity: _controller.drive(CurveTween(curve: Curves.easeInOut)),
               child: Image.asset(
-                "assets/Tractors.png",
+                "assets/images/Tractors.png",
                 height: 250,
                 width: 350,
                 fit: BoxFit.cover,
