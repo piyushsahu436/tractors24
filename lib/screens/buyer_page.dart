@@ -273,7 +273,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
                                     borderRadius: const BorderRadius.vertical(
                                         top: Radius.circular(10.0)),
                                     child: Image.asset(
-                                      'assets/banner1.jpg',
+                                      'assets/images/banner1.jpg',
                                       height: 150,
                                       width:
                                           MediaQuery.of(context).size.width * 1,
@@ -585,60 +585,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
       ),
       drawer: _selectedIndex == 0
               ? const CustomDrawer()
-          // ? Drawer(
-          //     child: ListView(
-          //       children: [
-          //         UserAccountsDrawerHeader(
-          //           decoration: const BoxDecoration(color: Colors.lightBlue),
-          //           accountName: Padding(
-          //             padding: const EdgeInsets.only(top: 20.0),
-          //             child: Text(
-          //               userName ?? 'Guest',
-          //               style: const TextStyle(fontSize: 18),
-          //             ),
-          //           ),
-          //           accountEmail: Text(auth.currentUser?.email ?? ''),
-          //           currentAccountPicture: CircleAvatar(
-          //             backgroundImage: NetworkImage(
-          //               userPhoto ?? 'https://via.placeholder.com/150',
-          //             ),
-          //           ),
-          //         ),
-          //         ListTile(
-          //           leading: const Icon(Icons.person),
-          //           title: const Text('My Profile'),
-          //           onTap: () {
-          //             setState(() {
-          //               _selectedIndex = 2;
-          //             });
-          //             Navigator.pop(context);
-          //           },
-          //         ),
-          //         ListTile(
-          //           leading: const Icon(Icons.calculate),
-          //           title: const Text('EMI Calculator'),
-          //           onTap: () {
-          //             setState(() {
-          //               _selectedIndex = 1;
-          //             });
-          //             Navigator.pop(context);
-          //           },
-          //         ),
-          //         ListTile(
-          //           leading: const Icon(Icons.logout),
-          //           title: const Text('Logout'),
-          //           onTap: () async {
-          //             await FirebaseAuth.instance.signOut();
-          //             Navigator.pushAndRemoveUntil(
-          //               context,
-          //               MaterialPageRoute(builder: (context) => LoginPage()),
-          //               (route) => false,
-          //             );
-          //           },
-          //         ),
-          //       ],
-          //     ),
-          //   )
+
           : null,
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
