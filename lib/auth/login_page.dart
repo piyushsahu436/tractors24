@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
 
       final userType = userDoc.data()?['userType'] as String?;
       final route = MaterialPageRoute(
-        builder: (_) => userType == 'Customer' ? const BuyerScreen() : const HomePage(),
+        builder: (_) => userType == 'Customer' ?  BuyerScreen() : const HomePage(),
       );
 
       Navigator.pushReplacement(context, route);
