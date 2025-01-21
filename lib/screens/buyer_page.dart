@@ -5,6 +5,7 @@ import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/screens/ContactInfo.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/drawer.dart';
+import 'package:tractors24/screens/recommedWidget.dart';
 
 import 'emi_cal.dart';
 
@@ -598,7 +599,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
       drawer: _selectedIndex == 0
               ? const CustomDrawer()
               : null,
-      body: pages[_selectedIndex],
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) {
