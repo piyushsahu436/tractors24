@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/ContactInfo.dart';
+import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/drawer.dart';
-import 'package:tractors24/screens/recommedWidget.dart';
 
 import 'emi_cal.dart';
 
 class BuyerScreen extends StatefulWidget {
-  const BuyerScreen({super.key});
-
   @override
   _BuyerScreenState createState() => _BuyerScreenState();
 }
@@ -532,7 +532,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> pages = [
+    final List<Widget> _pages = [
       _buildHomeScreen(),
       const EMICalculatorScreen(),
       _buildProfileScreen(),

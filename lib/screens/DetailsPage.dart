@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:tractors24/screens/loanEnquire.dart";
 
 class CarDetailsPage extends StatelessWidget {
   const CarDetailsPage({super.key});
@@ -127,7 +128,9 @@ class CarDetailsPage extends StatelessWidget {
                     ),
                     const SizedBox(width: 20),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Loanenquire()));
+                          },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             side: BorderSide(color: Colors.blue.shade400,
