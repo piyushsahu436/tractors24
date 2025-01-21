@@ -6,7 +6,6 @@ import 'package:tractors24/screens/ContactInfo.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/drawer.dart';
 import 'package:tractors24/screens/recommedWidget.dart';
-
 import 'emi_cal.dart';
 
 class BuyerScreen extends StatefulWidget {
@@ -19,7 +18,6 @@ class _BuyerScreenState extends State<BuyerScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController _searchController = TextEditingController();
   int _selectedIndex = 0;
-
   String? userType;
   String? userName;
   String? userPhoto;
@@ -34,8 +32,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
     try {
       final User? user = auth.currentUser;
       if (user != null) {
-        final userDoc =
-            await firestore.collection('tractors24').doc(user.uid).get();
+        final userDoc = await firestore.collection('tractors24').doc(user.uid).get();
         if (userDoc.exists) {
           final userData = userDoc.data();
           setState(() {
@@ -59,408 +56,204 @@ class _BuyerScreenState extends State<BuyerScreen> {
       {'icon': Icons.directions_bus, 'label': 'Bus'},
       {'icon': Icons.agriculture, 'label': 'Tractor'},
     ];
-    return Container(height: double.infinity,width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 10, top: 8),
-                    child: Text(
-                      "Let's Find your ",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 4, 0, 7),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Dream Tractor",
-                          style: TextStyle(
-                              color: Colors.blue[400],
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold),
+
+    return Container(
+      color: Colors.white,
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 10, top: 8),
+                      child: Text(
+                        "Let's Find your ",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w500
                         ),
-                        const Text(
-                          " now!",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 9.0),
-                child: ToggleButtons(
-                  borderRadius: BorderRadius.circular(8),
-                  borderWidth: 1.5,
-                  borderColor: Colors.blue[200],
-                  selectedBorderColor: Colors.blue[200],
-                  fillColor: Colors.blue[200],
-                  selectedColor: Colors.white,
-                  disabledColor: Colors.blue[200],
-                  color: Colors.blue[200],
-                  constraints: const BoxConstraints(minWidth: 70, minHeight: 32),
-                  isSelected: [selectedIndex == 0, selectedIndex == 1],
-                  onPressed: (int index) {
-                    setState(() {
-                      selectedIndex = index; // Update the selected index
-                    });
-                  },
-                  children: const [
-                    Text('New', style: TextStyle(fontSize: 16)),
-                    Text('Used', style: TextStyle(fontSize: 16)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 4, 0, 7),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Dream Tractor",
+                            style: TextStyle(
+                                color: Colors.blue[400],
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          const Text(
+                            " now!",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              )
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: vehicleCategories.map((category) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Colors.blue.shade200, width: 1.5),
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white, // Light blue background
-                      ),
-                      child: Icon(
-                        category['icon'],
-                        color: Colors.blue[200],
-                        size: 30, // Uniform icon size
-                      ),
-                    ),
-                    const SizedBox(height: 8), // Space between icon and label
-                    Text(
-                      category['label'],
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 12, // Uniform text size
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                );
-              }).toList(),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Container(
-              height: size.height * 0.06,
-              decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.grey.shade400),
-                borderRadius: BorderRadius.circular(14.0),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        hintText: 'Select your Tractor name',
-                        filled: false,
-                        // enabledBorder: OutlineInputBorder(
-                        //   borderSide: BorderSide(color: Colors.grey.shade400,width: 1)
-                        // ),
-                        fillColor: Colors.white,
-                        hintStyle: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        prefixIcon: const Icon(Icons.search),
-                      ),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 9.0),
+                  child: ToggleButtons(
+                    borderRadius: BorderRadius.circular(8),
+                    borderWidth: 1.5,
+                    borderColor: Colors.blue[200],
+                    selectedBorderColor: Colors.blue[200],
+                    fillColor: Colors.blue[200],
+                    selectedColor: Colors.white,
+                    disabledColor: Colors.blue[200],
+                    color: Colors.blue[200],
+                    constraints: const BoxConstraints(minWidth: 70, minHeight: 32),
+                    isSelected: [selectedIndex == 0, selectedIndex == 1],
+                    onPressed: (int index) {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                    },
+                    children: const [
+                      Text('New', style: TextStyle(fontSize: 16)),
+                      Text('Used', style: TextStyle(fontSize: 16)),
+                    ],
                   ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    flex: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 0, bottom: 0, right: 5),
+                )
+              ],
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: vehicleCategories.map((category) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.blue.shade200, width: 1.5),
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white,
+                        ),
+                        child: Icon(
+                          category['icon'],
+                          color: Colors.blue[200],
+                          size: 30,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        category['label'],
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  );
+                }).toList(),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Container(
+                height: size.height * 0.06,
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.grey.shade400),
+                  borderRadius: BorderRadius.circular(14.0),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          hintText: 'Select your Tractor name',
+                          filled: false,
+                          fillColor: Colors.white,
+                          hintStyle: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 13.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          prefixIcon: const Icon(Icons.search),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5),
                       child: ElevatedButton(
                         onPressed: () {
                           String query = _searchController.text;
                           print('Searching for: $query');
                         },
                         style: ElevatedButton.styleFrom(
-                            // fixedSize:,
                             backgroundColor: Colors.blue[200],
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(11))),
-                        child: const Text('Find Tractor',
-                            style: TextStyle(color: Colors.white)),
+                                borderRadius: BorderRadius.circular(11)
+                            )
+                        ),
+                        child: const Text(
+                            'Find Tractor',
+                            style: TextStyle(color: Colors.white)
+                        ),
                       ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            DefaultTabController(
+              length: 4,
+              child: Column(
+                children: [
+                  const TabBar(
+                    physics: BouncingScrollPhysics(),
+                    isScrollable: true,
+                    tabs: [
+                      Tab(text: "Recommended"),
+                      Tab(text: "Recently Added"),
+                      Tab(text: "Popular"),
+                      Tab(text: "Certified"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: size.height * 0.6,
+                    child: TabBarView(
+                      children: [
+                        Recommend(size: size),
+                        Center(child: Text("Recently Added")),
+                        Center(child: Text("Popular")),
+                        Center(child: Text("Certified")),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-          // Expanded(
-          //   child: StreamBuilder<QuerySnapshot>(
-          //     stream: firestore.collection('tractors24').snapshots(),
-          //     builder: (context, snapshot) {
-          //       if (snapshot.connectionState == ConnectionState.waiting) {
-          //         return const Center(child: CircularProgressIndicator());
-          //       }
-          //
-          //       if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          //         return const Center(
-          //           child: Text('No vehicles available.',
-          //               style: TextStyle(fontSize: 18, color: Colors.grey)),
-          //         );
-          //       }
-          //
-          //       return ListView.builder(
-          //         shrinkWrap: true,
-          //         physics: const BouncingScrollPhysics(),
-          //         padding: const EdgeInsets.all(8.0),
-          //         itemCount: snapshot.data!.docs.length,
-          //         itemBuilder: (context, docIndex) {
-          //           final doc = snapshot.data!.docs[docIndex];
-          //           final vehicles =
-          //               (doc.data() as Map<String, dynamic>)['vehicles']
-          //                       as List<dynamic>? ??
-          //                   [];
-          //
-          //           if (vehicles.isEmpty) return const SizedBox.shrink();
-          //
-          //           return Column(
-          //             crossAxisAlignment: CrossAxisAlignment.start,
-          //             children: [
-          //               ...vehicles.map((vehicle) => GestureDetector(
-          //                     onTap: () {
-          //                       Navigator.push(
-          //                           (context),
-          //                           MaterialPageRoute(
-          //                               builder: (context) =>
-          //                                   const CarDetailsPage()));
-          //                     },
-          //                     child: Card(
-          //                       elevation: 1,
-          //                       margin: const EdgeInsets.symmetric(
-          //                           vertical: 8.0, horizontal: 5.0),
-          //                       shape: RoundedRectangleBorder(
-          //                         borderRadius: BorderRadius.circular(10.0),
-          //                       ),
-          //                       child: Column(
-          //                         children: [
-          //                           ClipRRect(
-          //                             borderRadius: const BorderRadius.vertical(
-          //                                 top: Radius.circular(10.0)),
-          //                             child: Image.asset(
-          //                               'assets/images/banner1.jpg',
-          //                               height: 150,
-          //                               width:
-          //                                   MediaQuery.of(context).size.width * 1,
-          //                               fit: BoxFit.cover,
-          //                             ),
-          //                           ),
-          //                           Padding(
-          //                             padding: const EdgeInsets.all(12.0),
-          //                             child: Column(
-          //                               crossAxisAlignment:
-          //                                   CrossAxisAlignment.start,
-          //                               children: [
-          //                                 Text(
-          //                                   vehicle['brandName'] ?? 'Mahindra Go',
-          //                                   style: const TextStyle(
-          //                                     fontSize: 20.0,
-          //                                     fontWeight: FontWeight.bold,
-          //                                     color: Colors.black,
-          //                                   ),
-          //                                 ),
-          //                                 const SizedBox(height: 5.0),
-          //                                 const Text(
-          //                                   'Mahindra',
-          //                                   style: TextStyle(
-          //                                     fontSize: 14.0,
-          //                                     fontWeight: FontWeight.w200,
-          //                                     color: Colors.black,
-          //                                   ),
-          //                                 ),
-          //                                 SizedBox(
-          //                                   height: size.height * 0.01,
-          //                                 ),
-          //                                 Row(
-          //                                   mainAxisAlignment:
-          //                                       MainAxisAlignment.spaceEvenly,
-          //                                   children: [
-          //                                     Container(
-          //                                         height: size.height * 0.03,
-          //                                         width: size.width * 0.1,
-          //                                         decoration: BoxDecoration(
-          //                                             color: Colors.grey[200],
-          //                                             borderRadius:
-          //                                                 BorderRadius.circular(
-          //                                                     6)),
-          //                                         child: const Center(
-          //                                           child: Text(
-          //                                             "2022",
-          //                                             style:
-          //                                                 TextStyle(fontSize: 12),
-          //                                           ),
-          //                                         )),
-          //                                     Container(
-          //                                         height: size.height * 0.03,
-          //                                         width: size.width * 0.22,
-          //                                         decoration: BoxDecoration(
-          //                                             color: Colors.grey[200],
-          //                                             borderRadius:
-          //                                                 BorderRadius.circular(
-          //                                                     6)),
-          //                                         child: const Center(
-          //                                           child: Text(
-          //                                             "450000 kms",
-          //                                             style:
-          //                                                 TextStyle(fontSize: 12),
-          //                                           ),
-          //                                         )),
-          //                                     Container(
-          //                                         height: size.height * 0.03,
-          //                                         width: size.width * 0.11,
-          //                                         decoration: BoxDecoration(
-          //                                             color: Colors.grey[200],
-          //                                             borderRadius:
-          //                                                 BorderRadius.circular(
-          //                                                     6)),
-          //                                         child: const Center(
-          //                                           child: Text(
-          //                                             "Petrol",
-          //                                             style:
-          //                                                 TextStyle(fontSize: 12),
-          //                                           ),
-          //                                         )),
-          //                                     Container(
-          //                                         height: size.height * 0.03,
-          //                                         width: size.width * 0.14,
-          //                                         decoration: BoxDecoration(
-          //                                             color: Colors.grey[200],
-          //                                             borderRadius:
-          //                                                 BorderRadius.circular(
-          //                                                     6)),
-          //                                         child: const Center(
-          //                                           child: Text(
-          //                                             "566 HP",
-          //                                             style:
-          //                                                 TextStyle(fontSize: 12),
-          //                                           ),
-          //                                         )),
-          //                                     const SizedBox(
-          //                                       width: 80,
-          //                                     )
-          //                                   ],
-          //                                 ),
-          //                                 SizedBox(
-          //                                   height: size.height * 0.01,
-          //                                 ),
-          //                                 // Text(
-          //                                 //   ' ${vehicle['description'].toString().toUpperCase() ?? 'TATA'}',
-          //                                 //   style: const TextStyle(fontSize: 16.0),
-          //                                 // ),
-          //                                 // Text(
-          //                                 //   'Horsepower: ${vehicle['horsePower'] ?? ''} HP',
-          //                                 //   style: const TextStyle(fontSize: 16.0),
-          //                                 // ),
-          //
-          //                                 Row(
-          //                                   mainAxisAlignment:
-          //                                       MainAxisAlignment.spaceBetween,
-          //                                   children: [
-          //                                     // Text(
-          //                                     //   'Insurance: ${vehicle['insuranceSecurity'] ?? ''}',
-          //                                     //   style: const TextStyle(fontSize: 16.0),
-          //                                     // ),
-          //                                     Text(
-          //                                       '₹${vehicle['sellPrice'] ?? ''}',
-          //                                       style: const TextStyle(
-          //                                           fontSize: 16.0,
-          //                                           fontWeight: FontWeight.bold,
-          //                                           color: Colors.black),
-          //                                     ),
-          //                                     TextButton(
-          //                                       onPressed: () {
-          //                                         Navigator.push(
-          //                                             (context),
-          //                                             MaterialPageRoute(
-          //                                                 builder: (context) =>
-          //                                                     const ContactSellerScreen())); // Handle button press
-          //                                       },
-          //                                       style: TextButton.styleFrom(
-          //                                         backgroundColor:
-          //                                             Colors.blue[300],
-          //                                         foregroundColor: Colors.white,
-          //                                         padding:
-          //                                             const EdgeInsets.symmetric(
-          //                                                 horizontal: 16.0,
-          //                                                 vertical: 8.0),
-          //                                         shape: RoundedRectangleBorder(
-          //                                           borderRadius:
-          //                                               BorderRadius.circular(
-          //                                                   8.0),
-          //                                         ),
-          //                                       ),
-          //                                       child:
-          //                                           const Text('Contact Seller'),
-          //                                     )
-          //                                   ],
-          //                                 ),
-          //                                 // Text(
-          //                                 //   'Price: ₹${vehicle['sellPrice'] ?? ''}',
-          //                                 //   style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
-          //                                 // ),
-          //                                 // const SizedBox(height: 8.0),
-          //                               ],
-          //                             ),
-          //                           ),
-          //                         ],
-          //                       ),
-          //                     ),
-          //                   ))
-          //             ],
-          //           );
-          //         },
-          //       );
-          //     },
-          //   ),
-          // ),
-              const DefaultTabController(length: 4,
-                child: TabBar(physics: BouncingScrollPhysics(),isScrollable: true,
-                  tabs: [
-                    Tab(text: "Recommended"),
-                    Tab(text: "Recently Added"),
-                    Tab(text: "Popular"),
-                    Tab(text: "Certified"),
-                  ],),
-              ),
-           Recommend(size: size,),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -470,6 +263,22 @@ class _BuyerScreenState extends State<BuyerScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+            ),
+            height: 100,
+            width: MediaQuery.sizeOf(context).width,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 45),
+              child: Center(
+                child: Text("Profile" , style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                ),),
+              ),
+            ),
+          ),
           const SizedBox(height: 40),
           CircleAvatar(
             radius: 60,
@@ -496,8 +305,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
                   ),
                   const Divider(height: 20),
                   ListTile(
-                    leading:
-                        const Icon(Icons.person_outline, color: Colors.blue),
+                    leading: const Icon(Icons.person_outline, color: Colors.blue),
                     title: const Text('Name'),
                     subtitle: Text(
                       userName ?? 'Guest User',
@@ -505,8 +313,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
                     ),
                   ),
                   ListTile(
-                    leading:
-                        const Icon(Icons.email_outlined, color: Colors.blue),
+                    leading: const Icon(Icons.email_outlined, color: Colors.blue),
                     title: const Text('Email'),
                     subtitle: Text(
                       auth.currentUser?.email ?? 'No email set',
@@ -514,8 +321,7 @@ class _BuyerScreenState extends State<BuyerScreen> {
                     ),
                   ),
                   ListTile(
-                    leading:
-                        const Icon(Icons.phone_outlined, color: Colors.blue),
+                    leading: const Icon(Icons.phone_outlined, color: Colors.blue),
                     title: const Text('Phone Number'),
                     subtitle: Text(
                       auth.currentUser?.phoneNumber ?? 'No phone number set',
@@ -534,71 +340,62 @@ class _BuyerScreenState extends State<BuyerScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _pages = [
-      _buildHomeScreen(),
-      const EMICalculatorScreen(),
+      NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              floating: true,
+              snap: true,
+              backgroundColor: Colors.blue,
+              expandedHeight: 50,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          'https://img.pikbest.com/wp/202402/tractor-3d-illustration-of-high-tech-farm-constructed-with-luminescent-points-and-lines_9825055.jpg!w700wp'
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              leading: IconButton(
+                icon: const Icon(Icons.menu, color: Colors.white),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
+              actions: const [
+                Padding(
+                  padding: EdgeInsets.only(right: 10, top: 10),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_outlined,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      SizedBox(width: 4),
+                      Text(
+                        'Indore',
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ];
+        },
+        body: _buildHomeScreen(),
+      ),
+      EMICalculatorScreen(),
       _buildProfileScreen(),
     ];
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: _selectedIndex == 0
-            ? const Size.fromHeight(50)
-            : const Size.fromHeight(80),
-        child: AppBar(
-            backgroundColor: Colors.blue,
-            iconTheme: const IconThemeData(color: Colors.white),
-            flexibleSpace: _selectedIndex == 0
-                ? Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            'https://img.pikbest.com/wp/202402/tractor-3d-illustration-of-high-tech-farm-constructed-with-luminescent-points-and-lines_9825055.jpg!w700wp'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  )
-                : null,
-            title: _selectedIndex == 0
-                ? null
-                : Center(
-                    child: Text(
-                      _selectedIndex == 1
-                          ? 'EMI Calculator'
-                          : 'Profile Screen ',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-            actions: _selectedIndex == 0
-                ? [
-                    const Padding(
-                      padding: EdgeInsets.only(right: 10, top: 10),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.location_on_outlined,
-                            color: Colors.white,
-                            size: 18,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'Indore',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    )
-                  ]
-                : null),
-      ),
-      drawer: _selectedIndex == 0
-              ? const CustomDrawer()
-              : null,
+      drawer: _selectedIndex == 0 ? const CustomDrawer() : null,
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

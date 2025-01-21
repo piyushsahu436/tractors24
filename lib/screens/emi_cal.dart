@@ -33,101 +33,121 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
 
     return Scaffold(
 
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(5, 26, 7, 29),
-        child: Column(
-          children: [
-            Text('Loan Amount: ₹${loanAmount.toInt()}',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            Slider(
-              value: loanAmount,
-              min: 100000,
-              max: 10000000,
-              divisions: 100,
-              label: loanAmount.toInt().toString(),
-              onChanged: (value) {
-                setState(() {
-                  loanAmount = value;
-                });
-              },
+      body: Column(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              color: Colors.blue,
             ),
-            Text('Tenure: ${tenureInMonths ~/ 12} years',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            Slider(
-              value: tenureInMonths.toDouble(),
-              min: 12,
-              max: 96,
-              divisions: 7,
-              label: '${tenureInMonths ~/ 12} years',
-              onChanged: (value) {
-                setState(() {
-                  tenureInMonths = value.toInt();
-                });
-              },
-            ),
-            Text('Interest Rate: ${interestRate.toStringAsFixed(1)}%',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            Slider(
-              value: interestRate,
-              min: 5,
-              max: 16,
-              divisions: 11,
-              label: '${interestRate.toStringAsFixed(1)}%',
-              onChanged: (value) {
-                setState(() {
-                  interestRate = value;
-                });
-              },
-            ),
-            const SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Column(
-
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('EMI Breakdown',
-                      style: TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 10),
-                  Text('Monthly EMI: ₹${emi.toStringAsFixed(2)}',
-                      style: const TextStyle(fontSize: 16)),
-                  const SizedBox(height: 5),
-                  Text('Principal Amount: ₹${loanAmount.toInt()}',
-                      style: const TextStyle(fontSize: 16)),
-                  const SizedBox(height: 5),
-                  Text('Interest Amount: ₹${interestAmount.toStringAsFixed(2)}',
-                      style: const TextStyle(fontSize: 16)),
-                  const SizedBox(height: 5),
-                  Text('Total Payment: ₹${totalPayment.toStringAsFixed(2)}',
-                      style: const TextStyle(fontSize: 16)),
-                ],
+            height: 100,
+            width: MediaQuery.sizeOf(context).width,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 45),
+              child: Center(
+                child: Text("EMI Calculator" , style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                ),),
               ),
             ),
-            const SizedBox(height: 40),
-            SizedBox(
-              width: 300, // Set the desired width
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>Loanenquire()));
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 15),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(5, 26, 7, 29),
+            child: Column(
+              children: [
+                Text('Loan Amount: ₹${loanAmount.toInt()}',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Slider(
+                  value: loanAmount,
+                  min: 100000,
+                  max: 10000000,
+                  divisions: 100,
+                  label: loanAmount.toInt().toString(),
+                  onChanged: (value) {
+                    setState(() {
+                      loanAmount = value;
+                    });
+                  },
                 ),
-                child: const Text(
-                  'Apply for Loan',
-                  style: TextStyle(color: Colors.white),
+                Text('Tenure: ${tenureInMonths ~/ 12} years',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Slider(
+                  value: tenureInMonths.toDouble(),
+                  min: 12,
+                  max: 96,
+                  divisions: 7,
+                  label: '${tenureInMonths ~/ 12} years',
+                  onChanged: (value) {
+                    setState(() {
+                      tenureInMonths = value.toInt();
+                    });
+                  },
                 ),
-              ),
-            ),
+                Text('Interest Rate: ${interestRate.toStringAsFixed(1)}%',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Slider(
+                  value: interestRate,
+                  min: 5,
+                  max: 16,
+                  divisions: 11,
+                  label: '${interestRate.toStringAsFixed(1)}%',
+                  onChanged: (value) {
+                    setState(() {
+                      interestRate = value;
+                    });
+                  },
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
 
-          ],
-        ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('EMI Breakdown',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 10),
+                      Text('Monthly EMI: ₹${emi.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 16)),
+                      const SizedBox(height: 5),
+                      Text('Principal Amount: ₹${loanAmount.toInt()}',
+                          style: const TextStyle(fontSize: 16)),
+                      const SizedBox(height: 5),
+                      Text('Interest Amount: ₹${interestAmount.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 16)),
+                      const SizedBox(height: 5),
+                      Text('Total Payment: ₹${totalPayment.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: 300, // Set the desired width
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>Loanenquire()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                    ),
+                    child: const Text(
+                      'Apply for Loan',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
