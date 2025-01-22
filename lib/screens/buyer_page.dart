@@ -19,7 +19,6 @@ class _BuyerScreenState extends State<BuyerScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController _searchController = TextEditingController();
   int _selectedIndex = 0;
-
   String? userType;
   String? userName;
   String? userPhoto;
