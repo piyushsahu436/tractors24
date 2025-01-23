@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(15),  // Adjust the radius as needed
                 child: Image.asset(
-                  'assets/banner1.jpg',
+                  'assets/images/banner1.jpg',
                   height: 150,
                   width: 150,
                   fit: BoxFit.cover,  // Optional: Adjusts the image to cover the container
