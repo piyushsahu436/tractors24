@@ -1,9 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tractors24/screens/SplashScreen3.dart';
 import 'package:tractors24/screens/buyer_page.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/screens/recommedWidget.dart';
+import 'package:tractors24/screens/spalshscreen.dart';
+import 'package:tractors24/screens/splashScreen1.dart';
+import 'package:tractors24/screens/SplashScreen2.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
 
 // Your Login Page
@@ -56,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>  BuyerScreen()),
+        MaterialPageRoute(builder: (context) =>  SplashScreen3()),
       );
     });
   }
