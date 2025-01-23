@@ -48,6 +48,7 @@ dependencies:
   flutter_svg: ^2.0.17
   circular_reveal_animation: ^2.0.1
   google_fonts: ^6.2.1
+  carousel_slider: ^5.0.0
 
 
 dev_dependencies:

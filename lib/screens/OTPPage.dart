@@ -1,0 +1,267 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/screens/HomePageF.dart';
+import 'package:tractors24/screens/buyer_page.dart';
+
+// class OTPPage extends StatefulWidget {
+//   const OTPPage({super.key});
+//
+//   @override
+//   State<OTPPage> createState() => _OTPPageState();
+// }
+//
+// class _OTPPageState extends State<OTPPage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     Size size = MediaQuery.of(context).size;
+//     return Scaffold(
+//         body: Column(
+//       children: [
+//         Container(
+//             height: size.height * 0.4,
+//             width: double.infinity,
+//             decoration: BoxDecoration(
+//               image: DecorationImage(
+//                 image: AssetImage("assets/images/otpWave.png"),
+//               ),
+//             ),
+//             child: Image(image: AssetImage("assets/images/LOGO.png")))
+//       ],
+//     ));
+//   }
+// }
+
+class OTPPage extends StatefulWidget {
+  const OTPPage({super.key});
+
+  @override
+  State<OTPPage> createState() => _OTPPageState();
+}
+
+class _OTPPageState extends State<OTPPage> {
+  // Making a controller for mobile number input
+  final mobileController = TextEditingController();
+  final int fieldCount = 4; // Number of OTP fields
+  final List<FocusNode> focusNodes = List.generate(4, (index) => FocusNode());
+  final List<TextEditingController> controllers =
+      List.generate(4, (index) => TextEditingController());
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Top wavy container
+            Container(
+                height: size.height * 0.3,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/otpWave.png'),
+                      fit: BoxFit.fill),
+                ),
+                child: Image(image: AssetImage("assets/images/LOGO.png"))),
+
+            SizedBox(height: size.height * 0.01),
+
+            // Logo image in circle
+            Container(
+              padding: EdgeInsets.all(0.1),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/images/Wave.png')),
+              ),
+              height: size.width * 0.3,
+              width: size.width * 0.3,
+            ),
+
+            // SizedBox(
+            //   height: size.height * 0.01,
+            // ),
+
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: Text('Login',
+                  style: GoogleFonts.anybody(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF116978),
+                  )),
+            ),
+
+            SizedBox(height: size.height * 0.01),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Card(
+                child: Column(
+                  children: [
+                    Text("Enter OTP",
+                        style: GoogleFonts.anybody(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFF116978),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          fieldCount,
+                          (index) => Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: SizedBox(
+                              width: 50,
+                              child: TextField(
+                                controller: controllers[index],
+                                focusNode: focusNodes[index],
+                                keyboardType: TextInputType.number,
+                                maxLength: 1,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                                decoration: InputDecoration(
+                                  counterText: '',
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: BorderSide(color: Colors.teal),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                ),
+                                onChanged: (value) {
+                                  if (value.isNotEmpty &&
+                                      index < fieldCount - 1) {
+                                    FocusScope.of(context)
+                                        .requestFocus(focusNodes[index + 1]);
+                                  } else if (value.isEmpty && index > 0) {
+                                    FocusScope.of(context)
+                                        .requestFocus(focusNodes[index - 1]);
+                                  }
+                                },
+                                onSubmitted: (value) {
+                                  if (index == fieldCount - 1) {
+                                    FocusScope.of(context)
+                                        .unfocus(); // Dismiss the keyboard
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text("Resend Code in : In 10:40 Sec",
+                          style: GoogleFonts.anybody(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          )),
+                    ),
+                    RichText(
+                      textAlign: TextAlign.center,
+                      textScaleFactor: 1.1,
+                      text: TextSpan(
+                        text: 'Enter the ',
+                        style: GoogleFonts.anybody(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                        children: [
+                          TextSpan(
+                              text: 'OTP code ',
+                              style: GoogleFonts.anybody(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF414141),
+                              )),
+                          TextSpan(
+                              text: 'we just sent \n you on your registered ',
+                              style: GoogleFonts.anybody(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              )),
+                          TextSpan(
+                              text: 'mail/Phone number',
+                              style: GoogleFonts.anybody(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF414141),
+                              )),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePageF()));
+                          // OTP functionality will be added later
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF008080),
+                          minimumSize: Size(double.infinity, 45),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: Text(
+                          'Verify',
+                          style: GoogleFonts.anybody(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            RichText(
+              textAlign: TextAlign.center,
+              textScaleFactor: 1.1,
+              text: TextSpan(
+                text: "Don't have an account?",
+                style: GoogleFonts.anybody(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
+                ),
+                children: [
+                  TextSpan(
+                      text: 'Sign up',
+                      style: GoogleFonts.anybody(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF414141),
+                      )),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    mobileController.dispose();
+    super.dispose();
+  }
+}
