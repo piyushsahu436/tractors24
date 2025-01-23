@@ -42,7 +42,7 @@ class SplashScreen5 extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 100),
+            SizedBox(height: size.height*0.09),
 
             Text(
               'WELCOME TO',
