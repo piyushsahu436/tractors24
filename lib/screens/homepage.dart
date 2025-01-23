@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/screens/rto_page.dart';
-
+import 'package:tractors24/screens/SplashScreen2.dart';
 import 'emi_cal.dart';
 
 
@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       await FirebaseAuth.instance.signOut();
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
+        MaterialPageRoute(builder: (context) => const SplashScreen5()),
             (route) => false,
       );
     } catch (e) {

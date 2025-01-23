@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/auth/login_page.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});
@@ -21,7 +22,7 @@ class _LanguagePageState extends State<LanguagePage> {
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/images/langPage.png"),
+                  image: AssetImage("assets/images/Vector.png"),
                   fit: BoxFit.fill),
             ),
             child: Stack(
@@ -30,7 +31,12 @@ class _LanguagePageState extends State<LanguagePage> {
                     right: 20,
                     top: 20,
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>  LoginPage(),),);
+                        },
                         child: Text(
                           "Skip",
                           style: GoogleFonts.anybody(
@@ -40,10 +46,10 @@ class _LanguagePageState extends State<LanguagePage> {
                           ),
                         ))),
                 Positioned(
-                    bottom: size.height * 0.1,
+                    bottom: size.height * 0.01,
                     left: size.width * 0.1,
                     right: size.width * 0.1,
-                    child: Image.asset("assets/images/LOGO.png")),
+                    child: Image.asset("assets/images/img.png")),
               ],
             ),
           ),
@@ -86,15 +92,22 @@ class _LanguagePageState extends State<LanguagePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 23,right: 23,bottom: 40,top: 8),
-            child: Container(height: size.height*0.05,
+            padding:
+                const EdgeInsets.only(left: 23, right: 23, bottom: 40, top: 8),
+            child: Container(
+              height: size.height * 0.05,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>  LoginPage(),),);
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      ),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                   backgroundColor: const Color(0xFF116978),
                 ),
                 child: Text(

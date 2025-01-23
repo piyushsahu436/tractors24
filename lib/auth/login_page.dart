@@ -1,174 +1,287 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tractors24/auth/sign_up.dart';
-import 'package:tractors24/screens/buyer_page.dart';
-import '../screens/homepage.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/auth/login2.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool isLoading = false;
+  // Making a controller for mobile number input
+  final mobileController = TextEditingController();
 
-  Future<void> _login(BuildContext context) async {
-    if (!formKey.currentState!.validate()) return;
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Top wavy container
+            Container(
+              height: size.height*0.3,
+          width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/Vector.png'),
+                    fit: BoxFit.fill),
+              ),
+            ),
 
-    setState(() => isLoading = true);
-    try {
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
+            SizedBox(height: size.height * 0.01),
 
-      if (!mounted) return;
+            // Logo image in circle
+            Container(
 
-      final userDoc = await FirebaseFirestore.instance
-          .collection('tractors24')
-          .doc(userCredential.user?.uid)
-          .get();
+              padding: EdgeInsets.all(0.1),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/images/Wave.png')),
+              ),
+              height: size.width * 0.3,
+              width: size.width * 0.3,
+            ),
 
-      if (!userDoc.exists) {
-        throw 'User data not found';
-      }
+            // SizedBox(
+            //   height: size.height * 0.01,
+            // ),
 
-      if (!mounted) return;
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: Text('Login',
+                  style: GoogleFonts.anybody(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF116978),
+                  )),
+            ),
 
-      final userType = userDoc.data()?['userType'] as String?;
-      final route = MaterialPageRoute(
-        builder: (_) => userType == 'Customer' ?  BuyerScreen() : const HomePage(),
-      );
+            SizedBox(height: size.height * 0.01),
 
-      Navigator.pushReplacement(context, route);
+            // Mobile number input
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: TextFormField(
+                controller: mobileController,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  hintText: 'Mobile No.',
+                  prefixText: '+91 ',
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ),
 
-    } on FirebaseAuthException catch (e) {
-      final message = switch (e.code) {
-        'user-not-found' => 'No user found for that email',
-        'wrong-password' => 'Wrong password provided',
-        _ => 'Authentication failed: ${e.message}',
-      };
-      _showError(message);
-    } catch (e) {
-      _showError(e.toString());
-    } finally {
-      if (mounted) setState(() => isLoading = false);
-    }
-  }
+            SizedBox(height: size.height * 0.02),
 
-  void _showError(String message) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
+            // Agreement text
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: GoogleFonts.anybody(
+                    color: Colors.black,
+                    fontSize: 14,
+                  ),
+                  children: [
+                    TextSpan(text: 'By Logging in, you agree with '),
+                    TextSpan(
+                      text: 'User Agreement',
+                      style: GoogleFonts.anybody(
+                        color: Colors.blue,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    TextSpan(text: ', '),
+                    TextSpan(
+                      text: 'Privacy Policy',
+                      style: GoogleFonts.anybody(
+                        color: Colors.blue,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+            // Send OTP button
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: ElevatedButton(
+                onPressed: () {
+                  // OTP functionality will be added later
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF008080),
+                  minimumSize: Size(double.infinity, 45),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                child: Text(
+                  'Send OTP',
+                  style: GoogleFonts.anybody(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+
+            SizedBox(height: size.height * 0.01),
+
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: OutlinedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>  Login2(),),);
+
+                },
+                style: OutlinedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 45),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    side: BorderSide(
+                      color: Colors.blue,
+                      width: size.width * 0.003,
+                    )),
+                child: Text(
+                  'Login with Password',
+                  style: GoogleFonts.anybody(
+                      color: Colors.black, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+
+            SizedBox(height: size.height * 0.01),
+
+
+            Text(
+              'Or',
+              style: GoogleFonts.anybody(),
+            ),
+
+            SizedBox(height: size.height * 0.01),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: size.height*0.06,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Facebook login will be added later
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9),
+                          ),
+                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Image.asset("assets/images/_Facebook.png"),
+                              Text(
+                                '  Facebook',
+                                style: GoogleFonts.anybody(
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF61677D)),
+                              )
+                            ]),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: size.width * 0.05),
+                  Expanded(
+                    child: Container(
+                      height: size.height*0.06,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            // Google login will be added later
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset("assets/images/_Google.png"),
+                              Text(
+                                '  Google',
+                                style: GoogleFonts.anybody(
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF61677D)),
+                              )
+                            ],
+                          )),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: size.height*0.02),
+
+            // Sign up text and button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Don't have account? ",
+                    style: GoogleFonts.anybody(fontWeight: FontWeight.w400),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>  Login2(),),);
+                    },
+                    child: Text(
+                      'Sign Up',
+                      style: GoogleFonts.anybody(
+                        color: Color(0xFF008080),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),  // Adjust the radius as needed
-                child: Image.asset(
-                  'assets/images/banner1.jpg',
-                  height: 150,
-                  width: 150,
-                  fit: BoxFit.cover,  // Optional: Adjusts the image to cover the container
-                ),
-              )
-,
-              const SizedBox(height: 32),
-              const Text(
-                'Welcome Back!',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 32),
-              TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email Address',
-                  prefixIcon: const Icon(Icons.email),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
-                      .hasMatch(value!)) {
-                    return 'Please enter a valid email';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  prefixIcon: const Icon(Icons.lock),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                obscureText: true,
-                validator: (value) => (value?.isEmpty ?? true)
-                    ? 'Please enter your password'
-                    : null,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-
-                onPressed: isLoading ? null : () => _login(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: isLoading
-                    ? const CircularProgressIndicator()
-                    : const Text(
-                  'Login',
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextButton(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const SignUpPage()),
-                ),
-                child: const Text("Don't have an account? Sign Up"),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  void dispose() {
+    mobileController.dispose();
+    super.dispose();
   }
 }
