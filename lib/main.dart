@@ -1,12 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/screens/buyer_page.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/screens/recommedWidget.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
+import 'package:tractors24/screens/spalshscreen.dart';
 
-// Your Login Page
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>  BuyerScreen()),
+        MaterialPageRoute(builder: (context) => SplashScreen5()),
       );
     });
   }

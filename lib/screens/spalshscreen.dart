@@ -1,74 +1,138 @@
 import 'package:flutter/material.dart';
-import '../auth/login_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/auth/login_page.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
-
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<int> _textAnimation;
-  final String _text = "Let us wheel \n Your Dreams"; // Text to display
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Initialize the animation controller with appropriate duration
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: _text.length * 250), // 250 ms per character
-    );
-
-    // Create an integer animation for the text length
-    _textAnimation = IntTween(begin: 0, end: _text.length).animate(_controller)
-      ..addListener(() {
-        setState(() {}); // Rebuild on every animation frame
-      });
-
-    // Start the animation
-    _controller.forward();
-
-    // Use a non-nullable duration
-    Future.delayed(_controller.duration!, () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>  const LoginPage(),
-        ),
-      );
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose(); // Dispose the animation controller
-    super.dispose();
-  }
+class SplashScreen5 extends StatelessWidget {
+  const SplashScreen5({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.blue,
-      body: Center( 
+
+      backgroundColor: const Color(0xFF116978),
+
+      body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 20),
-            Text(
-              _text.substring(0, _textAnimation.value.clamp(0, _text.length)), // Clamp the value
-              style: const TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextButton(
+                  onPressed: () {
+                    //  navigation to next screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        // Replace NextScreen with your actual next screen
+                        builder: (context) => LoginPage(),
+                      ),
+                    );
+                  },
+                  child:  Text(
+                    'Skip',
+                    style:  GoogleFonts.anybody(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
               ),
             ),
+
+            SizedBox(height: size.height*0.09),
+
+            Text(
+              'WELCOME TO',
+              style:  GoogleFonts.anybody(
+                color: Colors.white,
+                fontSize: 40.0,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Container(
+                width: 300, // Adjust as needed
+                height: 100,
+                child: Image.asset(
+                  'assets/images/img.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SizedBox(height: size.height*0.05,),
+
+            // Tractor image
+            Padding(
+              padding: const EdgeInsets.all(20),
+              // Replace with your actual image path
+              child: Image.asset(
+                'assets/images/img_1.png',
+                height: 150,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Text(
+                'A HIGH-PERFORMING WEB-BASED TRACTOR SELL SYSTEM FOR ANY RENT-A-TRACTOR COMPANY AND WEBSITE',
+                textAlign: TextAlign.center,
+                style:  GoogleFonts.anybody(
+                  color: Colors.white,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+
+            // Next button at bottom
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 35),
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Expanded(child: SizedBox(width: 76,)),
+                  Expanded(
+                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(width:76,height:4 ,
+                            child: const Image(image: AssetImage("assets/images/Group 1.png"))),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: TextButton(
+                      onPressed: () {
+                        // Add navigation to next screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            // Replace NextScreen with your actual next screen
+                            builder: (context) => LoginPage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Next',
+                        style:  GoogleFonts.anybody(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],),
+            )
+
           ],
         ),
       ),
     );
   }
 }
+
