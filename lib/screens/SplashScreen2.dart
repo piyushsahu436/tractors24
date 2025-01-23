@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/LanguagePage.dart';
 
 class SplashScreen5 extends StatelessWidget {
   const SplashScreen5({super.key});
@@ -26,7 +27,7 @@ class SplashScreen5 extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         // Replace NextScreen with your actual next screen
-                        builder: (context) => LoginPage(),
+                        builder: (context) => LanguagePage(),
                       ),
                     );
                   },
@@ -42,7 +43,7 @@ class SplashScreen5 extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 100),
+            SizedBox(height: size.height*0.09),
 
             Text(
               'WELCOME TO',
@@ -59,7 +60,7 @@ class SplashScreen5 extends StatelessWidget {
                 width: 300, // Adjust as needed
                 height: 100,
                 child: Image.asset(
-                  'assets/images/LOGO.png',
+                  'assets/images/img.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -99,34 +100,34 @@ class SplashScreen5 extends StatelessWidget {
                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(width:76,height:4 ,
-                            child: const Image(image: AssetImage("assets/images/grp1.png"))),
+                            child: const Image(image: AssetImage("assets/images/Group 1.png"))),
                       ],
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: TextButton(
-                    onPressed: () {
-                      // Add navigation to next screen
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          // Replace NextScreen with your actual next screen
-                          builder: (context) => NextScreen(),
+                      onPressed: () {
+                        // Add navigation to next screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            // Replace NextScreen with your actual next screen
+                            builder: (context) => LoginPage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Next',
+                        style:  GoogleFonts.anybody(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500,
                         ),
-                      );
-                    },
-                    child: Text(
-                      'Next',
-                      style:  GoogleFonts.anybody(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                                    ),
                   ),
-              ],),
+                ],),
             )
 
           ],
@@ -136,14 +137,3 @@ class SplashScreen5 extends StatelessWidget {
   }
 }
 
-// Temporary NextScreen class - replace with your actual next screen
-class NextScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-        body: Center(
-            child: Text('Next Screen'),
-            ),
-    );
-    }
-}

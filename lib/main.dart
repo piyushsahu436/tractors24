@@ -6,7 +6,8 @@ import 'package:tractors24/screens/buyer_page.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/screens/recommedWidget.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
-import 'package:tractors24/screens/spalshscreen.dart';
+
+import 'package:tractors24/screens/SplashScreen2.dart';
 
 
 

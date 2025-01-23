@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:tractors24/auth/login2.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -144,12 +144,16 @@ class _LoginPageState extends State<LoginPage> {
 
             SizedBox(height: size.height * 0.01),
 
-            // Login with password button
+
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: OutlinedButton(
                 onPressed: () {
-                  // Password login functionality will be added later
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>  Login2(),),);
+
                 },
                 style: OutlinedButton.styleFrom(
                     minimumSize: Size(double.infinity, 45),
@@ -170,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
 
             SizedBox(height: size.height * 0.01),
 
-            // Or text
+
             Text(
               'Or',
               style: GoogleFonts.anybody(),
@@ -253,7 +257,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Navigation to sign up page will be added later
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>  Login2(),),);
                     },
                     child: Text(
                       'Sign Up',
