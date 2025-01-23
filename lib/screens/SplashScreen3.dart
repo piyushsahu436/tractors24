@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/LanguagePage.dart';
 
 class SplashScreen3 extends StatelessWidget {
   const SplashScreen3({super.key});
@@ -26,7 +26,7 @@ class SplashScreen3 extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         // Replace NextScreen with your actual next screen
-                        builder: (context) => LoginPage(),
+                        builder: (context) =>  LanguagePage(),
                       ),
                     );
                   },
