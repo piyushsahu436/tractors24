@@ -22,7 +22,7 @@ class _LanguagePageState extends State<LanguagePage> {
             width: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/images/Vector.png"),
+                  image: AssetImage("assets/images/Vector3.png"),
                   fit: BoxFit.fill),
             ),
             child: Stack(
@@ -108,7 +108,7 @@ class _LanguagePageState extends State<LanguagePage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  backgroundColor: const Color(0xFF116978),
+                  backgroundColor: const Color(0xFF003B8F),
                 ),
                 child: Text(
                   "Next",

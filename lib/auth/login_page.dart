@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tractors24/auth/login2.dart';
+import 'package:tractors24/auth/login_password.dart';
+import 'package:tractors24/screens/OTPPage.dart';
+import 'package:tractors24/auth/sign_up1.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -22,20 +24,19 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             // Top wavy container
             Container(
-              height: size.height*0.3,
-          width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/Vector.png'),
-                    fit: BoxFit.fill),
-              ),
-            ),
+                height: size.height * 0.3,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/Vector4.png'),
+                      fit: BoxFit.fill),
+                ),
+                child: Image(image: AssetImage("assets/images/img.png"))),
 
             SizedBox(height: size.height * 0.01),
 
             // Logo image in circle
             Container(
-
               padding: EdgeInsets.all(0.1),
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -56,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: GoogleFonts.anybody(
                     fontSize: 32,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF116978),
+                    color: Color(0xFF003B8F),
                   )),
             ),
 
@@ -65,15 +66,24 @@ class _LoginPageState extends State<LoginPage> {
             // Mobile number input
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              child: TextFormField(
-                controller: mobileController,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  hintText: 'Mobile No.',
-                  prefixText: '+91 ',
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+              child: Container(
+                decoration: BoxDecoration(boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(0, 2),
+                    blurRadius: 6,
+                  ),
+                ]),
+                child: TextFormField(
+                  controller: mobileController,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    hintText: 'Mobile No.',
+                    prefixText: '+91 ',
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
               ),
@@ -96,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextSpan(
                       text: 'User Agreement',
                       style: GoogleFonts.anybody(
-                        color: Colors.blue,
+                        color: Color(0xFF003B8F),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -105,10 +115,9 @@ class _LoginPageState extends State<LoginPage> {
                     TextSpan(
                       text: 'Privacy Policy',
                       style: GoogleFonts.anybody(
-                        color: Colors.blue,
+                        color: Color(0xFF003B8F),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-
                       ),
                     ),
                   ],
@@ -123,10 +132,16 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton(
                 onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OTPPage(),
+                    ),
+                  );
                   // OTP functionality will be added later
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF008080),
+                  backgroundColor: Color(0xFF003B8F),
                   minimumSize: Size(double.infinity, 45),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -144,7 +159,6 @@ class _LoginPageState extends State<LoginPage> {
 
             SizedBox(height: size.height * 0.01),
 
-
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: OutlinedButton(
@@ -152,8 +166,9 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>  Login2(),),);
-
+                      builder: (context) => Login2(),
+                    ),
+                  );
                 },
                 style: OutlinedButton.styleFrom(
                     minimumSize: Size(double.infinity, 45),
@@ -161,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     side: BorderSide(
-                      color: Colors.blue,
+                      color: Color(0xFF003B8F),
                       width: size.width * 0.003,
                     )),
                 child: Text(
@@ -173,7 +188,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             SizedBox(height: size.height * 0.01),
-
 
             Text(
               'Or',
@@ -189,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Expanded(
                     child: Container(
-                      height: size.height*0.06,
+                      height: size.height * 0.06,
                       child: ElevatedButton(
                         onPressed: () {
                           // Facebook login will be added later
@@ -216,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(width: size.width * 0.05),
                   Expanded(
                     child: Container(
-                      height: size.height*0.06,
+                      height: size.height * 0.06,
                       child: ElevatedButton(
                           onPressed: () {
                             // Google login will be added later
@@ -243,7 +257,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            SizedBox(height: size.height*0.02),
+            SizedBox(height: size.height * 0.02),
 
             // Sign up text and button
             Padding(
@@ -260,12 +274,14 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>  Login2(),),);
+                          builder: (context) => SignUp1(),
+                        ),
+                      );
                     },
                     child: Text(
                       'Sign Up',
                       style: GoogleFonts.anybody(
-                        color: Color(0xFF008080),
+                        color: Color(0xFF003B8F),
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -283,5 +299,49 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     mobileController.dispose();
     super.dispose();
+  }
+}
+
+class Form_field extends StatelessWidget {
+  Form_field(
+      {super.key,
+      required this.hintText,
+      required this.controller,
+      required this.prefixtext});
+  final String hintText;
+  final TextEditingController controller;
+  final String prefixtext;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      child: Container(
+        // decoration: BoxDecoration(
+        //   boxShadow: const [
+        //   BoxShadow(
+        //     color: Colors.black26,
+        //     offset: Offset(0, 2),
+        //     blurRadius: 6,
+        //   ),]
+        // ),
+        child: TextFormField(
+          controller: controller,
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: GoogleFonts.anybody(
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                color: Color.fromRGBO(124, 139, 160, 1.0)),
+            prefixText: prefixtext,
+
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

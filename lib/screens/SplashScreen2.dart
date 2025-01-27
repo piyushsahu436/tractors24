@@ -12,7 +12,7 @@ class SplashScreen5 extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
 
-      backgroundColor: const Color(0xFF116978),
+      backgroundColor: const Color(0xFF003B8F),
 
       body: SafeArea(
         child: Column(
