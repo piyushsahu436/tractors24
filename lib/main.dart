@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SplashScreen5 ()),
+        MaterialPageRoute(builder: (context) => SplashScreen5()),
       );
     });
   }
