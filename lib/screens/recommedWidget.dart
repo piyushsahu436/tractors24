@@ -54,12 +54,18 @@ Widget buildCustomCard(BuildContext context) {
       return Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
+            child: GridView.builder(
+              scrollDirection: Axis.vertical,
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               padding: const EdgeInsets.all(8.0),
-              itemCount: snapshot.data!.docs.length,
+              itemCount: 4,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // Number of columns
+                crossAxisSpacing: 20.0, // Spacing between columns
+                mainAxisSpacing: 20.0, // Spacing between rows
+                childAspectRatio: 1.0, // Aspect ratio of each item
+              ),
               itemBuilder: (context, docIndex) {
                 final doc = snapshot.data!.docs[docIndex];
                 final vehicles =
