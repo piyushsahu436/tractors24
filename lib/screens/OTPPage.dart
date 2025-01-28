@@ -88,7 +88,7 @@ class _OTPPageState extends State<OTPPage> {
                   style: GoogleFonts.anybody(
                     fontSize: 32,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF116978),
+                    color: Color(0xFF003B8F),
                   )),
             ),
 
@@ -102,7 +102,7 @@ class _OTPPageState extends State<OTPPage> {
                         style: GoogleFonts.anybody(
                           fontSize: 32,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF116978),
+                          color: Color(0xFF003B8F),
                         )),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
@@ -133,7 +133,7 @@ class _OTPPageState extends State<OTPPage> {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(color: Colors.teal),
+                                    borderSide: BorderSide(color: Color(0xFF003B8F)),
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
@@ -209,11 +209,14 @@ class _OTPPageState extends State<OTPPage> {
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePageF()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePageF()));
                           // OTP functionality will be added later
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF008080),
+                          backgroundColor: Color(0xFF003B8F),
                           minimumSize: Size(double.infinity, 45),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
@@ -248,7 +251,7 @@ class _OTPPageState extends State<OTPPage> {
                       style: GoogleFonts.anybody(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        color: Color(0xFF414141),
+                        color: Color(0xFF003B8F),
                       )),
                 ],
               ),

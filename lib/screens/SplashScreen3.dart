@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/LanguagePage.dart';
+import 'package:tractors24/auth/login_page.dart';
 
 class SplashScreen3 extends StatelessWidget {
   const SplashScreen3({super.key});
@@ -10,7 +11,7 @@ class SplashScreen3 extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
 
-      backgroundColor: const Color(0xFF116978),
+      backgroundColor: const Color(0xFF003B8F),
 
       body: SafeArea(
         child: Column(mainAxisAlignment: MainAxisAlignment.center,
@@ -111,7 +112,7 @@ class SplashScreen3 extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             // Replace NextScreen with your actual next screen
-                            builder: (context) => NextScreen(),
+                            builder: (context) => LoginPage(),
                           ),
                         );
                       },
@@ -135,14 +136,3 @@ class SplashScreen3 extends StatelessWidget {
   }
 }
 
-// Temporary NextScreen class - replace with your actual next screen
-class NextScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Next Screen'),
-      ),
-    );
-  }
-}
