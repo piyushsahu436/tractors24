@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/screens/LanguagePage.dart';
-import 'package:tractors24/screens/SplashScreen3.dart';
+import 'package:tractors24/splash_screen/SplashScreen3.dart';
 
 class SplashScreen5 extends StatelessWidget {
   const SplashScreen5({super.key});

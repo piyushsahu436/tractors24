@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/screens/news.dart';
 import 'package:tractors24/screens/emi_cal.dart';
@@ -7,33 +8,19 @@ import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/testimonials.dart';
 
 class CustomDrawer extends StatelessWidget {
-  // Dummy data
+
   final String userName = "John Doe";
   final String userEmail = "john.doe@example.com";
   final String userPhotoUrl = "https://via.placeholder.com/150";
 
   const CustomDrawer({super.key});
 
-  // Define common text styles
-  static const TextStyle _menuItemStyle = TextStyle(
-    fontSize: 14.0,
-    fontWeight: FontWeight.bold,
-  );
-
-  static const TextStyle _userNameStyle = TextStyle(
-    fontSize: 18.0,
-    fontWeight: FontWeight.bold,
-  );
-
-  static const TextStyle _userEmailStyle = TextStyle(
-    fontSize: 14.0,
-  );
 
   // Custom MenuListTile Widget
   Widget _buildMenuListTile({
     required IconData icon,
     required String title,
-    Color iconColor = Colors.black,
+    Color iconColor = const Color(0xFF0A2472),
     TextStyle? style,
     VoidCallback? onTap,
   }) {
@@ -41,7 +28,7 @@ class CustomDrawer extends StatelessWidget {
       dense: true,
       visualDensity: const VisualDensity(vertical: -4),
       leading: Icon(icon, color: iconColor, size: 20),
-      title: Text(title, style: style ?? _menuItemStyle),
+      title: Text(title, style: GoogleFonts.anybody(fontSize: 12, fontWeight: FontWeight.w600)),
       trailing: const Icon(Icons.arrow_forward_ios, size: 14),
       onTap: onTap,
     );
@@ -55,20 +42,11 @@ class CustomDrawer extends StatelessWidget {
         children: [
           // User Account Header
           UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              gradient: LinearGradient(
-                colors: [Colors.blue.shade300, Colors.blue.shade700],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-            
             accountName: Padding(
               padding: const EdgeInsets.only(top: 20.0),
-              child: Text(userName, style: _userNameStyle),
+              child: Text(userName, style: GoogleFonts.anybody(fontSize: 12, fontWeight: FontWeight.w600) ),
             ),
-            accountEmail: Text(userEmail, style: _userEmailStyle),
+            accountEmail: Text(userEmail, style: GoogleFonts.anybody(fontSize: 12, fontWeight: FontWeight.w600)),
             currentAccountPicture: const CircleAvatar(
               child: Icon(Icons.person_4_outlined),
 
@@ -84,22 +62,26 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
           _buildMenuListTile(
-            icon: Icons.settings,
-            title: 'Account Settings',
+            icon: Icons.favorite_outline,
+            title: 'My Favourites',
             onTap: () {
-              Navigator.push(
-                  (context),
-                  MaterialPageRoute(builder: (context) =>UpdateProfileScreen())
-              );
+
             },
           ),
+          Divider(
+            color: Colors.grey,
+            thickness: 1.0,
+            indent: 16.0,
+            endIndent: 16.0,
+          ),
+
           _buildMenuListTile(
             icon: Icons.calculate,
             title: 'EMI Calculator',
             onTap: () {
               Navigator.push(
                   (context),
-                MaterialPageRoute(builder: (context) => EMICalculatorScreen())
+                  MaterialPageRoute(builder: (context) => EMICalculatorScreen())
               );
 
             },
@@ -109,18 +91,12 @@ class CustomDrawer extends StatelessWidget {
             title: 'News',
             onTap: () {
               Navigator.push(
-                  (context),
-                  MaterialPageRoute(builder: (context)=> SavedArticlesScreen ()),
+                (context),
+                MaterialPageRoute(builder: (context)=> SavedArticlesScreen ()),
               );
             },
           ),
-          _buildMenuListTile(
-            icon: Icons.favorite_outline,
-            title: 'My Favourites',
-            onTap: () {
 
-            },
-          ),
           _buildMenuListTile(
             icon: Icons.notifications,
             title: 'Notifications',
@@ -129,6 +105,7 @@ class CustomDrawer extends StatelessWidget {
 
             },
           ),
+
           _buildMenuListTile(
             icon: Icons.share,
             title: 'Share App',
@@ -136,6 +113,7 @@ class CustomDrawer extends StatelessWidget {
 
             },
           ),
+
           _buildMenuListTile(
             icon: Icons.reviews,
             title: 'Testimonials',
@@ -150,7 +128,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FAQList()),
+                MaterialPageRoute(builder: (context) => FAQScreen()),
               );
 
             },
@@ -165,25 +143,22 @@ class CustomDrawer extends StatelessWidget {
               );
             },
           ),
-          _buildMenuListTile(
-            icon: Icons.report,
-            title: 'Grievance Redressel',
-            onTap: () {
-
-            },
+          Divider(
+            color: Colors.grey,
+            thickness: 1.0,
+            indent: 16.0,
+            endIndent: 16.0,
           ),
-
-          const Divider(height: 1),
 
           // Logout
           _buildMenuListTile(
             icon: Icons.logout,
             title: 'Logout',
-            iconColor: Colors.red,
+            iconColor: Color(0xFF0A2472),
             style: const TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.bold,
-              color: Colors.red,
+              color: Color(0xFF0A2472),
             ),
             onTap: () => Navigator.pop(context),
           ),
