@@ -1,35 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/HomePageF.dart';
-import 'package:tractors24/screens/buyer_page.dart';
-
-// class OTPPage extends StatefulWidget {
-//   const OTPPage({super.key});
-//
-//   @override
-//   State<OTPPage> createState() => _OTPPageState();
-// }
-//
-// class _OTPPageState extends State<OTPPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     Size size = MediaQuery.of(context).size;
-//     return Scaffold(
-//         body: Column(
-//       children: [
-//         Container(
-//             height: size.height * 0.4,
-//             width: double.infinity,
-//             decoration: BoxDecoration(
-//               image: DecorationImage(
-//                 image: AssetImage("assets/images/otpWave.png"),
-//               ),
-//             ),
-//             child: Image(image: AssetImage("assets/images/LOGO.png")))
-//       ],
-//     ));
-//   }
-// }
+import 'package:tractors24/screens/LandingPage.dart';
 
 class OTPPage extends StatefulWidget {
   const OTPPage({super.key});
@@ -212,7 +184,7 @@ class _OTPPageState extends State<OTPPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomePageF()));
+                                  builder: (context) => LandingPage()));
                           // OTP functionality will be added later
                         },
                         style: ElevatedButton.styleFrom(
