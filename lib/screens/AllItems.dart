@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tractors24/screens/ContactInfo.dart';
+import 'package:tractors24/screens/contact_seller.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -206,7 +206,7 @@ class _AllItemsState extends State<AllItems> {
                                             (context),
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                const ContactSellerScreen())); // Handle button press
+                                                ContactSellerScreen())); // Handle button press
                                       },
                                       style: TextButton.styleFrom(
                                         backgroundColor:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_password.dart';
-import 'package:tractors24/screens/OTPPage.dart';
+import 'package:tractors24/auth/OTPPage.dart';
 import 'package:tractors24/auth/sign_up1.dart';
 
 class LoginPage extends StatefulWidget {
@@ -316,14 +316,6 @@ class Form_field extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Container(
-        // decoration: BoxDecoration(
-        //   boxShadow: const [
-        //   BoxShadow(
-        //     color: Colors.black26,
-        //     offset: Offset(0, 2),
-        //     blurRadius: 6,
-        //   ),]
-        // ),
         child: TextFormField(
           controller: controller,
           keyboardType: TextInputType.phone,
@@ -342,6 +334,26 @@ class Form_field extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class heading extends StatelessWidget {
+  const heading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+         decoration: BoxDecoration(
+           color: Color(0xFF003B8F),
+           borderRadius: BorderRadius.circular(12),
+         ),
+          child: ImageIcon(AssetImage("assets/images/arrow.png")),
+        )
+       // Text("data")
+    ],
     );
   }
 }

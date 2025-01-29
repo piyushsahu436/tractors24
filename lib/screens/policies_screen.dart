@@ -1,53 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PoliciesScreen extends StatelessWidget {
   const PoliciesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'Privacy Policies',
-            style: TextStyle(color: Colors.black,
-                fontWeight: FontWeight.bold,
-            fontSize: 18.0),
-          ),
-          backgroundColor: Colors.white,
-          elevation: 0, // Removes shadow for a clean look
-        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Blue line with company name
             Container(
-              color: Colors.blue[900], // Blue background color
-              padding: const EdgeInsets.all(8.0), // Padding around text
-              child: const Text(
-                '     Tractors 24',
-                style: TextStyle(
-                  color: Colors.white, // White text color
-                  fontSize: 20, // Font size
-                  fontWeight: FontWeight.bold, // Bold text
+              height: size.height * 0.3,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/Vector3.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10), // Adjust this value
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 5), // Adjust this small gap
+                      child: Text(
+                        'Privacy Policy',
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // constraints: BoxConstraints(
+                      //   maxHeight: size.height * 0.2, // Adjust this value to control image size
+                      // ),
+                      child: Image(
+                        image: AssetImage('assets/images/img.png'),
+                        width: 200, // Adjust this value to make image bigger/smaller
+                        height: 200, // Adjust this value to make image bigger/smaller
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Container(
-              color: Colors.blue, // Blue background color
-              padding: const EdgeInsets.all(30.0), // Padding around text
-              alignment: Alignment.center, // Center-aligns the text
-              child: const Text(
-                'Privacy Policy',
-                style: TextStyle(
-                  color: Colors.white, // White text color
-                  fontWeight: FontWeight.bold,
-                  fontSize: 28, // Font size
-                ),
-              ),
-            ),
-            // Content with scrolling
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
@@ -106,6 +110,7 @@ class PoliciesScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 32),
+                    //  _buildPolicySection(title, description, points)
                   ],
                 ),
               ),
@@ -141,30 +146,30 @@ class PoliciesScreen extends StatelessWidget {
         ],
         const SizedBox(height: 16),
         ...points.map((point) => Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                '• ',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  point,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black87,
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    '• ',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: Text(
+                      point,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        )),
+            )),
       ],
     );
   }
