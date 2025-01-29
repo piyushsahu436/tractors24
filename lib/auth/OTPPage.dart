@@ -1,10 +1,15 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/HomePageF.dart';
 import 'package:tractors24/screens/LandingPage.dart';
+import 'package:tractors24/screens/homepage.dart';
 
 class OTPPage extends StatefulWidget {
-  const OTPPage({super.key});
+  String verificationid;
+  OTPPage({super.key, required this.verificationid});
 
   @override
   State<OTPPage> createState() => _OTPPageState();
@@ -105,7 +110,8 @@ class _OTPPageState extends State<OTPPage> {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(color: Color(0xFF003B8F)),
+                                    borderSide:
+                                        BorderSide(color: Color(0xFF003B8F)),
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
@@ -180,13 +186,24 @@ class _OTPPageState extends State<OTPPage> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LandingPage()));
-                          // OTP functionality will be added later
-                        },
+                        // onPressed: () async {
+                        //   try {
+                        //     PhoneAuthCredential credential =
+                        //         PhoneAuthProvider.credential(
+                        //             verificationId: widget.verificationid,
+                        //             smsCode: controllers.text.toString());
+                        //     FirebaseAuth.instance
+                        //         .signInWithCredential(credential)
+                        //         .then((value) {
+                        //       Navigator.push(
+                        //           context,
+                        //           MaterialPageRoute(
+                        //               builder: (context) => const HomePage()));
+                        //     });
+                        //   } catch (ex) {
+                        //     log(ex.toString());
+                        //   }
+                        // },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF003B8F),
                           minimumSize: Size(double.infinity, 45),

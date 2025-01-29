@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tractors24/screens/BottomNavigationBar/BottomBar.dart';
+import 'package:tractors24/screens/LandingPage.dart';
 import 'package:tractors24/splash_screen/SplashScreen2.dart';
 
 
@@ -52,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SplashScreen5()),
+        MaterialPageRoute(builder: (context) => LandingPage()),
       );
     });
   }

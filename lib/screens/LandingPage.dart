@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:tractors24/screens/BottomNavigationBar/BottomBar.dart';
 import 'package:tractors24/screens/HomePageF.dart';
+import 'package:tractors24/screens/drawer.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -12,10 +11,10 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  int _selectedIndex = 0; // Track selected index
+  int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const HomePageF(), // Home screen
+    const HomePageF(),
     const Center(child: Text('EMI Calculator')),
     const Center(child: Text('Wishlist')),
     const Center(child: Text('Profile')),
@@ -25,7 +24,9 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        drawer: CustomDrawer(),
         bottomNavigationBar: CustomBottomNavBar(
+          selectedIndex: _selectedIndex,
           onItemSelected: (index) {
             setState(() {
               _selectedIndex = index;
@@ -34,16 +35,13 @@ class _LandingPageState extends State<LandingPage> {
         ),
         body: _pages[_selectedIndex],
         floatingActionButton: FloatingActionButton(
-          shape: CircleBorder(),
-          onPressed: () {
-            // Handle center button action
-          },
+          shape: const CircleBorder(),
+          onPressed: () {},
           backgroundColor: Colors.white,
           child: const Icon(Icons.add, color: Colors.black),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation
-            .centerDocked, // Switch content dynamically
-      ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      )
     );
   }
 }
