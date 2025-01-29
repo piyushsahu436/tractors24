@@ -10,9 +10,10 @@ import 'package:tractors24/screens/recommedWidget.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
 import 'package:tractors24/screens/contact_seller.dart';
 import 'package:tractors24/screens/profile_screen.dart';
-
-import 'package:tractors24/screens/SplashScreen2.dart';
-
+import 'package:tractors24/screens/drawer.dart';
+import 'package:tractors24/splash_screen/SplashScreen2.dart';
+import 'package:tractors24/screens/policies_screen.dart';
+import 'package:tractors24/screens/buyer_form.dart';
 
 
 void main() async {
@@ -63,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SplashScreen5 ()),
+        MaterialPageRoute(builder: (context) => PoliciesScreen()),
       );
     });
   }

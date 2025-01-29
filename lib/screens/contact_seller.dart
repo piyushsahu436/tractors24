@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ContactSellerScreen extends StatelessWidget {
-  const ContactSellerScreen({super.key});
+   ContactSellerScreen({super.key});
+
+  final TextEditingController _namecontactsellerController = TextEditingController();
+  final TextEditingController _mobileNumbercontactsellerController = TextEditingController();
+  final TextEditingController _messagecontactsellerController = TextEditingController();
+  final TextEditingController _pincodecontactsellerController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,7 @@ class ContactSellerScreen extends StatelessWidget {
 
           'Contact Seller',
           style: GoogleFonts.anybody(
-            fontSize: 32,
+            fontSize: 29,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -76,8 +81,16 @@ class ContactSellerScreen extends StatelessWidget {
 
                   // Form fields
                   TextField(
+                    controller:_namecontactsellerController,
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.person_outline ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/user (1).png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
                       hintText: 'Full Name',
                       hintStyle: GoogleFonts.anybody(
 
@@ -93,8 +106,16 @@ class ContactSellerScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height*0.01),
                   TextField(
+                    controller: _mobileNumbercontactsellerController,
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.phone ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/phone-call.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
                       hintText: 'Phone Number',
                       hintStyle: GoogleFonts.anybody(
 
@@ -111,8 +132,16 @@ class ContactSellerScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height*0.01),
                   TextField(
+                    controller:  _pincodecontactsellerController,
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.location_pin ),
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/placeholder.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
                       hintText: 'PinCode',
                       hintStyle: GoogleFonts.anybody(
                       ),
@@ -128,6 +157,7 @@ class ContactSellerScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height*0.01),
                   TextField(
+                    controller:_messagecontactsellerController ,
                     decoration: InputDecoration(
                       hintText: 'Message (Optional)',
                       hintStyle: GoogleFonts.anybody(

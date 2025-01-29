@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/AllItems.dart';
-import 'package:tractors24/screens/ContactInfo.dart';
+import 'package:tractors24/screens/contact_seller.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
+
+import '../contact_seller.dart';
 
 class GridViewBuilderWidget extends StatelessWidget {
   GridViewBuilderWidget({super.key, required this.itemCount});
@@ -20,7 +22,7 @@ class GridViewBuilderWidget extends StatelessWidget {
           crossAxisCount: 2, // Number of columns
           crossAxisSpacing: 10.0, // Spacing between columns
           mainAxisSpacing: 10.0, // Spacing between rows
-          childAspectRatio: 0.66, // Aspect ratio of each item
+          childAspectRatio: 0.62, // Aspect ratio of each item
         ),
         itemCount: itemCount, // Number of items
         itemBuilder: (context, index) {
@@ -174,7 +176,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const ContactSellerScreen(),
+                                       ContactSellerScreen(),
                                 ),
                               );
                             },

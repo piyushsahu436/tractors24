@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PersonalInfoScreen extends StatefulWidget {
@@ -10,11 +11,10 @@ class PersonalInfoScreen extends StatefulWidget {
 }
 
 class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
-  // Controllers for text fields
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _mobileController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _pinCodeController = TextEditingController();
+  final TextEditingController _nameprofileController = TextEditingController();
+  final TextEditingController _mobileprofileController = TextEditingController();
+  final TextEditingController _emailprofileController = TextEditingController();
+  final TextEditingController _pinCodeprofileController = TextEditingController();
 
   // Image picker instance
   final ImagePicker _picker = ImagePicker();
@@ -40,13 +40,19 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Select Image Source'),
+          title: Text('Select Image Source',
+              style: GoogleFonts.anybody(
+                fontSize: 20,
+              )),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const Icon(Icons.photo_library),
-                title: const Text('Gallery'),
+                leading: Icon(Icons.photo_library),
+                title: Text(
+                  'Gallery',
+                  style: GoogleFonts.anybody(),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   _pickImage(ImageSource.gallery);
@@ -54,7 +60,10 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               ),
               ListTile(
                 leading: const Icon(Icons.camera_alt),
-                title: const Text('Camera'),
+                title: Text(
+                  'Camera',
+                  style: GoogleFonts.anybody(),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   _pickImage(ImageSource.camera);
@@ -69,36 +78,30 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _mobileController.dispose();
-    _emailController.dispose();
-    _pinCodeController.dispose();
+    _nameprofileController.dispose();
+    _mobileprofileController.dispose();
+    _emailprofileController.dispose();
+    _pinCodeprofileController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        backgroundColor: const Color(0xFF0A2472),
-      ),
       body: SingleChildScrollView(
+
         child: Column(
           children: [
             // Top curved container
-            Container(
-              height: 150,
-              decoration: const BoxDecoration(
-                color: Color(0xFF0A2472),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
+           Container(
+
+              decoration:  BoxDecoration(
+                image: DecorationImage(image: AssetImage("assets/images/profilebackground.png"),
+               fit: BoxFit.cover),
+
                 ),
-              ),
+
               child: Center(
                 child: Stack(
                   alignment: Alignment.center,
@@ -107,11 +110,11 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                     CircleAvatar(
                       radius: 50,
                       backgroundColor: Colors.white,
-                      backgroundImage: _imageFile != null
-                          ? FileImage(_imageFile!)
-                          : null,
+                      backgroundImage:
+                          _imageFile != null ? FileImage(_imageFile!) : null,
                       child: _imageFile == null
-                          ? const Icon(Icons.person, size: 50, color: Colors.grey)
+                          ? const Icon(Icons.person,
+                              size: 50, color: Colors.grey)
                           : null,
                     ),
                     // Edit icon
@@ -173,13 +176,13 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  _buildTextField(_nameController, 'Name'),
+                  _buildTextField(_nameprofileController, 'Name'),
                   const SizedBox(height: 15),
-                  _buildTextField(_mobileController, 'Mobile Number'),
+                  _buildTextField(_mobileprofileController, 'Mobile Number'),
                   const SizedBox(height: 15),
-                  _buildTextField(_emailController, 'Email ID'),
+                  _buildTextField(_emailprofileController, 'Email ID'),
                   const SizedBox(height: 15),
-                  _buildTextField(_pinCodeController, 'Pin Code'),
+                  _buildTextField(_pinCodeprofileController, 'Pin Code'),
                   const SizedBox(height: 15),
 
                   // Change Password button

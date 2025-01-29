@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/screens/rto_page.dart';
-import 'package:tractors24/screens/SplashScreen2.dart';
+import 'package:tractors24/splash_screen/SplashScreen2.dart';
 import 'emi_cal.dart';
 
 

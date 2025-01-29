@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
+import 'package:tractors24/screens/drawer.dart';
+import 'drawer.dart';
 
 class HomePageF extends StatefulWidget {
   const HomePageF({super.key});
@@ -63,11 +65,19 @@ class _HomePageFState extends State<HomePageF> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(right: 8.0),
-                              child: Image(
-                                  image: AssetImage("assets/images/grp29.png")),
+                              child: GestureDetector(
+                                onTap: () {
+                                  // Open the drawer when the image is tapped
+                                  Scaffold.of(context).openDrawer();
+                                },
+                                child: Image(
+                                  image: AssetImage("assets/images/grp29.png"),
+                                ),
+                              ),
                             ),
+
                             SizedBox(
                               height: 45,
                               width: size.width * 0.6,
