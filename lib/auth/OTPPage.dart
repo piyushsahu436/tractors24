@@ -186,6 +186,7 @@ class _OTPPageState extends State<OTPPage> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                       child: ElevatedButton(
+                        onPressed: (){},
                         // onPressed: () async {
                         //   try {
                         //     PhoneAuthCredential credential =

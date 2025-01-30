@@ -1,8 +1,24 @@
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tractors24/screens/BottomNavigationBar/BottomBar.dart';
+import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/Grids/Brand_Grids.dart';
+import 'package:tractors24/screens/Grids/GridViewList.dart';
+import 'package:tractors24/screens/Grids/StatesGrids.dart';
+import 'package:tractors24/screens/HomePageF.dart';
 import 'package:tractors24/screens/LandingPage.dart';
-import 'package:tractors24/splash_screen/SplashScreen2.dart';
+import 'package:tractors24/screens/buyer_page.dart';
+import 'package:tractors24/screens/faq_list.dart';
+import 'package:tractors24/screens/loanEnquire.dart';
+import 'package:tractors24/screens/recommedWidget.dart';
+import 'package:tractors24/screens/update_profile_screen.dart';
+import 'package:tractors24/screens/contact_seller.dart';
+import 'package:tractors24/screens/profile_screen.dart';
+import 'package:tractors24/screens/policies_screen.dart';
+import 'package:tractors24/screens/faq_screen.dart';
+import 'package:tractors24/auth/sign_up1.dart';
+
+
 
 
 
@@ -54,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LandingPage()),
+        MaterialPageRoute(builder: (context) => SignUp1()),
       );
     });
   }

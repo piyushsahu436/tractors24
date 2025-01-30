@@ -80,9 +80,11 @@ class _LoginPageState extends State<LoginPage> {
                   controller: mobileController,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-                    hintText: 'Mobile No.',
+                    labelText: 'Mobile No.',
                     prefixText: '+91 ',
+                    hintText: "",
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -315,49 +317,44 @@ class Form_field extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   final String prefixtext;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      padding: const EdgeInsets.symmetric(vertical: 3.0),
       child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1), // Soft shadow
+              blurRadius: 10,
+              spreadRadius: 2,
+              offset: const Offset(2, 4), // Slight bottom shadow
+            ),
+          ],
+        ),
         child: TextFormField(
+
           controller: controller,
           keyboardType: TextInputType.phone,
           decoration: InputDecoration(
+            fillColor: Colors.white,
             hintText: hintText,
             hintStyle: GoogleFonts.anybody(
                 fontWeight: FontWeight.w400,
-                fontSize: 16,
+                fontSize: 15,
                 color: Color.fromRGBO(124, 139, 160, 1.0)),
             prefixText: prefixtext,
 
+
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+            contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            border: InputBorder.none,
           ),
         ),
       ),
-    );
-  }
-}
-
-class heading extends StatelessWidget {
-  const heading({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-         decoration: BoxDecoration(
-           color: Color(0xFF003B8F),
-           borderRadius: BorderRadius.circular(12),
-         ),
-          child: ImageIcon(AssetImage("assets/images/arrow.png")),
-        )
-       // Text("data")
-    ],
     );
   }
 }

@@ -19,6 +19,7 @@ final TextEditingController pincodeController = TextEditingController();
 class _SignUp1 extends State<SignUp1> {
   bool isTermsAccepted = false;
   bool isLoading = false;
+  bool isCustomerSelected = true;
 
   void _login(BuildContext context) {
     setState(() {
@@ -157,6 +158,65 @@ class _SignUp1 extends State<SignUp1> {
                         ),
                       ],
                     ),
+                    Text("I`m a", style: GoogleFonts.anybody(fontSize: 16,fontWeight: FontWeight.w600),),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isCustomerSelected = true;
+                            });
+                          },
+                          child: Expanded(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+                              decoration: BoxDecoration(
+                                color: isCustomerSelected ? Color(0xFF003B8F) : Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Color(0xFF003B8F), width: 2),
+                              ),
+                              child: Text(
+                                "Customer",
+                                style: GoogleFonts.poppins(
+                                  color: isCustomerSelected ? Colors.white : Colors.black,
+                                  fontWeight: FontWeight.w500,fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isCustomerSelected = false;
+                            });
+                          },
+                          child: Expanded(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+                              decoration: BoxDecoration(
+                                color: !isCustomerSelected ? Color(0xFF003B8F) : Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Color(0xFF003B8F), width: 2),
+                              ),
+                              child: Text(
+                                "Broker",
+                                style: GoogleFonts.poppins(
+                                  color: !isCustomerSelected ? Colors.white : Colors.black,
+                                  fontWeight: FontWeight.w500,fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    
+                    SizedBox(height: size.height * 0.01),
+
                     Form_field(
                         hintText: "Name",
                         controller: nameController,
