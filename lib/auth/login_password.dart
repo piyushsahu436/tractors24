@@ -20,6 +20,7 @@ class _LoginPage2 extends State<Login2> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isTermsAccepted = false;
   bool isLoading = false;
+  bool isCustomerSelected = true;
   // void _login(BuildContext context) {
   //   setState(() {
   //     isLoading = true;
@@ -119,18 +120,97 @@ class _LoginPage2 extends State<Login2> {
                             fit: BoxFit.fill,
                             image: AssetImage('assets/images/Wave.png')),
                       ),
-                      height: size.width * 0.3,
-                      width: size.width * 0.3,
+                      height: size.width * 0.25,
+                      width: size.width * 0.25,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(0),
                       child: Text('Login',
                           style: GoogleFonts.anybody(
-                            fontSize: 32,
+                            fontSize: 28,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xFF003B8F),
                           )),
                     ),
+                    SizedBox(height: 10,),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isCustomerSelected = true;
+                              });
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 30),
+                              decoration: BoxDecoration(
+                                color: isCustomerSelected
+                                    ? const Color(0xFF003B8F)
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                    color: const Color(0xFF003B8F), width: 2),
+                              ),
+                              child: Text(
+                                "Customer",
+                                style: GoogleFonts.poppins(
+                                  color: isCustomerSelected
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isCustomerSelected = false;
+                              });
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 30),
+                              decoration: BoxDecoration(
+                                color: !isCustomerSelected
+                                    ? const Color(0xFF003B8F)
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                    color: const Color(0xFF003B8F), width: 2),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "Dealer",
+                                      style: GoogleFonts.poppins(
+                                        color: !isCustomerSelected
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: size.height * 0.01),
+
                     SizedBox(height: size.height * 0.01),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -216,14 +296,42 @@ class _LoginPage2 extends State<Login2> {
                     ),
 
                     Form_field(
-                        hintText: "Name/Email",
+                        hintText: "Email",
                         controller: nameloginController,
                         prefixtext: ""),
                     SizedBox(height: size.height * 0.001),
-                    Form_field(
-                        hintText: "Password",
-                        controller: passwordloginController,
-                        prefixtext: ""),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1), // Soft shadow
+                              blurRadius: 10,
+                              spreadRadius: 2,
+                              offset: const Offset(2, 4), // Slight bottom shadow
+                            ),
+                          ],
+                        ),
+                        child: TextField(
+                          controller: passwordloginController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            hintText: 'Password',
+                            hintStyle: GoogleFonts.anybody(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
+                                color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                            suffixIcon: const Icon(Icons.visibility_off,
+                                color: Color(0xFF61677D)),
+                            contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ),
                     // TextField(
                     //   obscureText: true,
                     //   decoration: InputDecoration(
