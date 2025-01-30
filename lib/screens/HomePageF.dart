@@ -440,7 +440,7 @@ class _HomePageFState extends State<HomePageF> {
                           fontWeight: FontWeight.w400),
                     ),
                   ),
-                  const FAQList(),
+                  const FAQScreen(),
                 ],
               ),
             ],

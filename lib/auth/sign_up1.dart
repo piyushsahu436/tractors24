@@ -171,6 +171,7 @@ class _SignUp1 extends State<SignUp1> {
                           },
                           child: Expanded(
                             child: Container(
+                              height: size.height * 0.06,
                               padding: EdgeInsets.symmetric(vertical: 12, horizontal: 30),
                               decoration: BoxDecoration(
                                 color: isCustomerSelected ? Color(0xFF003B8F) : Colors.white,
@@ -196,6 +197,7 @@ class _SignUp1 extends State<SignUp1> {
                           },
                           child: Expanded(
                             child: Container(
+                              height: size.height * 0.06,
                               padding: EdgeInsets.symmetric(vertical: 12, horizontal: 30),
                               decoration: BoxDecoration(
                                 color: !isCustomerSelected ? Color(0xFF003B8F) : Colors.white,
@@ -203,7 +205,7 @@ class _SignUp1 extends State<SignUp1> {
                                 border: Border.all(color: Color(0xFF003B8F), width: 2),
                               ),
                               child: Text(
-                                "Broker",
+                                "   Broker   ",
                                 style: GoogleFonts.poppins(
                                   color: !isCustomerSelected ? Colors.white : Colors.black,
                                   fontWeight: FontWeight.w500,fontSize: 16,
