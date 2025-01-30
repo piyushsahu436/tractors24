@@ -279,7 +279,7 @@ class _SignUp1 extends State<SignUp1> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        "Broker",
+                                        "Dealer",
                                         style: GoogleFonts.poppins(
                                           color: !isCustomerSelected
                                               ? Colors.white
