@@ -6,6 +6,7 @@ import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/Grids/StatesGrids.dart';
 import 'package:tractors24/screens/drawer.dart';
+import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 
 class HomePageF extends StatefulWidget {
