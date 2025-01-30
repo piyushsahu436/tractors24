@@ -67,31 +67,10 @@ class _LoginPageState extends State<LoginPage> {
 
             // Mobile number input
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                decoration: BoxDecoration(boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black26,
-                    offset: Offset(0, 2),
-                    blurRadius: 6,
-                  ),
-                ]),
-                child: TextFormField(
-                  controller: mobileController,
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    labelText: 'Mobile No.',
-                    prefixText: '+91 ',
-                    hintText: "",
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Form_field(hintText: '    Mobile No.', controller: mobileController, prefixtext: '+91'),
             ),
+
 
             SizedBox(height: size.height * 0.02),
 
@@ -143,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>otpScreen(verificationid: verificationid,)));
                       },
                       codeAutoRetrievalTimeout: (String verificationId) {},
-                      phoneNumber: phoneController.text.toString());
+                      phoneNumber: mobileController.text.toString());
                   // OTP functionality will be added later
                 },
                 style: ElevatedButton.styleFrom(
@@ -338,7 +317,7 @@ class Form_field extends StatelessWidget {
         child: TextFormField(
 
           controller: controller,
-          keyboardType: TextInputType.phone,
+          // keyboardType: TextInputType.phone,
           decoration: InputDecoration(
             fillColor: Colors.white,
             hintText: hintText,
@@ -347,12 +326,16 @@ class Form_field extends StatelessWidget {
                 fontSize: 15,
                 color: Color.fromRGBO(124, 139, 160, 1.0)),
             prefixText: prefixtext,
-
-
             floatingLabelBehavior: FloatingLabelBehavior.always,
             contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
             border: InputBorder.none,
           ),
+          validator: (value) {
+            if (value == null || value.trim().isEmpty) {
+              return 'This field is required';
+            }
+            return null; // No error
+          },
         ),
       ),
     );
