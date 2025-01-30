@@ -7,6 +7,12 @@ class Loanenquire extends StatefulWidget {
   @override
   State<Loanenquire> createState() => _LoanenquireState();
 }
+final TextEditingController _nameController = TextEditingController();
+final TextEditingController _mobileNumberController = TextEditingController();
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _amountController = TextEditingController();
+final TextEditingController _vehicleController = TextEditingController();
+
 
 class _LoanenquireState extends State<Loanenquire> {
   final TextEditingController _nameloanController = TextEditingController();
