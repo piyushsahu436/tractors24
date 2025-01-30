@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tractors24/screens/otpScreen.dart';
+import 'package:tractors24/auth/otpScreen.dart';
 
 class Phoneauth extends StatefulWidget {
   const Phoneauth({super.key});

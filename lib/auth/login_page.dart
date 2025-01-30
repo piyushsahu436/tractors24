@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/auth/OTPPage.dart';
 import 'package:tractors24/auth/sign_up1.dart';
-import 'package:tractors24/screens/otpScreen.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

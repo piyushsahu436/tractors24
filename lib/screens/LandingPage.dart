@@ -23,25 +23,25 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        drawer: CustomDrawer(),
-        bottomNavigationBar: CustomBottomNavBar(
-          selectedIndex: _selectedIndex,
-          onItemSelected: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-        ),
-        body: _pages[_selectedIndex],
-        floatingActionButton: FloatingActionButton(
-          shape: const CircleBorder(),
-          onPressed: () {},
-          backgroundColor: Colors.white,
-          child: const Icon(Icons.add, color: Colors.black),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      )
+        child: Scaffold(
+          drawer: CustomDrawer(),
+          bottomNavigationBar: CustomBottomNavBar(
+            selectedIndex: _selectedIndex,
+            onItemSelected: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+          ),
+          body: _pages[_selectedIndex],
+          floatingActionButton: FloatingActionButton(
+            shape: const CircleBorder(),
+            onPressed: () {},
+            backgroundColor: Colors.white,
+            child: const Icon(Icons.add, color: Colors.black),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        )
     );
   }
 }

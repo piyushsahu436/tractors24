@@ -86,7 +86,7 @@ class ContactSellerScreen extends StatelessWidget {
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
                         child: Image.asset(
-                          'assets/icons/user (1).png',
+                          'assets/icons/user.png',
                           width: 24,
                           height: 24,
                         ),

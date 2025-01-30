@@ -17,6 +17,9 @@ import 'package:tractors24/screens/profile_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
+import 'package:tractors24/screens/DetailsPage.dart';
+import 'package:tractors24/screens/Seller_form.dart';
+import 'package:tractors24/screens/Seller_form2.dart';
 
 
 
@@ -70,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SignUp1()),
+        MaterialPageRoute(builder: (context) => SellerformScreen2()),
       );
     });
   }

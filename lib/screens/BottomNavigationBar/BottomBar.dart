@@ -3,8 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   final Function(int) onItemSelected;
+  final int selectedIndex;
 
-  const CustomBottomNavBar({Key? key, required this.onItemSelected}) : super(key: key);
+  const CustomBottomNavBar({Key? key, required this.onItemSelected, required this.selectedIndex}) : super(key: key);
 
   @override
   State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();

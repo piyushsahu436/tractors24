@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_page.dart';
 
-class BuyerformScreen extends StatelessWidget {
- BuyerformScreen({super.key});
-  final TextEditingController _brandbuyerformController = TextEditingController();
-  final TextEditingController _modelNumberbuyerformController = TextEditingController();
-  final TextEditingController _registrationyearbuyerformController = TextEditingController();
-  final TextEditingController _horsepowerbuyerformController = TextEditingController();
- final TextEditingController _hoursbuyerformController = TextEditingController();
- final TextEditingController _registratiobuyerformController = TextEditingController();
- final TextEditingController _insurancebuyerformController = TextEditingController();
- final TextEditingController _reartyrebuyerformController = TextEditingController();
+class SellerformScreen extends StatelessWidget {
+ SellerformScreen({super.key});
+  final TextEditingController _brandsellerformController = TextEditingController();
+  final TextEditingController _modelNumbersellerformController = TextEditingController();
+  final TextEditingController _registrationyearsellerformController = TextEditingController();
+  final TextEditingController _horsepowersellerformController = TextEditingController();
+ final TextEditingController _hourssellerformController = TextEditingController();
+ final TextEditingController _registratiosellerformController = TextEditingController();
+ final TextEditingController _insurancesellerformController = TextEditingController();
+ final TextEditingController _reartyresellerformController = TextEditingController();
+ final TextEditingController _pincodesellerformController = TextEditingController();
+ final TextEditingController _addresssellerformController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -19,7 +21,7 @@ class BuyerformScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Buyers Form',
+          'Seller Form',
           style: GoogleFonts.anybody(
             fontSize: 32,
             fontWeight: FontWeight.w600,
@@ -48,43 +50,38 @@ class BuyerformScreen extends StatelessWidget {
 
             // Product details
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Mahindra Arjun 555 DI',
-                    style: GoogleFonts.anybody(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.01),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                      ),
-                      SizedBox(height: size.height * 0.01),
-                      Text(
-                        'Indore, Madhya Pradesh',
-                        style: GoogleFonts.anybody(
-                            fontSize: 14, fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: size.height * 0.01),
-                  Text(
-                    '₹ 7,30,000',
-                    style: GoogleFonts.anybody(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.01),
-
                   TextField(
-                    controller: _brandbuyerformController ,
+                    controller: _pincodesellerformController ,
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/placeholder.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                      hintText: 'Pincode',
+                      hintStyle: GoogleFonts.anybody(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.01),
+                  TextField(
+                    controller:  _modelNumbersellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -110,7 +107,7 @@ class BuyerformScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller:  _modelNumberbuyerformController,
+                    controller:  _modelNumbersellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -136,7 +133,7 @@ class BuyerformScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller: _registrationyearbuyerformController,
+                    controller: _registrationyearsellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -163,7 +160,7 @@ class BuyerformScreen extends StatelessWidget {
                   SizedBox(height: size.height * 0.01),
 
                   TextField(
-                    controller: _horsepowerbuyerformController,
+                    controller: _horsepowersellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -190,7 +187,7 @@ class BuyerformScreen extends StatelessWidget {
                   SizedBox(height: size.height * 0.01),
 
                   TextField(
-                    controller: _hoursbuyerformController,
+                    controller: _hourssellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -214,8 +211,9 @@ class BuyerformScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller: _registratiobuyerformController,
+                    controller:_registratiosellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -241,7 +239,7 @@ class BuyerformScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller:_insurancebuyerformController,
+                    controller:_insurancesellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -267,7 +265,7 @@ class BuyerformScreen extends StatelessWidget {
                   ),
                   SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller: _reartyrebuyerformController,
+                    controller: _reartyresellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -291,6 +289,33 @@ class BuyerformScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: size.height * 0.01),
+                  TextField(
+                    controller:  _addresssellerformController,
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/placeholder.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                      hintText: 'Address',
+                      hintStyle: GoogleFonts.anybody(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.01),
 
                   // Send Inquiry Button
                   SizedBox(
@@ -307,7 +332,7 @@ class BuyerformScreen extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        'Post',
+                        'Next',
                         style: GoogleFonts.anybody(
                           color: Colors.white,
                           fontSize: 16,
