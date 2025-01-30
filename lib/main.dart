@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/auth/login_password.dart';
+import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/Grids/StatesGrids.dart';
@@ -73,7 +75,9 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SellerformScreen2()),
+
+        MaterialPageRoute(builder: (context) => LoginPage()),
+
       );
     });
   }

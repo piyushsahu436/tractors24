@@ -8,7 +8,9 @@ import 'package:tractors24/screens/LandingPage.dart';
 import 'package:tractors24/screens/homepage.dart';
 
 class OTPPage extends StatefulWidget {
- // String verificationid;
+
+  // String verificationid;
+
   OTPPage({super.key,});
 
   @override

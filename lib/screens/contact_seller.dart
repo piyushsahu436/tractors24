@@ -1,24 +1,63 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ContactSellerScreen extends StatelessWidget {
-   ContactSellerScreen({super.key});
+class ContactSellerScreen extends StatefulWidget {
+  ContactSellerScreen({super.key});
 
-  final TextEditingController _namecontactsellerController = TextEditingController();
-  final TextEditingController _mobileNumbercontactsellerController = TextEditingController();
-  final TextEditingController _messagecontactsellerController = TextEditingController();
-  final TextEditingController _pincodecontactsellerController = TextEditingController();
+  @override
+  State<ContactSellerScreen> createState() => _ContactSellerScreenState();
+}
+
+class _ContactSellerScreenState extends State<ContactSellerScreen> {
+  final TextEditingController _namecontactsellerController =
+      TextEditingController();
+  final TextEditingController _mobileNumbercontactsellerController =
+      TextEditingController();
+  final TextEditingController _messagecontactsellerController =
+      TextEditingController();
+  final TextEditingController _pincodecontactsellerController =
+      TextEditingController();
+
+  Future<void> addLoanEnquiry(BuildContext context) async {
+    try {
+      // Firestore instance
+      final firestore = FirebaseFirestore.instance;
+
+      // Adding data to loan_enquiries collection
+      await firestore.collection('inquiries').add({
+        'Name': _namecontactsellerController.text.trim(),
+        'ContactNo': _mobileNumbercontactsellerController.text.trim(),
+        'Message': _messagecontactsellerController.text.trim(),
+        'PinCode': _pincodecontactsellerController.text.trim(),
+        'status': "pending",
+        'timestamp': FieldValue.serverTimestamp(), // Optional for sorting
+      });
+
+      // Clear input fields
+      _namecontactsellerController.clear();
+      _mobileNumbercontactsellerController.clear();
+      _messagecontactsellerController.clear();
+      _pincodecontactsellerController.clear();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Inquiry added successfully!')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to add Inquiry: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-
-          'Contact Seller',
+          'Inquiry',
           style: GoogleFonts.anybody(
             fontSize: 29,
             fontWeight: FontWeight.w600,
@@ -51,37 +90,40 @@ class ContactSellerScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   Text(
+                  Text(
                     'Mahindra Arjun 555 DI',
                     style: GoogleFonts.anybody(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                   SizedBox(height: size.height*0.01),
+                  SizedBox(height: size.height * 0.01),
                   Row(
-                    children:  [
-                      Icon(Icons.location_on_outlined, ),
-                      SizedBox(height: size.height*0.01),
-                      Text('Indore, Madhya Pradesh', style: GoogleFonts.anybody(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400
-                      ),),
+                    children: [
+                      Icon(
+                        Icons.location_on_outlined,
+                      ),
+                      SizedBox(height: size.height * 0.01),
+                      Text(
+                        'Indore, Madhya Pradesh',
+                        style: GoogleFonts.anybody(
+                            fontSize: 14, fontWeight: FontWeight.w400),
+                      ),
                     ],
                   ),
-                  SizedBox(height: size.height*0.01),
-                   Text(
+                  SizedBox(height: size.height * 0.01),
+                  Text(
                     '₹ 7,30,000',
-                    style: GoogleFonts.anybody (
+                    style: GoogleFonts.anybody(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  SizedBox(height: size.height*0.01),
+                  SizedBox(height: size.height * 0.01),
 
                   // Form fields
                   TextField(
-                    controller:_namecontactsellerController,
+                    controller: _namecontactsellerController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -92,9 +134,7 @@ class ContactSellerScreen extends StatelessWidget {
                         ),
                       ),
                       hintText: 'Full Name',
-                      hintStyle: GoogleFonts.anybody(
-
-                      ),
+                      hintStyle: GoogleFonts.anybody(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -104,7 +144,7 @@ class ContactSellerScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: size.height*0.01),
+                  SizedBox(height: size.height * 0.01),
                   TextField(
                     controller: _mobileNumbercontactsellerController,
                     decoration: InputDecoration(
@@ -117,9 +157,7 @@ class ContactSellerScreen extends StatelessWidget {
                         ),
                       ),
                       hintText: 'Phone Number',
-                      hintStyle: GoogleFonts.anybody(
-
-                      ),
+                      hintStyle: GoogleFonts.anybody(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -130,9 +168,9 @@ class ContactSellerScreen extends StatelessWidget {
                     ),
                     keyboardType: TextInputType.phone,
                   ),
-                  SizedBox(height: size.height*0.01),
+                  SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller:  _pincodecontactsellerController,
+                    controller: _pincodecontactsellerController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -143,8 +181,7 @@ class ContactSellerScreen extends StatelessWidget {
                         ),
                       ),
                       hintText: 'PinCode',
-                      hintStyle: GoogleFonts.anybody(
-                      ),
+                      hintStyle: GoogleFonts.anybody(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -155,13 +192,12 @@ class ContactSellerScreen extends StatelessWidget {
                     ),
                     keyboardType: TextInputType.number,
                   ),
-                  SizedBox(height: size.height*0.01),
+                  SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller:_messagecontactsellerController ,
+                    controller: _messagecontactsellerController,
                     decoration: InputDecoration(
                       hintText: 'Message (Optional)',
-                      hintStyle: GoogleFonts.anybody(
-                      ),
+                      hintStyle: GoogleFonts.anybody(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -172,16 +208,14 @@ class ContactSellerScreen extends StatelessWidget {
                     ),
                     maxLines: 3,
                   ),
-                  SizedBox(height: size.height*0.01),
+                  SizedBox(height: size.height * 0.01),
 
                   // Send Inquiry Button
                   SizedBox(
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Implement send inquiry logic
-                      },
+                      onPressed:() => addLoanEnquiry(context),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF003B8F),
                         shape: RoundedRectangleBorder(
