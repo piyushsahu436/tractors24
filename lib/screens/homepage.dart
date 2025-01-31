@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
 import 'package:tractors24/screens/rto_page.dart';
 import 'package:tractors24/splash_screen/SplashScreen2.dart';
-import 'emi_cal.dart';
 
 
 class HomePage extends StatefulWidget {

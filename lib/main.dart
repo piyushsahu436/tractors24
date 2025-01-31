@@ -21,9 +21,6 @@ import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
 
 
-
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(); // Initialize Firebase here
@@ -72,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(builder: (context) => LandingPage()),
       );
     });
   }
