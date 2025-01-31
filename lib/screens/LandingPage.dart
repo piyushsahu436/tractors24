@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tractors24/screens/BottomNavigationBar/BottomBar.dart';
 import 'package:tractors24/screens/HomePageF.dart';
+import 'package:tractors24/screens/Seller_Form.dart';
 import 'package:tractors24/screens/drawer.dart';
 
 class LandingPage extends StatefulWidget {
@@ -36,7 +37,9 @@ class _LandingPageState extends State<LandingPage> {
         body: _pages[_selectedIndex],
         floatingActionButton: FloatingActionButton(
           shape: const CircleBorder(),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>SellerformScreen()));
+          },
           backgroundColor: Colors.white,
           child: const Icon(Icons.add, color: Colors.black),
         ),

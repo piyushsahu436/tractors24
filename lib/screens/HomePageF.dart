@@ -103,16 +103,20 @@ class _HomePageFState extends State<HomePageF> {
                             ),
                             const Padding(
                               padding:  EdgeInsets.only(left: 5,right: 3),
-                              child: Image(
-                                  image:
-                                      AssetImage("assets/images/location.png"),height: 18,),
+                              child: Expanded(
+                                child: Image(
+                                    image:
+                                        AssetImage("assets/images/location.png"),height: 18,),
+                              ),
                             ),
-                            Text(
-                              "Indore",
-                              style: GoogleFonts.anybody(
-                                color: Colors.white,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500,
+                            Expanded(
+                              child: Text(
+                                "Indore",
+                                style: GoogleFonts.anybody(
+                                  color: Colors.white,
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             )
                           ],
