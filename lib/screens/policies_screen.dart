@@ -15,45 +15,25 @@ class PoliciesScreen extends StatelessWidget {
             Container(
               height: size.height * 0.3,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/Vector3.png'),
                   fit: BoxFit.cover,
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 39), // Add space from top for status bar
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                            size: 24,
-                          ),
-                        ),
-                        SizedBox(width: 49), // Space between icon and text
-                        Text(
-                          'Privacy Policies',
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
+                    const SizedBox(
+                        height: 39), // Add space from top for status bar
+                     headerTemp(text: 'Privacy Policies',),
                     Expanded(
                       child: Center(
                         child: Image(
-                          image: AssetImage('assets/images/img.png'),
+                          image: const AssetImage('assets/images/img.png'),
                           width: size.width * 0.8,
                           height: size.height * 0.8,
                           fit: BoxFit.scaleDown,
@@ -186,6 +166,47 @@ class PoliciesScreen extends StatelessWidget {
                 ],
               ),
             )),
+      ],
+    );
+  }
+}
+
+class headerTemp extends StatelessWidget {
+   headerTemp({super.key, required this.text});
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child:  Container(decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/rect.png"),scale: 1)),
+            child: const Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                  size: 24,
+                ),
+              ],
+            ),
+          ),
+        ), // Space between icon and text
+        Expanded(
+          child: Center(
+            child: Text(
+              text,
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
