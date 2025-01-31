@@ -5,6 +5,7 @@ import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/auth/OTPPage.dart';
 import 'package:tractors24/auth/sign_up1.dart';
 import 'package:tractors24/screens/otpScreen.dart';
+import 'package:tractors24/screens/test.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
