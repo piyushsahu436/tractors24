@@ -18,7 +18,7 @@ class _SignUp1 extends State<SignUp1> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController pincodeController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String userType = 'Customer';
@@ -43,7 +43,7 @@ class _SignUp1 extends State<SignUp1> {
     setState(() => isLoading = true);
     try {
       final userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
@@ -143,7 +143,7 @@ class _SignUp1 extends State<SignUp1> {
                                 ),
                                 child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Image.asset(
                                         "assets/images/_Facebook.png",
@@ -198,7 +198,7 @@ class _SignUp1 extends State<SignUp1> {
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text('Or',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w400)),
@@ -230,6 +230,7 @@ class _SignUp1 extends State<SignUp1> {
                               onTap: () {
                                 setState(() {
                                   isCustomerSelected = true;
+                                  userType = 'Customer';
                                 });
                               },
                               child: Container(
@@ -261,6 +262,7 @@ class _SignUp1 extends State<SignUp1> {
                             child: GestureDetector(
                               onTap: () {
                                 setState(() {
+                                  userType = 'Dealer';
                                   isCustomerSelected = false;
                                 });
                               },
@@ -372,10 +374,10 @@ class _SignUp1 extends State<SignUp1> {
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
                                   color: const Color.fromRGBO(124, 139, 160, 1.0)),
-                                  suffixIcon: const Icon(Icons.visibility_off,
+                              suffixIcon: const Icon(Icons.visibility_off,
                                   color: Color(0xFF61677D)),
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                                  border: InputBorder.none,
+                              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                              border: InputBorder.none,
                             ),
                           ),
                         ),
@@ -448,15 +450,15 @@ class _SignUp1 extends State<SignUp1> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                                onPressed:isLoading
-                                    ? null
-                                    : () {
-                                  if (formKey.currentState!.validate()) {
-                                    _signUp();  // Call sign-up function only if valid
-                                  }
-                                },
-                                  // isTermsAccepted ? () => _login(context) : null,
-                                style: ElevatedButton.styleFrom(
+                              onPressed:isLoading
+                                  ? null
+                                  : () {
+                                if (formKey.currentState!.validate()) {
+                                  _signUp();  // Call sign-up function only if valid
+                                }
+                              },
+                              // isTermsAccepted ? () => _login(context) : null,
+                              style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF003B8F),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -464,14 +466,14 @@ class _SignUp1 extends State<SignUp1> {
                               ),
                               child: isLoading
                                   ? const CircularProgressIndicator(
-                                      color: Colors.white)
+                                  color: Colors.white)
                                   : Text(
-                                      'Create Account',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                'Create Account',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                         ],

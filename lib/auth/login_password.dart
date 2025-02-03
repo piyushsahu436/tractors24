@@ -7,6 +7,8 @@ import 'package:tractors24/auth/sign_up1.dart';
 import 'package:tractors24/screens/HomePageF.dart';
 import 'package:tractors24/screens/LandingPage.dart';
 
+import '../screens/dealer_dashboard/home_screen.dart';
+
 class Login2 extends StatefulWidget {
   const Login2({super.key});
 
@@ -57,7 +59,7 @@ class _LoginPage2 extends State<Login2> {
 
       final userType = userDoc.data()?['userType'] as String?;
       final route = MaterialPageRoute(
-        builder: (_) => userType == 'Customer' ? const LandingPage() : const LandingPage(),
+        builder: (_) => userType == 'Customer' ? const LandingPage() :  DealerDashboard(),
       );
 
       Navigator.pushReplacement(context, route);
@@ -412,13 +414,13 @@ class _LoginPage2 extends State<Login2> {
                       width: 320,
                       height: 50,
                       child: ElevatedButton(
-                          onPressed:isLoading
-                              ? null
-                              : () {
-                            if (formKey.currentState!.validate()) {
-                              _login(context);  // Call sign-up function only if valid
-                            }
-                          },// isTermsAccepted ? () => _login(context) : null,
+                        onPressed:isLoading
+                            ? null
+                            : () {
+                          if (formKey.currentState!.validate()) {
+                            _login(context);  // Call sign-up function only if valid
+                          }
+                        },// isTermsAccepted ? () => _login(context) : null,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF003B8F),
                           shape: RoundedRectangleBorder(
@@ -428,12 +430,12 @@ class _LoginPage2 extends State<Login2> {
                         child: isLoading
                             ? const CircularProgressIndicator(color: Colors.white)
                             : const Text(
-                                'Login',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                              ),
+                          'Login',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(height: size.height * 0.01),
@@ -447,7 +449,7 @@ class _LoginPage2 extends State<Login2> {
                           Text(
                             "Don't have account? ",
                             style:
-                                GoogleFonts.anybody(fontWeight: FontWeight.w400),
+                            GoogleFonts.anybody(fontWeight: FontWeight.w400),
                           ),
                           TextButton(
                             onPressed: () {

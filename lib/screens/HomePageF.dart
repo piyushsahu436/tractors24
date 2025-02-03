@@ -107,12 +107,14 @@ class _HomePageFState extends State<HomePageF> {
                                   image:
                                       AssetImage("assets/images/location.png"),height: 18,),
                             ),
-                            Text(
-                              "Indore",
-                              style: GoogleFonts.anybody(
-                                color: Colors.white,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w500,
+                            Expanded(
+                              child: Text(
+                                "Indore",
+                                style: GoogleFonts.anybody(
+                                  color: Colors.white,
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             )
                           ],

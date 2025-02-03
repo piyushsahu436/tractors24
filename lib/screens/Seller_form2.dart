@@ -1,20 +1,99 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tractors24/auth/login_page.dart';
 
-class SellerformScreen2 extends StatelessWidget {
+class SellerformScreen2 extends StatefulWidget {
   SellerformScreen2({super.key});
+
+  @override
+  State<SellerformScreen2> createState() => _SellerformScreen2State();
+}
+
+class _SellerformScreen2State extends State<SellerformScreen2> {
   final TextEditingController _sfbreak = TextEditingController();
+
   final TextEditingController _sfTransmission = TextEditingController();
+
   final TextEditingController _spPto = TextEditingController();
+
   final TextEditingController _sfCc = TextEditingController();
+
   final TextEditingController _sfCooling = TextEditingController();
+
   final TextEditingController _sfLifting = TextEditingController();
+
   final TextEditingController sfSteering = TextEditingController();
+
   final TextEditingController _sfClutch = TextEditingController();
+
   final TextEditingController _sfOil = TextEditingController();
+
   final TextEditingController _sffuel = TextEditingController();
+
   final TextEditingController _sfKm = TextEditingController();
+
+  final ImagePicker _picker = ImagePicker();
+
+  File? _imageFile;
+
+  // Function to pick image from gallery or camera
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        setState(() {
+          _imageFile = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      debugPrint('Error picking image: $e');
+    }
+  }
+
+  // Show image source selection dialog
+  void _showImageSourceDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select Image Source',
+              style: GoogleFonts.anybody(
+                fontSize: 20,
+              )),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.photo_library),
+                title: Text(
+                  'Gallery',
+                  style: GoogleFonts.anybody(),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: Text(
+                  'Camera',
+                  style: GoogleFonts.anybody(),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +120,46 @@ class SellerformScreen2 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: 200,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/Rectangle 23807.png'),
-                  fit: BoxFit.cover,
+              height: 240,
+              child: Stack(children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 0),
+                  child: Container(
+                    height: 200,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/Rectangle 23807.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                  top: 160,
+                  right: 30,
+                  child: GestureDetector(
+                    onTap: _showImageSourceDialog,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300, // Shadow color
+                            spreadRadius: 3, // Spread of shadow
+                            blurRadius: 20, // Blur effect
+                            offset: Offset(2, 12), // Shadow position
+                          ),
+                        ],
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 40,
+                        child:Image.asset("assets/icons/camera.png",height: 35,),
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
             ),
 
             // Product details

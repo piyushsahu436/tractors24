@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
 import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/news.dart';
-import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/testimonials.dart';
@@ -12,6 +12,7 @@ class CustomDrawer extends StatelessWidget {
   final String userName = "John Doe";
   final String userEmail = "john.doe@example.com";
   final String userPhotoUrl = "https://via.placeholder.com/150";
+
 
   const CustomDrawer({super.key});
 
