@@ -23,6 +23,7 @@ import 'package:tractors24/screens/Seller_form.dart';
 import 'package:tractors24/screens/Seller_form2.dart';
 import 'package:tractors24/screens/testimonials.dart';
 import 'package:tractors24/screens/add_detailspage.dart';
+import 'package:tractors24/screens/search.dart';
 
 
 
@@ -77,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       Navigator.pushReplacement(
         context,
 
-        MaterialPageRoute(builder: (context) => Testimonials()),
+        MaterialPageRoute(builder: (context) => SearchTractor()),
 
       );
     });

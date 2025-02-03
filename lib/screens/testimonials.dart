@@ -116,9 +116,10 @@ class _TestimonialsState extends State<Testimonials> {
                       onPressed: () {
                         // Image picker logic
                       },
-                      icon: const Icon(Icons.upload),
+                      icon: const Icon(Icons.upload,color: Color(0xFF0A2472),),
                       label:  Text('Upload', style: GoogleFonts.poppins(color:Color(0xFF0A2472)),),
                       style: OutlinedButton.styleFrom(
+                        minimumSize: Size(150, 50),
                         side: BorderSide(color: Color(0xFF0A2472)!),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -145,9 +146,10 @@ class _TestimonialsState extends State<Testimonials> {
                       onPressed: () {
                         // Media picker logic
                       },
-                      icon: const Icon(Icons.upload),
+                      icon: const Icon(Icons.upload,color: Color(0xFF0A2472),),
                       label:  Text('Upload', style: GoogleFonts.poppins(color:Color(0xFF0A2472)),),
                       style: OutlinedButton.styleFrom(
+                        minimumSize: Size(150, 50),
                         side: BorderSide(color:Color(0xFF0A2472)!),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -166,9 +168,11 @@ class _TestimonialsState extends State<Testimonials> {
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+
+                      backgroundColor: Color(0xFF0A2472),
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(
+
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
