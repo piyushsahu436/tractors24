@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tractors24/auth/login_page.dart';
@@ -22,6 +21,8 @@ import 'package:tractors24/auth/sign_up1.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/Seller_form.dart';
 import 'package:tractors24/screens/Seller_form2.dart';
+import 'package:tractors24/screens/testimonials.dart';
+import 'package:tractors24/screens/add_detailspage.dart';
 
 
 
@@ -76,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       Navigator.pushReplacement(
         context,
 
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(builder: (context) => Testimonials()),
 
       );
     });

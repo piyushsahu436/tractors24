@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_password.dart';
-import 'package:tractors24/auth/OTPPage.dart';
+import 'package:tractors24/auth/otpScreen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
 
 
