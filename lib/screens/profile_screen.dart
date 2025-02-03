@@ -95,15 +95,15 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
         child: Column(
           children: [
             // Top curved container
-           Container(
-             height: 120,
+            Container(
+              height: 120,
               decoration:  BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(22),topRight: Radius.circular(22)),
+                color: Colors.white,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(22),topRight: Radius.circular(22)),
                 image: DecorationImage(image: AssetImage("assets/images/profilebackground.png"),
-               fit: BoxFit.cover),
+                    fit: BoxFit.cover),
 
-                ),
+              ),
 
               child: Center(
                 child: Stack(
@@ -114,10 +114,10 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                       radius: 50,
                       backgroundColor: Colors.white,
                       backgroundImage:
-                          _imageFile != null ? FileImage(_imageFile!) : null,
+                      _imageFile != null ? FileImage(_imageFile!) : null,
                       child: _imageFile == null
                           ? const Icon(Icons.person,
-                              size: 50, color: Colors.grey)
+                          size: 50, color: Colors.grey)
                           : null,
                     ),
                     // Edit icon
@@ -141,7 +141,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
             const SizedBox(height: 20),
 
             // Personal Info text
-             Text(
+            Text(
               'Personal Info',
               style: GoogleFonts.anybody(
                 fontSize: 24,
@@ -257,21 +257,21 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   Widget _buildClickableText(String clickText, String description) {
     return Row(
       children: [
-        Text(
-          '$clickText ',
-          style: GoogleFonts.anybody(
-            fontSize: 14.0,
-            fontWeight: FontWeight.bold,
-            color: Color.fromRGBO(0, 59, 143, 1),
-            decoration: TextDecoration.underline,
-          ),
-        ),
-        Text(description, style: GoogleFonts.anybody(
-          fontSize: 16.0,
-          fontWeight: FontWeight.w400,
-          color: Colors.black,
-        ),),
-      ],
+      Text(
+      '$clickText ',
+      style: GoogleFonts.anybody(
+        fontSize: 14.0,
+        fontWeight: FontWeight.bold,
+        color: Color.fromRGBO(0, 59, 143, 1),
+        decoration: TextDecoration.underline,
+      ),
+    ),
+    Text(description, style: GoogleFonts.anybody(
+    fontSize: 16.0,
+    fontWeight: FontWeight.w400,
+    color: Colors.black,
+    ),),
+    ],
     );
-  }
+    }
 }

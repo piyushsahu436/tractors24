@@ -14,8 +14,7 @@ class SellerformScreen extends StatefulWidget {
 }
 
 class _SellerformScreenState extends State<SellerformScreen> {
-  final TextEditingController _brandsellerformController =
-      TextEditingController();
+  final TextEditingController brandController = TextEditingController();
   final TextEditingController _modelNumbersellerformController =
       TextEditingController();
   final TextEditingController _registrationyearsellerformController =
@@ -34,6 +33,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
       TextEditingController();
   final TextEditingController _addresssellerformController =
       TextEditingController();
+  final TextEditingController _amountCont = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   File? _imageFile;
 
@@ -152,7 +152,10 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
                         radius: 40,
-                        child:Image.asset("assets/icons/camera.png",height: 35,),
+                        child: Image.asset(
+                          "assets/icons/camera.png",
+                          height: 35,
+                        ),
                       ),
                     ),
                   ),
@@ -197,7 +200,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                   ),
                   SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller: _modelNumbersellerformController,
+                    controller: brandController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: EdgeInsets.all(15.0),
@@ -234,6 +237,33 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Model',
+                      hintStyle: GoogleFonts.anybody(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.01),
+
+                  TextField(
+                    controller: _amountCont,
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/power.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                      hintText: 'Price',
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
@@ -442,7 +472,19 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SellerformScreen2()));
+                                builder: (context) => SellerFormScreen2(
+                                      pincode: _pincodesellerformController,
+                                      brand: brandController,
+                                      model: _modelNumbersellerformController,
+                                      horsePower: _horsepowersellerformController,
+                                      RegNum: _registratiosellerformController,
+                                      RegistrationYear: _registrationyearsellerformController,
+                                      Hours: _hourssellerformController,
+                                      RearTyre: _reartyresellerformController,
+                                      InStatus: _insurancesellerformController,
+                                      Address: _addresssellerformController,
+                                      amount: _amountCont,
+                                    )));
                         // Implement send inquiry logic
                       },
                       style: ElevatedButton.styleFrom(

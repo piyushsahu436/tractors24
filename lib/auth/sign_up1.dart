@@ -49,7 +49,7 @@ class _SignUp1 extends State<SignUp1> {
       );
 
       await FirebaseFirestore.instance
-          .collection('tractors24')
+          .collection('users')
           .doc(userCredential.user!.uid)
           .set({
         'name': nameController.text.trim(),
