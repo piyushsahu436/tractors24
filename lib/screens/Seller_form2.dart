@@ -1,38 +1,49 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tractors24/auth/login_page.dart';
 
-class SellerformScreen2 extends StatefulWidget {
-  SellerformScreen2({super.key});
+class SellerFormScreen2 extends StatefulWidget {
+  const SellerFormScreen2(
+      {super.key,
+      required this.pincode,
+      required this.brand,
+      required this.model,
+      required this.RegistrationYear,
+      required this.horsePower,
+      required this.Hours,
+      required this.RegNum,
+      required this.InStatus,
+      required this.RearTyre,
+      required this.Address, required this.amount});
+  final TextEditingController pincode;
+  final TextEditingController brand;
+  final TextEditingController model;
+  final TextEditingController RegistrationYear;
+  final TextEditingController horsePower;
+  final TextEditingController Hours;
+  final TextEditingController RegNum;
+  final TextEditingController InStatus;
+  final TextEditingController RearTyre;
+  final TextEditingController Address;
+  final TextEditingController amount;
 
   @override
-  State<SellerformScreen2> createState() => _SellerformScreen2State();
+  State<SellerFormScreen2> createState() => _SellerFormScreen2State();
 }
 
-class _SellerformScreen2State extends State<SellerformScreen2> {
+  class _SellerFormScreen2State extends State<SellerFormScreen2> {
   final TextEditingController _sfbreak = TextEditingController();
-
   final TextEditingController _sfTransmission = TextEditingController();
-
   final TextEditingController _spPto = TextEditingController();
-
   final TextEditingController _sfCc = TextEditingController();
-
   final TextEditingController _sfCooling = TextEditingController();
-
   final TextEditingController _sfLifting = TextEditingController();
-
   final TextEditingController sfSteering = TextEditingController();
-
   final TextEditingController _sfClutch = TextEditingController();
-
   final TextEditingController _sfOil = TextEditingController();
-
   final TextEditingController _sffuel = TextEditingController();
-
   final TextEditingController _sfKm = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
@@ -67,7 +78,7 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.photo_library),
+                leading: const Icon(Icons.photo_library),
                 title: Text(
                   'Gallery',
                   style: GoogleFonts.anybody(),
@@ -94,6 +105,56 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
       },
     );
   }
+
+  Future<void> addTractor() async {
+    try {
+      final tractorData = {
+        "brand": widget.brand.text.trim(),
+        "model": widget.model.text.trim(),
+        "registrationNumber": widget.RegNum.text.trim(),
+        "registrationYear": widget.RegistrationYear.text.trim(),
+        "horsePower": widget.horsePower.text.trim(),
+        "hours": widget.Hours.text.trim(),
+        "category": "popular",
+        // "state": stateController.text.trim(),
+        "address": widget.Address.text.trim(),
+        "createdAt": FieldValue.serverTimestamp(),
+        "updatedAt": FieldValue.serverTimestamp(),
+        "description": "",
+        // "district": "Pune", // Example: Replace with dynamic input if needed
+        "insuranceStatus": widget.InStatus.text.trim(), // Example: Replace with dynamic input if needed
+        "listingDate": DateTime.now().toUtc().toIso8601String(),
+        "pincode": widget.pincode.text.trim(), // Example: Replace with dynamic input if needed
+        "rearTyre": widget.RearTyre.text.trim(), // Example: Replace with dynamic input if needed
+        "sellPrice": widget.amount.text.trim(), // Example: Replace with dynamic input if needed
+        // "showroomPrice": "1000000", // Example: Replace with dynamic input if needed
+        "status": "pending",
+        "break":_sfbreak.text.trim(),
+        "Transmission":_sfTransmission.text.trim(),
+        "Pto":_spPto.text.trim() ,
+        "CC":_sfCc.text.trim()  ,
+        "Cooling":_sfCooling.text.trim(),
+        "Lifting Capacity":_sfLifting.text.trim(),
+        "Steering Type":sfSteering.text.trim(),
+        "Clutch Type":_sfClutch.text.trim(),
+        "Engine Oil Capacity":_sfOil.text.trim() ,
+        "Fuel":_sffuel.text.trim() ,
+        "Running KM" : _sfKm.text.trim(),
+        // "viewCount": 0,
+      };
+
+      await FirebaseFirestore.instance.collection('tractors').add(tractorData);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Tractor added successfully!'),
+      ));
+      Navigator.pop(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Failed to add tractor: $e'),
+      ));
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -147,14 +208,17 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                             color: Colors.grey.shade300, // Shadow color
                             spreadRadius: 3, // Spread of shadow
                             blurRadius: 20, // Blur effect
-                            offset: Offset(2, 12), // Shadow position
+                            offset: const Offset(2, 12), // Shadow position
                           ),
                         ],
                       ),
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
                         radius: 40,
-                        child:Image.asset("assets/icons/camera.png",height: 35,),
+                        child: Image.asset(
+                          "assets/icons/camera.png",
+                          height: 35,
+                        ),
                       ),
                     ),
                   ),
@@ -169,10 +233,10 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextField(
-                    controller: _sfbreak ,
+                    controller: _sfbreak,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/break.png',
                           width: 24,
@@ -183,7 +247,7 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -195,10 +259,10 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                   ),
                   SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller:  _sfTransmission,
+                    controller: _sfTransmission,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/transmission.png',
                           width: 24,
@@ -209,33 +273,7 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.01),
-                  TextField(
-                    controller:  _sfTransmission,
-                    decoration: InputDecoration(
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          'assets/icons/energy.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      ),
-                      hintText: 'PTO',
-                      hintStyle: GoogleFonts.anybody(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -250,18 +288,18 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                     controller: _spPto,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
-                          'assets/icons/cc.png',
+                          'assets/icons/energy.png',
                           width: 24,
                           height: 24,
                         ),
                       ),
-                      hintText: 'CC',
+                      hintText: 'PTO',
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -272,23 +310,22 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                     ),
                   ),
                   SizedBox(height: size.height * 0.01),
-
                   TextField(
                     controller: _sfCc,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
-                          'assets/icons/fan.png',
+                          'assets/icons/cc.png',
                           width: 24,
                           height: 24,
                         ),
                       ),
-                      hintText: 'Cooling',
+                      hintText: 'CC',
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -304,7 +341,34 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                     controller: _sfCooling,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/fan.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                      hintText: 'Cooling',
+                      hintStyle: GoogleFonts.anybody(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.01),
+
+                  TextField(
+                    controller: _sfLifting,
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/settings.png',
                           width: 24,
@@ -315,7 +379,7 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -327,10 +391,10 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                   ),
                   SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller: _sfLifting,
+                    controller: sfSteering,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/steering.png',
                           width: 24,
@@ -341,33 +405,7 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.01),
-                  TextField(
-                    controller:sfSteering,
-                    decoration: InputDecoration(
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          'assets/icons/clutch.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      ),
-                      hintText: 'Clutch Type',
-                      hintStyle: GoogleFonts.anybody(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -382,7 +420,33 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                     controller: _sfClutch,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/clutch.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                      hintText: 'Clutch Type',
+                      hintStyle: GoogleFonts.anybody(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.01),
+                  TextField(
+                    controller: _sfOil,
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/oil.png',
                           width: 24,
@@ -393,7 +457,7 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -405,10 +469,10 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                   ),
                   SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller:  _sfKm,
+                    controller: _sfKm,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/km.png',
                           width: 24,
@@ -419,7 +483,7 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -431,10 +495,10 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                   ),
                   SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller:  _sffuel,
+                    controller: _sffuel,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/gas.png',
                           width: 24,
@@ -445,7 +509,7 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -461,9 +525,7 @@ class _SellerformScreen2State extends State<SellerformScreen2> {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Implement send inquiry logic
-                      },
+                      onPressed: addTractor,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF003B8F),
                         shape: RoundedRectangleBorder(

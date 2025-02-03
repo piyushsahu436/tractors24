@@ -47,7 +47,7 @@ class _LoginPage2 extends State<Login2> {
       if (!mounted) return;
 
       final userDoc = await FirebaseFirestore.instance
-          .collection('tractors24')
+          .collection('users')
           .doc(userCredential.user?.uid)
           .get();
 
