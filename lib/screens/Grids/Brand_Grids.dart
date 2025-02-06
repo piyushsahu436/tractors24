@@ -9,7 +9,8 @@ class GridItem {
 }
 
 class BrandGrids extends StatelessWidget {
-  BrandGrids({super.key});
+  BrandGrids({super.key, required this.itemCount});
+  final int itemCount;
 
   final List<GridItem> gridItems = [
     GridItem(imageUrl: 'assets/images/JohnDeerL.png', title: 'John Deer'),
@@ -40,14 +41,9 @@ class BrandGrids extends StatelessWidget {
     GridItem(imageUrl: 'assets/images/solis.jpg', title: 'Solis'),
     GridItem(imageUrl: 'assets/images/standard.jpg', title: 'Standard'),
     GridItem(imageUrl: 'assets/images/swaraj.png.jpg', title: 'Swaraj'),
-    GridItem(imageUrl: 'assets/images/trackstar.jpg', title: 'TRAKSTAR'),
+    GridItem(imageUrl: 'assets/images/trakstar.jpg', title: 'TRAKSTAR'),
     GridItem(imageUrl: 'assets/images/valdo.jpg', title: 'Valdo'),
-    GridItem(imageUrl: 'assets/images/autonxt.jpg', title: 'AutoNxt'),
-    GridItem(imageUrl: 'assets/images/autonxt.jpg', title: 'AutoNxt'),
-    GridItem(imageUrl: 'assets/images/autonxt.jpg', title: 'AutoNxt'),
-    GridItem(imageUrl: 'assets/images/autonxt.jpg', title: 'AutoNxt'),
-
-
+    GridItem(imageUrl: 'assets/images/vst-shakti.jpg', title: 'VST Shakti'),
   ];
 
   @override
@@ -63,50 +59,53 @@ class BrandGrids extends StatelessWidget {
           mainAxisSpacing: 20.0, // Spacing between rows
           childAspectRatio: 0.7, // Aspect ratio of each item
         ),
-        itemCount: gridItems.length, // Number of items
+        itemCount: itemCount, // Number of items
         itemBuilder: (context, index) {
           final item = gridItems[index];
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black26,
-                  offset: Offset(0.5, 0.99),
-                  blurRadius: 6,
+          return GestureDetector(
+            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>const Scaffold()));},
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0.5, 0.99),
+                      blurRadius: 6,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: Column(mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Expanded(
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(8),
-                      ),
-                      child: Image.asset(
-                        item.imageUrl,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
+                child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(8),
+                          ),
+                          child: Image.asset(
+                            item.imageUrl,
+                            fit: BoxFit.fill,
+                            width: double.infinity,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Expanded(
-                    child: Text(item.title,style: GoogleFonts.anybody(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 8
-                    ),),
-                  ),
-                ),
-              ],
-            )
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(item.title,style: GoogleFonts.anybody(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 8
+                        ),),
+                      ),
+                    ),
+                  ],
+                )
+            ),
           );
         },
       ),

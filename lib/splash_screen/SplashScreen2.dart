@@ -28,7 +28,7 @@ class SplashScreen5 extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         // Replace NextScreen with your actual next screen
-                        builder: (context) => LanguagePage(),
+                        builder: (context) =>LanguagePage(),
                       ),
                     );
                   },
@@ -73,7 +73,7 @@ class SplashScreen5 extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               // Replace with your actual image path
               child: Image.asset(
-                'assets/images/img_1.png',
+                'assets/images/trac.png',
                 height: 150,
               ),
             ),

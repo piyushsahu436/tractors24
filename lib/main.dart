@@ -27,6 +27,7 @@ import 'package:tractors24/screens/search.dart';
 import 'package:tractors24/screens/notification.dart';
 import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
 import 'package:tractors24/screens/avani.dart';
+import 'package:tractors24/splash_screen/SplashScreen2.dart';
 
 
 
@@ -79,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       Navigator.pushReplacement(
         context,
 
-        MaterialPageRoute(builder: (context) => EMICalculatorScreen()),
+        MaterialPageRoute(builder: (context) =>  SplashScreen5()),
 
       );
     });

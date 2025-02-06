@@ -6,7 +6,7 @@ import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/auth/sign_up1.dart';
 import 'package:tractors24/screens/HomePageF.dart';
 import 'package:tractors24/screens/LandingPage.dart';
-
+import 'package:tractors24/screens/profile_screen.dart';
 import '../screens/dealer_dashboard/home_screen.dart';
 
 class Login2 extends StatefulWidget {
@@ -23,17 +23,17 @@ class _LoginPage2 extends State<Login2> {
   bool isTermsAccepted = false;
   bool isLoading = false;
   bool isCustomerSelected = true;
-  // void _login(BuildContext context) {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //
-  //   Future.delayed(const Duration(seconds: 2), () {
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   });
-  // }
+  void _loging(BuildContext context) {
+    setState(() {
+      isLoading = true;
+    });
+
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
   Future<void> _login(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
 
@@ -192,14 +192,16 @@ class _LoginPage2 extends State<Login2> {
                               child: Row(
                                 children: [
                                   Expanded(
-                                    child: Text(
-                                      "Dealer",
-                                      style: GoogleFonts.poppins(
-                                        color: !isCustomerSelected
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16,
+                                    child: Center(
+                                      child: Text(
+                                        "Dealer",
+                                        style: GoogleFonts.poppins(
+                                          color: !isCustomerSelected
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -334,111 +336,41 @@ class _LoginPage2 extends State<Login2> {
                         ),
                       ),
                     ),
-                    // TextField(
-                    //   obscureText: true,
-                    //   decoration: InputDecoration(
-                    //     hintText: 'Password',
-                    //     hintStyle: GoogleFonts.anybody(
-                    //         fontWeight: FontWeight.w400,
-                    //         fontSize: 16,
-                    //         color: Color.fromRGBO(124, 139, 160, 1.0)),
-                    //     suffixIcon: Icon(Icons.visibility_off,
-                    //         color: Color(
-                    //             0xFF61677D)), //have to make this icon functional
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(15.0),
-                    //       borderSide: BorderSide.none,
-                    //     ),
-                    //     contentPadding:
-                    //         EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    //   ),
-                    // ),
                     Row(
                       children: [
-                        Transform.scale(
-                          scale: 1.3,
-                          child: Checkbox(
-                            value: isTermsAccepted,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isTermsAccepted = value ?? false;
-                              });
-                            },
-                            side: const BorderSide(
-                              color: Color(0xFF003B8F),
-                              width: 1.0,
-                            ),
-                            activeColor: const Color(
-                                0xFF003B8F), // Optional: Color when the checkbox is checked
-                            checkColor: Colors.white,
-                          ),
-                        ),
-                        Expanded(
-                          child: RichText(
-                            text: TextSpan(
-                              style: const TextStyle(color: Colors.black),
-                              children: [
-                                TextSpan(
-                                    text: "I'm agree to the ",
-                                    style: GoogleFonts.anybody(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400)),
-                                TextSpan(
-                                  text: "Term's of Service",
-                                  style: GoogleFonts.anybody(
-                                    color: const Color(0xFF003B8F),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                TextSpan(
-                                    text: " and ",
-                                    style: GoogleFonts.anybody(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400)),
-                                TextSpan(
-                                  text: "Privacy Policy",
-                                  style: GoogleFonts.anybody(
-                                    color: const Color(0xFF003B8F),
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        SizedBox(height: 50,),
+
+                        _buildClickableTexts(" Forget Password?", "")
                       ],
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 5),
                     Container(
-                      width: 320,
+                      width: 340,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed:isLoading
-                            ? null
-                            : () {
-                          if (formKey.currentState!.validate()) {
-                            _login(context);  // Call sign-up function only if valid
-                          }
-                        },// isTermsAccepted ? () => _login(context) : null,
+                        onPressed: () {
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context)=> HomePageF())
+                        );
+                          },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF003B8F),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: isLoading
-                            ? const CircularProgressIndicator(color: Colors.white)
-                            : const Text(
+                        child: Text(
                           'Login',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
                           ),
                         ),
-                      ),
+                      )
+
                     ),
-                    SizedBox(height: size.height * 0.01),
+                    SizedBox(height: size.height * 0.001),
 
                     // Sign up text and button
                     Padding(
@@ -480,4 +412,26 @@ class _LoginPage2 extends State<Login2> {
       ),
     );
   }
+}
+
+
+Widget _buildClickableTexts(String clickText, String description) {
+  return Row(
+    children: [
+      Text(
+        '$clickText ',
+        style: GoogleFonts.anybody(
+          fontSize: 14.0,
+          fontWeight: FontWeight.bold,
+          color: Color.fromRGBO(0, 59, 143, 1),
+
+        ),
+      ),
+      Text(description, style: GoogleFonts.anybody(
+        fontSize: 16.0,
+        fontWeight: FontWeight.w400,
+        color: Colors.black,
+      ),),
+    ],
+  );
 }
