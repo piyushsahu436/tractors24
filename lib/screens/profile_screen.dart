@@ -123,7 +123,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                     // Edit icon
                     Positioned(
                       right: 0,
-                      bottom: 0,
+                      bottom: 5,
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
                         radius: 18,

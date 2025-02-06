@@ -1,13 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tractors24/screens/BottomNavigationBar/BottomBar.dart';
 import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/Grids/StatesGrids.dart';
-import 'package:tractors24/screens/drawer.dart';
 import 'package:tractors24/screens/faq_list.dart';
-import 'package:tractors24/screens/faq_screen.dart';
 
 class HomePageF extends StatefulWidget {
   const HomePageF({super.key});
@@ -22,7 +19,7 @@ class _HomePageFState extends State<HomePageF> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        body:SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,14 +39,14 @@ class _HomePageFState extends State<HomePageF> {
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
-                                      AssetImage('assets/images/car2_page.png'),
+                                  AssetImage('assets/images/car2_page.png'),
                                   fit: BoxFit.fill)),
                         ),
                         Container(
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
-                                      AssetImage('assets/images/car3_page.png'),
+                                  AssetImage('assets/images/car3_page.png'),
                                   fit: BoxFit.cover)),
                         ),
                       ],
@@ -63,18 +60,22 @@ class _HomePageFState extends State<HomePageF> {
                       Padding(
                         padding: const EdgeInsets.only(
                           top: 15,
-                          left: 20,
+                          left: 16,
                           right: 20,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(right: 8.0,left: 8),
+                              padding:
+                              const EdgeInsets.only(right: 08.0, left: 0),
                               child: InkWell(
-                                onTap: (){Scaffold.of(context).openDrawer();},
+                                onTap: () {
+                                  Scaffold.of(context).openDrawer();
+                                },
                                 child: const Image(
-                                    image: AssetImage("assets/images/grp29.png")),
+                                    image:
+                                    AssetImage("assets/images/grp29.png")),
                               ),
                             ),
                             SizedBox(
@@ -102,10 +103,11 @@ class _HomePageFState extends State<HomePageF> {
                               ),
                             ),
                             const Padding(
-                              padding:  EdgeInsets.only(left: 5,right: 3),
+                              padding: EdgeInsets.only(left: 5, right: 3),
                               child: Image(
-                                  image:
-                                      AssetImage("assets/images/location.png"),height: 18,),
+                                image: AssetImage("assets/images/location.png"),
+                                height: 18,
+                              ),
                             ),
                             Expanded(
                               child: Text(
@@ -123,58 +125,6 @@ class _HomePageFState extends State<HomePageF> {
                       SizedBox(
                         height: size.height * 0.2,
                       ),
-                      SizedBox(
-                        height: size.height * 0.035,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // OTP functionality will be added later
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF116978),
-                                  shape: RoundedRectangleBorder(
-                                    side: const BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                ),
-                                child: Text(
-                                  'New',
-                                  style: GoogleFonts.anybody(
-                                      color: Colors.white,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // OTP functionality will be added later
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                    side: const BorderSide(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                ),
-                                child: Text(
-                                  'Used',
-                                  style: GoogleFonts.anybody(
-                                      color: Colors.white,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ]),
@@ -185,7 +135,9 @@ class _HomePageFState extends State<HomePageF> {
                     height: size.height * 0.03,
                     decoration: const BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(22),topRight: Radius.circular(22))),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(22),
+                            topRight: Radius.circular(22))),
                   ),
                 ),
               ]),
@@ -194,7 +146,8 @@ class _HomePageFState extends State<HomePageF> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0,top: 0,bottom: 8),
+                    padding:
+                    const EdgeInsets.only(left: 16.0, top: 0, bottom: 8),
                     child: Text(
                       '|  Recently Added Tractor',
                       style: GoogleFonts.anybody(
@@ -343,7 +296,7 @@ class _HomePageFState extends State<HomePageF> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 16.0, top: 20, right: 16),
+                    const EdgeInsets.only(left: 16.0, top: 20, right: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -367,10 +320,10 @@ class _HomePageFState extends State<HomePageF> {
                       ],
                     ),
                   ),
-                  BrandGrids(),
+                  BrandGrids(itemCount: 8,),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 16.0, top: 20, right: 16),
+                    const EdgeInsets.only(left: 16.0, top: 20, right: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -394,7 +347,9 @@ class _HomePageFState extends State<HomePageF> {
                       ],
                     ),
                   ),
-                  SizedBox(height: size.height*0.05,),
+                  SizedBox(
+                    height: size.height * 0.05,
+                  ),
                   StateGrids(),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -414,12 +369,14 @@ class _HomePageFState extends State<HomePageF> {
                               image: AssetImage("assets/images/clkButton.png"),
                               height: 35,
                             ),
-                            Text(
-                              "Do You Want to Sell\na Tractor ?",
-                              style: GoogleFonts.anybody(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700),
+                            Expanded(
+                              child: Text(
+                                "Do You Want to Sell\na Tractor ?",
+                                style: GoogleFonts.anybody(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700),
+                              ),
                             ),
                           ],
                         ),
@@ -438,7 +395,8 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 15.0,right: 15,left: 15),
+                    padding: const EdgeInsets.only(
+                        bottom: 15.0, right: 15, left: 15),
                     child: Text(
                       "Question Commonly Asked by Buyer's and Seller",
                       style: GoogleFonts.anybody(
@@ -447,7 +405,7 @@ class _HomePageFState extends State<HomePageF> {
                           fontWeight: FontWeight.w400),
                     ),
                   ),
-                  const FAQScreen(),
+                  const FAQList(),
                 ],
               ),
             ],

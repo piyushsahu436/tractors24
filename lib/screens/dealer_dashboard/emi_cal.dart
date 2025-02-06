@@ -1,14 +1,14 @@
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/screens/loanEnquire.dart';
 
- import 'dart:math';
- import 'package:flutter/material.dart';
- import 'package:tractors24/screens/loanEnquire.dart';
 class EMICalculatorScreen extends StatefulWidget {
   const EMICalculatorScreen({super.key});
 
   @override
   _EMICalculatorScreenState createState() => _EMICalculatorScreenState();
 }
-
 
 class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
   double loanAmount = 500000;
@@ -17,9 +17,21 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
 
   double calculateEMI() {
     double monthlyRate = interestRate / (12 * 100);
-    double emi = (loanAmount * monthlyRate * pow(1 + monthlyRate, tenureInMonths)) /
-        (pow(1 + monthlyRate, tenureInMonths) - 1);
+    double emi =
+        (loanAmount * monthlyRate * pow(1 + monthlyRate, tenureInMonths)) /
+            (pow(1 + monthlyRate, tenureInMonths) - 1);
     return emi;
+  }
+
+  Widget _buildTickLabel(String label) {
+    return Text(
+      label,
+      style: TextStyle(
+        fontSize: 12,
+        color: Colors.grey[600],
+        fontWeight: FontWeight.w500,
+      ),
+    );
   }
 
   @override
@@ -29,404 +41,412 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
     double interestAmount = totalPayment - loanAmount;
 
     return Scaffold(
+     // backgroundColor: Colors.blue[900],
+      body: Column(
+        children: [
+          // Header with back button
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            height: 150,
+           decoration: BoxDecoration(
+             image: DecorationImage(image: AssetImage('assets/images/Vector4.png'),
+             fit: BoxFit.fill
+             ),
 
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
-              height: 100,
-              width: MediaQuery.sizeOf(context).width,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 45),
-                child: Center(
-                  child: Text("EMI Calculator" , style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                  ),),
+           ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: const Icon(Icons.arrow_back, color: Colors.white),
                 ),
-              ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: const Text(
+                    "EMI Calculator",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 24,)
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(5, 18, 7, 29),
-              child: Column(
-                children: [
-                  Text('Loan Amount: ₹${loanAmount.toInt()}',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  Slider(
-                    value: loanAmount,
-                    min: 100000,
-                    max: 10000000,
-                    divisions: 100,
-                    label: loanAmount.toInt().toString(),
-                    onChanged: (value) {
-                      setState(() {
-                        loanAmount = value;
-                      });
-                    },
+          ),
+
+          // Main Content Card
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              margin: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 3, 3, 5),
-                    child: Row(
+                ],
+              ),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Loan Amount Section
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('₹1L'),
-                        const Spacer(),
-                        const Text('₹1Cr'),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Loan Amount',
+                              style: GoogleFonts.anybody(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              '₹ ${loanAmount.toInt()}',
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: Colors.blue[900],
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Center(
+                            child: Text(
+                              '₹',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 35,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                  Text('Tenure: ${tenureInMonths ~/ 12} years',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  Slider(
-                    value: tenureInMonths.toDouble(),
-                    min: 12,
-                    max: 96,
-                    divisions: 7,
-                    label: '${tenureInMonths ~/ 12} years',
-                    onChanged: (value) {
-                      setState(() {
-                        tenureInMonths = value.toInt();
-                      });
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 3, 3, 5),
-                    child: Row(
-                      children: [
-                        const Text('1 Year'),
-                        const Spacer(),
-                        const Text('8 Years'),
-                      ],
-                    ),
-                  ),
-                  Text('Interest Rate: ${interestRate.toStringAsFixed(1)}%',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  Slider(
-                    value: interestRate,
-                    min: 5,
-                    max: 16,
-                    divisions: 11,
-                    label: '${interestRate.toStringAsFixed(1)}%',
-                    onChanged: (value) {
-                      setState(() {
-                        interestRate = value;
-                      });
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 3, 3, 5),
-                    child: Row(
-                      children: [
-                        const Text('5%'),
-                        const Spacer(),
-                        const Text('16%'),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(8),
+                    const SizedBox(height: 16),
+                    // Loan Amount Slider
+                    SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        trackHeight: 8.0,
+                        activeTrackColor: Colors.blue[900],
+                        inactiveTrackColor: Colors.grey[300],
+                        thumbColor: Colors.blue[900],
+                        thumbShape: RoundSliderThumbShape(
+                            enabledThumbRadius:
+                                10.0), // Increases the thumb size
+                        overlayShape: SliderComponentShape.noOverlay,
+                        tickMarkShape: RoundSliderTickMarkShape(
+                          tickMarkRadius: 1.0,
+                        ),
+                        activeTickMarkColor: Colors.blue[900],
+                        inactiveTickMarkColor: Colors.grey[300],
+                        valueIndicatorShape:
+                            const PaddleSliderValueIndicatorShape(),
+                        valueIndicatorColor: Colors.blue[900],
+                        valueIndicatorTextStyle: const TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-        
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Slider(
+                        value: loanAmount,
+                        min: 100000,
+                        max: 600000,
+                        divisions: 100,
+                        label: loanAmount.toInt().toString(),
+                        onChanged: (value) {
+                          setState(() {
+                            loanAmount = value;
+                          });
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Center(
-                            child: Text('EMI Breakdown',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold , color: Colors.blue)),
-                          ),
-                          const SizedBox(height: 10),
-                          Column(
-                            children: [
-                              Text('Monthly EMI:   ₹${emi.toStringAsFixed(2)}',
-                                  style: const TextStyle(fontSize: 14)),
-                            ],
-                          ),
-                           SizedBox(height: 5),
-                          Text('Principal Amount:  ₹${loanAmount.toInt()}',
-                              style: const TextStyle(fontSize: 14)),
-                           SizedBox(height: 5),
-                          Text('Interest Amount:  ₹${interestAmount.toStringAsFixed(2)}',
-                              style: const TextStyle(fontSize: 14)),
-                           SizedBox(height: 5),
-                          Text('Total Payment:  ₹${totalPayment.toStringAsFixed(2)}',
-                              style: const TextStyle(fontSize: 14)),
+                          _buildTickLabel('1 lakh'),
+                          _buildTickLabel('2 lakh'),
+                          _buildTickLabel('3 lakh'),
+                          _buildTickLabel('4 lakh'),
+                          _buildTickLabel('5 lakh'),
+                          _buildTickLabel('6 lakh'),
                         ],
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    width: 300,
-                      child: ElevatedButton(
-                        onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context) => LoanInquiryForm()),
-    );},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal,
+
+                    const SizedBox(height: 24),
+
+                    // Tenure Section
+                    Text(
+                      'Tenure',
+                      style: GoogleFonts.anybody(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '${tenureInMonths ~/ 12} Year',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Tenure Slider
+                    SliderTheme(
+                      data: SliderThemeData(
+                        activeTrackColor: Colors.blue[900],
+                        inactiveTrackColor: Colors.grey[300],
+                        thumbColor: Colors.blue[900],
+                        trackHeight: 8.0,
+                        thumbShape: const RoundSliderThumbShape(
+                          enabledThumbRadius: 8.0,
                         ),
-                        child: const Text(
-                          'Apply for Loan',
-                          style: TextStyle(color: Colors.white),
+                        overlayShape: SliderComponentShape.noOverlay,
+                        tickMarkShape: RoundSliderTickMarkShape(
+                          tickMarkRadius: 4.0,
                         ),
-                      )
+                        activeTickMarkColor: Colors.blue[900],
+                        inactiveTickMarkColor: Colors.grey[300],
+                        valueIndicatorShape:
+                            const PaddleSliderValueIndicatorShape(),
+                        valueIndicatorColor: Colors.blue[900],
+                        valueIndicatorTextStyle: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Slider(
+                            value: tenureInMonths.toDouble(),
+                            min: 12,
+                            max: 72,
+                            divisions: 5,
+                            label: '${tenureInMonths ~/ 12} years',
+                            onChanged: (value) {
+                              setState(() {
+                                tenureInMonths = value.toInt();
+                              });
+                            },
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                _buildTickLabel('1 Year'),
+                                _buildTickLabel('2 Year'),
+                                _buildTickLabel('3 Year'),
+                                _buildTickLabel('4 Year'),
+                                _buildTickLabel('5 Year'),
+                                _buildTickLabel('6 Year'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
 
-        
-                ],
+                    const SizedBox(height: 24),
+
+                    // Interest Rate Section
+                    Text(
+                      'Interest Rate',
+                      style: GoogleFonts.anybody(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '${interestRate.toStringAsFixed(1)}%',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Interest Rate Slider
+                    SliderTheme(
+                      data: SliderThemeData(
+                        activeTrackColor: Colors.blue[900],
+                        inactiveTrackColor: Colors.grey[300],
+                        thumbColor: Colors.blue[900],
+                        trackHeight: 8.0,
+                        thumbShape: const RoundSliderThumbShape(
+                          enabledThumbRadius: 8.0,
+                        ),
+                        overlayShape: SliderComponentShape.noOverlay,
+                        tickMarkShape: RoundSliderTickMarkShape(
+                          tickMarkRadius: 1.0,
+                        ),
+                        activeTickMarkColor: Colors.blue[900],
+                        inactiveTickMarkColor: Colors.grey[300],
+                        valueIndicatorShape:
+                            const PaddleSliderValueIndicatorShape(),
+                        valueIndicatorColor: Colors.blue[900],
+                        valueIndicatorTextStyle: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Slider(
+                            value: interestRate,
+                            min: 5,
+                            max: 15,
+                            divisions: 10,
+                            label: '${interestRate.toStringAsFixed(1)}%',
+                            onChanged: (value) {
+                              setState(() {
+                                interestRate = value;
+                              });
+                            },
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                _buildTickLabel('5%'),
+                                _buildTickLabel('7%'),
+                                _buildTickLabel('9%'),
+                                _buildTickLabel('11%'),
+                                _buildTickLabel('13%'),
+                                _buildTickLabel('15%'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    // EMI Breakdown Section
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 10,
+                              spreadRadius: 2,
+                              offset: const Offset(2, 4)),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'EMI Breakdown',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          _buildBreakdownRow('Monthly EMI', emi),
+                          _buildBreakdownRow('Principle Amount', loanAmount),
+                          _buildBreakdownRow('Interest Amount', interestAmount),
+                          Divider(height: 10,color: Colors.black26),
+                          _buildBreakdownRow('Total Amount', totalPayment,
+                              isBold: true),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    // Apply For Loan Button
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Loanenquire()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[900],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Apply For Loan',
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBreakdownRow(String label, double amount,
+      {bool isBold = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: GoogleFonts.anybody(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+          Text(
+            '₹ ${amount.toStringAsFixed(2)}',
+            style: GoogleFonts.anybody(
+              fontSize: 14,
+              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+        ],
       ),
     );
   }
 }
-
-
-
-
-
- class LoanInquiryForm extends StatefulWidget {
-   @override
-   _LoanInquiryFormState createState() => _LoanInquiryFormState();
- }
-
- class _LoanInquiryFormState extends State<LoanInquiryForm> {
-   int _currentStep = 0;
-   final _formKey = GlobalKey<FormState>();
-
-   final _fullNameController = TextEditingController();
-   final _mobileController = TextEditingController();
-   final _emailController = TextEditingController();
-   final _addressController = TextEditingController();
-   final _loanAmountController = TextEditingController();
-   final _emiController = TextEditingController();
-   final _incomeController = TextEditingController();
-
-   // Move to the next step
-   void _nextStep() {
-     if (_currentStep < 2) {
-       setState(() {
-         _currentStep++;
-       });
-     }
-   }
-
-   // Go to the previous step
-   void _previousStep() {
-     if (_currentStep > 0) {
-       setState(() {
-         _currentStep--;
-       });
-     }
-   }
-
-   // Submit form
-   void _submitForm() {
-     if (_formKey.currentState!.validate()) {
-       // Submit logic
-       ScaffoldMessenger.of(context).showSnackBar(
-         const SnackBar(content: Text('Inquiry submitted successfully!')),
-       );
-     }
-   }
-
-   @override
-   Widget build(BuildContext context) {
-     double progress = (_currentStep + 1) / 3;
-
-     return Scaffold(
-       appBar: AppBar(title: const Text('Tractor Loan Inquiry')),
-       body: Column(
-         children: [
-           // Horizontal progress indicator
-           Padding(
-             padding: const EdgeInsets.all(8.0),
-             child: LinearProgressIndicator(
-               value: progress,
-               backgroundColor: Colors.grey[300],
-               color: Colors.blue,
-             ),
-           ),
-           Expanded(
-             child: Form(
-               key: _formKey,
-               child: Stepper(
-                 type: StepperType.horizontal,
-                 currentStep: _currentStep,
-                 onStepContinue: _nextStep,
-                 onStepCancel: _previousStep,
-                 steps: [
-                   Step(
-                     title: const Text('Personal'),
-                     content: Column(
-                       children: [
-                         TextFormField(
-                           controller: _fullNameController,
-                           decoration:
-                           const InputDecoration(labelText: 'Full Name *'),
-                           validator: (value) {
-                             if (value == null || value.isEmpty) {
-                               return 'Please enter your full name';
-                             }
-                             return null;
-                           },
-                         ),
-                         TextFormField(
-                           controller: _mobileController,
-                           decoration: const InputDecoration(
-                               labelText: 'Mobile Number *'),
-                           keyboardType: TextInputType.phone,
-                           validator: (value) {
-                             if (value == null || value.isEmpty) {
-                               return 'Please enter your mobile number';
-                             }
-                             return null;
-                           },
-                         ),
-                         TextFormField(
-                           controller: _emailController,
-                           decoration:
-                           const InputDecoration(labelText: 'Email *'),
-                           keyboardType: TextInputType.emailAddress,
-                           validator: (value) {
-                             if (value == null || value.isEmpty) {
-                               return 'Please enter your email';
-                             }
-                             return null;
-                           },
-                         ),
-                         TextFormField(
-                           controller: _addressController,
-                           decoration:
-                           const InputDecoration(labelText: 'Address *'),
-                           validator: (value) {
-                             if (value == null || value.isEmpty) {
-                               return 'Please enter your address';
-                             }
-                             return null;
-                           },
-                         ),
-                       ],
-                     ),
-                     isActive: _currentStep >= 0,
-                   ),
-                   Step(
-                     title: const Text('Loan '),
-                     content: Column(
-                       children: [
-                         TextFormField(
-                           controller: _loanAmountController,
-                           decoration: const InputDecoration(
-                               labelText: 'Loan Amount *'),
-                           keyboardType: TextInputType.number,
-                           validator: (value) {
-                             if (value == null || value.isEmpty) {
-                               return 'Please enter loan amount';
-                             }
-                             return null;
-                           },
-                         ),
-                         TextFormField(
-                           controller: _emiController,
-                           decoration: const InputDecoration(
-                               labelText: 'Preferred EMI Amount *'),
-                           keyboardType: TextInputType.number,
-                           validator: (value) {
-                             if (value == null || value.isEmpty) {
-                               return 'Please enter preferred EMI amount';
-                             }
-                             return null;
-                           },
-                         ),
-                         TextFormField(
-                           controller: _incomeController,
-                           decoration: const InputDecoration(
-                               labelText: 'Annual Income *'),
-                           keyboardType: TextInputType.number,
-                           validator: (value) {
-                             if (value == null || value.isEmpty) {
-                               return 'Please enter your annual income';
-                             }
-                             return null;
-                           },
-                         ),
-                       ],
-                     ),
-                     isActive: _currentStep >= 1,
-                   ),
-                   Step(
-                     title: const Text('Tractors'),
-                     content: Column(
-                       children: [
-                         DropdownButtonFormField<String>(
-                           decoration: const InputDecoration(
-                               labelText: 'Tractor Model *'),
-                           items: const [
-                             DropdownMenuItem(
-                                 value: 'Model A', child: Text('Model A')),
-                             DropdownMenuItem(
-                                 value: 'Model B', child: Text('Model B')),
-                           ],
-                           onChanged: (value) {},
-                         ),
-                         DropdownButtonFormField<String>(
-                           decoration: const InputDecoration(
-                               labelText: 'Year of Manufacture *'),
-                           items: List.generate(
-                             20,
-                                 (index) => DropdownMenuItem(
-                               value: (2000 + index).toString(),
-                               child: Text((2000 + index).toString()),
-                             ),
-                           ),
-                           onChanged: (value) {},
-                         ),
-                       ],
-                     ),
-                     isActive: _currentStep >= 2,
-                   ),
-                 ],
-                 controlsBuilder: (BuildContext context, ControlsDetails details) {
-                   return Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       if (_currentStep > 0)
-                         ElevatedButton(
-                           onPressed: details.onStepCancel,
-                           child: const Text('Back'),
-                         ),
-                       if (_currentStep < 2)
-                         ElevatedButton(
-                           onPressed: details.onStepContinue,
-                           child: const Text('Next'),
-                         ),
-                       if (_currentStep == 2)
-                         ElevatedButton(
-                           onPressed: _submitForm,
-                           child: const Text('Submit Inquiry'),
-                         ),
-                     ],
-                   );
-                 },
-               ),
-             ),
-           ),
-         ],
-       ),
-     );
-   }
- }
-
-
-
-
