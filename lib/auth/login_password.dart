@@ -233,7 +233,7 @@ class _LoginPage2 extends State<Login2> {
                               ),
                               child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Image.asset(
                                       "assets/images/_Facebook.png",
@@ -348,29 +348,31 @@ class _LoginPage2 extends State<Login2> {
                       width: 340,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {
-                        Navigator.push(
-                          context, 
-                          MaterialPageRoute(builder: (context)=> HomePageF())
-                        );
-                          },
+                        onPressed:isLoading
+                            ? null
+                            : () {
+                          if (formKey.currentState!.validate()) {
+                            _login(context);  // Call sign-up function only if valid
+                          }
+                        },// isTermsAccepted ? () => _login(context) : null,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF003B8F),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: Text(
+                        child: isLoading
+                            ? const CircularProgressIndicator(color: Colors.white)
+                            : const Text(
                           'Login',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white,
                           ),
                         ),
-                      )
-
+                      ),
                     ),
-                    SizedBox(height: size.height * 0.001),
+                    SizedBox(height: size.height * 0.01),
 
                     // Sign up text and button
                     Padding(
