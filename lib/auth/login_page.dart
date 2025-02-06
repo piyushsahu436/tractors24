@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_password.dart';
-import 'package:tractors24/auth/OTPPage.dart';
+import 'package:tractors24/auth/otpScreen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
-import 'package:tractors24/screens/otpScreen.dart';
-import 'package:tractors24/screens/test.dart';
+import 'package:tractors24/screens/policies_screen.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -103,6 +104,10 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => PoliciesScreen()));
+                        }
                     ),
                   ],
                 ),
@@ -115,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton(
+
                 onPressed: () async {
                   await FirebaseAuth.instance.verifyPhoneNumber(
                       verificationCompleted: (PhoneAuthCredential credential) {},
@@ -124,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       codeAutoRetrievalTimeout: (String verificationId) {},
                       phoneNumber: mobileController.text.toString());
+
                   // OTP functionality will be added later
                 },
                 style: ElevatedButton.styleFrom(
@@ -328,7 +335,7 @@ class Form_field extends StatelessWidget {
                 color: Color.fromRGBO(124, 139, 160, 1.0)),
             prefixText: prefixtext,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
             border: InputBorder.none,
           ),
           validator: (value) {

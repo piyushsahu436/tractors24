@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import "package:tractors24/screens/loanEnquire.dart";
 import 'package:tractors24/screens/policies_screen.dart';
 
-class CarDetailsPage extends StatelessWidget {
-  const CarDetailsPage({super.key});
+class AddDetailsPage extends StatelessWidget {
+  const AddDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,16 +84,16 @@ class CarDetailsPage extends StatelessWidget {
                           decoration: BoxDecoration(
                             image: const DecorationImage(fit: BoxFit.fill,image: NetworkImage("https://i.tribune.com.pk/media/images/161722544519-1/161722544519-1.jpg")),
                             border: Border.all(
-                              color: Colors.white,
-                              width: 2
+                                color: Colors.white,
+                                width: 2
                             ),
                           ),
                           height: size.height*0.10,
                           width: size.width*0.25,
                         ),
-                       SizedBox(width: size.width*0.04,),
-      
-                       Container(
+                        SizedBox(width: size.width*0.04,),
+
+                        Container(
                           decoration: BoxDecoration(
                             image: const DecorationImage(fit: BoxFit.fill,image: NetworkImage("https://www.livehindustan.com/lh-img/uploadimage/library/2022/06/12/16_9/16_9_6/nitish_kumar_government_started_process_of_realising_39_crore_from_51_000_farmers_who_received_pm_ki_1655001196.jpg")),
                             border: Border.all(
@@ -140,7 +140,7 @@ class CarDetailsPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                             ),
                           ),
-                          child: Text('Apply loan',
+                          child: Text('Edit',
                             style: GoogleFonts.anybody(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,

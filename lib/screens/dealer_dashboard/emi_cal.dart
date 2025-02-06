@@ -1,14 +1,14 @@
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/screens/loanEnquire.dart';
 
- import 'dart:math';
- import 'package:flutter/material.dart';
- import 'package:tractors24/screens/loanEnquire.dart';
 class EMICalculatorScreen extends StatefulWidget {
   const EMICalculatorScreen({super.key});
 
   @override
   _EMICalculatorScreenState createState() => _EMICalculatorScreenState();
 }
-
 
 class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
   double loanAmount = 500000;
@@ -17,8 +17,9 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
 
   double calculateEMI() {
     double monthlyRate = interestRate / (12 * 100);
-    double emi = (loanAmount * monthlyRate * pow(1 + monthlyRate, tenureInMonths)) /
-        (pow(1 + monthlyRate, tenureInMonths) - 1);
+    double emi =
+        (loanAmount * monthlyRate * pow(1 + monthlyRate, tenureInMonths)) /
+            (pow(1 + monthlyRate, tenureInMonths) - 1);
     return emi;
   }
 
@@ -40,19 +41,19 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
     double interestAmount = totalPayment - loanAmount;
 
     return Scaffold(
-      // backgroundColor: Colors.blue[900],
+     // backgroundColor: Colors.blue[900],
       body: Column(
         children: [
           // Header with back button
           Container(
             padding: const EdgeInsets.all(16.0),
             height: 150,
-            decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage('assets/images/Vector4.png'),
-                  fit: BoxFit.fill
-              ),
+           decoration: BoxDecoration(
+             image: DecorationImage(image: AssetImage('assets/images/Vector4.png'),
+             fit: BoxFit.fill
+             ),
 
-            ),
+           ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -151,7 +152,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                         thumbColor: Colors.blue[900],
                         thumbShape: RoundSliderThumbShape(
                             enabledThumbRadius:
-                            10.0), // Increases the thumb size
+                                10.0), // Increases the thumb size
                         overlayShape: SliderComponentShape.noOverlay,
                         tickMarkShape: RoundSliderTickMarkShape(
                           tickMarkRadius: 1.0,
@@ -159,7 +160,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                         activeTickMarkColor: Colors.blue[900],
                         inactiveTickMarkColor: Colors.grey[300],
                         valueIndicatorShape:
-                        const PaddleSliderValueIndicatorShape(),
+                            const PaddleSliderValueIndicatorShape(),
                         valueIndicatorColor: Colors.blue[900],
                         valueIndicatorTextStyle: const TextStyle(
                           color: Colors.white,
@@ -229,7 +230,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                         activeTickMarkColor: Colors.blue[900],
                         inactiveTickMarkColor: Colors.grey[300],
                         valueIndicatorShape:
-                        const PaddleSliderValueIndicatorShape(),
+                            const PaddleSliderValueIndicatorShape(),
                         valueIndicatorColor: Colors.blue[900],
                         valueIndicatorTextStyle: const TextStyle(
                           color: Colors.white,
@@ -251,10 +252,10 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                           ),
                           Padding(
                             padding:
-                            const EdgeInsets.symmetric(horizontal: 12.0),
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                             child: Row(
                               mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                               children: [
                                 _buildTickLabel('1 Year'),
                                 _buildTickLabel('2 Year'),
@@ -305,7 +306,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                         activeTickMarkColor: Colors.blue[900],
                         inactiveTickMarkColor: Colors.grey[300],
                         valueIndicatorShape:
-                        const PaddleSliderValueIndicatorShape(),
+                            const PaddleSliderValueIndicatorShape(),
                         valueIndicatorColor: Colors.blue[900],
                         valueIndicatorTextStyle: const TextStyle(
                           color: Colors.white,
@@ -327,10 +328,10 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                           ),
                           Padding(
                             padding:
-                            const EdgeInsets.symmetric(horizontal: 12.0),
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                             child: Row(
                               mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                               children: [
                                 _buildTickLabel('5%'),
                                 _buildTickLabel('7%'),
@@ -425,27 +426,27 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
   Widget _buildBreakdownRow(String label, double amount,
       {bool isBold = false}) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                label,
-                style: GoogleFonts.anybody(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                  fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
-              Text(
-                '₹ ${amount.toStringAsFixed(2)}',
-                style: GoogleFonts.anybody(
-                  fontSize: 14,
-                  fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
-            ],
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: GoogleFonts.anybody(
+              fontSize: 14,
+              color: Colors.grey[600],
+              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
             ),
-        );
-    }
+          ),
+          Text(
+            '₹ ${amount.toStringAsFixed(2)}',
+            style: GoogleFonts.anybody(
+              fontSize: 14,
+              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
