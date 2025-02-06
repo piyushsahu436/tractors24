@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/screens/AllBrands.dart';
 import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/Grids/StatesGrids.dart';
@@ -204,16 +205,20 @@ class _HomePageFState extends State<HomePageF> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Are You Looking \nFor a Tractor ?",
-                              style: GoogleFonts.anybody(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700),
+                            Expanded(flex: 2,
+                              child: Text(
+                                "Are You Looking For a Tractor ?",
+                                style: GoogleFonts.anybody(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700),
+                              ),
                             ),
-                            const Image(
-                              image: AssetImage("assets/images/clkButton.png"),
-                              height: 35,
+                            const Expanded(
+                              child: Image(
+                                image: AssetImage("assets/images/clkButton.png"),
+                                height: 35,
+                              ),
                             )
                           ],
                         ),
@@ -278,16 +283,20 @@ class _HomePageFState extends State<HomePageF> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Are You Looking \nFor a Tractor ?",
-                              style: GoogleFonts.anybody(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700),
+                            Expanded(flex: 2,
+                              child: Text(
+                                "Are You Looking For a Tractor ?",
+                                style: GoogleFonts.anybody(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700),
+                              ),
                             ),
-                            const Image(
-                              image: AssetImage("assets/images/clkButton.png"),
-                              height: 35,
+                            const Expanded(
+                              child: Image(
+                                image: AssetImage("assets/images/clkButton.png"),
+                                height: 35,
+                              ),
                             ),
                           ],
                         ),
@@ -309,7 +318,9 @@ class _HomePageFState extends State<HomePageF> {
                               fontWeight: FontWeight.w600),
                         ),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const BrandsPage()));
+                            },
                             child: Text(
                               'See More',
                               style: GoogleFonts.anybody(
@@ -320,7 +331,7 @@ class _HomePageFState extends State<HomePageF> {
                       ],
                     ),
                   ),
-                  BrandGrids(),
+                  BrandGrids(itemCount: 8,),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 16.0, top: 20, right: 16),
@@ -353,7 +364,7 @@ class _HomePageFState extends State<HomePageF> {
                   StateGrids(),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 05.0, horizontal: 0),
+                        vertical: 0.0, horizontal: 0),
                     child: Container(
                       height: 132,
                       decoration: const BoxDecoration(
@@ -365,16 +376,21 @@ class _HomePageFState extends State<HomePageF> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Image(
-                              image: AssetImage("assets/images/clkButton.png"),
-                              height: 35,
+                            const Expanded(
+                              child: Image(
+                                image: AssetImage("assets/images/clkButton.png"),
+                                height: 35,
+                              ),
                             ),
-                            Text(
-                              "Do You Want to Sell\na Tractor ?",
-                              style: GoogleFonts.anybody(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700),
+                            const SizedBox(width: 10),
+                            Expanded(flex: 2,
+                              child: Text(
+                                "Do You Want to Sell a Tractor ?",
+                                style: GoogleFonts.anybody(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700),
+                              ),
                             ),
                           ],
                         ),

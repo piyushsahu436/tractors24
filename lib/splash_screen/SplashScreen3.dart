@@ -50,7 +50,7 @@ class SplashScreen3 extends StatelessWidget {
                 width: 300, // Adjust as needed
                 height: 100,
                 child: Image.asset(
-                  'assets/images/LOGO.png',
+                  'assets/images/img.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -112,7 +112,7 @@ class SplashScreen3 extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             // Replace NextScreen with your actual next screen
-                            builder: (context) => LoginPage(),
+                            builder: (context) => LanguagePage(),
                           ),
                         );
                       },

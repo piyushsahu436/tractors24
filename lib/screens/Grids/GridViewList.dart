@@ -184,7 +184,7 @@ class GridViewBuilderWidget extends StatelessWidget {
 
                             // Price
                             Text(
-                              '₹${tractor['sellPrice']}',
+                              '₹${tractor['sellPrice']}' ?? 'Unknown',
                               style: GoogleFonts.anybody(
                                 color: const Color(0xFF414141),
                                 fontSize: 16,

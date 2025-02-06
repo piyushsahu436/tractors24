@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/auth/login_password.dart';
+import 'package:tractors24/screens/AllBrands.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
@@ -11,16 +12,19 @@ import 'package:tractors24/screens/HomePageF.dart';
 import 'package:tractors24/screens/LandingPage.dart';
 import 'package:tractors24/screens/Seller_Form.dart';
 import 'package:tractors24/screens/buyer_page.dart';
+import 'package:tractors24/screens/dealer_dashboard/profile_screen.dart';
 import 'package:tractors24/screens/enquiry_screen.dart';
 import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/loanEnquire.dart';
 import 'package:tractors24/screens/recommedWidget.dart';
+import 'package:tractors24/screens/testimonials.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
 import 'package:tractors24/screens/contact_seller.dart';
 import 'package:tractors24/screens/profile_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
+import 'package:tractors24/splash_screen/SplashScreen2.dart';
 
 
 void main() async {
