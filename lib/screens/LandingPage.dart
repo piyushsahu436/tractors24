@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tractors24/screens/BottomNavigationBar/BottomBar.dart';
+import 'package:tractors24/screens/Grids/MyAds.dart';
 import 'package:tractors24/screens/HomePageF.dart';
 import 'package:tractors24/screens/Seller_Form.dart';
 import 'package:tractors24/screens/drawer.dart';
+import 'package:tractors24/screens/profile_screen.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -16,9 +18,9 @@ class _LandingPageState extends State<LandingPage> {
 
   final List<Widget> _pages = [
     const HomePageF(),
-    const Center(child: Text('EMI Calculator')),
-    const Center(child: Text('Wishlist')),
-    const Center(child: Text('Profile')),
+    PersonalAds(),
+    Scaffold(),
+    PersonalInfoScreen()
   ];
 
   @override
