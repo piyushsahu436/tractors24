@@ -39,14 +39,14 @@ class _HomePageFState extends State<HomePageF> {
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
-                                      AssetImage('assets/images/car2_page.png'),
+                                  AssetImage('assets/images/car2_page.png'),
                                   fit: BoxFit.fill)),
                         ),
                         Container(
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
-                                      AssetImage('assets/images/car3_page.png'),
+                                  AssetImage('assets/images/car3_page.png'),
                                   fit: BoxFit.cover)),
                         ),
                       ],
@@ -68,14 +68,14 @@ class _HomePageFState extends State<HomePageF> {
                           children: [
                             Padding(
                               padding:
-                                  const EdgeInsets.only(right: 08.0, left: 0),
+                              const EdgeInsets.only(right: 08.0, left: 0),
                               child: InkWell(
                                 onTap: () {
                                   Scaffold.of(context).openDrawer();
                                 },
                                 child: const Image(
                                     image:
-                                        AssetImage("assets/images/grp29.png")),
+                                    AssetImage("assets/images/grp29.png")),
                               ),
                             ),
                             SizedBox(
@@ -147,7 +147,7 @@ class _HomePageFState extends State<HomePageF> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 16.0, top: 0, bottom: 8),
+                    const EdgeInsets.only(left: 16.0, top: 0, bottom: 8),
                     child: Text(
                       '|  Recently Added Tractor',
                       style: GoogleFonts.anybody(
@@ -156,7 +156,7 @@ class _HomePageFState extends State<HomePageF> {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                   GridViewBuilderWidget(
+                  GridViewBuilderWidget(
                     itemCount: 4,
                   ),
                   const Padding(
@@ -178,7 +178,7 @@ class _HomePageFState extends State<HomePageF> {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                   GridViewBuilderWidget(
+                  GridViewBuilderWidget(
                     itemCount: 2,
                   ),
                   const Padding(
@@ -230,7 +230,7 @@ class _HomePageFState extends State<HomePageF> {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                   GridViewBuilderWidget(
+                  GridViewBuilderWidget(
                     itemCount: 2,
                   ),
                   const Padding(
@@ -252,7 +252,7 @@ class _HomePageFState extends State<HomePageF> {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                   GridViewBuilderWidget(
+                  GridViewBuilderWidget(
                     itemCount: 2,
                   ),
                   const Padding(
@@ -296,7 +296,7 @@ class _HomePageFState extends State<HomePageF> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 16.0, top: 20, right: 16),
+                    const EdgeInsets.only(left: 16.0, top: 20, right: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -320,10 +320,10 @@ class _HomePageFState extends State<HomePageF> {
                       ],
                     ),
                   ),
-                  BrandGrids(),
+                  BrandGrids(itemCount: 8,),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 16.0, top: 20, right: 16),
+                    const EdgeInsets.only(left: 16.0, top: 20, right: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -369,12 +369,14 @@ class _HomePageFState extends State<HomePageF> {
                               image: AssetImage("assets/images/clkButton.png"),
                               height: 35,
                             ),
-                            Text(
-                              "Do You Want to Sell\na Tractor ?",
-                              style: GoogleFonts.anybody(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700),
+                            Expanded(
+                              child: Text(
+                                "Do You Want to Sell\na Tractor ?",
+                                style: GoogleFonts.anybody(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700),
+                              ),
                             ),
                           ],
                         ),

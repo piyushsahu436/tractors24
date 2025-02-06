@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_password.dart';
-import 'package:tractors24/auth/OTPPage.dart';
+import 'package:tractors24/auth/otpScreen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
-import 'package:tractors24/screens/otpScreen.dart';
-import 'package:tractors24/screens/test.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -115,6 +114,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton(
+
                 onPressed: () async {
                   await FirebaseAuth.instance.verifyPhoneNumber(
                       verificationCompleted: (PhoneAuthCredential credential) {},
@@ -124,6 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       codeAutoRetrievalTimeout: (String verificationId) {},
                       phoneNumber: mobileController.text.toString());
+
                   // OTP functionality will be added later
                 },
                 style: ElevatedButton.styleFrom(

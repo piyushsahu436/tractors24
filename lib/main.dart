@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tractors24/auth/login_page.dart';
@@ -9,9 +8,7 @@ import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/Grids/StatesGrids.dart';
 import 'package:tractors24/screens/HomePageF.dart';
 import 'package:tractors24/screens/LandingPage.dart';
-import 'package:tractors24/screens/Seller_Form.dart';
 import 'package:tractors24/screens/buyer_page.dart';
-import 'package:tractors24/screens/enquiry_screen.dart';
 import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/loanEnquire.dart';
 import 'package:tractors24/screens/recommedWidget.dart';
@@ -21,6 +18,16 @@ import 'package:tractors24/screens/profile_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
+import 'package:tractors24/screens/DetailsPage.dart';
+import 'package:tractors24/screens/Seller_form.dart';
+import 'package:tractors24/screens/Seller_form2.dart';
+import 'package:tractors24/screens/testimonials.dart';
+import 'package:tractors24/screens/add_detailspage.dart';
+import 'package:tractors24/screens/search.dart';
+import 'package:tractors24/screens/notification.dart';
+import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
+import 'package:tractors24/screens/avani.dart';
+
 
 
 void main() async {
@@ -71,7 +78,9 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller.forward().whenComplete(() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LandingPage()),
+
+        MaterialPageRoute(builder: (context) => EMICalculatorScreen()),
+
       );
     });
   }
