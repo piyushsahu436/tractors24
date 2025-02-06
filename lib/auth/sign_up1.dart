@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/auth/login_password.dart';
-
+import 'package:tractors24/screens/policies_screen.dart';
 class SignUp1 extends StatefulWidget {
   const SignUp1({super.key});
 
@@ -18,7 +19,7 @@ class _SignUp1 extends State<SignUp1> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController pincodeController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String userType = 'Customer';
@@ -43,7 +44,7 @@ class _SignUp1 extends State<SignUp1> {
     setState(() => isLoading = true);
     try {
       final userCredential =
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
@@ -64,7 +65,8 @@ class _SignUp1 extends State<SignUp1> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Sign Up Successful')),
       );
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Login2()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Login2()));
     } on FirebaseAuthException catch (e) {
       _showError('Sign up failed: ${e.message}');
     } catch (e) {
@@ -143,7 +145,7 @@ class _SignUp1 extends State<SignUp1> {
                                 ),
                                 child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Image.asset(
                                         "assets/images/_Facebook.png",
@@ -198,7 +200,7 @@ class _SignUp1 extends State<SignUp1> {
                             ),
                             Padding(
                               padding:
-                              const EdgeInsets.symmetric(horizontal: 8.0),
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text('Or',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w400)),
@@ -212,7 +214,8 @@ class _SignUp1 extends State<SignUp1> {
                           ],
                         ),
                       ),
-                      Row(mainAxisAlignment: MainAxisAlignment.start,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             "I`m a",
@@ -292,7 +295,6 @@ class _SignUp1 extends State<SignUp1> {
                                       ),
                                     ),
                                   ],
-
                                 ),
                               ),
                             ),
@@ -325,10 +327,12 @@ class _SignUp1 extends State<SignUp1> {
                             borderRadius: BorderRadius.circular(12.0),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1), // Soft shadow
+                                color: Colors.black
+                                    .withOpacity(0.1), // Soft shadow
                                 blurRadius: 10,
                                 spreadRadius: 2,
-                                offset: const Offset(2, 4), // Slight bottom shadow
+                                offset:
+                                    const Offset(2, 4), // Slight bottom shadow
                               ),
                             ],
                           ),
@@ -340,10 +344,12 @@ class _SignUp1 extends State<SignUp1> {
                               hintStyle: GoogleFonts.anybody(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
-                                  color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                                  color:
+                                      const Color.fromRGBO(124, 139, 160, 1.0)),
                               suffixIcon: const Icon(Icons.visibility_off,
                                   color: Color(0xFF61677D)),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 16),
                               border: InputBorder.none,
                             ),
                           ),
@@ -351,17 +357,19 @@ class _SignUp1 extends State<SignUp1> {
                       ),
                       SizedBox(height: size.height * 0.001),
                       Padding(
-                        padding: const  EdgeInsets.symmetric(vertical: 3.0),
+                        padding: const EdgeInsets.symmetric(vertical: 3.0),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12.0),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1), // Soft shadow
+                                color: Colors.black
+                                    .withOpacity(0.1), // Soft shadow
                                 blurRadius: 10,
                                 spreadRadius: 2,
-                                offset: const Offset(2, 4), // Slight bottom shadow
+                                offset:
+                                    const Offset(2, 4), // Slight bottom shadow
                               ),
                             ],
                           ),
@@ -373,10 +381,12 @@ class _SignUp1 extends State<SignUp1> {
                               hintStyle: GoogleFonts.anybody(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
-                                  color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                                  color:
+                                      const Color.fromRGBO(124, 139, 160, 1.0)),
                               suffixIcon: const Icon(Icons.visibility_off,
                                   color: Color(0xFF61677D)),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 16),
                               border: InputBorder.none,
                             ),
                           ),
@@ -422,7 +432,7 @@ class _SignUp1 extends State<SignUp1> {
                                     text: "Term's of Service",
                                     style: GoogleFonts.anybody(
                                       color: const Color(0xFF003B8F),
-                                      fontSize: 13,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -436,8 +446,13 @@ class _SignUp1 extends State<SignUp1> {
                                     style: GoogleFonts.anybody(
                                       color: const Color(0xFF003B8F),
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 13,
+                                      fontSize: 14,
                                     ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> PoliciesScreen()),
+                                      );
+                                      }
                                   ),
                                 ],
                               ),
@@ -450,14 +465,13 @@ class _SignUp1 extends State<SignUp1> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              onPressed:isLoading
+                              onPressed: isLoading
                                   ? null
                                   : () {
-                                if (formKey.currentState!.validate()) {
-                                  _signUp();  // Call sign-up function only if valid
+                                if (isTermsAccepted && formKey.currentState!.validate()) {
+                                  _signUp(); // Ensure _signUp is defined in your class
                                 }
                               },
-                              // isTermsAccepted ? () => _login(context) : null,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF003B8F),
                                 shape: RoundedRectangleBorder(
@@ -465,8 +479,7 @@ class _SignUp1 extends State<SignUp1> {
                                 ),
                               ),
                               child: isLoading
-                                  ? const CircularProgressIndicator(
-                                  color: Colors.white)
+                                  ? const CircularProgressIndicator(color: Colors.white)
                                   : Text(
                                 'Create Account',
                                 style: GoogleFonts.poppins(
@@ -474,7 +487,8 @@ class _SignUp1 extends State<SignUp1> {
                                   color: Colors.white,
                                 ),
                               ),
-                            ),
+                            )
+
                           ),
                         ],
                       ),
@@ -496,7 +510,7 @@ class _SignUp1 extends State<SignUp1> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const SignUp1(),
+                                    builder: (context) => const LoginPage(),
                                   ),
                                 );
                               },
