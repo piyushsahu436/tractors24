@@ -233,7 +233,7 @@ class _LoginPage2 extends State<Login2> {
                               ),
                               child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Image.asset(
                                       "assets/images/_Facebook.png",

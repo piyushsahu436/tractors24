@@ -81,7 +81,7 @@ class SplashScreen3 extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Text(
-                  'Buy Certified Used Vehicle From Trusted Seller. Sel Your vehicle in quick easy steps',
+                  'Buy Certified Used Vehicle From Trusted Seller. Sell Your vehicle in quick easy steps',
                   textAlign: TextAlign.center,
                   style:  GoogleFonts.anybody(
                     color: Colors.white,
