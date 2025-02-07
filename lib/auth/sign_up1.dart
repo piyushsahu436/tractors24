@@ -48,6 +48,7 @@ class _SignUp1 extends State<SignUp1> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+      String? uid = FirebaseAuth.instance.currentUser?.uid;
 
       await FirebaseFirestore.instance
           .collection('users')
@@ -57,6 +58,7 @@ class _SignUp1 extends State<SignUp1> {
         'email': emailController.text.trim(),
         'phone': phoneController.text.trim(),
         'userType': userType,
+        'uid': uid,
         'createdAt': FieldValue.serverTimestamp(),
       });
 

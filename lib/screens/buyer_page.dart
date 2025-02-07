@@ -4,9 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/screens/contact_seller.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
+import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
 import 'package:tractors24/screens/drawer.dart';
 import 'package:tractors24/screens/recommedWidget.dart';
-import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
+
 
 class BuyerScreen extends StatefulWidget {
   @override

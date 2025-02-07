@@ -52,15 +52,15 @@ class StateGrids extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5),
       child: GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // Number of columns
           crossAxisSpacing: 10.0, // Spacing between columns
-          mainAxisSpacing: 20.0, // Spacing between rows
-          childAspectRatio: 0.9, // Aspect ratio of each item
+          mainAxisSpacing: 2.0, // Spacing between rows
+          childAspectRatio: 0.8, // Aspect ratio of each item
         ),
         itemCount: stateItems.length, // Number of items
         itemBuilder: (context, index) {

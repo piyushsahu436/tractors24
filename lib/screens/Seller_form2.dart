@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -108,7 +109,17 @@ class SellerFormScreen2 extends StatefulWidget {
 
   Future<void> addTractor() async {
     try {
+      // Get the current user's UID
+      String? uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid == null) {
+        throw 'User not authenticated!';
+      }
+
+      // Generate a new document reference (random ID)
+      DocumentReference docRef = FirebaseFirestore.instance.collection('pendingListings').doc();
       final tractorData = {
+        "tractorId": docRef.id, // Store the generated document ID
+        "uid": uid,
         "brand": widget.brand.text.trim(),
         "model": widget.model.text.trim(),
         "registrationNumber": widget.RegNum.text.trim(),
@@ -143,7 +154,7 @@ class SellerFormScreen2 extends StatefulWidget {
         // "viewCount": 0,
       };
 
-      await FirebaseFirestore.instance.collection('tractors').add(tractorData);
+      await docRef.set(tractorData);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Tractor added successfully!'),
       ));
