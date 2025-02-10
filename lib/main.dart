@@ -11,6 +11,7 @@ import 'package:tractors24/screens/LandingPage.dart';
 import 'package:tractors24/screens/buyer_page.dart';
 import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/loanEnquire.dart';
+import 'package:tractors24/screens/new_password.dart';
 import 'package:tractors24/screens/recommedWidget.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
 import 'package:tractors24/screens/contact_seller.dart';
@@ -28,6 +29,8 @@ import 'package:tractors24/screens/notification.dart';
 import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
 import 'package:tractors24/screens/avani.dart';
 import 'package:tractors24/splash_screen/SplashScreen2.dart';
+import 'package:tractors24/screens/forget_pass.dart';
+import 'package:tractors24/screens/otp_verification.dart';
 
 
 
@@ -80,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       Navigator.pushReplacement(
         context,
 
-        MaterialPageRoute(builder: (context) =>  SplashScreen5()),
+        MaterialPageRoute(builder: (context) => NewPassword()),
 
       );
     });

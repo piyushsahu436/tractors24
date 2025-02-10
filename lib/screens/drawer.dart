@@ -61,12 +61,15 @@ class CustomDrawer extends StatelessWidget {
               child: Icon(Icons.person_4_outlined),
             ),
           ),
-          Text(
-            '  Personal',
-            style: GoogleFonts.anybody(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF414141)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22,vertical: 5),
+            child: Text(
+              'Personal',
+              style: GoogleFonts.anybody(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF414141)),
+            ),
           ),
 
           // Menu Items
