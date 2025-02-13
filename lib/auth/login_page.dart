@@ -70,7 +70,20 @@ class _LoginPageState extends State<LoginPage> {
             // Mobile number input
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Form_field(hintText: '    Mobile No.', controller: mobileController, prefixtext: '+91'),
+              child: Form_field(
+                hintText: '    Mobile No.',
+                controller: mobileController,
+                prefixtext: '+91',
+                keyboardType: TextInputType.phone,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your mobile number';
+                  } else if (!RegExp(r'^[6-9]\d{9}$').hasMatch(value)) {
+                    return 'Enter a valid 10-digit mobile number';
+                  }
+                  return null;
+                }, onTap: () {  }, onChanged: (String value) {  },
+              ),
             ),
 
 
@@ -98,17 +111,19 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextSpan(text: ', '),
                     TextSpan(
-                      text: 'Privacy Policy',
-                      style: GoogleFonts.anybody(
-                        color: Color(0xFF003B8F),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => PoliciesScreen()));
-                        }
-                    ),
+                        text: 'Privacy Policy',
+                        style: GoogleFonts.anybody(
+                          color: Color(0xFF003B8F),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PoliciesScreen()));
+                          }),
                   ],
                 ),
               ),
@@ -120,13 +135,18 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton(
-
                 onPressed: () async {
                   await FirebaseAuth.instance.verifyPhoneNumber(
-                      verificationCompleted: (PhoneAuthCredential credential) {},
+                      verificationCompleted:
+                          (PhoneAuthCredential credential) {},
                       verificationFailed: (FirebaseAuthException ex) {},
                       codeSent: (String verificationid, int? resendtoken) {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>otpScreen(verificationid: verificationid,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => otpScreen(
+                                      verificationid: verificationid,
+                                    )));
                       },
                       codeAutoRetrievalTimeout: (String verificationId) {},
                       phoneNumber: mobileController.text.toString());

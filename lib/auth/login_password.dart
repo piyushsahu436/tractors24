@@ -20,6 +20,9 @@ class _LoginPage2 extends State<Login2> {
   final TextEditingController nameloginController = TextEditingController();
   final TextEditingController passwordloginController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>(); // ✅ Form key for validation
+  String? _errorText; // ✅ Variable to store error message
+
   bool isTermsAccepted = false;
   bool isLoading = false;
   bool isCustomerSelected = true;
@@ -300,9 +303,31 @@ class _LoginPage2 extends State<Login2> {
                     ),
 
                     Form_field(
-                        hintText: "Email",
-                        controller: nameloginController,
-                        prefixtext: ""),
+                      hintText: "Email",
+                      controller: nameloginController,
+                      prefixtext: "",
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email';
+                        } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                            .hasMatch(value)) {
+                          return 'Please enter a valid email';
+                        }
+                        return null;
+                      },
+                      onTap: () {
+                        setState(() {
+                          _errorText = null;
+                        });
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          _errorText = null;
+                        });
+                      },
+                    ),
+
                     SizedBox(height: size.height * 0.001),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3.0),

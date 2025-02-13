@@ -19,7 +19,6 @@ import 'package:tractors24/screens/profile_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
-import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/Seller_form.dart';
 import 'package:tractors24/screens/Seller_form2.dart';
 import 'package:tractors24/screens/testimonials.dart';
