@@ -7,6 +7,8 @@ import 'package:tractors24/screens/policies_screen.dart';
 class CarDetailsPage extends StatelessWidget {
   const CarDetailsPage(
       {super.key,
+      required this.state,
+      required this.description,
       required this.SellPrice,
       required this.brand,
       required this.model,
@@ -32,6 +34,7 @@ class CarDetailsPage extends StatelessWidget {
       required this.tractorId,
       this.imageUrls});
   final String SellPrice;
+  final String state;
   final String brand;
   final String model;
   final String RegYear;
@@ -54,6 +57,7 @@ class CarDetailsPage extends StatelessWidget {
   final String OilCap;
   final String RunningKM;
   final String Fuel;
+  final String description;
   final List<String>? imageUrls;
 
   @override
@@ -102,53 +106,28 @@ class CarDetailsPage extends StatelessWidget {
                     child: ImageSliderWidget(
                       imageUrls: imageUrls,
                     ),
-                    // child: Container(
-                    //   height: size.height * 0.3,
-                    //   decoration: const BoxDecoration(
-                    //       image: DecorationImage(
-                    //           fit: BoxFit.fill,
-                    //           image: NetworkImage(
-                    //               "https://c8.alamy.com/comp/DTRKEM/tractor-with-trailer-rajasthan-india-DTRKEM.jpg"))),
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       const Padding(
-                    //         padding: EdgeInsets.only(top: 35, right: 15),
-                    //         child: Row(
-                    //           mainAxisAlignment: MainAxisAlignment.end,
-                    //           children: [
-                    //             Icon(
-                    //               Icons.favorite_border,
-                    //               color: Colors.redAccent,
-                    //             )
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       Padding(
-                    //         padding:
-                    //             const EdgeInsets.only(bottom: 15, right: 15),
-                    //         child: Row(
-                    //           mainAxisAlignment: MainAxisAlignment.end,
-                    //           children: [
-                    //             const Icon(
-                    //               Icons.camera_alt_sharp,
-                    //               color: Colors.white,
-                    //             ),
-                    //             Text(
-                    //               "2",
-                    //               style:
-                    //                   GoogleFonts.anybody(color: Colors.white),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                   ),
                 ],
               ),
-              // Title and price section
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, top: 12.0),
+                child: Text(
+                  'Description :',
+                  style: GoogleFonts.anybody(
+                    fontSize: 16,
+                    color: Color(0xFF003B8F),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
+                child: Text(
+                  '${description}',
+                  style: GoogleFonts.anybody(fontSize: 12, color: Colors.black),
+                ),
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -175,21 +154,21 @@ class CarDetailsPage extends StatelessWidget {
                                       // Makes it circular
                                     ),
                                     child: const Icon(
-                                      Icons.speed,
+                                      Icons.watch_later_outlined,
                                       color: Colors.black,
                                       size: 24.0,
                                     ),
                                   ),
                                   const SizedBox(height: 4.0),
                                   Text(
-                                    '${RunningKM}',
+                                    '${Hours}',
                                     style: GoogleFonts.anybody(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   Text(
-                                    "kms",
+                                    "Hours",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.anybody(
                                       color: Colors.grey[600],
@@ -308,7 +287,7 @@ class CarDetailsPage extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4.0),
                                   Text(
-                                    '${Pincode}',
+                                    '${Address}',
                                     style: GoogleFonts.anybody(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
@@ -365,6 +344,7 @@ class CarDetailsPage extends StatelessWidget {
                             ),
                           ),
                         ]),
+                    // Text('${Address} ',style: GoogleFonts.anybody(fontSize: 25,fontWeight: FontWeight.w500,),textAlign: TextAlign.start, )
                   ],
                 ),
               ),
@@ -608,6 +588,19 @@ class DetailsSection extends StatelessWidget {
       {'label': 'Insurance Status', 'value': insStatus},
       {'label': 'Engine Oil Capacity', 'value': oilCap},
       {'label': 'Fuel', 'value': fuel},
+      // {'label': 'Total Weight', 'value': fuel},
+      // {'label': 'Wheel Base', 'value': fuel},
+      // {'label': 'Overall Length', 'value': fuel},
+      // {'label': 'Overall Width', 'value': fuel},
+      // {'label': 'Ground Clearance', 'value': fuel},
+      // {'label': 'Front Tyre Size', 'value': fuel},
+      // {'label': 'Rear Tyre Size', 'value': fuel},
+      // {'label': 'Battery', 'value': fuel},
+      // {'label': 'Accessories', 'value': fuel},
+      // {'label': 'Warranty', 'value': fuel},
+      // {'label': 'Color', 'value': fuel},
+      // {'label': 'Pincode', 'value': fuel},
+      // {'label': 'Rear Tyre Size', 'value': fuel},
     ];
 
     final features = [
@@ -615,10 +608,18 @@ class DetailsSection extends StatelessWidget {
       {'label': 'Steering Type', 'value': steeringType},
       {'label': 'Brake', 'value': brake},
       {'label': 'Transmission', 'value': transmission},
-      {'label': 'PTO', 'value': pto},
+      {'label': 'PTO Horse Power', 'value': pto},
+      {'label': 'PTO Directions', 'value': pto},
       {'label': 'CC', 'value': cc},
       {'label': 'Lifting Capacity', 'value': liftingCapacity},
-      {'label': 'Cooling', 'value': cooling},
+      {'label': 'Cooling System', 'value': cooling},
+      //{'label': 'Number of Cylinders', 'value': horsePower},
+      // {'label': 'Air Filter', 'value': cooling},
+      // {'label': 'Clutch Type', 'value': cooling},
+      // {'label': 'Gear Box', 'value': cooling},
+      // {'label': 'Forward Speed', 'value': horsePower},
+      // {'label': 'RPM', 'value': cooling},
+      // {'label': 'Maximum Torque', 'value': cooling},
     ];
 
     final dataToShow = isSpecificationSelected ? details : features;

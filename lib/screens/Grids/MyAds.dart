@@ -74,6 +74,8 @@ class liveFavourites extends StatelessWidget {
                       ClutchType: tractor['Clutch Type'],
                       OilCap: tractor['Engine Oil Capacity'],
                       RunningKM: tractor['Running KM'],
+                            description: tractor['description']?? '',
+                            state: tractor['state'] ?? "",
                       Fuel: tractor['Fuel'], tractorId: tractor['tractorId'],)));
                 },
                 child: Container(
