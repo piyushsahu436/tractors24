@@ -58,12 +58,12 @@ class _TestimonialsState extends State<Testimonials> {
                       Form_field(
                           hintText: 'Name',
                           controller: _namereview,
-                          prefixtext: ''),
+                          prefixtext: '', validator: (String? value) {  },),
                       const SizedBox(height: 12),
                       Form_field(
                           hintText: 'Mobile Number',
                           controller: _numberreview,
-                          prefixtext: ""),
+                          prefixtext: "", validator: (String? value) {  },),
                       const SizedBox(height: 20),
                       Text(
                         'How do you feel about our service?',

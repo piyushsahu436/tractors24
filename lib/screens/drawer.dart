@@ -88,6 +88,7 @@ class CustomDrawer extends StatelessWidget {
 
             },
           ),
+          SizedBox(height: 4),
           Divider(
             color: Colors.grey,
             thickness: 1.0,
@@ -135,7 +136,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FAQList()),
+                MaterialPageRoute(builder: (context) => FAQScreen()),
               );
             },
           ),
