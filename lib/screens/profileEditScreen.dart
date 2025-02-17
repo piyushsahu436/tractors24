@@ -18,9 +18,11 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController _nameprofileController = TextEditingController();
-  final TextEditingController _mobileprofileController = TextEditingController();
+  final TextEditingController _mobileprofileController =
+      TextEditingController();
   final TextEditingController _emailprofileController = TextEditingController();
-  final TextEditingController _pinCodeprofileController =TextEditingController();
+  final TextEditingController _pinCodeprofileController =
+      TextEditingController();
   String profileImageUrl = "";
   bool isLoading = true;
 
@@ -29,11 +31,12 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
     super.initState();
     fetchUserData();
   }
+
   Future<void> fetchUserData() async {
     User? user = _auth.currentUser;
     if (user != null) {
       DocumentSnapshot userDoc =
-      await _firestore.collection('users').doc(user.uid).get();
+          await _firestore.collection('users').doc(user.uid).get();
 
       if (userDoc.exists) {
         setState(() {
@@ -47,6 +50,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
       }
     }
   }
+
   Future<void> updateUserData() async {
     User? user = _auth.currentUser;
     if (user != null) {
@@ -72,7 +76,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
       if (user != null) {
         String filePath = 'profile_images/${user.uid}.jpg';
         UploadTask uploadTask =
-        FirebaseStorage.instance.ref(filePath).putFile(imageFile);
+            FirebaseStorage.instance.ref(filePath).putFile(imageFile);
 
         TaskSnapshot snapshot = await uploadTask;
         String downloadUrl = await snapshot.ref.getDownloadURL();
@@ -87,6 +91,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
       }
     }
   }
+
   // Image picker instance
   final ImagePicker _picker = ImagePicker();
   File? _imageFile;
@@ -160,7 +165,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(children: [
@@ -228,7 +233,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
 
                       // Personal Info text
                       Padding(
-                        padding:  EdgeInsets.only(top: size.height*0.1),
+                        padding: EdgeInsets.only(top: size.height * 0.1),
                         child: Text(
                           'Personal Info',
                           style: GoogleFonts.anybody(
@@ -279,22 +284,22 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                             Form_field(
                                 hintText: 'Name',
                                 controller: _nameprofileController,
-                                prefixtext: ''),
+                                prefixtext: '', validator: (String? value) {  },),
                             const SizedBox(height: 8),
                             Form_field(
                                 hintText: 'Mobile Number',
                                 controller: _mobileprofileController,
-                                prefixtext: ''),
+                                prefixtext: '', validator: (String? value) {  },),
                             const SizedBox(height: 8),
                             Form_field(
                                 hintText: 'Email ID',
                                 controller: _emailprofileController,
-                                prefixtext: ''),
+                                prefixtext: '', validator: (String? value) {  },),
                             const SizedBox(height: 8),
                             Form_field(
                                 hintText: 'Pin Code',
                                 controller: _pinCodeprofileController,
-                                prefixtext: ''),
+                                prefixtext: '', validator: (String? value) {  },),
                             const SizedBox(height: 15),
 
                             // Change Password button
@@ -302,7 +307,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 border:
-                                Border.all(color: const Color(0xFF0A2472)),
+                                    Border.all(color: const Color(0xFF0A2472)),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: TextButton.icon(
@@ -320,7 +325,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                                 ),
                                 style: TextButton.styleFrom(
                                   padding:
-                                  const EdgeInsets.symmetric(vertical: 15),
+                                      const EdgeInsets.symmetric(vertical: 15),
                                 ),
                               ),
                             ),
@@ -347,7 +352,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF0A2472),
                                   padding:
-                                  const EdgeInsets.symmetric(vertical: 15),
+                                      const EdgeInsets.symmetric(vertical: 15),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -358,7 +363,9 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 30,)
+                            const SizedBox(
+                              height: 30,
+                            )
                           ],
                         ),
                       ),
@@ -366,63 +373,68 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                   ),
                 ),
               ),
-              Positioned(top: size.height*0.1,left: size.width*0.05,right: size.width*0.05,
-                child: Stack(alignment: AlignmentDirectional.topCenter,
-                    children:[
-                      const CircleAvatar(
-                        radius: 52,
-                        backgroundColor: Colors.black,
-                      ),
-                      Positioned(
-                        top: 1.5,
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundColor: Colors.white,
-                          backgroundImage:
+              Positioned(
+                top: size.height * 0.1,
+                left: size.width * 0.05,
+                right: size.width * 0.05,
+                child:
+                    Stack(alignment: AlignmentDirectional.topCenter, children: [
+                  const CircleAvatar(
+                    radius: 52,
+                    backgroundColor: Colors.black,
+                  ),
+                  Positioned(
+                    top: 1.5,
+                    child: CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.white,
+                      backgroundImage:
                           _imageFile != null ? FileImage(_imageFile!) : null,
-                          child: _imageFile == null
-                              ? const Icon(Icons.person,
+                      child: _imageFile == null
+                          ? const Icon(Icons.person,
                               size: 50, color: Colors.grey)
-                              : null,
-                          // backgroundImage: profileImageUrl.isNotEmpty
-                          //     ? NetworkImage(profileImageUrl)
-                          //     : const AssetImage('assets/default_avatar.png')
-                          // as ImageProvider,
-                          // child: _imageFile == null
-                          //     ? const Icon(Icons.person,
-                          //     size: 50, color: Colors.grey)
-                          //     : null,
+                          : null,
+                      // backgroundImage: profileImageUrl.isNotEmpty
+                      //     ? NetworkImage(profileImageUrl)
+                      //     : const AssetImage('assets/default_avatar.png')
+                      // as ImageProvider,
+                      // child: _imageFile == null
+                      //     ? const Icon(Icons.person,
+                      //     size: 50, color: Colors.grey)
+                      //     : null,
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    left: size.width * 0.15,
+                    bottom: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300, // Shadow color
+                            spreadRadius: 3, // Spread of shadow
+                            blurRadius: 20, // Blur effect
+                            offset: const Offset(2, 12), // Shadow position
+                          ),
+                        ],
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 18,
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.edit,
+                            size: 18,
+                            color: Colors.black,
+                          ),
+                          onPressed: _showImageSourceDialog,
                         ),
                       ),
-                      Positioned(
-
-                        right: 0,
-                        left: size.width*0.15,
-                        bottom: 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.shade300, // Shadow color
-                                spreadRadius: 3, // Spread of shadow
-                                blurRadius: 20, // Blur effect
-                                offset: const Offset(2, 12), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 18,
-                            child: IconButton(
-                              icon: const Icon(Icons.edit, size: 18, color: Colors.black,),
-                              onPressed: _showImageSourceDialog,
-                            ),
-                          ),
-                        ),
-                      )
-                    ]
-                ),
+                    ),
+                  )
+                ]),
               ),
               // Edit icon
               // Positioned(
@@ -469,12 +481,13 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
     );
   }
 }
+
 class NonEditFormField extends StatelessWidget {
   NonEditFormField(
       {super.key,
-        required this.hintText,
-        required this.controller,
-        required this.prefixtext});
+      required this.hintText,
+      required this.controller,
+      required this.prefixtext});
   final String hintText;
   final TextEditingController controller;
   final String prefixtext;
@@ -510,7 +523,8 @@ class NonEditFormField extends StatelessWidget {
                 color: const Color.fromRGBO(124, 139, 160, 1.0)),
             prefixText: prefixtext,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
             border: InputBorder.none,
           ),
           validator: (value) {

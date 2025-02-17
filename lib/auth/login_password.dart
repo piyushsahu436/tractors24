@@ -306,7 +306,6 @@ class _LoginPage2 extends State<Login2> {
                       hintText: "Email",
                       controller: nameloginController,
                       prefixtext: "",
-                      keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email';
@@ -315,16 +314,6 @@ class _LoginPage2 extends State<Login2> {
                           return 'Please enter a valid email';
                         }
                         return null;
-                      },
-                      onTap: () {
-                        setState(() {
-                          _errorText = null;
-                        });
-                      },
-                      onChanged: (value) {
-                        setState(() {
-                          _errorText = null;
-                        });
                       },
                     ),
 

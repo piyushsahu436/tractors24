@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       Navigator.pushReplacement(
         context,
 
-        MaterialPageRoute(builder: (context) => NewPassword()),
+        MaterialPageRoute(builder: (context) =>  SplashScreen5()),
 
       );
     });

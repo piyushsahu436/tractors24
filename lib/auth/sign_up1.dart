@@ -312,10 +312,7 @@ class _SignUp1 extends State<SignUp1> {
                       Form_field(
                         hintText: "Name",
                         controller: nameController,
-                        prefixtext: "",
-                        keyboardType: null,
-                        onTap: () {},
-                        onChanged: (String value) {},
+                        prefixtext: "", validator: (String? value) {  },
                       ),
                       SizedBox(height: size.height * 0.001),
                       Form_field(
@@ -332,18 +329,13 @@ class _SignUp1 extends State<SignUp1> {
                           }
                           return null;
                         },
-                        keyboardType: null,
-                        onTap: () {},
-                        onChanged: (String value) {},
                       ),
                       SizedBox(height: size.height * 0.0001),
                       Form_field(
                         hintText: "Phone Number",
                         controller: phoneController,
-                        prefixtext: "",
-                        keyboardType: null,
-                        onTap: () {},
-                        onChanged: (String value) {},
+                        prefixtext: "", validator: (String? value) {  },
+
                       ),
                       SizedBox(height: size.height * 0.001),
                       Padding(
@@ -423,10 +415,7 @@ class _SignUp1 extends State<SignUp1> {
                       Form_field(
                         hintText: "Pin Code",
                         controller: pincodeController,
-                        prefixtext: "",
-                        keyboardType: null,
-                        onTap: () {},
-                        onChanged: (String value) {},
+                        prefixtext: "", validator: (String? value) {  },
                       ),
                       Row(
                         children: [

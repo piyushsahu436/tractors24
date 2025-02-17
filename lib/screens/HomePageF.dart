@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/AllBrands.dart';
+import 'package:tractors24/screens/AllItems.dart';
 import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/Grids/StatesGrids.dart';
@@ -177,12 +178,20 @@ class _HomePageFState extends State<HomePageF> {
                   GridViewBuilderWidget(
                     itemCount: 4,
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: Image(
-                        image: AssetImage("assets/images/seeImg.png"),
-                        height: 26,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AllItems()),
+                          );
+                        },
+                        child: Image(
+                          image: AssetImage("assets/images/seeImg.png"),
+                          height: 30,
+                        ),
                       ),
                     ),
                   ),
@@ -199,12 +208,17 @@ class _HomePageFState extends State<HomePageF> {
                   GridViewBuilderWidget(
                     itemCount: 2,
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: Image(
-                        image: AssetImage("assets/images/seeImg.png"),
-                        height: 26,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> AllItems()));
+                        },
+                        child: Image(
+                          image: AssetImage("assets/images/seeImg.png"),
+                          height: 30,
+                        ),
                       ),
                     ),
                   ),
@@ -228,7 +242,7 @@ class _HomePageFState extends State<HomePageF> {
                                 "Are You Looking For a Tractor ?",
                                 style: GoogleFonts.anybody(
                                     color: Colors.white,
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w700),
                               ),
                             ),
@@ -257,12 +271,17 @@ class _HomePageFState extends State<HomePageF> {
                   GridViewBuilderWidget(
                     itemCount: 2,
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: Image(
-                        image: AssetImage("assets/images/seeImg.png"),
-                        height: 26,
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AllItems()));
+                        },
+                        child: Image(
+                          image: AssetImage("assets/images/seeImg.png"),
+                          height: 30,
+                        ),
                       ),
                     ),
                   ),
@@ -279,51 +298,22 @@ class _HomePageFState extends State<HomePageF> {
                   GridViewBuilderWidget(
                     itemCount: 2,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
+               Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
                     child: Center(
-                      child: Image(
-                        image: AssetImage("assets/images/seeImg.png"),
-                        height: 26,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 0),
-                    child: Container(
-                      height: 132,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage("assets/images/BgImg.png"))),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "Are You Looking For a Tractor ?",
-                                style: GoogleFonts.anybody(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            const Expanded(
-                              child: Image(
-                                image:
-                                    AssetImage("assets/images/clkButton.png"),
-                                height: 35,
-                              ),
-                            ),
-                          ],
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AllItems()));
+                        },
+
+                        child: Image(
+                          image: AssetImage("assets/images/seeImg.png"),
+                          height: 30,
                         ),
                       ),
                     ),
                   ),
+
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 16.0, top: 20, right: 16),
@@ -417,7 +407,7 @@ class _HomePageFState extends State<HomePageF> {
                                 "Do You Want to Sell a Tractor ?",
                                 style: GoogleFonts.anybody(
                                     color: Colors.white,
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w700),
                               ),
                             ),
