@@ -124,13 +124,18 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton(
-
                 onPressed: () async {
                   await FirebaseAuth.instance.verifyPhoneNumber(
-                      verificationCompleted: (PhoneAuthCredential credential) {},
+                      verificationCompleted:
+                          (PhoneAuthCredential credential) {},
                       verificationFailed: (FirebaseAuthException ex) {},
                       codeSent: (String verificationid, int? resendtoken) {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>otpScreen(verificationid: verificationid,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => otpScreen(
+                                      verificationid: verificationid,
+                                    )));
                       },
                       codeAutoRetrievalTimeout: (String verificationId) {},
                       phoneNumber: mobileController.text.toString());

@@ -12,7 +12,7 @@ class GridViewBuilderWidget extends StatelessWidget {
   final int itemCount;
 
   final CollectionReference tractorsCollection =
-      FirebaseFirestore.instance.collection('tractors');
+  FirebaseFirestore.instance.collection('tractors');
 
 
   @override
