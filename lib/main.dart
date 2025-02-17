@@ -9,6 +9,7 @@ import 'package:tractors24/screens/Grids/StatesGrids.dart';
 import 'package:tractors24/screens/HomePageF.dart';
 import 'package:tractors24/screens/LandingPage.dart';
 import 'package:tractors24/screens/buyer_page.dart';
+import 'package:tractors24/screens/dealer_dashboard/home_screen.dart';
 import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/loanEnquire.dart';
 import 'package:tractors24/screens/new_password.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Tractors 24'),
+      home: DealerDashboard(),
     );
   }
 }

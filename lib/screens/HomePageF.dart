@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:tractors24/screens/AllBrands.dart';
 import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
@@ -15,6 +17,74 @@ class HomePageF extends StatefulWidget {
 }
 
 class _HomePageFState extends State<HomePageF> {
+  String _currentAddress = "Loading...";
+  Position? _currentPosition;
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
+
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Location services are disabled. Please enable the services')));
+      return false;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Location permissions are denied')));
+        return false;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Location permissions are permanently denied')));
+      return false;
+    }
+    return true;
+  }
+
+  Future<void> _getCurrentLocation() async {
+    final hasPermission = await _handleLocationPermission();
+    if (!hasPermission) return;
+
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      setState(() => _currentPosition = position);
+      await _getAddressFromLatLng();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> _getAddressFromLatLng() async {
+    if (_currentPosition == null) return;
+
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          _currentPosition!.latitude, _currentPosition!.longitude);
+
+      Placemark place = placemarks[0];
+      setState(() {
+        _currentAddress = place.locality ?? place.subAdministrativeArea ?? "Unknown location";
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -84,7 +154,8 @@ class _HomePageFState extends State<HomePageF> {
                               width: size.width * 0.6,
                               child: TextField(
                                 decoration: InputDecoration(
-                                  fillColor: Colors.white, filled: true,
+                                  fillColor: Colors.white,
+                                  filled: true,
                                   hintText: 'Search Tractor',
                                   hintStyle: GoogleFonts.anybody(
                                     color: Colors.grey[400],
@@ -99,7 +170,7 @@ class _HomePageFState extends State<HomePageF> {
                                       horizontal: 16, vertical: 10),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(24.0),
-                                  ), // Adjust padding as needed
+                                  ),
                                 ),
                               ),
                             ),
@@ -112,12 +183,13 @@ class _HomePageFState extends State<HomePageF> {
                             ),
                             Expanded(
                               child: Text(
-                                "Indore",
+                                _currentAddress,
                                 style: GoogleFonts.anybody(
                                   color: Colors.white,
                                   fontSize: 13.0,
                                   fontWeight: FontWeight.w500,
                                 ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             )
                           ],
