@@ -57,7 +57,7 @@ class ForgetPassword extends StatelessWidget {
           child: Form_field(
               hintText: 'Email',
               controller: _emailverification,
-              prefixtext: ''),
+              prefixtext: '', validator: (String? value) {  },),
         ),
         SizedBox(height: size.height * 0.06),
         SizedBox(

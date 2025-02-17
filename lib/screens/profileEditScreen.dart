@@ -279,22 +279,22 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                             Form_field(
                                 hintText: 'Name',
                                 controller: _nameprofileController,
-                                prefixtext: ''),
+                                prefixtext: '', validator: (String? value) {  },),
                             const SizedBox(height: 8),
                             Form_field(
                                 hintText: 'Mobile Number',
                                 controller: _mobileprofileController,
-                                prefixtext: ''),
+                                prefixtext: '', validator: (String? value) {  },),
                             const SizedBox(height: 8),
                             Form_field(
                                 hintText: 'Email ID',
                                 controller: _emailprofileController,
-                                prefixtext: ''),
+                                prefixtext: '', validator: (String? value) {  },),
                             const SizedBox(height: 8),
                             Form_field(
                                 hintText: 'Pin Code',
                                 controller: _pinCodeprofileController,
-                                prefixtext: ''),
+                                prefixtext: '', validator: (String? value) {  },),
                             const SizedBox(height: 15),
 
                             // Change Password button

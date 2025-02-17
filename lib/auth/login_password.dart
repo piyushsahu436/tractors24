@@ -302,7 +302,7 @@ class _LoginPage2 extends State<Login2> {
                     Form_field(
                         hintText: "Email",
                         controller: nameloginController,
-                        prefixtext: ""),
+                        prefixtext: "", validator: (String? value) {  },),
                     SizedBox(height: size.height * 0.001),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3.0),

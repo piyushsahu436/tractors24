@@ -64,14 +64,14 @@ class NewPassword extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Form_field(
-                hintText: 'New Password', controller: _newpass, prefixtext: ''),
+                hintText: 'New Password', controller: _newpass, prefixtext: '', validator: (String? value) {  },),
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Form_field(
                 hintText: 'Confirm Password',
                 controller: _cnfpass,
-                prefixtext: ''),
+                prefixtext: '', validator: (String? value) {  },),
           ),
           SizedBox(height: size.height * 0.04),
           SizedBox(
