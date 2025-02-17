@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
@@ -20,6 +21,7 @@ import 'package:tractors24/screens/profile_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
+import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/Seller_form.dart';
 import 'package:tractors24/screens/Seller_form2.dart';
 import 'package:tractors24/screens/testimonials.dart';
@@ -53,7 +55,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: DealerDashboard(),
+      home: const MyHomePage(title: 'Tractors 24'),
     );
   }
 }
@@ -83,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       Navigator.pushReplacement(
         context,
 
-        MaterialPageRoute(builder: (context) =>  SplashScreen5()),
+        MaterialPageRoute(builder: (context) =>   LandingPage()),
 
       );
     });

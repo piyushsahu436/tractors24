@@ -3,13 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
 import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/faq_screen.dart';
-import 'package:tractors24/screens/notification.dart';
 import 'package:tractors24/screens/profile_screen.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/testimonials.dart';
-
-import 'favorites_page.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String userName = "John Doe";
@@ -81,19 +78,14 @@ class CustomDrawer extends StatelessWidget {
             icon: Icons.person,
             title: 'My Profile',
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInfoScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>PersonalInfoScreen()));
             },
           ),
-          SizedBox(height: 4),
-
           _buildMenuListTile(
             icon: Icons.favorite_outline,
             title: 'My Favourites',
             onTap: () {
-              Navigator.push(
-                  (context),
-                  MaterialPageRoute(
-                      builder: (context) =>Favourite()));
+
             },
           ),
           SizedBox(height: 4),
@@ -110,8 +102,9 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                   (context),
-                  MaterialPageRoute(
-                      builder: (context) => EMICalculatorScreen()));
+                  MaterialPageRoute(builder: (context) => EMICalculatorScreen())
+              );
+
             },
           ),
           SizedBox(height: 4),
@@ -179,6 +172,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => Navigator.pop(context),
           ),
         ],
+
       ),
     );
   }

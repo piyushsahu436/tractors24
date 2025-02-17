@@ -122,7 +122,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 // height: size.height * 1,
                 width: size.width * 1,
               ),
-
+              
               Padding(
                 padding: EdgeInsets.only(top: size.height * 0.15),
                 child: Container(
@@ -272,7 +272,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF0A2472),
                                   padding:
-                                  const EdgeInsets.symmetric(vertical: 15),
+                                      const EdgeInsets.symmetric(vertical: 15),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -293,33 +293,33 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               ),
               Positioned(top: size.height*0.1,left: size.width*0.05,right: size.width*0.05,
                 child: Stack(alignment: AlignmentDirectional.topCenter,
-                    children:[
-                      const CircleAvatar(
-                        radius: 52,
-                        backgroundColor: Colors.black,
-                      ),
-                      Positioned(
-                        top: 1.5,
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundColor: Colors.white,
-                          backgroundImage:
-                          _imageFile != null ? FileImage(_imageFile!) : null,
-                          child: _imageFile == null
-                              ? const Icon(Icons.person,
-                              size: 50, color: Colors.grey)
-                              : null,
-                          // backgroundImage: profileImageUrl.isNotEmpty
-                          //     ? NetworkImage(profileImageUrl)
-                          //     : const AssetImage('assets/default_avatar.png')
-                          // as ImageProvider,
-                          // child: _imageFile == null
-                          //     ? const Icon(Icons.person,
-                          //     size: 50, color: Colors.grey)
-                          //     : null,
-                        ),
-                      ),
-                    ]
+                  children:[
+                    const CircleAvatar(
+                      radius: 52,
+                      backgroundColor: Colors.black,
+                    ),
+                    Positioned(
+                      top: 1.5,
+                      child: CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.white,
+                        backgroundImage:
+                        _imageFile != null ? FileImage(_imageFile!) : null,
+                        child: _imageFile == null
+                            ? const Icon(Icons.person,
+                            size: 50, color: Colors.grey)
+                            : null,
+                        // backgroundImage: profileImageUrl.isNotEmpty
+                        //     ? NetworkImage(profileImageUrl)
+                        //     : const AssetImage('assets/default_avatar.png')
+                        // as ImageProvider,
+                      // child: _imageFile == null
+                      //     ? const Icon(Icons.person,
+                      //     size: 50, color: Colors.grey)
+                      //     : null,
+                                        ),
+                    ),
+                ]
                 ),
               ),
               // Edit icon
@@ -423,3 +423,4 @@ class NonEditFormField extends StatelessWidget {
     );
   }
 }
+

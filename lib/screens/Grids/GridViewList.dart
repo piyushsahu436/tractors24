@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/contact_seller.dart';
 
@@ -9,7 +12,8 @@ class GridViewBuilderWidget extends StatelessWidget {
   final int itemCount;
 
   final CollectionReference tractorsCollection =
-  FirebaseFirestore.instance.collection('tractors');
+      FirebaseFirestore.instance.collection('tractors');
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +49,45 @@ class GridViewBuilderWidget extends StatelessWidget {
             itemCount: itemCount,
             itemBuilder: (context, index) {
               var tractor = tractors[index].data() as Map<String, dynamic>;
+              List<String> imageUrls = (tractor['images'] as List<dynamic>?)
+                  ?.map((e) => e.toString())
+                  .toList() ?? [];
 
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CarDetailsPage()));
+                          builder: (context) => CarDetailsPage(
+                                SellPrice:
+                                    tractor['expectedPrice']?.toString() ?? '',
+                                brand: tractor['brand'] ?? '',
+                                model: tractor['model'] ?? '',
+                                RegYear: tractor['registrationYear'] ?? '',
+                                Pincode: tractor['pincode']?.toString() ?? '',
+                                HorsePower:
+                                    tractor['horsePower']?.toString() ?? '',
+                                Hours: tractor['hoursDriven'] ?? '',
+                                RegNum: tractor['registrationNumber'] ?? '',
+                                InsStatus: tractor['insuranceStatus'] ?? '',
+                                RearTire: tractor['rearTyre'] ?? '',
+                                Address: tractor['state'] ?? '',
+                                Break: tractor['break'] ?? '',
+                                Transmission: tractor['Transmission'] ?? '',
+                                PTO: tractor['Pto'] ?? '',
+                                CC: tractor['CC'] ?? '',
+                                Cooling: tractor['Cooling'] ?? '',
+                                LiftingCapacity:
+                                    tractor['Lifting Capacity'] ?? '',
+                                SteeringType: tractor['Steering Type'] ?? '',
+                                ClutchType: tractor['Clutch Type'] ?? '',
+                                OilCap: tractor['Engine Oil Capacity'] ?? '',
+                                RunningKM: tractor['Running KM'] ?? '',
+                                Fuel: tractor['Fuel'] ?? '',
+                                tractorId: tractor['tractorId'] ?? '',
+                                imageUrls: (tractor['images'] as List<dynamic>?)?.map((e) => e.toString()).toList()?? [],
+
+                              )));
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -67,56 +103,81 @@ class GridViewBuilderWidget extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
+
                       ClipRRect(
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(12.0),
                         ),
                         child: Container(
-                            height: size.height * 0.15,
-                            width: double.infinity,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/temp1.jpg"), // Replace with tractor image URL
-                                fit: BoxFit.fill,
+                          height: size.height * 0.15,
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                            borderRadius:  BorderRadius.vertical(top: Radius.circular(12.0)),
+                          ),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              // Blurred Background Image
+                              if (imageUrls.isNotEmpty)
+                                ImageFiltered(
+                                  imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  child: Image.network(
+                                    imageUrls[0],
+                                    fit: BoxFit.cover,
+                                    color: Colors.black.withOpacity(0.3),
+                                    colorBlendMode: BlendMode.darken,
+                                  ),
+                                ),
+
+                              // Foreground Image with Proper Fit
+                              Center(
+                                child: Image.network(
+                                  imageUrls.isNotEmpty ? imageUrls[0] : 'assets/images/default.png',
+                                  fit: BoxFit.contain, // Keeps aspect ratio
+                                  width: size.width * 0.9, // Adjust width as needed
+                                  height: size.height * 0.15, // Adjust height
+                                ),
                               ),
-                            ),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 12),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
+
+                              // Other UI Elements (Labels, Favorite Icon, etc.)
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
                                             color: const Color(0xFF003B8F),
-                                            borderRadius:
-                                            BorderRadius.circular(20)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Text(" Great Price ",
+                                            borderRadius: BorderRadius.circular(20),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Text(
+                                              " Great Price ",
                                               style: GoogleFonts.anybody(
                                                 color: Colors.white,
                                                 fontSize: 7,
                                                 fontWeight: FontWeight.w500,
-                                              )),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      const Image(
-                                        image: AssetImage(
-                                            "assets/images/favIcon.png"),
-                                        height: 18,
-                                      )
-                                    ],
+                                        const Image(
+                                          image: AssetImage("assets/images/favIcon.png"),
+                                          height: 18,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                )
-                              ],
-                            )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10.0, vertical: 10),
@@ -148,7 +209,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                       ),
                                       SizedBox(width: size.width * 0.015),
                                       Text(
-                                        tractor['district'] ?? 'Unknown',
+                                        tractor['location'] ?? 'Unknown',
                                         style: GoogleFonts.anybody(
                                           color: const Color(0xFF414141),
                                           fontSize: 9,
@@ -168,7 +229,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                       ),
                                       SizedBox(width: size.width * 0.015),
                                       Text(
-                                        '${tractor['hours']} hr' ?? 'Unknown',
+                                        '${tractor['hoursDriven']} hr' ?? 'Unknown',
                                         style: GoogleFonts.anybody(
                                           color: const Color(0xFF414141),
                                           fontSize: 9,
@@ -184,7 +245,7 @@ class GridViewBuilderWidget extends StatelessWidget {
 
                             // Price
                             Text(
-                              '₹${tractor['sellPrice']}' ?? 'Unknown',
+                              '₹${tractor['expectedPrice']}' ?? 'Unknown',
                               style: GoogleFonts.anybody(
                                 color: const Color(0xFF414141),
                                 fontSize: 16,
@@ -202,7 +263,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          ContactSellerScreen(),
+                                          const ContactSellerScreen(),
                                     ),
                                   );
                                 },
@@ -236,6 +297,122 @@ class GridViewBuilderWidget extends StatelessWidget {
             },
           );
         },
+      ),
+    );
+  }
+}
+
+
+class ImageSliderWidget extends StatefulWidget {
+  final List<String>? imageUrls;
+
+  const ImageSliderWidget({super.key, this.imageUrls});
+
+  @override
+  State<ImageSliderWidget> createState() => _ImageSliderWidgetState();
+}
+
+class _ImageSliderWidgetState extends State<ImageSliderWidget> {
+  final PageController _pageController = PageController();
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Column(
+      children: [
+        SizedBox(
+          height: size.height*0.25,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: widget.imageUrls?.length ?? 1, // Avoid null error
+            itemBuilder: (context, index) {
+              if (widget.imageUrls == null || widget.imageUrls!.isEmpty) {
+                return defaultImageSlider(); // Default image when no URLs are available
+              }
+
+              String imageUrl = widget.imageUrls![index];
+
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  // Blurred Background Image
+                  ImageFiltered(
+                    imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                      color: Colors.black.withOpacity(0.3),
+                      colorBlendMode: BlendMode.darken,
+                    ),
+                  ),
+
+                  // Foreground Image with Proper Fit
+                  Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        imageUrl,
+                        fit: BoxFit.contain, // Maintains aspect ratio
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height:  size.height*0.25,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return const Center(child: CircularProgressIndicator());
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return defaultImage();
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 8),
+
+        // Smooth Page Indicator
+        SmoothPageIndicator(
+          controller: _pageController,
+          count: widget.imageUrls?.length ?? 1,
+          effect: ExpandingDotsEffect(
+            dotHeight: 8,
+            dotWidth: 8,
+            activeDotColor: Colors.blue,
+            dotColor: Colors.grey.shade400,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget defaultImageSlider() {
+    return Column(
+      children: [
+        SizedBox(height: 200, child: defaultImage()),
+        const SizedBox(height: 8),
+        SmoothPageIndicator(
+          controller: PageController(),
+          count: 1,
+          effect: ExpandingDotsEffect(
+            dotHeight: 8,
+            dotWidth: 8,
+            activeDotColor: Colors.blue,
+            dotColor: Colors.grey.shade400,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget defaultImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.asset(
+        'assets/images/Rectangle 23807.png',
+        fit: BoxFit.cover,
+        width: double.infinity,
       ),
     );
   }

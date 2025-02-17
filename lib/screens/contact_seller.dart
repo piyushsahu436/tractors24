@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ContactSellerScreen extends StatefulWidget {
-  ContactSellerScreen({super.key});
+  const ContactSellerScreen({super.key});
 
   @override
   State<ContactSellerScreen> createState() => _ContactSellerScreenState();
@@ -19,7 +19,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
   final TextEditingController _pincodecontactsellerController =
       TextEditingController();
 
-  Future<void> addLoanEnquiry(BuildContext context) async {
+  Future<void> addEnquiry(BuildContext context) async {
     try {
       // Firestore instance
       final firestore = FirebaseFirestore.instance;
@@ -215,7 +215,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
-                      onPressed:() => addLoanEnquiry(context),
+                      onPressed:() => addEnquiry(context),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF003B8F),
                         shape: RoundedRectangleBorder(

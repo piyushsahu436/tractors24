@@ -1,9 +1,12 @@
 import 'dart:io';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:minio/io.dart';
+import 'package:minio/minio.dart';
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/data/ContaboImageHandling/Contabo_Image.dart';
 import 'package:tractors24/screens/Seller_form2.dart';
 
 class SellerformScreen extends StatefulWidget {
@@ -35,21 +38,74 @@ class _SellerformScreenState extends State<SellerformScreen> {
       TextEditingController();
   final TextEditingController _amountCont = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  List<String> uploadedUrls = [];
+  List<File> selectedImages = [];
+  bool _isUploading = false;
+
   File? _imageFile;
 
-  // Function to pick image from gallery or camera
-  Future<void> _pickImage(ImageSource source) async {
-    try {
-      final XFile? pickedFile = await _picker.pickImage(source: source);
-      if (pickedFile != null) {
-        setState(() {
-          _imageFile = File(pickedFile.path);
-        });
-      }
-    } catch (e) {
-      debugPrint('Error picking image: $e');
+  final minio = Minio(
+    endPoint: 'sin1.contabostorage.com',
+    accessKey: '1eb0cbdee363c529fcbde7bf72e08ab3',
+    secretKey: '650b25c6c6612a691a65654dc4ca77b1',
+    useSSL: true,
+  );
+
+  Future<void> _pickImages(ImageSource source) async {
+    final List<XFile>? pickedFiles = await _picker.pickMultiImage();
+    if (pickedFiles == null || pickedFiles.isEmpty) return;
+
+    if (pickedFiles != null) {
+      setState(() {
+        selectedImages = pickedFiles.map((img) => File(img.path)).toList();
+      });
     }
+
+    if (pickedFiles.length > 5) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('You can upload up to 5 images only!')),
+      );
+      return;
+    }
+
+    setState(() {
+      selectedImages = pickedFiles.map((file) => File(file.path)).toList();
+    });
+
+    // for (var file in pickedFiles) {
+    //   String? uploadedUrl = await _uploadToContabo(File(file.path));
+    //   if (uploadedUrl != null) {
+    //     uploadedUrls.add(uploadedUrl);
+    //   }
+    // }
+    //
+    // setState(() {
+    //   _isUploading = false;
+    // });
+    //
+    // // Print uploaded URLs or error message
+    // if (uploadedUrls.isNotEmpty) {
+    //   print("Uploaded Images: $uploadedUrls");
+    // } else {
+    //   print("Not uploaded");
+    // }
   }
+  // Future<String?> _uploadToContabo(File file) async {
+  //   try {
+  //     String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+  //
+  //     await minio.fPutObject(
+  //       'tractor24',
+  //       fileName,
+  //       file.path,
+  //     );
+  //
+  //     return 'https://sin1.contabostorage.com/d1fa3867924f4c149226431ef8cbe8ee:tractor24/$fileName';
+  //   } catch (e) {
+  //     print("Upload Error: $e");
+  //     return null;
+  //   }
+  // }
 
   // Show image source selection dialog
   void _showImageSourceDialog() {
@@ -65,14 +121,14 @@ class _SellerformScreenState extends State<SellerformScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.photo_library),
+                leading: const Icon(Icons.photo_library),
                 title: Text(
                   'Gallery',
                   style: GoogleFonts.anybody(),
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  _pickImage(ImageSource.gallery);
+                  _pickImages(ImageSource.gallery);
                 },
               ),
               ListTile(
@@ -83,7 +139,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  _pickImage(ImageSource.camera);
+                  _pickImages(ImageSource.camera);
                 },
               ),
             ],
@@ -124,12 +180,28 @@ class _SellerformScreenState extends State<SellerformScreen> {
                   padding: const EdgeInsets.only(top: 0),
                   child: Container(
                     height: 200,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/Rectangle 23807.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    child: _isUploading
+                        ? Center(child: CircularProgressIndicator())
+                        : PageView.builder(
+                            itemCount: selectedImages.isNotEmpty
+                                ? selectedImages.length
+                                : uploadedUrls.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: selectedImages.isNotEmpty  // Check if local images exist
+                                        ? FileImage(selectedImages[index]) as ImageProvider
+                                        : (uploadedUrls.isNotEmpty // Check if uploaded URLs exist
+                                        ? NetworkImage(uploadedUrls[index]) as ImageProvider
+                                        : const AssetImage('assets/images/Rectangle 23807.png')
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                   ),
                 ),
                 Positioned(
@@ -145,7 +217,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                             color: Colors.grey.shade300, // Shadow color
                             spreadRadius: 3, // Spread of shadow
                             blurRadius: 20, // Blur effect
-                            offset: Offset(2, 12), // Shadow position
+                            offset: const Offset(2, 12), // Shadow position
                           ),
                         ],
                       ),
@@ -177,7 +249,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: _pincodesellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/placeholder.png',
                           width: 24,
@@ -188,7 +260,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -203,7 +275,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: brandController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/brand-image.png',
                           width: 24,
@@ -214,7 +286,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -229,7 +301,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: _modelNumbersellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/tractor.png',
                           width: 24,
@@ -240,7 +312,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -256,7 +328,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: _amountCont,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/power.png',
                           width: 24,
@@ -267,7 +339,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -282,7 +354,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: _registrationyearsellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/calendar.png',
                           width: 24,
@@ -293,7 +365,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -309,7 +381,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: _horsepowersellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/power.png',
                           width: 24,
@@ -320,7 +392,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -336,7 +408,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: _hourssellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/time-left.png',
                           width: 24,
@@ -347,7 +419,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -362,7 +434,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: _registratiosellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/registration.png',
                           width: 24,
@@ -373,7 +445,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -388,7 +460,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: _insurancesellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/clipboard.png',
                           width: 24,
@@ -399,7 +471,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -414,7 +486,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: _reartyresellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/tire.png',
                           width: 24,
@@ -425,7 +497,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -440,7 +512,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     controller: _addresssellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           'assets/icons/placeholder.png',
                           width: 24,
@@ -451,7 +523,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
-                          color: Color.fromRGBO(124, 139, 160, 1.0)),
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -476,14 +548,18 @@ class _SellerformScreenState extends State<SellerformScreen> {
                                       pincode: _pincodesellerformController,
                                       brand: brandController,
                                       model: _modelNumbersellerformController,
-                                      horsePower: _horsepowersellerformController,
+                                      horsePower:
+                                          _horsepowersellerformController,
                                       RegNum: _registratiosellerformController,
-                                      RegistrationYear: _registrationyearsellerformController,
+                                      RegistrationYear:
+                                          _registrationyearsellerformController,
                                       Hours: _hourssellerformController,
                                       RearTyre: _reartyresellerformController,
                                       InStatus: _insurancesellerformController,
                                       Address: _addresssellerformController,
                                       amount: _amountCont,
+                                      uploadedUrls: uploadedUrls,
+                                      selectedImages: selectedImages,
                                     )));
                         // Implement send inquiry logic
                       },
