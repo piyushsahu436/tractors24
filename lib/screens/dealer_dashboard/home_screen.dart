@@ -5,10 +5,29 @@ import 'package:intl/intl.dart';
 import 'package:tractors24/screens/dealer_dashboard/profile_screen.dart';
 import 'package:tractors24/screens/dealer_dashboard/referral_screen.dart';
 import 'package:tractors24/screens/dealer_dashboard/rto_screen.dart';
-
 import '../customer_inquiries_screen.dart';
 
-class DealerDashboard extends StatelessWidget {
+class DealerDashboard extends StatefulWidget {
+  @override
+  _DealerDashboardState createState() => _DealerDashboardState();
+}
+
+class _DealerDashboardState extends State<DealerDashboard> {
+  final TextEditingController searchController = TextEditingController();
+  String searchQuery = '';
+
+  Stream<QuerySnapshot> getTractorsStream() {
+    if (searchQuery.isEmpty) {
+      return FirebaseFirestore.instance.collection('tractors').snapshots();
+    } else {
+      return FirebaseFirestore.instance
+          .collection('tractors')
+          .where('name', isGreaterThanOrEqualTo: searchQuery)
+          .where('name', isLessThanOrEqualTo: searchQuery + '\uf8ff')
+          .snapshots();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,12 +35,18 @@ class DealerDashboard extends StatelessWidget {
         title: Padding(
           padding: const EdgeInsets.all(3.0),
           child: TextField(
+            controller: searchController,
+            onChanged: (value) {
+              setState(() {
+                searchQuery = value;
+              });
+            },
             decoration: InputDecoration(
               hintText: 'Search Tractor',
               hintStyle: TextStyle(color: Colors.grey),
               prefixIcon: Icon(Icons.search),
               filled: true,
-              fillColor: Colors.grey[100], // Grey background color
+              fillColor: Colors.grey[100],
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -29,8 +54,6 @@ class DealerDashboard extends StatelessWidget {
           ),
         ),
       ),
-
-
       drawer: Drawer(
         child: Column(
           children: [
@@ -47,13 +70,13 @@ class DealerDashboard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                    color: Color(0xFF0D5CA2),
+                  color: Color(0xFF0D5CA2),
                 ),
               ),
               accountEmail: Text(
                 'Abc@gmail.com',
                 style: TextStyle(
-                  fontSize: 14,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF0D5CA2)
                 ),
@@ -93,9 +116,9 @@ class DealerDashboard extends StatelessWidget {
                   }),
                   _buildDrawerItem(Icons.share, 'Referral System', () {
                     Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ReferralProgramScreen()),
-                  );}),
+                      context,
+                      MaterialPageRoute(builder: (context) => ReferralProgramScreen()),
+                    );}),
                   _buildDrawerItem(Icons.settings, 'Settings', () {
                     Navigator.push(
                       context,
@@ -120,8 +143,8 @@ class DealerDashboard extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-
-            Text("Stock Mangement" , style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+            Text("Stock Management",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
             SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: () {
@@ -133,9 +156,10 @@ class DealerDashboard extends StatelessWidget {
                 );
               },
               icon: Icon(Icons.add, color: Colors.white),
-              label: Text('Add New Tractor' , style: TextStyle(color: Colors.white)),
+              label: Text('Add New Tractor',
+                  style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF0D5CA2), // Primary color
+                backgroundColor: Color(0xFF0D5CA2),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -145,7 +169,7 @@ class DealerDashboard extends StatelessWidget {
             SizedBox(height: 16),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('tractors').snapshots(),
+                stream: getTractorsStream(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -159,17 +183,19 @@ class DealerDashboard extends StatelessWidget {
 
                   final tractorDocs = snapshot.data!.docs;
 
-                  return  ListView.builder(
+                  return ListView.builder(
                     itemCount: tractorDocs.length,
                     itemBuilder: (context, index) {
-                      final tractorData = tractorDocs[index].data() as Map<String, dynamic>;
-                      final documentId = tractorDocs[index].id; // Get the document ID
+                      final tractorData =
+                      tractorDocs[index].data() as Map<String, dynamic>;
+                      final documentId = tractorDocs[index].id;
 
                       return TractorCard(
                         name: tractorData['name'] ?? 'Unknown Tractor',
-                        location: tractorData['district'] ?? 'Unknown Location',
-                        price: tractorData['sellPrice']?.toString() ?? 'N/A',
-                        documentId: documentId, // Pass the document ID
+                        location: tractorData['location'] ?? 'Unknown Location',
+                        price: tractorData['sellPrice']?.toString() ?? '',
+                        documentId: documentId,
+                        hours: tractorData['hours']?.toString() ?? '',
                       );
                     },
                   );
@@ -180,9 +206,7 @@ class DealerDashboard extends StatelessWidget {
         ),
       ),
     );
-
   }
-
   Widget _buildDrawerItem(IconData icon, String title, VoidCallback onTap, {Color color = const Color(0xFF0D5CA2)}) {
     return ListTile(
       leading: Icon(icon, color: color),
@@ -199,14 +223,64 @@ class TractorCard extends StatelessWidget {
   final String name;
   final String location;
   final String price;
-  final String documentId; // Add this to track the Firebase document
+  final String documentId;
+  final String hours;
 
   TractorCard({
     required this.name,
     required this.location,
     required this.price,
     required this.documentId,
+    required this.hours,
   });
+
+  Widget _buildTractorImage(String? imageUrl) {
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      return ClipRRect(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        child: Image.network(
+          imageUrl,
+          height: 150,
+          width: double.infinity,
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Container(
+              height: 150,
+              width: double.infinity,
+              color: Colors.grey[200],
+              child: Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                      : null,
+                ),
+              ),
+            );
+          },
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              height: 150,
+              width: double.infinity,
+              color: Colors.grey[200],
+              child: Icon(Icons.error_outline, size: 50, color: Colors.grey),
+            );
+          },
+        ),
+      );
+    } else {
+      return ClipRRect(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        child: Container(
+          height: 150,
+          width: double.infinity,
+          color: Colors.grey[200],
+          child: Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
+        ),
+      );
+    }
+  }
 
   // Function to handle tractor deletion
   Future<void> _deleteTractor(BuildContext context) async {
@@ -254,6 +328,7 @@ class TractorCard extends StatelessWidget {
     final TextEditingController nameController = TextEditingController(text: name);
     final TextEditingController locationController = TextEditingController(text: location);
     final TextEditingController priceController = TextEditingController(text: price);
+    final TextEditingController hoursController = TextEditingController(text: hours);
 
     try {
       await showDialog(
@@ -267,18 +342,38 @@ class TractorCard extends StatelessWidget {
                 children: [
                   TextField(
                     controller: nameController,
-                    decoration: InputDecoration(labelText: 'Tractor Name'),
+                    decoration: InputDecoration(
+                      labelText: 'Tractor Name',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(height: 16),
                   TextField(
                     controller: locationController,
-                    decoration: InputDecoration(labelText: 'Location'),
+                    decoration: InputDecoration(
+                      labelText: 'Location',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(height: 16),
                   TextField(
                     controller: priceController,
-                    decoration: InputDecoration(labelText: 'Price'),
+                    decoration: InputDecoration(
+                      labelText: 'Price',
+                      border: OutlineInputBorder(),
+                    ),
                     keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  ),
+                  SizedBox(height: 16),
+                  TextField(
+                    controller: hoursController,
+                    decoration: InputDecoration(
+                      labelText: 'Hours Used',
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ],
               ),
@@ -288,17 +383,20 @@ class TractorCard extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text('Cancel'),
               ),
-              TextButton(
+              ElevatedButton(
                 onPressed: () async {
                   try {
                     await FirebaseFirestore.instance
                         .collection('tractors')
                         .doc(documentId)
                         .update({
-                      'name': nameController.text,
-                      'district': locationController.text,
-                      'sellPrice': priceController.text,
+                      'name': nameController.text.trim(),
+                      'district': locationController.text.trim(),
+                      'sellPrice': priceController.text.trim(),
+                      'hours': hoursController.text.trim(),
+                      'updatedAt': FieldValue.serverTimestamp(),
                     });
+
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Tractor updated successfully')),
@@ -309,6 +407,10 @@ class TractorCard extends StatelessWidget {
                     );
                   }
                 },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF0D5CA2),
+                  foregroundColor: Colors.white,
+                ),
                 child: Text('Save'),
               ),
             ],
@@ -322,92 +424,115 @@ class TractorCard extends StatelessWidget {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        elevation: 4,
-        margin: EdgeInsets.only(bottom: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-              child: Image.asset(
-                'assets/images/banner1.jpg',
-                height: 150,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 4),
-                  Row(
+      child: StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('tractors')
+            .doc(documentId)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          final tractorData = snapshot.data!.data() as Map<String, dynamic>;
+          final images = tractorData['images'] as List<dynamic>?;
+          final firstImage = images?.isNotEmpty == true ? images![0] : null;
+          final fuelType = tractorData['fuelType'] ?? 'N/A';
+
+          return Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            elevation: 4,
+            margin: EdgeInsets.only(bottom: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildTractorImage(firstImage),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.location_on, size: 14, color: Colors.grey),
-                      SizedBox(width: 4),
-                      Text(location, style: TextStyle(color: Colors.grey)),
-                      Spacer(),
-                      Icon(Icons.speed, size: 14, color: Colors.grey),
-                      SizedBox(width: 4),
-                      Text('40,000 KM', style: TextStyle(color: Colors.grey)),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    '₹ $price',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => _showEditDialog(context),
-                          child: Text('Edit', style: TextStyle(color: Colors.white)),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF0D5CA2),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                      Text(
+                        name,
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Icon(Icons.location_on, size: 14, color: Colors.grey),
+                          SizedBox(width: 4),
+                          Text(location, style: TextStyle(color: Colors.grey)),
+                          Spacer(),
+                          Icon(Icons.speed, size: 14, color: Colors.grey),
+                          SizedBox(width: 4),
+                          Text('$hours hrs', style: TextStyle(color: Colors.grey)),
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Icon(Icons.local_gas_station, size: 14, color: Colors.grey),
+                          SizedBox(width: 4),
+                          Text(
+                            'Fuel: $fuelType',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        '₹ $price',
+                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () => _showEditDialog(context),
+                              child: Text('Edit',
+                                  style: TextStyle(color: Colors.white)),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF0D5CA2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () => _deleteTractor(context),
-                          child: Text('Delete'),
-                          style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.black,
-                            side: BorderSide(color: Colors.black),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                          SizedBox(width: 8),
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () => _deleteTractor(context),
+                              child: Text('Delete'),
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.black,
+                                side: BorderSide(color: Colors.black),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 }
+
 
 class AddNewTractorDialog extends StatefulWidget {
   @override
@@ -424,6 +549,8 @@ class _AddNewTractorDialogState extends State<AddNewTractorDialog> {
   final TextEditingController hoursController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController stateController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController districtController = TextEditingController();
 
   Future<void> addTractor() async {
     try {
@@ -437,16 +564,17 @@ class _AddNewTractorDialogState extends State<AddNewTractorDialog> {
         "hours": hoursController.text.trim(),
         "category": categoryController.text.trim(),
         "state": stateController.text.trim(),
+        "location": locationController.text.trim(),
+        "district": districtController.text.trim(),
         "createdAt": FieldValue.serverTimestamp(),
         "updatedAt": FieldValue.serverTimestamp(),
         "description": "",
-        "district": "Pune", // Example: Replace with dynamic input if needed
-        "insuranceStatus": "Expired", // Example: Replace with dynamic input if needed
+        "insuranceStatus": "Expired",
         "listingDate": DateTime.now().toUtc().toIso8601String(),
-        "pincode": "411001", // Example: Replace with dynamic input if needed
-        "rearTyre": "16.9x28", // Example: Replace with dynamic input if needed
-        "sellPrice": "640000", // Example: Replace with dynamic input if needed
-        "showroomPrice": "1000000", // Example: Replace with dynamic input if needed
+        "pincode": "411001",
+        "rearTyre": "16.9x28",
+        "sellPrice": "640000",
+        "showroomPrice": "1000000",
         "status": "active",
         "viewCount": 0,
       };
@@ -513,6 +641,14 @@ class _AddNewTractorDialogState extends State<AddNewTractorDialog> {
                 controller: stateController,
                 decoration: InputDecoration(labelText: 'State*'),
               ),
+              TextField(
+                controller: locationController,
+                decoration: InputDecoration(labelText: 'Location*'),
+              ),
+              TextField(
+                controller: districtController,
+                decoration: InputDecoration(labelText: 'District*'),
+              ),
               SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -536,14 +672,3 @@ class _AddNewTractorDialogState extends State<AddNewTractorDialog> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-

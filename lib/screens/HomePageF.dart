@@ -130,12 +130,13 @@ class _HomePageFState extends State<HomePageF> {
                             ),
                             Expanded(
                               child: Text(
-                                "Indore",
+                                _currentAddress,
                                 style: GoogleFonts.anybody(
                                   color: Colors.white,
                                   fontSize: 13.0,
                                   fontWeight: FontWeight.w500,
                                 ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             )
                           ],
