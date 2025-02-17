@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/screens/policies_screen.dart';
+
 class SignUp1 extends StatefulWidget {
   const SignUp1({super.key});
 
@@ -309,19 +310,33 @@ class _SignUp1 extends State<SignUp1> {
                       SizedBox(height: size.height * 0.01),
 
                       Form_field(
-                          hintText: "Name",
-                          controller: nameController,
-                          prefixtext: ""),
+                        hintText: "Name",
+                        controller: nameController,
+                        prefixtext: "", validator: (String? value) {  },
+                      ),
                       SizedBox(height: size.height * 0.001),
                       Form_field(
-                          hintText: "Email",
-                          controller: emailController,
-                          prefixtext: ""),
+                        hintText: "Email",
+                        controller: emailController,
+                        prefixtext: "",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          } else if (!RegExp(
+                                  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                              .hasMatch(value)) {
+                            return 'Please enter a valid email';
+                          }
+                          return null;
+                        },
+                      ),
                       SizedBox(height: size.height * 0.0001),
                       Form_field(
-                          hintText: "Phone Number",
-                          controller: phoneController,
-                          prefixtext: ""),
+                        hintText: "Phone Number",
+                        controller: phoneController,
+                        prefixtext: "", validator: (String? value) {  },
+
+                      ),
                       SizedBox(height: size.height * 0.001),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -398,9 +413,10 @@ class _SignUp1 extends State<SignUp1> {
                       ),
                       SizedBox(height: size.height * 0.001),
                       Form_field(
-                          hintText: "Pin Code",
-                          controller: pincodeController,
-                          prefixtext: ""),
+                        hintText: "Pin Code",
+                        controller: pincodeController,
+                        prefixtext: "", validator: (String? value) {  },
+                      ),
                       Row(
                         children: [
                           Transform.scale(
@@ -446,18 +462,21 @@ class _SignUp1 extends State<SignUp1> {
                                           fontSize: 13,
                                           fontWeight: FontWeight.w400)),
                                   TextSpan(
-                                    text: "Privacy Policy",
-                                    style: GoogleFonts.anybody(
-                                      color: const Color(0xFF003B8F),
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                    ),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=> PoliciesScreen()),
-                                      );
-                                      }
-                                  ),
+                                      text: "Privacy Policy",
+                                      style: GoogleFonts.anybody(
+                                        color: const Color(0xFF003B8F),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PoliciesScreen()),
+                                          );
+                                        }),
                                 ],
                               ),
                             ),
@@ -468,32 +487,32 @@ class _SignUp1 extends State<SignUp1> {
                       Row(
                         children: [
                           Expanded(
-                            child: ElevatedButton(
-                              onPressed: isLoading
-                                  ? null
-                                  : () {
-                                if (isTermsAccepted && formKey.currentState!.validate()) {
-                                  _signUp(); // Ensure _signUp is defined in your class
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF003B8F),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
+                              child: ElevatedButton(
+                            onPressed: isLoading
+                                ? null
+                                : () {
+                                    if (isTermsAccepted &&
+                                        formKey.currentState!.validate()) {
+                                      _signUp(); // Ensure _signUp is defined in your class
+                                    }
+                                  },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF003B8F),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              child: isLoading
-                                  ? const CircularProgressIndicator(color: Colors.white)
-                                  : Text(
-                                'Create Account',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            )
-
-                          ),
+                            ),
+                            child: isLoading
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white)
+                                : Text(
+                                    'Create Account',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                          )),
                         ],
                       ),
                       SizedBox(height: size.height * 0.001),

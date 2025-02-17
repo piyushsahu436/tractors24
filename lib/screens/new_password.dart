@@ -62,40 +62,43 @@ class NewPassword extends StatelessWidget {
             ]),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.only(left: 35.0, right: 35.0,top: 30.0),
             child: Form_field(
-                hintText: 'New Password', controller: _newpass, prefixtext: ''),
+                hintText: 'New Password', controller: _newpass, prefixtext: '', validator: (String? value) {  },),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.only(left: 35.0, right: 35.0,top: 20.0),
             child: Form_field(
                 hintText: 'Confirm Password',
                 controller: _cnfpass,
-                prefixtext: ''),
+                prefixtext: '', validator: (String? value) {  },),
           ),
           SizedBox(height: size.height * 0.04),
           SizedBox(
-            width: size.width * 0.7,
-            height: size.height * 0.07,
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[900],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    )), 
-                child: Text(
-                  'Send',
-                  style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
-                )),
+            width: size.width * 0.9,
+            height: size.height * 0.10,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 20.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[900],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      )),
+                  child: Text(
+                    'Send',
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white),
+                  )),
+            ),
           )
         ],
       ),

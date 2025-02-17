@@ -1,118 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 
-class SearchTractor extends StatefulWidget {
-  const SearchTractor({super.key});
+class search extends StatefulWidget {
+  const search({super.key});
 
   @override
-  State<SearchTractor> createState() => _SearchTractorState();
+  State<search> createState() => _searchState();
 }
 
-class _SearchTractorState extends State<SearchTractor> {
+class _searchState extends State<search> {
+  final search = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _namesearch = TextEditingController();
-    final TextEditingController _locationsearch = TextEditingController();
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
-        body: Column(
-        children: [
-        // First container with Stack
-        Container(
-        height: 200, // Adjust height as needed
-        child: Stack(
-        children: [
-        // Background Image Container
-        Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-        image: DecorationImage(
-        image: AssetImage('assets/images/vector5.png'), // Add your image path
-    fit: BoxFit.fill,
-    ),
-    ),
-    ),
-
-
-    Positioned(
-    top:90,
-    left: 16,
-    right: 16,
-    child: Container(
-    decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(8.0),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.1), // Soft shadow
-        blurRadius: 10,
-        spreadRadius: 2,
-        offset: const Offset(2, 4), // Slight bottom shadow
-      ),
-    ],
-    ),
-    child: const TextField(
-    decoration: InputDecoration(
-    hintText: 'Mahindra Arjun 555 DI',
-    prefixIcon: Icon(Icons.search),
-    border: InputBorder.none,
-    contentPadding: EdgeInsets.all(16),
-    ),
-    ),
-    ),
-    ),
-
-    // Location TextField
-    Positioned(
-    top: 147, // Adjust these values
-    left: 16,
-    right: 16,
-    child: Container(
-    decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(8.0),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.1), // Soft shadow
-        blurRadius: 10,
-        spreadRadius: 2,
-        offset: const Offset(2, 4), // Slight bottom shadow
-      ),
-    ],
-    ),
-    child: const TextField(
-    decoration: InputDecoration(
-    hintText: 'Indore, Madhaya Pradesh',
-    prefixIcon: Icon(Icons.location_on),
-    border: InputBorder.none,
-    contentPadding: EdgeInsets.all(16),
-    ),
-    ),
-    ),
-    ),
-          // Second plain container
-
-    ],
-    ),
-    ),
-
-          Container(
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+      body: SingleChildScrollView(
+        child: Stack(children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: size.height * 0.2,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage('assets/images/vector7.png'),
+                  fit: BoxFit.fill,
+                )),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: headerTemp(text: ''),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 100.0, left: 20.0),
+                child: Text(
+                  'Search Results :',
+                  style: GoogleFonts.anybody(
+                      fontSize: 18.0, fontWeight: FontWeight.w500),
+                ),
+              ),
+              GridViewBuilderWidget(itemCount: 4),
+            ],
+          ),
+          Positioned(
+            top: 120,
+            left: 20,
+            right: 20,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 10,
+                    spreadRadius: 2,
+                    offset: const Offset(2, 4),
+                  ),
+                ],
+              ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Search Details:", style: GoogleFonts.anybody(fontSize: 16,fontWeight: FontWeight.w500),)
+                  TextFormField(
+                    decoration: InputDecoration(
+                        hintText: 'Brand Name',
+                        hintStyle: GoogleFonts.anybody(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Color.fromRGBO(124, 139, 160, 1.0),
+                        ),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 20),
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.search)),
+                  ),
+                  Divider(
+                    color: Colors.black,
+                    thickness: 1,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        hintText: 'Location',
+                        hintStyle: GoogleFonts.anybody(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15,
+                          color: Color.fromRGBO(124, 139, 160, 1.0),
+                        ),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 20),
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.location_pin)),
+                  )
                 ],
               ),
             ),
-          ),
-    ],
-    ));
+          )
+        ]),
+      ),
+    );
   }
 }

@@ -7,7 +7,6 @@ import 'package:tractors24/auth/otpScreen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -70,9 +69,13 @@ class _LoginPageState extends State<LoginPage> {
             // Mobile number input
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Form_field(hintText: '    Mobile No.', controller: mobileController, prefixtext: '+91'),
+              child: Form_field(
+                hintText: '    Mobile No.',
+                controller: mobileController,
+                prefixtext: '+91',
+                validator: (String? value) {},
+              ),
             ),
-
 
             SizedBox(height: size.height * 0.02),
 
@@ -98,17 +101,19 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextSpan(text: ', '),
                     TextSpan(
-                      text: 'Privacy Policy',
-                      style: GoogleFonts.anybody(
-                        color: Color(0xFF003B8F),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => PoliciesScreen()));
-                        }
-                    ),
+                        text: 'Privacy Policy',
+                        style: GoogleFonts.anybody(
+                          color: Color(0xFF003B8F),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PoliciesScreen()));
+                          }),
                   ],
                 ),
               ),
@@ -120,13 +125,18 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: ElevatedButton(
-
                 onPressed: () async {
                   await FirebaseAuth.instance.verifyPhoneNumber(
-                      verificationCompleted: (PhoneAuthCredential credential) {},
+                      verificationCompleted:
+                          (PhoneAuthCredential credential) {},
                       verificationFailed: (FirebaseAuthException ex) {},
                       codeSent: (String verificationid, int? resendtoken) {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>otpScreen(verificationid: verificationid,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => otpScreen(
+                                      verificationid: verificationid,
+                                    )));
                       },
                       codeAutoRetrievalTimeout: (String verificationId) {},
                       phoneNumber: mobileController.text.toString());
@@ -295,15 +305,57 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class Form_field extends StatelessWidget {
-  Form_field(
-      {super.key,
-      required this.hintText,
-      required this.controller,
-      required this.prefixtext});
+class Form_field extends StatefulWidget {
+  const Form_field({
+    super.key,
+    required this.hintText,
+    required this.controller,
+    required this.prefixtext,
+    required this.validator,
+  });
+
   final String hintText;
   final TextEditingController controller;
   final String prefixtext;
+  final FormFieldValidator<String> validator;
+
+  @override
+  _Form_fieldState createState() => _Form_fieldState();
+}
+
+class _Form_fieldState extends State<Form_field> {
+  String? errorText;
+  late FocusNode _focusNode;
+  bool _showError = false; // Track when to show the error
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+
+    // Remove error when the field is tapped (focused)
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        setState(() {
+          _showError = false; // Hide the error message
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void validateField() {
+    final result = widget.validator(widget.controller.text);
+    setState(() {
+      errorText = result;
+      _showError = result != null; // Show error only if validation fails
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -315,35 +367,33 @@ class Form_field extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.0),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1), // Soft shadow
+              color: Colors.black.withOpacity(0.1),
               blurRadius: 10,
               spreadRadius: 2,
-              offset: const Offset(2, 4), // Slight bottom shadow
+              offset: const Offset(2, 4),
             ),
           ],
         ),
         child: TextFormField(
-
-          controller: controller,
-          // keyboardType: TextInputType.phone,
+          controller: widget.controller,
+          focusNode: _focusNode,
           decoration: InputDecoration(
             fillColor: Colors.white,
-            hintText: hintText,
+            hintText: widget.hintText,
             hintStyle: GoogleFonts.anybody(
-                fontWeight: FontWeight.w400,
-                fontSize: 15,
-                color: Color.fromRGBO(124, 139, 160, 1.0)),
-            prefixText: prefixtext,
+              fontWeight: FontWeight.w400,
+              fontSize: 15,
+              color: const Color.fromRGBO(124, 139, 160, 1.0),
+            ),
+            prefixText: widget.prefixtext,
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
             border: InputBorder.none,
+            errorText: _showError
+                ? errorText
+                : null, // Show error only when login is pressed
           ),
-          validator: (value) {
-            if (value == null || value.trim().isEmpty) {
-              return 'This field is required';
-            }
-            return null; // No error
-          },
         ),
       ),
     );

@@ -94,27 +94,27 @@ class _LoanenquireState extends State<Loanenquire> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Form_field(
-                          hintText: 'Name', controller: _nameloan, prefixtext: ""),
+                          hintText: 'Name', controller: _nameloan, prefixtext: "", validator: (String? value) {  },),
                       const SizedBox(height: 8),
                       Form_field(
                           hintText: 'Mobile Number',
                           controller: _mobilenumberloan,
-                          prefixtext: ''),
+                          prefixtext: '', validator: (String? value) {  },),
                       const SizedBox(height: 8),
                       Form_field(
                           hintText: 'Email-ID (Optional)',
                           controller: _emailloan,
-                          prefixtext: ''),
+                          prefixtext: '', validator: (String? value) {  },),
                       const SizedBox(height: 8),
                       Form_field(
                           hintText: 'Enter Amount',
                           controller: _amountloan,
-                          prefixtext: ''),
+                          prefixtext: '', validator: (String? value) {  },),
                       const SizedBox(height: 8),
                       Form_field(
                           hintText: 'Vehicle Details',
                           controller: _vehicleloan,
-                          prefixtext: ''),
+                          prefixtext: '', validator: (String? value) {  },),
                       const SizedBox(height: 20),
                       RichText(
                           text: TextSpan(children: [
