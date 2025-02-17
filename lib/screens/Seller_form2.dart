@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:minio/io.dart';
+import 'package:minio/minio.dart';
 
 class SellerFormScreen2 extends StatefulWidget {
   const SellerFormScreen2(
@@ -17,7 +19,10 @@ class SellerFormScreen2 extends StatefulWidget {
       required this.RegNum,
       required this.InStatus,
       required this.RearTyre,
-      required this.Address, required this.amount});
+      required this.Address,
+      required this.amount,
+      required this.uploadedUrls,
+      required this.selectedImages});
   final TextEditingController pincode;
   final TextEditingController brand;
   final TextEditingController model;
@@ -29,12 +34,14 @@ class SellerFormScreen2 extends StatefulWidget {
   final TextEditingController RearTyre;
   final TextEditingController Address;
   final TextEditingController amount;
+  final List<String> uploadedUrls;
+  final List<File> selectedImages;
 
   @override
   State<SellerFormScreen2> createState() => _SellerFormScreen2State();
 }
 
-  class _SellerFormScreen2State extends State<SellerFormScreen2> {
+class _SellerFormScreen2State extends State<SellerFormScreen2> {
   final TextEditingController _sfbreak = TextEditingController();
   final TextEditingController _sfTransmission = TextEditingController();
   final TextEditingController _spPto = TextEditingController();
@@ -46,9 +53,8 @@ class SellerFormScreen2 extends StatefulWidget {
   final TextEditingController _sfOil = TextEditingController();
   final TextEditingController _sffuel = TextEditingController();
   final TextEditingController _sfKm = TextEditingController();
-
   final ImagePicker _picker = ImagePicker();
-
+  bool _isUploading = false;
   File? _imageFile;
 
   // Function to pick image from gallery or camera
@@ -106,17 +112,40 @@ class SellerFormScreen2 extends StatefulWidget {
       },
     );
   }
+  final minio = Minio(
+    endPoint: 'sin1.contabostorage.com',
+    accessKey: '1eb0cbdee363c529fcbde7bf72e08ab3',
+    secretKey: '650b25c6c6612a691a65654dc4ca77b1',
+    useSSL: true,
+  );
 
   Future<void> addTractor() async {
     try {
       // Get the current user's UID
+      setState(() {
+        _isUploading = true;
+      });
+      List<String> uploadedUrls = [];
+      for (var image in widget.selectedImages) {
+        String? url = await _uploadToContabo(image);
+        if (url != null) {
+          uploadedUrls.add(url);
+        }
+      }
+
+      // Ensure upload is complete
+      if (uploadedUrls.isEmpty) {
+        throw 'Image upload failed!';
+      }
+
       String? uid = FirebaseAuth.instance.currentUser?.uid;
       if (uid == null) {
         throw 'User not authenticated!';
       }
 
       // Generate a new document reference (random ID)
-      DocumentReference docRef = FirebaseFirestore.instance.collection('pendingListings').doc();
+      DocumentReference docRef =
+          FirebaseFirestore.instance.collection('pendingListings').doc();
       final tractorData = {
         "tractorId": docRef.id, // Store the generated document ID
         "uid": uid,
@@ -133,28 +162,38 @@ class SellerFormScreen2 extends StatefulWidget {
         "updatedAt": FieldValue.serverTimestamp(),
         "description": "",
         // "district": "Pune", // Example: Replace with dynamic input if needed
-        "insuranceStatus": widget.InStatus.text.trim(), // Example: Replace with dynamic input if needed
+        "insuranceStatus": widget.InStatus.text
+            .trim(), // Example: Replace with dynamic input if needed
         "listingDate": DateTime.now().toUtc().toIso8601String(),
-        "pincode": widget.pincode.text.trim(), // Example: Replace with dynamic input if needed
-        "rearTyre": widget.RearTyre.text.trim(), // Example: Replace with dynamic input if needed
-        "sellPrice": widget.amount.text.trim(), // Example: Replace with dynamic input if needed
+        "pincode": widget.pincode.text
+            .trim(), // Example: Replace with dynamic input if needed
+        "rearTyre": widget.RearTyre.text
+            .trim(), // Example: Replace with dynamic input if needed
+        "sellPrice": widget.amount.text
+            .trim(), // Example: Replace with dynamic input if needed
         // "showroomPrice": "1000000", // Example: Replace with dynamic input if needed
         "status": "pending",
-        "break":_sfbreak.text.trim(),
-        "Transmission":_sfTransmission.text.trim(),
-        "Pto":_spPto.text.trim() ,
-        "CC":_sfCc.text.trim()  ,
-        "Cooling":_sfCooling.text.trim(),
-        "Lifting Capacity":_sfLifting.text.trim(),
-        "Steering Type":sfSteering.text.trim(),
-        "Clutch Type":_sfClutch.text.trim(),
-        "Engine Oil Capacity":_sfOil.text.trim() ,
-        "Fuel":_sffuel.text.trim() ,
-        "Running KM" : _sfKm.text.trim(),
+        "break": _sfbreak.text.trim(),
+        "Transmission": _sfTransmission.text.trim(),
+        "Pto": _spPto.text.trim(),
+        "CC": _sfCc.text.trim(),
+        "Cooling": _sfCooling.text.trim(),
+        "Lifting Capacity": _sfLifting.text.trim(),
+        "Steering Type": sfSteering.text.trim(),
+        "Clutch Type": _sfClutch.text.trim(),
+        "Engine Oil Capacity": _sfOil.text.trim(),
+        "Fuel": _sffuel.text.trim(),
+        "Running KM": _sfKm.text.trim(),
+        "images": uploadedUrls,
         // "viewCount": 0,
       };
 
       await docRef.set(tractorData);
+      setState(() {
+        _isUploading = false;
+        widget.selectedImages.clear();
+        uploadedUrls.clear();
+      });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Tractor added successfully!'),
       ));
@@ -166,6 +205,22 @@ class SellerFormScreen2 extends StatefulWidget {
     }
   }
 
+  Future<String?> _uploadToContabo(File file) async {
+    try {
+      String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+      await minio.fPutObject(
+        'tractor24',
+        fileName,
+        file.path,
+      );
+
+      return 'https://sin1.contabostorage.com/d1fa3867924f4c149226431ef8cbe8ee:tractor24/$fileName';
+    } catch (e) {
+      print("Upload Error: $e");
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -198,11 +253,27 @@ class SellerFormScreen2 extends StatefulWidget {
                   padding: const EdgeInsets.only(top: 0),
                   child: Container(
                     height: 200,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/Rectangle 23807.png'),
-                        fit: BoxFit.cover,
-                      ),
+                    child: _isUploading
+                        ? Center(child: CircularProgressIndicator())
+                        : PageView.builder(
+                      itemCount: widget.selectedImages.isNotEmpty
+                          ? widget.selectedImages.length
+                          : widget.uploadedUrls.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: widget.selectedImages.isNotEmpty  // Check if local images exist
+                                  ? FileImage(widget.selectedImages[index]) as ImageProvider
+                                  : (widget.uploadedUrls.isNotEmpty // Check if uploaded URLs exist
+                                  ? NetworkImage(widget.uploadedUrls[index]) as ImageProvider
+                                  : const AssetImage('assets/images/Rectangle 23807.png')
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -536,7 +607,7 @@ class SellerFormScreen2 extends StatefulWidget {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
-                      onPressed: addTractor,
+                      onPressed: _isUploading ? null : addTractor,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF003B8F),
                         shape: RoundedRectangleBorder(

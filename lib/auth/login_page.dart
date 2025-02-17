@@ -7,6 +7,7 @@ import 'package:tractors24/auth/otpScreen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -101,19 +102,17 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextSpan(text: ', '),
                     TextSpan(
-                        text: 'Privacy Policy',
-                        style: GoogleFonts.anybody(
-                          color: Color(0xFF003B8F),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PoliciesScreen()));
-                          }),
+                      text: 'Privacy Policy',
+                      style: GoogleFonts.anybody(
+                        color: Color(0xFF003B8F),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => PoliciesScreen()));
+                        }
+                    ),
                   ],
                 ),
               ),

@@ -272,7 +272,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF0A2472),
                                   padding:
-                                  const EdgeInsets.symmetric(vertical: 15),
+                                      const EdgeInsets.symmetric(vertical: 15),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -423,3 +423,4 @@ class NonEditFormField extends StatelessWidget {
     );
   }
 }
+

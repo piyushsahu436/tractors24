@@ -9,54 +9,87 @@ class AllItems extends StatefulWidget {
   @override
   State<AllItems> createState() => _AllItemsState();
 }
-
+final CollectionReference tractorsCollection =
+FirebaseFirestore.instance.collection('tractors');
 class _AllItemsState extends State<AllItems> {
   @override
   Widget build(BuildContext context) {
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    // final FirebaseFirestore firestore = FirebaseFirestore.instance;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text("Details"),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: firestore.collection('tractors24').snapshots(),
+        stream: tractorsCollection.snapshots(),
+        // builder: (context, snapshot) {
+        //   if (snapshot.connectionState == ConnectionState.waiting) {
+        //     return const Center(child: CircularProgressIndicator());
+        //   }
+        //
+        //   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+        //     return const Center(
+        //       child: Text('No vehicles available.',
+        //           style: TextStyle(fontSize: 18, color: Colors.grey)),
+        //     );
+        //   }
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(
-              child: Text('No vehicles available.',
-                  style: TextStyle(fontSize: 18, color: Colors.grey)),
-            );
+          if (snapshot.hasError) {
+            return Center(child: Text("Error: ${snapshot.error}"));
           }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return const Center(child: Text("No data available"));
+          }
+
+          var tractors = snapshot.data!.docs;
 
           return ListView.builder(
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(8.0),
             itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, docIndex) {
-              final doc = snapshot.data!.docs[docIndex];
-              final vehicles =
-                  (doc.data() as Map<String, dynamic>)['vehicles']
-                  as List<dynamic>? ??
-                      [];
-
-              if (vehicles.isEmpty) return const SizedBox.shrink();
+            itemBuilder: (context, index) {
+              var tractor = tractors[index].data() as Map<String, dynamic>;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ...vehicles.map((vehicle) => GestureDetector(
+                   GestureDetector(
                     onTap: () {
                       Navigator.push(
                           (context),
                           MaterialPageRoute(
                               builder: (context) =>
-                              const CarDetailsPage()));
+                                  CarDetailsPage(
+                                    SellPrice: tractor['sellPrice']?.toString() ?? '',
+                                    brand: tractor['brand'] ?? '',
+                                    model: tractor['model'] ?? '',
+                                    RegYear: tractor['registrationYear'] ?? '',
+                                    Pincode: tractor['pincode']?.toString() ?? '',
+                                    HorsePower: tractor['horsePower']?.toString() ?? '',
+                                    Hours: tractor['hours'] ?? '',
+                                    RegNum: tractor['registrationNumber'] ?? '',
+                                    InsStatus: tractor['insuranceStatus'] ?? '',
+                                    RearTire: tractor['rearTyre'] ?? '',
+                                    Address: tractor['state'] ?? '',
+                                    Break: tractor['break'] ?? '',
+                                    Transmission: tractor['Transmission'] ?? '',
+                                    PTO: tractor['Pto'] ?? '',
+                                    CC: tractor['CC'] ?? '',
+                                    Cooling: tractor['Cooling'] ?? '',
+                                    LiftingCapacity: tractor['Lifting Capacity'] ?? '',
+                                    SteeringType: tractor['Steering Type'] ?? '',
+                                    ClutchType: tractor['Clutch Type'] ?? '',
+                                    OilCap: tractor['Engine Oil Capacity'] ?? '',
+                                    RunningKM: tractor['Running KM'] ?? '',
+                                    Fuel: tractor['Fuel'] ?? '',
+                                    tractorId: tractor['tractorId']?? '',
+                                  )));
                     },
                     child: Card(
                       elevation: 1,
@@ -85,7 +118,7 @@ class _AllItemsState extends State<AllItems> {
                               CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  vehicle['brandName'] ?? 'Mahindra Go',
+                                  tractor['brandName'] ?? 'Mahindra Go',
                                   style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
@@ -194,7 +227,7 @@ class _AllItemsState extends State<AllItems> {
                                     //   style: const TextStyle(fontSize: 16.0),
                                     // ),
                                     Text(
-                                      '₹${vehicle['sellPrice'] ?? ''}',
+                                      '₹${tractor['sellPrice'] ?? ''}',
                                       style: const TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold,
@@ -238,7 +271,7 @@ class _AllItemsState extends State<AllItems> {
                         ],
                       ),
                     ),
-                  ))
+                  )
                 ],
               );
             },
