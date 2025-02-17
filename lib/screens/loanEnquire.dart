@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_page.dart';
@@ -24,6 +25,38 @@ class _LoanenquireState extends State<Loanenquire> {
     _amountloan.dispose();
     _vehicleloan.dispose();
     super.dispose();
+  }
+  Future<void> addLoanEnquiry(BuildContext context) async {
+    try {
+      // Firestore instance
+      final firestore = FirebaseFirestore.instance;
+
+      // Adding data to loan_enquiries collection
+      await firestore.collection('loan_enquiries').add({
+        'Name': _nameloan.text.trim(),
+        'ContactNo': _mobilenumberloan.text.trim(),
+        'Email': _emailloan.text.trim(),
+        'Loan Amount': _amountloan.text.trim(),
+        'Vehicle Name': _vehicleloan.text.trim(),
+        'status': "pending",
+        'timestamp': FieldValue.serverTimestamp(), // Optional for sorting
+      });
+
+      // Clear input fields
+      _nameloan.clear();
+      _mobilenumberloan.clear();
+      _emailloan.clear();
+      _amountloan.clear();
+      _vehicleloan.clear();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Inquiry added successfully!')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to add Inquiry: $e')),
+      );
+    }
   }
 
   @override
@@ -138,9 +171,7 @@ class _LoanenquireState extends State<Loanenquire> {
                         width: double.infinity,
                         height: 48,
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Implement send inquiry logic
-                          },
+                          onPressed: ()=> addLoanEnquiry(context),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF003B8F),
                             shape: RoundedRectangleBorder(

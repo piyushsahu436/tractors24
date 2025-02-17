@@ -2,10 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/AllBrands.dart';
+import 'package:tractors24/screens/AllItems.dart';
 import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/Grids/StatesGrids.dart';
 import 'package:tractors24/screens/faq_list.dart';
+import 'package:tractors24/screens/search.dart';
 
 class HomePageF extends StatefulWidget {
   const HomePageF({super.key});
@@ -80,29 +82,45 @@ class _HomePageFState extends State<HomePageF> {
                               ),
                             ),
                             SizedBox(
-                              height: 45,
-                              width: size.width * 0.6,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white, filled: true,
-                                  hintText: 'Search Tractor',
-                                  hintStyle: GoogleFonts.anybody(
-                                    color: Colors.grey[400],
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w400,
+                                height: 45,
+                                width: size.width * 0.6,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              search()), // Navigate to your new page
+                                    );
+                                  },
+                                  child: AbsorbPointer(
+                                    // Prevents user input in this TextField
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        hintText: 'Search Tractor',
+                                        hintStyle: GoogleFonts.anybody(
+                                          color: Colors.grey[400],
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        prefixIcon: const Icon(
+                                          Icons.search,
+                                          color: Colors.black,
+                                        ),
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 10),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(24.0),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  prefixIcon: const Icon(
-                                    Icons.search,
-                                    color: Colors.black,
-                                  ),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 10),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ), // Adjust padding as needed
                                 ),
-                              ),
-                            ),
+                                ),
                             const Padding(
                               padding: EdgeInsets.only(left: 5, right: 3),
                               child: Image(
@@ -160,12 +178,14 @@ class _HomePageFState extends State<HomePageF> {
                   GridViewBuilderWidget(
                     itemCount: 4,
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: Image(
-                        image: AssetImage("assets/images/seeImg.png"),
-                        height: 26,
+                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> AllItems()));},
+                        child: Image(
+                          image: AssetImage("assets/images/seeImg.png"),
+                          height: 26,
+                        ),
                       ),
                     ),
                   ),

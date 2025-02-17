@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
 import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/faq_screen.dart';
-import 'package:tractors24/screens/news.dart';
 import 'package:tractors24/screens/profile_screen.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
@@ -87,16 +86,6 @@ class CustomDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => EMICalculatorScreen())
               );
 
-            },
-          ),
-          _buildMenuListTile(
-            icon: Icons.newspaper,
-            title: 'News',
-            onTap: () {
-              Navigator.push(
-                (context),
-                MaterialPageRoute(builder: (context)=> SavedArticlesScreen ()),
-              );
             },
           ),
 

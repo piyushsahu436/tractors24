@@ -6,16 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tractors24/auth/login_page.dart';
-import 'package:tractors24/screens/profileEditScreen.dart';
 
-class PersonalInfoScreen extends StatefulWidget {
-  const PersonalInfoScreen({super.key});
+class PersonalInfoEditScreen extends StatefulWidget {
+  const PersonalInfoEditScreen({super.key});
 
   @override
-  State<PersonalInfoScreen> createState() => _PersonalInfoScreenState();
+  State<PersonalInfoEditScreen> createState() => _PersonalInfoEditScreenState();
 }
 
-class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
+class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController _nameprofileController = TextEditingController();
@@ -30,6 +29,24 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     super.initState();
     fetchUserData();
   }
+  Future<void> fetchUserData() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      DocumentSnapshot userDoc =
+      await _firestore.collection('users').doc(user.uid).get();
+
+      if (userDoc.exists) {
+        setState(() {
+          _nameprofileController.text = userDoc['name'];
+          _mobileprofileController.text = userDoc['mobile'];
+          _emailprofileController.text = userDoc['email'];
+          _pinCodeprofileController.text = userDoc['pincode'];
+          profileImageUrl = userDoc['profileImage'] ?? "";
+          isLoading = false;
+        });
+      }
+    }
+  }
   Future<void> updateUserData() async {
     User? user = _auth.currentUser;
     if (user != null) {
@@ -42,27 +59,6 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
       });
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Profile Updated!')));
-    }
-  }
-  Future<void> fetchUserData() async {
-    User? user = _auth.currentUser;
-    if (user != null) {
-      DocumentSnapshot userDoc =
-      await _firestore.collection('users').doc(user.uid).get();
-
-      if (userDoc.exists) {
-        setState(() {
-          _nameprofileController.text = userDoc['name'] ?? "";
-          _mobileprofileController.text = userDoc['phone'] ?? "";
-          _emailprofileController.text = userDoc['email'] ?? "";
-          _pinCodeprofileController.text = userDoc['pincode'] ?? "";
-          profileImageUrl = userDoc['profileImage'] ?? "";
-
-          // Fetch additional user details
-
-          isLoading = false;
-        });
-      }
     }
   }
 
@@ -96,9 +92,60 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   File? _imageFile;
 
   // Function to pick image from gallery or camera
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        setState(() {
+          _imageFile = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      debugPrint('Error picking image: $e');
+    }
+  }
 
   // Show image source selection dialog
-
+  void _showImageSourceDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select Image Source',
+              style: GoogleFonts.anybody(
+                fontSize: 20,
+              )),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: Text(
+                  'Gallery',
+                  style: GoogleFonts.anybody(),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: Text(
+                  'Camera',
+                  style: GoogleFonts.anybody(),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   void dispose() {
@@ -122,7 +169,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 // height: size.height * 1,
                 width: size.width * 1,
               ),
-              
+
               Padding(
                 padding: EdgeInsets.only(top: size.height * 0.15),
                 child: Container(
@@ -229,26 +276,28 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: Column(
                           children: [
-                            NonEditFormField(
-                                hintText: '',
+                            Form_field(
+                                hintText: 'Name',
                                 controller: _nameprofileController,
                                 prefixtext: ''),
                             const SizedBox(height: 8),
-                            NonEditFormField(
+                            Form_field(
                                 hintText: 'Mobile Number',
                                 controller: _mobileprofileController,
                                 prefixtext: ''),
                             const SizedBox(height: 8),
-                            NonEditFormField(
+                            Form_field(
                                 hintText: 'Email ID',
                                 controller: _emailprofileController,
                                 prefixtext: ''),
                             const SizedBox(height: 8),
-                            NonEditFormField(
+                            Form_field(
                                 hintText: 'Pin Code',
                                 controller: _pinCodeprofileController,
                                 prefixtext: ''),
+                            const SizedBox(height: 15),
 
+                            // Change Password button
 
                             const SizedBox(height: 30),
 
@@ -268,17 +317,17 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                             Container(
                               width: double.infinity,
                               child: ElevatedButton(
-                                onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>const PersonalInfoEditScreen()));},
+                                onPressed: updateUserData,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF0A2472),
                                   padding:
-                                      const EdgeInsets.symmetric(vertical: 15),
+                                  const EdgeInsets.symmetric(vertical: 15),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                                 child: const Text(
-                                  'Edit Details',
+                                  'Save Details',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -293,33 +342,60 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               ),
               Positioned(top: size.height*0.1,left: size.width*0.05,right: size.width*0.05,
                 child: Stack(alignment: AlignmentDirectional.topCenter,
-                  children:[
-                    const CircleAvatar(
-                      radius: 52,
-                      backgroundColor: Colors.black,
-                    ),
-                    Positioned(
-                      top: 1.5,
-                      child: CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.white,
-                        backgroundImage:
-                        _imageFile != null ? FileImage(_imageFile!) : null,
-                        child: _imageFile == null
-                            ? const Icon(Icons.person,
-                            size: 50, color: Colors.grey)
-                            : null,
-                        // backgroundImage: profileImageUrl.isNotEmpty
-                        //     ? NetworkImage(profileImageUrl)
-                        //     : const AssetImage('assets/default_avatar.png')
-                        // as ImageProvider,
-                      // child: _imageFile == null
-                      //     ? const Icon(Icons.person,
-                      //     size: 50, color: Colors.grey)
-                      //     : null,
-                                        ),
-                    ),
-                ]
+                    children:[
+                      const CircleAvatar(
+                        radius: 52,
+                        backgroundColor: Colors.black,
+                      ),
+                      Positioned(
+                        top: 1.5,
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Colors.white,
+                          backgroundImage:
+                          _imageFile != null ? FileImage(_imageFile!) : null,
+                          child: _imageFile == null
+                              ? const Icon(Icons.person,
+                              size: 50, color: Colors.grey)
+                              : null,
+                          // backgroundImage: profileImageUrl.isNotEmpty
+                          //     ? NetworkImage(profileImageUrl)
+                          //     : const AssetImage('assets/default_avatar.png')
+                          // as ImageProvider,
+                          // child: _imageFile == null
+                          //     ? const Icon(Icons.person,
+                          //     size: 50, color: Colors.grey)
+                          //     : null,
+                        ),
+                      ),
+                      Positioned(
+
+                        right: 0,
+                        left: size.width*0.15,
+                        bottom: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade300, // Shadow color
+                                spreadRadius: 3, // Spread of shadow
+                                blurRadius: 20, // Blur effect
+                                offset: const Offset(2, 12), // Shadow position
+                              ),
+                            ],
+                          ),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 18,
+                            child: IconButton(
+                              icon: const Icon(Icons.edit, size: 18, color: Colors.black,),
+                              onPressed: _showImageSourceDialog,
+                            ),
+                          ),
+                        ),
+                      )
+                    ]
                 ),
               ),
               // Edit icon
@@ -367,7 +443,6 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     );
   }
 }
-
 class NonEditFormField extends StatelessWidget {
   NonEditFormField(
       {super.key,
@@ -423,4 +498,3 @@ class NonEditFormField extends StatelessWidget {
     );
   }
 }
-

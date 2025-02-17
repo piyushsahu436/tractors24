@@ -52,7 +52,29 @@ class liveFavourites extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CarDetailsPage()));
+                          builder: (context) => CarDetailsPage(
+                      SellPrice: tractor['sellPrice'],
+                      brand: tractor['brand'],
+                      model: tractor['model'],
+                      RegYear: tractor['registrationYear'],
+                      Pincode: tractor['pincode'],
+                      HorsePower: tractor['horsePower'],
+                      Hours: tractor['hours'],
+                      RegNum: tractor['registrationNumber'],
+                      InsStatus: tractor['insuranceStatus'],
+                      RearTire: tractor['rearTyre'],
+                      Address: tractor['state'],
+                      Break: tractor['break'],
+                      Transmission: tractor['Transmission'],
+                      PTO: tractor['Pto'],
+                      CC: tractor['CC'],
+                      Cooling: tractor['Cooling'],
+                      LiftingCapacity: tractor['Lifting Capacity'],
+                      SteeringType: tractor['Steering Type'],
+                      ClutchType: tractor['Clutch Type'],
+                      OilCap: tractor['Engine Oil Capacity'],
+                      RunningKM: tractor['Running KM'],
+                      Fuel: tractor['Fuel'], tractorId: tractor['tractorId'],)));
                 },
                 child: Container(
                   height: size.height*0.17,
@@ -307,7 +329,8 @@ class pendingFavourites extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CarDetailsPage()));
+                          builder: (context) => //CarDetailsPage()
+                  Scaffold() ));
                 },
                 child: Container(
                   height: size.height*0.17,

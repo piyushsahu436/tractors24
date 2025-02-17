@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
@@ -80,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       Navigator.pushReplacement(
         context,
 
-        MaterialPageRoute(builder: (context) =>  SplashScreen5()),
+        MaterialPageRoute(builder: (context) =>   LandingPage()),
 
       );
     });

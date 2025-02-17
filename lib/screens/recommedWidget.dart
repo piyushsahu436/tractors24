@@ -35,10 +35,11 @@ class _RecommendState extends State<Recommend> {
 }
 
 Widget buildCustomCard(BuildContext context) {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final CollectionReference tractorsCollection =
+  FirebaseFirestore.instance.collection('tractors');
   Size size = MediaQuery.of(context).size;
   return StreamBuilder<QuerySnapshot>(
-    stream: firestore.collection('tractors24').snapshots(),
+    stream: tractorsCollection.snapshots(),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return const Center(child: CircularProgressIndicator());
@@ -50,6 +51,7 @@ Widget buildCustomCard(BuildContext context) {
               style: TextStyle(fontSize: 18, color: Colors.grey)),
         );
       }
+      var tractors = snapshot.data!.docs;
 
       return Column(
         children: [
@@ -66,24 +68,41 @@ Widget buildCustomCard(BuildContext context) {
                 mainAxisSpacing: 20.0, // Spacing between rows
                 childAspectRatio: 1.0, // Aspect ratio of each item
               ),
-              itemBuilder: (context, docIndex) {
-                final doc = snapshot.data!.docs[docIndex];
-                final vehicles =
-                    (doc.data() as Map<String, dynamic>)['vehicles']
-                            as List<dynamic>? ??
-                        [];
-
-                if (vehicles.isEmpty) return const SizedBox.shrink();
+              itemBuilder: (context, index) {
+                var tractor = tractors[index].data() as Map<String, dynamic>;
 
                 return Row(
-                  children: [
-                    ...vehicles.map((vehicle) => GestureDetector(
+                  children: [GestureDetector(
                           onTap: () {
                             Navigator.push(
                                 (context),
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const CarDetailsPage()));
+                                        CarDetailsPage(
+                                          SellPrice: tractor['sellPrice']?.toString() ?? '',
+                                          brand: tractor['brand'] ?? '',
+                                          model: tractor['model'] ?? '',
+                                          RegYear: tractor['registrationYear'] ?? '',
+                                          Pincode: tractor['pincode']?.toString() ?? '',
+                                          HorsePower: tractor['horsePower']?.toString() ?? '',
+                                          Hours: tractor['hours'] ?? '',
+                                          RegNum: tractor['registrationNumber'] ?? '',
+                                          InsStatus: tractor['insuranceStatus'] ?? '',
+                                          RearTire: tractor['rearTyre'] ?? '',
+                                          Address: tractor['state'] ?? '',
+                                          Break: tractor['break'] ?? '',
+                                          Transmission: tractor['Transmission'] ?? '',
+                                          PTO: tractor['Pto'] ?? '',
+                                          CC: tractor['CC'] ?? '',
+                                          Cooling: tractor['Cooling'] ?? '',
+                                          LiftingCapacity: tractor['Lifting Capacity'] ?? '',
+                                          SteeringType: tractor['Steering Type'] ?? '',
+                                          ClutchType: tractor['Clutch Type'] ?? '',
+                                          OilCap: tractor['Engine Oil Capacity'] ?? '',
+                                          RunningKM: tractor['Running KM'] ?? '',
+                                          Fuel: tractor['Fuel'] ?? '',
+                                          tractorId: tractor['tractorId'],
+                                        )));
                           },
                           child: Card(
                             elevation: 1,
@@ -116,7 +135,7 @@ Widget buildCustomCard(BuildContext context) {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        vehicle['brandName'] ?? 'Mahindra Go',
+                                        tractor['brandName'] ?? 'Mahindra Go',
                                         style: const TextStyle(
                                           fontSize: 20.0,
                                           fontWeight: FontWeight.bold,
@@ -227,7 +246,7 @@ Widget buildCustomCard(BuildContext context) {
                                           //   style: const TextStyle(fontSize: 16.0),
                                           // ),
                                           Text(
-                                            '₹${vehicle['sellPrice'] ?? ''}',
+                                            '₹${tractor['sellPrice'] ?? ''}',
                                             style: const TextStyle(
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold,
@@ -271,7 +290,7 @@ Widget buildCustomCard(BuildContext context) {
                               ],
                             ),
                           ),
-                        ))
+                        )
                   ],
                 );
               },
@@ -284,7 +303,7 @@ Widget buildCustomCard(BuildContext context) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AllItems(),
+                    builder: (context) => const AllItems(),
                   ),
                 );
               },
