@@ -79,6 +79,7 @@ class _HomePageFState extends State<HomePageF> {
           _currentPosition!.latitude, _currentPosition!.longitude);
 
       Placemark place = placemarks[0];
+      print(place);
       setState(() {
         _currentAddress = place.locality ?? place.subAdministrativeArea ?? "Unknown location";
       });

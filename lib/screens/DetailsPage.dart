@@ -28,7 +28,9 @@ class CarDetailsPage extends StatelessWidget {
       required this.ClutchType,
       required this.OilCap,
       required this.RunningKM,
-      required this.Fuel, required this.tractorId, this.imageUrls});
+      required this.Fuel,
+      required this.tractorId,
+      this.imageUrls});
   final String SellPrice;
   final String brand;
   final String model;
@@ -53,7 +55,6 @@ class CarDetailsPage extends StatelessWidget {
   final String RunningKM;
   final String Fuel;
   final List<String>? imageUrls;
-
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +99,9 @@ class CarDetailsPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 0),
-                    child: ImageSliderWidget(imageUrls: imageUrls,),
+                    child: ImageSliderWidget(
+                      imageUrls: imageUrls,
+                    ),
                     // child: Container(
                     //   height: size.height * 0.3,
                     //   decoration: const BoxDecoration(
@@ -326,47 +329,50 @@ class CarDetailsPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                      Text(
-                        '₹ ${SellPrice}',
-                        style: GoogleFonts.anybody(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Loanenquire()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0,
-                          side: const BorderSide(
-                              color: Color(0xFF003B8F), width: 1.5),
-                          backgroundColor: const Color(0xFF003B8F),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                          Text(
+                            '₹ ${SellPrice}',
+                            style: GoogleFonts.anybody(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          'Apply loan',
-                          style: GoogleFonts.anybody(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ]),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Loanenquire()));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              side: const BorderSide(
+                                  color: Color(0xFF003B8F), width: 1.5),
+                              backgroundColor: const Color(0xFF003B8F),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            child: Text(
+                              'Apply loan',
+                              style: GoogleFonts.anybody(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ]),
                   ],
                 ),
               ),
 
               // Tabs
               TabBarSection(
-                isSpecificationSelected: true, // Toggle between details and features
+                isSpecificationSelected:
+                    true, // Toggle between details and features
                 brand: brand,
                 model: model,
                 regYear: RegYear,
