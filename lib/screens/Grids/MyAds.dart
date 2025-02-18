@@ -7,9 +7,8 @@ import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/contact_seller.dart';
 
 class liveFavourites extends StatelessWidget {
-
   final CollectionReference tractorsCollection =
-  FirebaseFirestore.instance.collection('tractors');
+      FirebaseFirestore.instance.collection('tractors');
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class liveFavourites extends StatelessWidget {
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('tractors')
-            .where('uid', isEqualTo: uid)  // Filter by UID
+            .where('uid', isEqualTo: uid) // Filter by UID
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -53,32 +52,48 @@ class liveFavourites extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CarDetailsPage(
-                      SellPrice: tractor['sellPrice'],
-                      brand: tractor['brand'],
-                      model: tractor['model'],
-                      RegYear: tractor['registrationYear'],
-                      Pincode: tractor['pincode'],
-                      HorsePower: tractor['horsePower'],
-                      Hours: tractor['hours'],
-                      RegNum: tractor['registrationNumber'],
-                      InsStatus: tractor['insuranceStatus'],
-                      RearTire: tractor['rearTyre'],
-                      Address: tractor['state'],
-                      Break: tractor['break'],
-                      Transmission: tractor['Transmission'],
-                      PTO: tractor['Pto'],
-                      CC: tractor['CC'],
-                      Cooling: tractor['Cooling'],
-                      LiftingCapacity: tractor['Lifting Capacity'],
-                      SteeringType: tractor['Steering Type'],
-                      ClutchType: tractor['Clutch Type'],
-                      OilCap: tractor['Engine Oil Capacity'],
-                      RunningKM: tractor['Running KM'],
-                      Fuel: tractor['Fuel'], tractorId: tractor['tractorId'],)));
+                                SellPrice: tractor['sellPrice'],
+                                brand: tractor['brand'],
+                                model: tractor['model'],
+                                RegYear: tractor['registrationYear'],
+                                Pincode: tractor['pincode'],
+                                HorsePower: tractor['horsePower'],
+                                Hours: tractor['hours'],
+                                RegNum: tractor['registrationNumber'],
+                                InsStatus: tractor['insuranceStatus'],
+                                RearTire: tractor['rearTyre'],
+                                Address: tractor['state'],
+                                Break: tractor['break'],
+                                PTO: tractor['Pto'],
+                                CC: tractor['CC'],
+                                Cooling: tractor['Cooling'],
+                                LiftingCapacity: tractor['Lifting Capacity'],
+                                SteeringType: tractor['Steering Type'],
+                                ClutchType: tractor['Clutch Type'],
+                                OilCap: tractor['Engine Oil Capacity'],
+                                RunningKM: tractor['Running KM'],
+                                description: tractor['description'] ?? '',
+                                state: tractor['state'] ?? "",
+                                Fuel: tractor['Fuel'],
+                                tractorId: tractor['tractorId'],
+                            safetyfeature: tractor['safetyFeatures'] ?? "",
+                            warrenty: tractor['warranty'] ?? "",
+                            color: tractor['color'] ?? "",
+                            accessories: tractor['accessories'] ?? "",
+                            rpm: tractor['rpm'] ?? "",
+                            ptodirection: '' ?? "",
+                            battery: tractor['battery'] ?? "",
+                            cylinder: tractor['noOfCylinders'] ?? "",
+                            gearbox: tractor['gearBox'] ?? "",
+                            torque: '' ?? "",
+                            fronttyre: tractor['frontTyreSize'],
+                            clutch: tractor['clutch']?? "",
+                            pincode: tractor['pincode']?? " ",
+                              )));
                 },
                 child: Container(
-                  height: size.height*0.17,
-                  width: size.width*0.8,
+                  height: size.height * 0.17,
+                  width: size.width * 0.8,
                   margin: const EdgeInsets.symmetric(vertical: 8),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -100,8 +115,8 @@ class liveFavourites extends StatelessWidget {
                         ),
                         child: Image.asset(
                           "assets/images/tracTemp.png",
-                          width: size.width*0.45,
-                          height: size.height*0.17,
+                          width: size.width * 0.45,
+                          height: size.height * 0.17,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -117,13 +132,13 @@ class liveFavourites extends StatelessWidget {
                                 style: GoogleFonts.anybody(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
-                                    color: Colors.black
-                                ),
+                                    color: Colors.black),
                               ),
                               const SizedBox(height: 5),
                               Row(
                                 children: [
-                                  const Icon(Icons.location_on, size: 16, color: Colors.grey),
+                                  const Icon(Icons.location_on,
+                                      size: 16, color: Colors.grey),
                                   const SizedBox(width: 4),
                                   Flexible(
                                     child: Text(
@@ -131,12 +146,12 @@ class liveFavourites extends StatelessWidget {
                                       style: GoogleFonts.anybody(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 10,
-                                          color: Colors.black
-                                      ),
+                                          color: Colors.black),
                                     ),
                                   ),
                                   const SizedBox(width: 10),
-                                  const Icon(Icons.speed, size: 16, color: Colors.grey),
+                                  const Icon(Icons.speed,
+                                      size: 16, color: Colors.grey),
                                   const SizedBox(width: 4),
                                   Expanded(
                                     child: Text(
@@ -144,8 +159,7 @@ class liveFavourites extends StatelessWidget {
                                       style: GoogleFonts.anybody(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
-                                          color: Colors.black
-                                      ),
+                                          color: Colors.black),
                                     ),
                                   ),
                                 ],
@@ -157,8 +171,7 @@ class liveFavourites extends StatelessWidget {
                                   style: GoogleFonts.anybody(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20,
-                                      color: Colors.black
-                                  ),
+                                      color: Colors.black),
                                 ),
                               ),
                             ],
@@ -177,8 +190,6 @@ class liveFavourites extends StatelessWidget {
   }
 }
 
-
-
 class PersonalAds extends StatefulWidget {
   const PersonalAds({super.key});
 
@@ -194,13 +205,19 @@ class _PersonalAdsState extends State<PersonalAds> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(height: size.height*0.15,
+            Container(
+              height: size.height * 0.15,
               decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage("assets/images/Vector8.png"),fit: BoxFit.fill,),
+                image: DecorationImage(
+                  image: AssetImage("assets/images/Vector8.png"),
+                  fit: BoxFit.fill,
+                ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(top: 20.0,left: 8),
-                child: Row( mainAxisAlignment: MainAxisAlignment.start, // Aligns items from the start
+                padding: const EdgeInsets.only(top: 20.0, left: 8),
+                child: Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.start, // Aligns items from the start
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
@@ -208,7 +225,7 @@ class _PersonalAdsState extends State<PersonalAds> {
                         Navigator.pop(context);
                       },
                       child: const Padding(
-                        padding: EdgeInsets.only(left:8),
+                        padding: EdgeInsets.only(left: 8),
                         child: Icon(
                           Icons.arrow_back_ios,
                           color: Colors.white,
@@ -227,14 +244,15 @@ class _PersonalAdsState extends State<PersonalAds> {
                         ),
                       ),
                     ),
-                    const SizedBox(width:20,),
+                    const SizedBox(
+                      width: 20,
+                    ),
                   ],
                 ),
               ),
             ),
             Padding(
-              padding:
-              const EdgeInsets.only(left: 16.0, top: 20, right: 16),
+              padding: const EdgeInsets.only(left: 16.0, top: 20, right: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,8 +269,7 @@ class _PersonalAdsState extends State<PersonalAds> {
             ),
             liveFavourites(),
             Padding(
-              padding:
-              const EdgeInsets.only(left: 16.0, top: 20, right: 16),
+              padding: const EdgeInsets.only(left: 16.0, top: 20, right: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -278,10 +295,8 @@ class _PersonalAdsState extends State<PersonalAds> {
 class pendingFavourites extends StatelessWidget {
   pendingFavourites({super.key});
 
-
-
   final CollectionReference tractorsCollection =
-  FirebaseFirestore.instance.collection('pendingListings');
+      FirebaseFirestore.instance.collection('pendingListings');
 
   @override
   Widget build(BuildContext context) {
@@ -295,7 +310,7 @@ class pendingFavourites extends StatelessWidget {
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('pendingListings')
-            .where('uid', isEqualTo: uid)  // Filter by UID
+            .where('uid', isEqualTo: uid) // Filter by UID
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -307,12 +322,14 @@ class pendingFavourites extends StatelessWidget {
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text("No Tractors are in Queue.",
+            return Center(
+                child: Text(
+              "No Tractors are in Queue.",
               style: GoogleFonts.anybody(
                   fontWeight: FontWeight.w300,
                   fontSize: 15,
-                  color: Colors.black
-              ),));
+                  color: Colors.black),
+            ));
           }
 
           var tractors = snapshot.data!.docs;
@@ -330,11 +347,11 @@ class pendingFavourites extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => //CarDetailsPage()
-                  Scaffold() ));
+                              Scaffold()));
                 },
                 child: Container(
-                  height: size.height*0.17,
-                  width: size.width*0.8,
+                  height: size.height * 0.17,
+                  width: size.width * 0.8,
                   margin: const EdgeInsets.symmetric(vertical: 8),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -356,8 +373,8 @@ class pendingFavourites extends StatelessWidget {
                         ),
                         child: Image.asset(
                           "assets/images/tracTemp.png",
-                          width: size.width*0.45,
-                          height: size.height*0.17,
+                          width: size.width * 0.45,
+                          height: size.height * 0.17,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -373,13 +390,13 @@ class pendingFavourites extends StatelessWidget {
                                 style: GoogleFonts.anybody(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
-                                    color: Colors.black
-                                ),
+                                    color: Colors.black),
                               ),
                               const SizedBox(height: 5),
                               Row(
                                 children: [
-                                  const Icon(Icons.location_on, size: 16, color: Colors.grey),
+                                  const Icon(Icons.location_on,
+                                      size: 16, color: Colors.grey),
                                   const SizedBox(width: 4),
                                   Flexible(
                                     child: Text(
@@ -387,12 +404,12 @@ class pendingFavourites extends StatelessWidget {
                                       style: GoogleFonts.anybody(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 10,
-                                          color: Colors.black
-                                      ),
+                                          color: Colors.black),
                                     ),
                                   ),
                                   const SizedBox(width: 10),
-                                  const Icon(Icons.speed, size: 16, color: Colors.grey),
+                                  const Icon(Icons.speed,
+                                      size: 16, color: Colors.grey),
                                   const SizedBox(width: 4),
                                   Expanded(
                                     child: Text(
@@ -400,8 +417,7 @@ class pendingFavourites extends StatelessWidget {
                                       style: GoogleFonts.anybody(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
-                                          color: Colors.black
-                                      ),
+                                          color: Colors.black),
                                     ),
                                   ),
                                 ],
@@ -413,8 +429,7 @@ class pendingFavourites extends StatelessWidget {
                                   style: GoogleFonts.anybody(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20,
-                                      color: Colors.black
-                                  ),
+                                      color: Colors.black),
                                 ),
                               ),
                             ],

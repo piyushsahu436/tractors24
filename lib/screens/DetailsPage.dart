@@ -7,11 +7,13 @@ import 'package:tractors24/screens/policies_screen.dart';
 class CarDetailsPage extends StatelessWidget {
   const CarDetailsPage(
       {super.key,
+      required this.Pincode,
+      required this.state,
+      required this.description,
       required this.SellPrice,
       required this.brand,
       required this.model,
       required this.RegYear,
-      required this.Pincode,
       required this.HorsePower,
       required this.Hours,
       required this.RegNum,
@@ -19,7 +21,6 @@ class CarDetailsPage extends StatelessWidget {
       required this.RearTire,
       required this.Address,
       required this.Break,
-      required this.Transmission,
       required this.PTO,
       required this.CC,
       required this.Cooling,
@@ -30,8 +31,32 @@ class CarDetailsPage extends StatelessWidget {
       required this.RunningKM,
       required this.Fuel,
       required this.tractorId,
-      this.imageUrls});
+      required this.safetyfeature,
+      required this.warrenty,
+      required this.color,
+      required this.accessories,
+      required this.rpm,
+      required this.ptodirection,
+      required this.battery,
+      required this.gearbox,
+      required this.cylinder,
+      required this.torque,
+      this.imageUrls,
+      required this.fronttyre,
+      required this.pincode, required this.clutch});
+  final String torque;
+  final String clutch;
+  final String cylinder;
+  final String gearbox;
+  final String battery;
+  final String ptodirection;
+  final String rpm;
+  final String accessories;
+  final String color;
+  final String warrenty;
+  final String safetyfeature;
   final String SellPrice;
+  final String state;
   final String brand;
   final String model;
   final String RegYear;
@@ -44,7 +69,6 @@ class CarDetailsPage extends StatelessWidget {
   final String Address;
   final String tractorId;
   final String Break;
-  final String Transmission;
   final String PTO;
   final String CC;
   final String Cooling;
@@ -54,7 +78,10 @@ class CarDetailsPage extends StatelessWidget {
   final String OilCap;
   final String RunningKM;
   final String Fuel;
+  final String pincode;
+  final String description;
   final List<String>? imageUrls;
+  final String fronttyre;
 
   @override
   Widget build(BuildContext context) {
@@ -102,53 +129,28 @@ class CarDetailsPage extends StatelessWidget {
                     child: ImageSliderWidget(
                       imageUrls: imageUrls,
                     ),
-                    // child: Container(
-                    //   height: size.height * 0.3,
-                    //   decoration: const BoxDecoration(
-                    //       image: DecorationImage(
-                    //           fit: BoxFit.fill,
-                    //           image: NetworkImage(
-                    //               "https://c8.alamy.com/comp/DTRKEM/tractor-with-trailer-rajasthan-india-DTRKEM.jpg"))),
-                    //   child: Column(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       const Padding(
-                    //         padding: EdgeInsets.only(top: 35, right: 15),
-                    //         child: Row(
-                    //           mainAxisAlignment: MainAxisAlignment.end,
-                    //           children: [
-                    //             Icon(
-                    //               Icons.favorite_border,
-                    //               color: Colors.redAccent,
-                    //             )
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       Padding(
-                    //         padding:
-                    //             const EdgeInsets.only(bottom: 15, right: 15),
-                    //         child: Row(
-                    //           mainAxisAlignment: MainAxisAlignment.end,
-                    //           children: [
-                    //             const Icon(
-                    //               Icons.camera_alt_sharp,
-                    //               color: Colors.white,
-                    //             ),
-                    //             Text(
-                    //               "2",
-                    //               style:
-                    //                   GoogleFonts.anybody(color: Colors.white),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                   ),
                 ],
               ),
-              // Title and price section
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, top: 12.0),
+                child: Text(
+                  'Description :',
+                  style: GoogleFonts.anybody(
+                    fontSize: 16,
+                    color: Color(0xFF003B8F),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
+                child: Text(
+                  '${description}',
+                  style: GoogleFonts.anybody(fontSize: 12, color: Colors.black),
+                ),
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -175,21 +177,21 @@ class CarDetailsPage extends StatelessWidget {
                                       // Makes it circular
                                     ),
                                     child: const Icon(
-                                      Icons.speed,
+                                      Icons.watch_later_outlined,
                                       color: Colors.black,
                                       size: 24.0,
                                     ),
                                   ),
                                   const SizedBox(height: 4.0),
                                   Text(
-                                    '${RunningKM}',
+                                    '${Hours}',
                                     style: GoogleFonts.anybody(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   Text(
-                                    "kms",
+                                    "Hours",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.anybody(
                                       color: Colors.grey[600],
@@ -308,7 +310,7 @@ class CarDetailsPage extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4.0),
                                   Text(
-                                    '${Pincode}',
+                                    '${Address}',
                                     style: GoogleFonts.anybody(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
@@ -365,6 +367,7 @@ class CarDetailsPage extends StatelessWidget {
                             ),
                           ),
                         ]),
+                    // Text('${Address} ',style: GoogleFonts.anybody(fontSize: 25,fontWeight: FontWeight.w500,),textAlign: TextAlign.start, )
                   ],
                 ),
               ),
@@ -384,11 +387,20 @@ class CarDetailsPage extends StatelessWidget {
                 horsePower: HorsePower.toString(), // Convert Double to String
                 steeringType: SteeringType,
                 brake: Break,
-                transmission: Transmission,
                 pto: PTO,
                 cc: CC,
                 liftingCapacity: LiftingCapacity,
                 cooling: Cooling,
+                fronttyre: fronttyre,
+                accessories: accessories,
+                warranty: warrenty,
+                color: color,
+                pincode: pincode,
+                safetyfeature: '',
+                clutch: clutch,
+                gear: gearbox,
+                rpm: rpm,
+                torque: torque, ptodire: ptodirection, battery: battery,
               ),
               SizedBox(
                 height: size.height * 0.015,
@@ -405,25 +417,37 @@ class CarDetailsPage extends StatelessWidget {
 }
 
 class TabBarSection extends StatefulWidget {
-  const TabBarSection(
-      {super.key,
-      required this.isSpecificationSelected,
-      required this.brand,
-      required this.model,
-      required this.regYear,
-      required this.rearTire,
-      required this.regNum,
-      required this.insStatus,
-      required this.oilCap,
-      required this.fuel,
-      required this.horsePower,
-      required this.steeringType,
-      required this.brake,
-      required this.transmission,
-      required this.pto,
-      required this.cc,
-      required this.liftingCapacity,
-      required this.cooling});
+  const TabBarSection({
+    super.key,
+    required this.isSpecificationSelected,
+    required this.brand,
+    required this.model,
+    required this.regYear,
+    required this.rearTire,
+    required this.regNum,
+    required this.insStatus,
+    required this.oilCap,
+    required this.fuel,
+    required this.horsePower,
+    required this.steeringType,
+    required this.brake,
+    required this.pto,
+    required this.cc,
+    required this.liftingCapacity,
+    required this.cooling,
+    required this.fronttyre,
+    required this.accessories,
+    required this.warranty,
+    required this.color,
+    required this.pincode,
+    required this.safetyfeature,
+    required this.clutch,
+    required this.gear,
+    required this.rpm,
+    required this.torque,
+    required this.ptodire,
+    required this.battery,
+  });
   final bool isSpecificationSelected;
   final String brand;
   final String model;
@@ -436,11 +460,22 @@ class TabBarSection extends StatefulWidget {
   final String horsePower;
   final String steeringType;
   final String brake;
-  final String transmission;
   final String pto;
   final String cc;
   final String liftingCapacity;
   final String cooling;
+  final String battery;
+  final String fronttyre;
+  final String accessories;
+  final String warranty;
+  final String color;
+  final String pincode;
+  final String safetyfeature;
+  final String clutch;
+  final String gear;
+  final String rpm;
+  final String torque;
+  final String ptodire;
 
   @override
   _TabBarSectionState createState() => _TabBarSectionState();
@@ -545,11 +580,22 @@ class _TabBarSectionState extends State<TabBarSection> {
             horsePower: widget.horsePower.toString(),
             steeringType: widget.steeringType,
             brake: widget.brake,
-            transmission: widget.transmission,
             pto: widget.pto,
             cc: widget.cc,
             liftingCapacity: widget.liftingCapacity,
             cooling: widget.cooling,
+            battery: widget.battery,
+            fronttyre: widget.fronttyre,
+            accessories: widget.accessories,
+            warranty: widget.warranty,
+            color: widget.color,
+            pincode: widget.pincode,
+            safetyfeature: widget.safetyfeature,
+            clutch: widget.clutch,
+            gear: widget.gear,
+            rpm: widget.rpm,
+            torque: widget.torque,
+            ptodire: widget.ptodire,
           )
         ],
       ),
@@ -570,14 +616,26 @@ class DetailsSection extends StatelessWidget {
   final String horsePower;
   final String steeringType;
   final String brake;
-  final String transmission;
   final String pto;
   final String cc;
   final String liftingCapacity;
   final String cooling;
+  final String battery;
+  final String fronttyre;
+  final String accessories;
+  final String warranty;
+  final String color;
+  final String pincode;
+  final String safetyfeature;
+  final String clutch;
+  final String gear;
+  final String rpm;
+  final String torque;
+  final String ptodire;
 
   const DetailsSection({
     super.key,
+    required this.battery,
     required this.isSpecificationSelected,
     required this.brand,
     required this.model,
@@ -590,11 +648,21 @@ class DetailsSection extends StatelessWidget {
     required this.horsePower,
     required this.steeringType,
     required this.brake,
-    required this.transmission,
     required this.pto,
     required this.cc,
     required this.liftingCapacity,
     required this.cooling,
+    required this.fronttyre,
+    required this.accessories,
+    required this.warranty,
+    required this.color,
+    required this.pincode,
+    required this.safetyfeature,
+    required this.clutch,
+    required this.gear,
+    required this.rpm,
+    required this.torque,
+    required this.ptodire,
   });
 
   @override
@@ -603,22 +671,34 @@ class DetailsSection extends StatelessWidget {
       {'label': 'Brand', 'value': brand},
       {'label': 'Model', 'value': model},
       {'label': 'Registration Year', 'value': regYear},
-      {'label': 'Rear Tire', 'value': rearTire},
       {'label': 'Registration Number', 'value': regNum},
       {'label': 'Insurance Status', 'value': insStatus},
-      {'label': 'Engine Oil Capacity', 'value': oilCap},
-      {'label': 'Fuel', 'value': fuel},
+      {'label': 'Fuel Tank', 'value': oilCap},
+      {'label': 'Fuel Type', 'value': fuel},
+      {'label': 'Front Tyre ', 'value': fronttyre},
+      {'label': 'Rear Tyre ', 'value': rearTire},
+      {'label': 'Battery', 'value': battery},
+      {'label': 'Accessories', 'value': accessories},
+      {'label': 'Warranty', 'value': warranty},
+      {'label': 'Color', 'value': color},
+      {'label': 'Pincode', 'value': pincode},
+      {'label': 'Safety Feature', 'value': safetyfeature},
     ];
 
     final features = [
       {'label': 'Horse Power', 'value': horsePower},
       {'label': 'Steering Type', 'value': steeringType},
       {'label': 'Brake', 'value': brake},
-      {'label': 'Transmission', 'value': transmission},
-      {'label': 'PTO', 'value': pto},
-      {'label': 'CC', 'value': cc},
+      {'label': 'PTO Horse Power', 'value': pto},
+      {'label': 'PTO Directions', 'value': ptodire},
+      {'label': 'Capacity (CC)', 'value': cc},
       {'label': 'Lifting Capacity', 'value': liftingCapacity},
-      {'label': 'Cooling', 'value': cooling},
+      {'label': 'Cooling System', 'value': cooling},
+      {'label': 'Number of Cylinders', 'value': horsePower},
+      {'label': 'Clutch Type', 'value': clutch},
+      {'label': 'Gear Box', 'value': gear},
+      {'label': 'RPM', 'value': rpm},
+      {'label': 'Maximum Torque', 'value': torque},
     ];
 
     final dataToShow = isSpecificationSelected ? details : features;
@@ -650,6 +730,7 @@ class DetailsSection extends StatelessWidget {
           ),
         );
       }).toList(),
+
     );
   }
 }

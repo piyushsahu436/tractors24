@@ -9,8 +9,10 @@ class AllItems extends StatefulWidget {
   @override
   State<AllItems> createState() => _AllItemsState();
 }
+
 final CollectionReference tractorsCollection =
-FirebaseFirestore.instance.collection('tractors');
+    FirebaseFirestore.instance.collection('tractors');
+
 class _AllItemsState extends State<AllItems> {
   @override
   Widget build(BuildContext context) {
@@ -59,36 +61,56 @@ class _AllItemsState extends State<AllItems> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   GestureDetector(
+                  GestureDetector(
                     onTap: () {
                       Navigator.push(
                           (context),
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  CarDetailsPage(
-                                    SellPrice: tractor['sellPrice']?.toString() ?? '',
+                              builder: (context) => CarDetailsPage(
+                                    SellPrice:
+                                        tractor['sellPrice']?.toString() ?? '',
                                     brand: tractor['brand'] ?? '',
                                     model: tractor['model'] ?? '',
                                     RegYear: tractor['registrationYear'] ?? '',
-                                    Pincode: tractor['pincode']?.toString() ?? '',
-                                    HorsePower: tractor['horsePower']?.toString() ?? '',
+                                    Pincode:
+                                        tractor['pincode']?.toString() ?? '',
+                                    HorsePower:
+                                        tractor['horsePower']?.toString() ?? '',
                                     Hours: tractor['hours'] ?? '',
                                     RegNum: tractor['registrationNumber'] ?? '',
                                     InsStatus: tractor['insuranceStatus'] ?? '',
                                     RearTire: tractor['rearTyre'] ?? '',
                                     Address: tractor['state'] ?? '',
                                     Break: tractor['break'] ?? '',
-                                    Transmission: tractor['Transmission'] ?? '',
                                     PTO: tractor['Pto'] ?? '',
                                     CC: tractor['CC'] ?? '',
                                     Cooling: tractor['Cooling'] ?? '',
-                                    LiftingCapacity: tractor['Lifting Capacity'] ?? '',
-                                    SteeringType: tractor['Steering Type'] ?? '',
+                                    LiftingCapacity:
+                                        tractor['Lifting Capacity'] ?? '',
+                                    SteeringType:
+                                        tractor['Steering Type'] ?? '',
                                     ClutchType: tractor['Clutch Type'] ?? '',
-                                    OilCap: tractor['Engine Oil Capacity'] ?? '',
+                                    OilCap:
+                                        tractor['Engine Oil Capacity'] ?? '',
                                     RunningKM: tractor['Running KM'] ?? '',
                                     Fuel: tractor['Fuel'] ?? '',
-                                    tractorId: tractor['tractorId']?? '',
+                                    tractorId: tractor['tractorId'] ?? '',
+                                    description: tractor['description'] ?? '',
+                                    state: tractor['state'] ?? "",
+                                    safetyfeature:
+                                        tractor['safetyFeatures'] ?? "",
+                                    warrenty: tractor['warranty'] ?? "",
+                                    color: tractor['color'] ?? "",
+                                    accessories: tractor['accessories'] ?? "",
+                                    rpm: tractor['rpm'] ?? "",
+                                    ptodirection: '' ?? "",
+                                    battery: tractor['battery'] ?? "",
+                                    cylinder: tractor['noOfCylinders'] ?? "",
+                                    gearbox: tractor['gearBox'] ?? "",
+                                    torque: '' ?? "",
+                                    fronttyre: tractor['frontTyreSize'],
+                                    pincode: tractor['pincode'] ?? '',
+                                    clutch: tractor['clutch']?? '',
                                   )));
                     },
                     child: Card(
@@ -106,16 +128,14 @@ class _AllItemsState extends State<AllItems> {
                             child: Image.asset(
                               'assets/images/banner1.jpg',
                               height: 150,
-                              width:
-                              MediaQuery.of(context).size.width * 1,
+                              width: MediaQuery.of(context).size.width * 1,
                               fit: BoxFit.cover,
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   tractor['brandName'] ?? 'Mahindra Go',
@@ -139,7 +159,7 @@ class _AllItemsState extends State<AllItems> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Container(
                                         height: size.height * 0.03,
@@ -147,13 +167,11 @@ class _AllItemsState extends State<AllItems> {
                                         decoration: BoxDecoration(
                                             color: Colors.grey[200],
                                             borderRadius:
-                                            BorderRadius.circular(
-                                                6)),
+                                                BorderRadius.circular(6)),
                                         child: const Center(
                                           child: Text(
                                             "2022",
-                                            style:
-                                            TextStyle(fontSize: 12),
+                                            style: TextStyle(fontSize: 12),
                                           ),
                                         )),
                                     Container(
@@ -162,13 +180,11 @@ class _AllItemsState extends State<AllItems> {
                                         decoration: BoxDecoration(
                                             color: Colors.grey[200],
                                             borderRadius:
-                                            BorderRadius.circular(
-                                                6)),
+                                                BorderRadius.circular(6)),
                                         child: const Center(
                                           child: Text(
                                             "450000 kms",
-                                            style:
-                                            TextStyle(fontSize: 12),
+                                            style: TextStyle(fontSize: 12),
                                           ),
                                         )),
                                     Container(
@@ -177,13 +193,11 @@ class _AllItemsState extends State<AllItems> {
                                         decoration: BoxDecoration(
                                             color: Colors.grey[200],
                                             borderRadius:
-                                            BorderRadius.circular(
-                                                6)),
+                                                BorderRadius.circular(6)),
                                         child: const Center(
                                           child: Text(
                                             "Petrol",
-                                            style:
-                                            TextStyle(fontSize: 12),
+                                            style: TextStyle(fontSize: 12),
                                           ),
                                         )),
                                     Container(
@@ -192,13 +206,11 @@ class _AllItemsState extends State<AllItems> {
                                         decoration: BoxDecoration(
                                             color: Colors.grey[200],
                                             borderRadius:
-                                            BorderRadius.circular(
-                                                6)),
+                                                BorderRadius.circular(6)),
                                         child: const Center(
                                           child: Text(
                                             "566 HP",
-                                            style:
-                                            TextStyle(fontSize: 12),
+                                            style: TextStyle(fontSize: 12),
                                           ),
                                         )),
                                     const SizedBox(
@@ -220,7 +232,7 @@ class _AllItemsState extends State<AllItems> {
 
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     // Text(
                                     //   'Insurance: ${vehicle['insuranceSecurity'] ?? ''}',
@@ -239,24 +251,19 @@ class _AllItemsState extends State<AllItems> {
                                             (context),
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                ContactSellerScreen())); // Handle button press
+                                                    ContactSellerScreen())); // Handle button press
                                       },
                                       style: TextButton.styleFrom(
-                                        backgroundColor:
-                                        Colors.blue[300],
+                                        backgroundColor: Colors.blue[300],
                                         foregroundColor: Colors.white,
-                                        padding:
-                                        const EdgeInsets.symmetric(
-                                            horizontal: 16.0,
-                                            vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0, vertical: 8.0),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(
-                                              8.0),
+                                              BorderRadius.circular(8.0),
                                         ),
                                       ),
-                                      child:
-                                      const Text('Contact Seller'),
+                                      child: const Text('Contact Seller'),
                                     )
                                   ],
                                 ),
