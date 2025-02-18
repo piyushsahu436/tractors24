@@ -131,54 +131,9 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(22),
                         topRight: Radius.circular(22)),
-                    // image: DecorationImage(image: AssetImage("assets/images/profilebackground.png"),fit: BoxFit.cover),
                   ),
                   child: Column(
                     children: [
-                      // Top curved container
-                      // Container(
-                      //   height: 120,
-                      //   decoration:  BoxDecoration(
-                      //     color: Colors.white,
-                      //     borderRadius: BorderRadius.only(topLeft: Radius.circular(22),topRight: Radius.circular(22)),
-                      //     image: DecorationImage(image: AssetImage("assets/images/profilebackground.png"),
-                      //         fit: BoxFit.cover),
-                      //
-                      //   ),
-                      //
-                      //   child: Center(
-                      //     child: Stack(
-                      //       alignment: Alignment.center,
-                      //       children: [
-                      //         // Profile image
-                      //         CircleAvatar(
-                      //           radius: 50,
-                      //           backgroundColor: Colors.white,
-                      //           backgroundImage:
-                      //           _imageFile != null ? FileImage(_imageFile!) : null,
-                      //           child: _imageFile == null
-                      //               ? const Icon(Icons.person,
-                      //               size: 50, color: Colors.grey)
-                      //               : null,
-                      //         ),
-                      //         // Edit icon
-                      //         Positioned(
-                      //           right: 0,
-                      //           bottom: 0,
-                      //           child: CircleAvatar(
-                      //             backgroundColor: Colors.white,
-                      //             radius: 18,
-                      //             child: IconButton(
-                      //               icon: const Icon(Icons.edit, size: 18, color: Colors.black,),
-                      //               onPressed: _showImageSourceDialog,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-
                       // Personal Info text
                       Padding(
                         padding:  EdgeInsets.only(top: size.height*0.1),
@@ -309,32 +264,12 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                               ? const Icon(Icons.person,
                               size: 50, color: Colors.grey)
                               : null,
-                          // backgroundImage: profileImageUrl.isNotEmpty
-                          //     ? NetworkImage(profileImageUrl)
-                          //     : const AssetImage('assets/default_avatar.png')
-                          // as ImageProvider,
-                          // child: _imageFile == null
-                          //     ? const Icon(Icons.person,
-                          //     size: 50, color: Colors.grey)
-                          //     : null,
+
                         ),
                       ),
                     ]
                 ),
               ),
-              // Edit icon
-              // Positioned(
-              //   right: 0,
-              //   bottom: 0,
-              //   child: CircleAvatar(
-              //     backgroundColor: Colors.white,
-              //     radius: 18,
-              //     child: IconButton(
-              //       icon: const Icon(Icons.edit, size: 18, color: Colors.black,),
-              //       onPressed: _showImageSourceDialog,
-              //     ),
-              //   ),
-              // ),
             ]),
           ],
         ),

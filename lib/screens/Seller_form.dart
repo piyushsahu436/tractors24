@@ -71,41 +71,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
     setState(() {
       selectedImages = pickedFiles.map((file) => File(file.path)).toList();
     });
-
-    // for (var file in pickedFiles) {
-    //   String? uploadedUrl = await _uploadToContabo(File(file.path));
-    //   if (uploadedUrl != null) {
-    //     uploadedUrls.add(uploadedUrl);
-    //   }
-    // }
-    //
-    // setState(() {
-    //   _isUploading = false;
-    // });
-    //
-    // // Print uploaded URLs or error message
-    // if (uploadedUrls.isNotEmpty) {
-    //   print("Uploaded Images: $uploadedUrls");
-    // } else {
-    //   print("Not uploaded");
-    // }
   }
-  // Future<String?> _uploadToContabo(File file) async {
-  //   try {
-  //     String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
-  //
-  //     await minio.fPutObject(
-  //       'tractor24',
-  //       fileName,
-  //       file.path,
-  //     );
-  //
-  //     return 'https://sin1.contabostorage.com/d1fa3867924f4c149226431ef8cbe8ee:tractor24/$fileName';
-  //   } catch (e) {
-  //     print("Upload Error: $e");
-  //     return null;
-  //   }
-  // }
 
   // Show image source selection dialog
   void _showImageSourceDialog() {
@@ -190,12 +156,16 @@ class _SellerformScreenState extends State<SellerformScreen> {
                               return Container(
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: selectedImages.isNotEmpty  // Check if local images exist
-                                        ? FileImage(selectedImages[index]) as ImageProvider
-                                        : (uploadedUrls.isNotEmpty // Check if uploaded URLs exist
-                                        ? NetworkImage(uploadedUrls[index]) as ImageProvider
-                                        : const AssetImage('assets/images/Rectangle 23807.png')
-                                    ),
+                                    image: selectedImages
+                                            .isNotEmpty // Check if local images exist
+                                        ? FileImage(selectedImages[index])
+                                            as ImageProvider
+                                        : (uploadedUrls
+                                                .isNotEmpty // Check if uploaded URLs exist
+                                            ? NetworkImage(uploadedUrls[index])
+                                                as ImageProvider
+                                            : const AssetImage(
+                                                'assets/images/Rectangle 23807.png')),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -494,6 +464,32 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Rear Tyre',
+                      hintStyle: GoogleFonts.anybody(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: size.height * 0.01),
+                  TextField(
+                    controller: _addresssellerformController,
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/placeholder.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                      hintText: 'Address',
                       hintStyle: GoogleFonts.anybody(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,

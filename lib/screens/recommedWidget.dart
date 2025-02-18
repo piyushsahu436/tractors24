@@ -100,8 +100,6 @@ Widget buildCustomCard(BuildContext context) {
                                       RearTire: tractor['rearTyre'] ?? '',
                                       Address: tractor['state'] ?? '',
                                       Break: tractor['break'] ?? '',
-                                      Transmission:
-                                          tractor['Transmission'] ?? '',
                                       PTO: tractor['Pto'] ?? '',
                                       CC: tractor['CC'] ?? '',
                                       Cooling: tractor['Cooling'] ?? '',
@@ -116,6 +114,20 @@ Widget buildCustomCard(BuildContext context) {
                                       Fuel: tractor['Fuel'] ?? '',
                                       tractorId: tractor['tractorId'],
                                       state: tractor['state'] ?? "",
+                                      safetyfeature:
+                                          tractor['safetyFeatures'] ?? "",
+                                      warrenty: tractor['warranty'] ?? "",
+                                      color: tractor['color'] ?? "",
+                                      accessories: tractor['accessories'] ?? "",
+                                      rpm: tractor['rpm'] ?? "",
+                                      ptodirection: '' ?? "",
+                                      battery: tractor['battery'] ?? "",
+                                      cylinder: tractor['noOfCylinders'] ?? "",
+                                      gearbox: tractor['gearBox'] ?? "",
+                                      torque: '' ?? "",
+                                      fronttyre: tractor['frontTyreSize'],
+                                      clutch: tractor['clutch'] ?? "",
+                                      pincode: tractor['pincode'] ?? " ",
                                     )));
                       },
                       child: Card(
