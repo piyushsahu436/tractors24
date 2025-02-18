@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -46,12 +47,15 @@ class GridViewBuilderWidget extends StatelessWidget {
               mainAxisSpacing: 10.0,
               childAspectRatio: 0.62,
             ),
-            itemCount: itemCount,
+            itemCount: itemCount ?? tractors.length,
             itemBuilder: (context, index) {
               var tractor = tractors[index].data() as Map<String, dynamic>;
+              var docSnapshot = snapshot.data!.docs[index];
+              String docId = docSnapshot.id;
               List<String> imageUrls = (tractor['images'] as List<dynamic>?)
                   ?.map((e) => e.toString())
                   .toList() ?? [];
+              // var tid  = tractorsCollection.doc().get();
 
               return GestureDetector(
                 onTap: () {
@@ -59,35 +63,40 @@ class GridViewBuilderWidget extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CarDetailsPage(
-                                SellPrice:
-                                    tractor['expectedPrice']?.toString() ?? '',
-                                brand: tractor['brand'] ?? '',
-                                model: tractor['model'] ?? '',
-                                RegYear: tractor['registrationYear'] ?? '',
-                                Pincode: tractor['pincode']?.toString() ?? '',
-                                HorsePower:
-                                    tractor['horsePower']?.toString() ?? '',
-                                Hours: tractor['hoursDriven'] ?? '',
-                                RegNum: tractor['registrationNumber'] ?? '',
-                                InsStatus: tractor['insuranceStatus'] ?? '',
-                                RearTire: tractor['rearTyre'] ?? '',
-                                Address: tractor['state'] ?? '',
-                                Break: tractor['break'] ?? '',
-                                Transmission: tractor['Transmission'] ?? '',
-                                PTO: tractor['Pto'] ?? '',
-                                CC: tractor['CC'] ?? '',
-                                Cooling: tractor['Cooling'] ?? '',
-                                LiftingCapacity:
-                                    tractor['Lifting Capacity'] ?? '',
-                                SteeringType: tractor['Steering Type'] ?? '',
-                                ClutchType: tractor['Clutch Type'] ?? '',
-                                OilCap: tractor['Engine Oil Capacity'] ?? '',
-                                RunningKM: tractor['Running KM'] ?? '',
-                                Fuel: tractor['Fuel'] ?? '',
-                                tractorId: tractor['tractorId'] ?? '',
-                                imageUrls: (tractor['images'] as List<dynamic>?)?.map((e) => e.toString()).toList()?? [],
-
-                              )));
+                            SellPrice:
+                            tractor['expectedPrice']?.toString() ?? '',
+                            brand: tractor['brand'] ?? '',
+                            model: tractor['model'] ?? '',
+                            RegYear: tractor['registrationYear'] ?? '',
+                            Pincode: tractor['pincode']?.toString() ?? '',
+                            HorsePower:
+                            tractor['horsePower']?.toString() ?? '',
+                            Hours: tractor['hoursDriven'] ?? '',
+                            RegNum: tractor['registrationNumber'] ?? '',
+                            InsStatus: tractor['insuranceStatus'] ?? '',
+                            RearTire: tractor['rearTyreSize'] ?? '',
+                            Address: tractor['location'] ?? '',
+                            Break: tractor['brakes'] ?? '',
+                            Transmission: tractor['transmissionType'] ?? '',
+                            PTO: tractor['ptoHP'] ?? '',
+                            CC: tractor['capacityCC'] ?? '',
+                            Cooling: tractor['coolingSystem'] ?? '',
+                            LiftingCapacity:
+                            tractor['liftingCapacity'] ?? '',
+                            SteeringType: tractor['steeringType'] ?? '',
+                            ClutchType: tractor['Clutch Type'] ?? '',
+                            OilCap: tractor['capacity'] ?? '',
+                            RunningKM: tractor['Running KM'] ?? '',
+                            Fuel: tractor['fuelType'] ?? '',
+                            tractorId: tractor['tractorId'] ?? '',
+                            imageUrls: (tractor['images'] as List<dynamic>?)
+                                ?.map((e) => e.toString())
+                                .toList() ??
+                                [],
+                            description: tractor['description'] ?? '',
+                            state: tractor['state'] ?? "",
+                            docId: docId,
+                          )));
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -164,10 +173,39 @@ class GridViewBuilderWidget extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        const Image(
-                                          image: AssetImage("assets/images/favIcon.png"),
-                                          height: 18,
+                                        GestureDetector(
+                                          onTap: () async {
+                                            try {
+                                              // Get the current user's ID
+                                              String userId = FirebaseAuth.instance.currentUser?.uid ?? 'unknown_user';
+                                              String tractorId = tractors[index].id;
+
+
+                                              CollectionReference wishlistRef = FirebaseFirestore.instance.collection('wishlists');
+
+                                              // Save data in Firestore
+                                              await wishlistRef.doc('$userId-$tractorId').set({
+                                                'userId': userId,
+                                                'tractorId': tractorId,
+                                                'timestamp': FieldValue.serverTimestamp(),
+                                              });
+
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text('Added to Wishlist!')),
+                                              );
+                                            } catch (e) {
+                                              print("Error adding to wishlist: $e");
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text('Failed to add to Wishlist!')),
+                                              );
+                                            }
+                                          },
+                                          child: const Image(
+                                            image: AssetImage("assets/images/favIcon.png"),
+                                            height: 18,
+                                          ),
                                         ),
+
                                       ],
                                     ),
                                   ),
@@ -263,7 +301,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const ContactSellerScreen(),
+                                           ContactSellerScreen(docid: docId,),
                                     ),
                                   );
                                 },

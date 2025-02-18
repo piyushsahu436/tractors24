@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ContactSellerScreen extends StatefulWidget {
-  const ContactSellerScreen({super.key});
+  const ContactSellerScreen({super.key, required this.docid});
+  final String docid;
 
   @override
   State<ContactSellerScreen> createState() => _ContactSellerScreenState();
@@ -31,7 +32,8 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
         'Message': _messagecontactsellerController.text.trim(),
         'PinCode': _pincodecontactsellerController.text.trim(),
         'status': "pending",
-        'timestamp': FieldValue.serverTimestamp(), // Optional for sorting
+        'timestamp': FieldValue.serverTimestamp(),
+        'tractorid': widget.docid// Optional for sorting
       });
 
       // Clear input fields

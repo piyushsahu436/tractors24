@@ -79,12 +79,15 @@ Widget buildCustomCard(BuildContext context) {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         CarDetailsPage(
-                                          SellPrice: tractor['sellPrice']?.toString() ?? '',
+                                          SellPrice:
+                                          tractor['sellPrice']?.toString() ?? '',
                                           brand: tractor['brand'] ?? '',
                                           model: tractor['model'] ?? '',
                                           RegYear: tractor['registrationYear'] ?? '',
-                                          Pincode: tractor['pincode']?.toString() ?? '',
-                                          HorsePower: tractor['horsePower']?.toString() ?? '',
+                                          Pincode:
+                                          tractor['pincode']?.toString() ?? '',
+                                          HorsePower:
+                                          tractor['horsePower']?.toString() ?? '',
                                           Hours: tractor['hours'] ?? '',
                                           RegNum: tractor['registrationNumber'] ?? '',
                                           InsStatus: tractor['insuranceStatus'] ?? '',
@@ -95,13 +98,19 @@ Widget buildCustomCard(BuildContext context) {
                                           PTO: tractor['Pto'] ?? '',
                                           CC: tractor['CC'] ?? '',
                                           Cooling: tractor['Cooling'] ?? '',
-                                          LiftingCapacity: tractor['Lifting Capacity'] ?? '',
-                                          SteeringType: tractor['Steering Type'] ?? '',
+                                          LiftingCapacity:
+                                          tractor['Lifting Capacity'] ?? '',
+                                          SteeringType:
+                                          tractor['Steering Type'] ?? '',
                                           ClutchType: tractor['Clutch Type'] ?? '',
-                                          OilCap: tractor['Engine Oil Capacity'] ?? '',
+                                          OilCap:
+                                          tractor['Engine Oil Capacity'] ?? '',
                                           RunningKM: tractor['Running KM'] ?? '',
                                           Fuel: tractor['Fuel'] ?? '',
-                                          tractorId: tractor['tractorId'],
+                                          tractorId: tractor['tractorId'] ?? '',
+                                          description: tractor['description']?? '',
+                                          state: tractor['state'] ?? "",
+                                          docId: '',
                                         )));
                           },
                           child: Card(
@@ -261,7 +270,7 @@ Widget buildCustomCard(BuildContext context) {
                                                   (context),
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                         ContactSellerScreen())); // Handle button press
+                                                         ContactSellerScreen(docid: '',))); // Handle button press
                                             },
                                             style: TextButton.styleFrom(
                                               backgroundColor: Colors.blue[300],

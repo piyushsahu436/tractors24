@@ -55,7 +55,9 @@ class _AllItemsState extends State<AllItems> {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               var tractor = tractors[index].data() as Map<String, dynamic>;
-
+              List<String> imageUrls = (tractor['images'] as List<dynamic>?)
+                  ?.map((e) => e.toString())
+                  .toList() ?? [];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -66,29 +68,39 @@ class _AllItemsState extends State<AllItems> {
                           MaterialPageRoute(
                               builder: (context) =>
                                   CarDetailsPage(
-                                    SellPrice: tractor['sellPrice']?.toString() ?? '',
+                                    SellPrice:
+                                    tractor['expectedPrice']?.toString() ?? '',
                                     brand: tractor['brand'] ?? '',
                                     model: tractor['model'] ?? '',
                                     RegYear: tractor['registrationYear'] ?? '',
                                     Pincode: tractor['pincode']?.toString() ?? '',
-                                    HorsePower: tractor['horsePower']?.toString() ?? '',
-                                    Hours: tractor['hours'] ?? '',
+                                    HorsePower:
+                                    tractor['horsePower']?.toString() ?? '',
+                                    Hours: tractor['hoursDriven'] ?? '',
                                     RegNum: tractor['registrationNumber'] ?? '',
                                     InsStatus: tractor['insuranceStatus'] ?? '',
-                                    RearTire: tractor['rearTyre'] ?? '',
-                                    Address: tractor['state'] ?? '',
-                                    Break: tractor['break'] ?? '',
-                                    Transmission: tractor['Transmission'] ?? '',
-                                    PTO: tractor['Pto'] ?? '',
-                                    CC: tractor['CC'] ?? '',
-                                    Cooling: tractor['Cooling'] ?? '',
-                                    LiftingCapacity: tractor['Lifting Capacity'] ?? '',
-                                    SteeringType: tractor['Steering Type'] ?? '',
+                                    RearTire: tractor['rearTyreSize'] ?? '',
+                                    Address: tractor['location'] ?? '',
+                                    Break: tractor['brakes'] ?? '',
+                                    Transmission: tractor['transmissionType'] ?? '',
+                                    PTO: tractor['ptoHP'] ?? '',
+                                    CC: tractor['capacityCC'] ?? '',
+                                    Cooling: tractor['coolingSystem'] ?? '',
+                                    LiftingCapacity:
+                                    tractor['liftingCapacity'] ?? '',
+                                    SteeringType: tractor['steeringType'] ?? '',
                                     ClutchType: tractor['Clutch Type'] ?? '',
-                                    OilCap: tractor['Engine Oil Capacity'] ?? '',
+                                    OilCap: tractor['capacity'] ?? '',
                                     RunningKM: tractor['Running KM'] ?? '',
-                                    Fuel: tractor['Fuel'] ?? '',
-                                    tractorId: tractor['tractorId']?? '',
+                                    Fuel: tractor['fuelType'] ?? '',
+                                    tractorId: tractor['tractorId'] ?? '',
+                                    imageUrls: (tractor['images'] as List<dynamic>?)
+                                        ?.map((e) => e.toString())
+                                        .toList() ??
+                                        [],
+                                    description: tractor['description'] ?? '',
+                                    state: tractor['state'] ?? "",
+                                    docId: '',
                                   )));
                     },
                     child: Card(
@@ -239,7 +251,7 @@ class _AllItemsState extends State<AllItems> {
                                             (context),
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                ContactSellerScreen())); // Handle button press
+                                                ContactSellerScreen(docid: '',))); // Handle button press
                                       },
                                       style: TextButton.styleFrom(
                                         backgroundColor:
