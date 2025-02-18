@@ -21,6 +21,10 @@ class HomePageF extends StatefulWidget {
 class _HomePageFState extends State<HomePageF> {
   String _currentAddress = "Loading...";
   Position? _currentPosition;
+  String? _pincode = "Fetching...";
+  String? _locality = "Fetching...";
+  String? _district = "Fetching...";
+  String? _state = "Fetching...";
 
   @override
   void initState() {
@@ -79,9 +83,11 @@ class _HomePageFState extends State<HomePageF> {
           _currentPosition!.latitude, _currentPosition!.longitude);
 
       Placemark place = placemarks[0];
+
       print(place);
       setState(() {
         _currentAddress = place.locality ?? place.subAdministrativeArea ?? "Unknown location";
+        _pincode = place.postalCode;
       });
     } catch (e) {
       debugPrint(e.toString());
@@ -161,7 +167,8 @@ class _HomePageFState extends State<HomePageF> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              search()), // Navigate to your new page
+                                              search(pincode: _pincode ?? ""),
+                                      ), // Navigate to your new page
                                     );
                                   },
                                   child: AbsorbPointer(
@@ -201,7 +208,7 @@ class _HomePageFState extends State<HomePageF> {
                             ),
                             Expanded(
                               child: Text(
-                                "Indore",
+                                _currentAddress,
                                 style: GoogleFonts.anybody(
                                   color: Colors.white,
                                   fontSize: 13.0,
