@@ -14,6 +14,7 @@ import 'package:tractors24/screens/testimonials.dart';
 import 'package:tractors24/auth/login_password.dart';
 import 'favorites_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tractors24/screens/Wishlist.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -172,7 +173,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               Navigator.push(
                   (context),
                   MaterialPageRoute(
-                      builder: (context) =>Favourite()));
+                      builder: (context) =>Wishlist()));
             },
           ),
           SizedBox(height: 4),
@@ -195,7 +196,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ), SizedBox(height: 4),
 
           _buildMenuListTile(
-            icon: Icons.notifications,
+            icon: Icons.newspaper,
             title: 'News',
             onTap: () {},
           ),

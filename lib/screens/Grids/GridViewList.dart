@@ -46,7 +46,7 @@ class GridViewBuilderWidget extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
-              childAspectRatio: 0.62,
+              childAspectRatio: 0.59,
             ),
             itemCount: itemCount > tractors.length ? tractors.length : itemCount,
             itemBuilder: (context, index) {
@@ -64,52 +64,52 @@ class GridViewBuilderWidget extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CarDetailsPage(
-                                SellPrice:
-                                    tractor['expectedPrice']?.toString() ?? '',
-                                brand: tractor['brand'] ?? '',
-                                model: tractor['model'] ?? '',
-                                RegYear: tractor['registrationYear'] ?? '',
-                                Pincode: tractor['pincode']?.toString() ?? '',
-                                HorsePower:
-                                    tractor['horsePower']?.toString() ?? '',
-                                Hours: tractor['hoursDriven'] ?? '',
-                                RegNum: tractor['registrationNumber'] ?? '',
-                                InsStatus: tractor['insuranceStatus'] ?? '',
-                                RearTire: tractor['rearTyreSize'] ?? '',
-                                Address: tractor['location'] ?? '',
-                                Break: tractor['brakes'] ?? '',
-                                PTO: tractor['ptoHP'] ?? '',
-                                CC: tractor['capacityCC'] ?? '',
-                                Cooling: tractor['coolingSystem'] ?? '',
-                                LiftingCapacity:
-                                    tractor['liftingCapacity'] ?? '',
-                                SteeringType: tractor['steeringType'] ?? '',
-                                ClutchType: tractor['Clutch Type'] ?? '',
-                                OilCap: tractor['capacity'] ?? '',
-                                RunningKM: tractor['Running KM'] ?? '',
-                                Fuel: tractor['fuelType'] ?? '',
-                                tractorId: tractor['tractorId'] ?? '',
-                                imageUrls: (tractor['images'] as List<dynamic>?)
-                                        ?.map((e) => e.toString())
-                                        .toList() ??
-                                    [],
-                                description: tractor['description'] ?? '',
-                                state: tractor['state'] ?? "",
-                                safetyfeature: tractor['safetyFeatures'] ?? "",
-                                warrenty: tractor['warranty'] ?? "",
-                                color: tractor['color'] ?? "",
-                                accessories: tractor['accessories'] ?? "",
-                                rpm: tractor['rpm'] ?? "",
-                                ptodirection: '' ?? "",
-                                battery: tractor['battery'] ?? "",
-                                cylinder: tractor['noOfCylinders'] ?? "",
-                                gearbox: tractor['gearBox'] ?? "",
-                                torque: '' ?? "",
-                                fronttyre: tractor['frontTyreSize'],
-                                clutch: tractor['clutch']?? "",
-                                pincode: tractor['pincode']?? " ",
-                                docId: docId,
-                              )));
+                            SellPrice:
+                            tractor['expectedPrice']?.toString() ?? '',
+                            brand: tractor['brand'] ?? '',
+                            model: tractor['model'] ?? '',
+                            RegYear: tractor['registrationYear'] ?? '',
+                            Pincode: tractor['pincode']?.toString() ?? '',
+                            HorsePower:
+                            tractor['horsePower']?.toString() ?? '',
+                            Hours: tractor['hoursDriven'] ?? '',
+                            RegNum: tractor['registrationNumber'] ?? '',
+                            InsStatus: tractor['insuranceStatus'] ?? '',
+                            RearTire: tractor['rearTyreSize'] ?? '',
+                            Address: tractor['location'] ?? '',
+                            Break: tractor['brakes'] ?? '',
+                            PTO: tractor['ptoHP'] ?? '',
+                            CC: tractor['capacityCC'] ?? '',
+                            Cooling: tractor['coolingSystem'] ?? '',
+                            LiftingCapacity:
+                            tractor['liftingCapacity'] ?? '',
+                            SteeringType: tractor['steeringType'] ?? '',
+                            ClutchType: tractor['Clutch Type'] ?? '',
+                            OilCap: tractor['capacity'] ?? '',
+                            RunningKM: tractor['Running KM'] ?? '',
+                            Fuel: tractor['fuelType'] ?? '',
+                            tractorId: tractor['tractorId'] ?? '',
+                            imageUrls: (tractor['images'] as List<dynamic>?)
+                                ?.map((e) => e.toString())
+                                .toList() ??
+                                [],
+                            description: tractor['description'] ?? '',
+                            state: tractor['state'] ?? "",
+                            safetyfeature: tractor['safetyFeatures'] ?? "",
+                            warrenty: tractor['warranty'] ?? "",
+                            color: tractor['color'] ?? "",
+                            accessories: tractor['accessories'] ?? "",
+                            rpm: tractor['rpm'] ?? "",
+                            ptodirection: '' ?? "",
+                            battery: tractor['battery'] ?? "",
+                            cylinder: tractor['noOfCylinders'] ?? "",
+                            gearbox: tractor['gearBox'] ?? "",
+                            torque: '' ?? "",
+                            fronttyre: tractor['frontTyreSize'],
+                            clutch: tractor['clutch']?? "",
+                            pincode: tractor['pincode']?? " ",
+                            docId: docId,
+                          )));
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -215,7 +215,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                           },
                                           child: const Image(
                                             image: AssetImage("assets/images/favIcon.png"),
-                                            height: 18,
+                                            height: 22.5,
                                           ),
                                         ),
 
@@ -315,7 +315,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                           ContactSellerScreen(docid: docId,),
+                                          ContactSellerScreen(docid: docId,),
                                     ),
                                   );
                                 },

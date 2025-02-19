@@ -8,6 +8,7 @@ import 'package:tractors24/screens/HomePageF.dart';
 import 'package:tractors24/screens/LandingPage.dart';
 import 'package:tractors24/screens/profile_screen.dart';
 import '../screens/dealer_dashboard/home_screen.dart';
+import 'package:tractors24/screens/forget_pass.dart';
 
 class Login2 extends StatefulWidget {
   const Login2({super.key});
@@ -20,6 +21,8 @@ class _LoginPage2 extends State<Login2> {
   final TextEditingController nameloginController = TextEditingController();
   final TextEditingController passwordloginController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   bool isTermsAccepted = false;
   bool isLoading = false;
   bool isCustomerSelected = true;
@@ -84,9 +87,11 @@ class _LoginPage2 extends State<Login2> {
       SnackBar(content: Text(message)),
     );
   }
+  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -302,8 +307,19 @@ class _LoginPage2 extends State<Login2> {
                     Form_field(
                         hintText: "Email",
                         controller: nameloginController,
-                        prefixtext: "", validator: (String? value) {  },),
+                        prefixtext: "", validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return "Email is required";
+                      }
+                      // Regular Expression for validating email format
+                      final emailRegex = RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+                      if (!emailRegex.hasMatch(value)) {
+                        return "Enter a valid email address";
+                      }
+                      return null; // Validation passed
+                    },),
                     SizedBox(height: size.height * 0.001),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3.0),
                       child: Container(
@@ -320,27 +336,43 @@ class _LoginPage2 extends State<Login2> {
                           ],
                         ),
                         child: TextField(
-                          controller: passwordloginController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            hintText: 'Password',
-                            hintStyle: GoogleFonts.roboto(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 15,
-                                color: const Color.fromRGBO(124, 139, 160, 1.0)),
-                            suffixIcon: const Icon(Icons.visibility_off,
-                                color: Color(0xFF61677D)),
-                            contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                            border: InputBorder.none,
+                        controller: passwordloginController,
+                        obscureText: isObscure,  // ✅ Toggle visibility
+                        decoration: InputDecoration(
+                          hintText: 'Password',
+                          hintStyle: GoogleFonts.roboto(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 15,
+                            color: const Color.fromRGBO(124, 139, 160, 1.0),
                           ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                isObscure = !isObscure;  // ✅ Toggle visibility state
+                              });
+                            },
+                            icon: Icon(
+                              isObscure ? Icons.visibility_off : Icons.visibility,  // ✅ Change icon dynamically
+                              color: const Color(0xFF61677D),
+                            ),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                          border: InputBorder.none,
                         ),
                       ),
+
+
+                    ),
                     ),
                     Row(
                       children: [
                         SizedBox(height: 50,),
-
-                        _buildClickableTexts(" Forget Password?", "")
+_buildClickableTexts("Forget Password", '',  () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => ForgetPassword ()), // ✅ Redirects to another page
+  );
+})
                       ],
                     ),
                     const SizedBox(height: 5),
@@ -354,7 +386,7 @@ class _LoginPage2 extends State<Login2> {
                           if (formKey.currentState!.validate()) {
                             _login(context);  // Call sign-up function only if valid
                           }
-                        },// isTermsAccepted ? () => _login(context) : null,
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF003B8F),
                           shape: RoundedRectangleBorder(
@@ -417,23 +449,28 @@ class _LoginPage2 extends State<Login2> {
 }
 
 
-Widget _buildClickableTexts(String clickText, String description) {
+Widget _buildClickableTexts(String clickText, String description, VoidCallback onTap) {
   return Row(
     children: [
-      Text(
-        '$clickText ',
-        style: GoogleFonts.roboto(
-          fontSize: 14.0,
-          fontWeight: FontWeight.bold,
-          color: Color.fromRGBO(0, 59, 143, 1),
-
+      GestureDetector(
+        onTap: onTap,  // ✅ Handles the click event
+        child: Text(
+          '$clickText ',
+          style: GoogleFonts.roboto(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            color: Color.fromRGBO(0, 59, 143, 1), // ✅ Highlighted clickable text
+          ),
         ),
       ),
-      Text(description, style: GoogleFonts.roboto(
-        fontSize: 16.0,
-        fontWeight: FontWeight.w400,
-        color: Colors.black,
-      ),),
+      Text(
+        description,
+        style: GoogleFonts.roboto(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+          color: Colors.black,
+        ),
+      ),
     ],
   );
 }
