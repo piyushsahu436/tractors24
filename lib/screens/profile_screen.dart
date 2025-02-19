@@ -139,7 +139,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                         padding:  EdgeInsets.only(top: size.height*0.1),
                         child: Text(
                           'Personal Info',
-                          style: GoogleFonts.anybody(
+                          style: GoogleFonts.roboto(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xFF0A2472),
@@ -283,7 +283,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
       children: [
         Text(
           '$clickText ',
-          style: GoogleFonts.anybody(
+          style: GoogleFonts.roboto(
             fontSize: 14.0,
             fontWeight: FontWeight.bold,
             color: const Color.fromRGBO(0, 59, 143, 1),
@@ -292,7 +292,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
         ),
         Text(
           description,
-          style: GoogleFonts.anybody(
+          style: GoogleFonts.roboto(
             fontSize: 16.0,
             fontWeight: FontWeight.w400,
             color: Colors.black,
@@ -338,7 +338,7 @@ class NonEditFormField extends StatelessWidget {
           decoration: InputDecoration(
             fillColor: Colors.white,
             hintText: hintText,
-            hintStyle: GoogleFonts.anybody(
+            hintStyle: GoogleFonts.roboto(
                 fontWeight: FontWeight.w400,
                 fontSize: 15,
                 color: const Color.fromRGBO(124, 139, 160, 1.0)),

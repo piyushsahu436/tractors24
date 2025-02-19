@@ -97,7 +97,7 @@ class BrandGrids extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
-                        child: Text(item.title,style: GoogleFonts.anybody(
+                        child: Text(item.title,style: GoogleFonts.roboto(
                             fontWeight: FontWeight.w500,
                             fontSize: 8
                         ),),

@@ -107,7 +107,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                           children: [
                             Text(
                               'Loan Amount',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -199,7 +199,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                     // Tenure Section
                     Text(
                       'Tenure',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                       ),
@@ -275,7 +275,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                     // Interest Rate Section
                     Text(
                       'Interest Rate',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                       ),
@@ -432,7 +432,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
         children: [
           Text(
             label,
-            style: GoogleFonts.anybody(
+            style: GoogleFonts.roboto(
               fontSize: 14,
               color: Colors.grey[600],
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
@@ -440,7 +440,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
           ),
           Text(
             '₹ ${amount.toStringAsFixed(2)}',
-            style: GoogleFonts.anybody(
+            style: GoogleFonts.roboto(
               fontSize: 14,
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
             ),

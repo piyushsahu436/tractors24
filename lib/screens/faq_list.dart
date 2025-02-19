@@ -132,7 +132,7 @@ class _FAQListState extends State<FAQList> {
           children: [
             Text(
               faqData[sectionIndex]['title'],
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                   color: Color(0xFF414040),
                   fontSize: 14,
                   fontWeight: FontWeight.w600),
@@ -179,7 +179,7 @@ class _FAQListState extends State<FAQList> {
             Expanded(
               child: Text(
                 faqData[sectionIndex]['questions'][questionIndex]['question'],
-                style: GoogleFonts.anybody(
+                style: GoogleFonts.roboto(
                     color: Color(0xFF414040),
                     fontSize: 12,
                     fontWeight: FontWeight.w500),
@@ -198,7 +198,7 @@ class _FAQListState extends State<FAQList> {
       color: const Color(0xFFBBDEFB),
       child: Text(
         faqData[sectionIndex]['questions'][questionIndex]['answer'],
-        style: GoogleFonts.anybody(
+        style: GoogleFonts.roboto(
             color: Color(0xFF414040),
             fontSize: 12,
             fontWeight: FontWeight.w400),

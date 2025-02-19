@@ -124,7 +124,7 @@ class _SignUp1 extends State<SignUp1> {
                       Padding(
                         padding: const EdgeInsets.all(0),
                         child: Text('Sign Up',
-                            style: GoogleFonts.anybody(
+                            style: GoogleFonts.roboto(
                               fontSize: 32,
                               fontWeight: FontWeight.w600,
                               color: const Color(0xFF003B8F),
@@ -155,7 +155,7 @@ class _SignUp1 extends State<SignUp1> {
                                       ),
                                       Text(
                                         'Facebook',
-                                        style: GoogleFonts.anybody(
+                                        style: GoogleFonts.roboto(
                                             fontWeight: FontWeight.w500,
                                             color: const Color(0xFF61677D)),
                                       )
@@ -181,7 +181,7 @@ class _SignUp1 extends State<SignUp1> {
                                       Image.asset("assets/images/_Google.png"),
                                       Text(
                                         '  Google',
-                                        style: GoogleFonts.anybody(
+                                        style: GoogleFonts.roboto(
                                             fontWeight: FontWeight.w500,
                                             color: const Color(0xFF61677D)),
                                       )
@@ -222,7 +222,7 @@ class _SignUp1 extends State<SignUp1> {
                         children: [
                           Text(
                             "I`m a",
-                            style: GoogleFonts.anybody(
+                            style: GoogleFonts.roboto(
                                 fontSize: 16, fontWeight: FontWeight.w600),
                           ),
                         ],
@@ -360,7 +360,7 @@ class _SignUp1 extends State<SignUp1> {
                             obscureText: true,
                             decoration: InputDecoration(
                               hintText: 'Password',
-                              hintStyle: GoogleFonts.anybody(
+                              hintStyle: GoogleFonts.roboto(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
                                   color:
@@ -397,7 +397,7 @@ class _SignUp1 extends State<SignUp1> {
                             obscureText: true,
                             decoration: InputDecoration(
                               hintText: 'Confirm Password',
-                              hintStyle: GoogleFonts.anybody(
+                              hintStyle: GoogleFonts.roboto(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
                                   color:
@@ -445,12 +445,12 @@ class _SignUp1 extends State<SignUp1> {
                                 children: [
                                   TextSpan(
                                       text: "I'm agree to the ",
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w400)),
                                   TextSpan(
                                     text: "Term's of Service",
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       color: const Color(0xFF003B8F),
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
@@ -458,12 +458,12 @@ class _SignUp1 extends State<SignUp1> {
                                   ),
                                   TextSpan(
                                       text: " and ",
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w400)),
                                   TextSpan(
                                       text: "Privacy Policy",
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                         color: const Color(0xFF003B8F),
                                         fontWeight: FontWeight.w400,
                                         fontSize: 14,
@@ -525,7 +525,7 @@ class _SignUp1 extends State<SignUp1> {
                           children: [
                             Text(
                               "Do you have account?",
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                   fontWeight: FontWeight.w400),
                             ),
                             TextButton(
@@ -539,7 +539,7 @@ class _SignUp1 extends State<SignUp1> {
                               },
                               child: Text(
                                 'Sign In',
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                   color: const Color(0xFF003B8F),
                                   fontWeight: FontWeight.w400,
                                 ),

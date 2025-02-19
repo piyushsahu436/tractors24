@@ -34,7 +34,7 @@ class SplashScreen5 extends StatelessWidget {
                   },
                   child:  Text(
                     'Skip',
-                    style:  GoogleFonts.anybody(
+                    style:  GoogleFonts.roboto(
                       color: Colors.white,
                       fontSize: 18.0,
                       fontWeight: FontWeight.w500,
@@ -48,7 +48,7 @@ class SplashScreen5 extends StatelessWidget {
 
             Text(
               'WELCOME TO',
-              style:  GoogleFonts.anybody(
+              style:  GoogleFonts.roboto(
                 color: Colors.white,
                 fontSize: 40.0,
                 fontWeight: FontWeight.w700,
@@ -82,7 +82,7 @@ class SplashScreen5 extends StatelessWidget {
               child: Text(
                 'A HIGH-PERFORMING WEB-BASED TRACTOR SELL SYSTEM FOR ANY RENT-A-TRACTOR COMPANY AND WEBSITE',
                 textAlign: TextAlign.center,
-                style:  GoogleFonts.anybody(
+                style:  GoogleFonts.roboto(
                   color: Colors.white,
                   fontSize: 15.0,
                   fontWeight: FontWeight.w400,
@@ -120,7 +120,7 @@ class SplashScreen5 extends StatelessWidget {
                       },
                       child: Text(
                         'Next',
-                        style:  GoogleFonts.anybody(
+                        style:  GoogleFonts.roboto(
                           color: Colors.white,
                           fontSize: 20.0,
                           fontWeight: FontWeight.w500,
