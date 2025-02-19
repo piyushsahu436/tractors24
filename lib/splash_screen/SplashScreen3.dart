@@ -34,7 +34,7 @@ class SplashScreen3 extends StatelessWidget {
                     },
                     child:  Text(
                       'Skip',
-                      style:  GoogleFonts.anybody(
+                      style:  GoogleFonts.roboto(
                         color: Colors.white,
                         fontSize: 18.0,
                         fontWeight: FontWeight.w500,
@@ -59,7 +59,7 @@ class SplashScreen3 extends StatelessWidget {
               SizedBox( width: 300,
                 child: Text(
                   'EASY TO BUY AND SELL VEHICLE',textAlign: TextAlign.center,
-                  style:  GoogleFonts.anybody(
+                  style:  GoogleFonts.roboto(
                     color: Colors.white,
                     fontSize: 30.0,
                     fontWeight: FontWeight.w700,
@@ -83,7 +83,7 @@ class SplashScreen3 extends StatelessWidget {
                 child: Text(
                   'Buy Certified Used Vehicle From Trusted Seller. Sell Your vehicle in quick easy steps',
                   textAlign: TextAlign.center,
-                  style:  GoogleFonts.anybody(
+                  style:  GoogleFonts.roboto(
                     color: Colors.white,
                     fontSize: 15.0,
                     fontWeight: FontWeight.w400,
@@ -121,7 +121,7 @@ class SplashScreen3 extends StatelessWidget {
                         },
                         child: Text(
                           'Next',
-                          style:  GoogleFonts.anybody(
+                          style:  GoogleFonts.roboto(
                             color: Colors.white,
                             fontSize: 20.0,
                             fontWeight: FontWeight.w500,

@@ -33,7 +33,7 @@ class AddDetailsPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
                       child: Text("Mahindra Arjun 555 DI",
-                        style: GoogleFonts.anybody(color: Colors.black,
+                        style: GoogleFonts.roboto(color: Colors.black,
                             fontWeight: FontWeight.w500,
                             fontSize: 25),
                       ),
@@ -69,7 +69,7 @@ class AddDetailsPage extends StatelessWidget {
                             padding: const EdgeInsets.only(bottom: 15,right: 15),
                             child: Row(mainAxisAlignment: MainAxisAlignment.end,children: [
                               const Icon(Icons.camera_alt_sharp,color: Colors.white,),
-                              Text("2", style: GoogleFonts.anybody(color: Colors.white),),
+                              Text("2", style: GoogleFonts.roboto(color: Colors.white),),
                             ],),
                           ),
                         ],
@@ -120,7 +120,7 @@ class AddDetailsPage extends StatelessWidget {
                         Row(children: [
                           Text(
                             '₹ 7,30,000',
-                            style: GoogleFonts.anybody(
+                            style: GoogleFonts.roboto(
                               fontSize: 30,
                               fontWeight: FontWeight.w500,
                             ),
@@ -141,7 +141,7 @@ class AddDetailsPage extends StatelessWidget {
                             ),
                           ),
                           child: Text('Edit',
-                            style: GoogleFonts.anybody(
+                            style: GoogleFonts.roboto(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.white
@@ -184,7 +184,7 @@ class AddDetailsPage extends StatelessWidget {
                                   const SizedBox(height: 4.0),
                                   Text(
                                     "30,000",
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -193,7 +193,7 @@ class AddDetailsPage extends StatelessWidget {
                                   Text(
                                     "kms",
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       color: Colors.grey[600],
                                       fontSize: 12.0,
                                     ),
@@ -226,7 +226,7 @@ class AddDetailsPage extends StatelessWidget {
                                   const SizedBox(height: 4.0),
                                   Text(
                                     "2023",
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -234,7 +234,7 @@ class AddDetailsPage extends StatelessWidget {
                                   Text(
                                     "Model",
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       color: Colors.grey[600],
                                       fontSize: 12.0,
                                     ),
@@ -267,7 +267,7 @@ class AddDetailsPage extends StatelessWidget {
                                   const SizedBox(height: 4.0),
                                   Text(
                                     "Diesel",
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -275,7 +275,7 @@ class AddDetailsPage extends StatelessWidget {
                                   Text(
                                     "Fuel Type",
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       color: Colors.grey[600],
                                       fontSize: 12.0,
                                     ),
@@ -307,7 +307,7 @@ class AddDetailsPage extends StatelessWidget {
                                   const SizedBox(height: 4.0),
                                   Text(
                                     "Indore",
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -315,7 +315,7 @@ class AddDetailsPage extends StatelessWidget {
                                   Text(
                                     "Location",
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       color: Colors.grey[600],
                                       fontSize: 12.0,
                                     ),
@@ -391,7 +391,7 @@ class _TabBarSectionState extends State<TabBarSection> {
                       alignment: Alignment.center,
                       child: Text(
                         "Specifications",
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           color: isSpecificationSelected ? Colors.white : const Color(0xFF003B8F),
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
@@ -419,7 +419,7 @@ class _TabBarSectionState extends State<TabBarSection> {
                       alignment: Alignment.center,
                       child: Text(
                         "Features",
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           color: !isSpecificationSelected ? Colors.white : const Color(0xFF003B8F),
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
@@ -480,11 +480,11 @@ class DetailsSection extends StatelessWidget {
             children: [
               Text(
                 item['label']!,
-                style: GoogleFonts.anybody(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.black),
+                style: GoogleFonts.roboto(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.black),
               ),
               Text(
                 item['value']!,
-                style: GoogleFonts.anybody(fontSize: 14, fontWeight: FontWeight.w500),
+                style: GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w500),
               ),
             ],
           ),

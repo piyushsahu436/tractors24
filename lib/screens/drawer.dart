@@ -31,7 +31,7 @@ class CustomDrawer extends StatelessWidget {
       visualDensity: const VisualDensity(vertical: -4),
       leading: Icon(icon, color: iconColor, size: 20),
       title: Text(title,
-          style: GoogleFonts.anybody(
+          style: GoogleFonts.roboto(
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: Color(0xFF414141))),
@@ -55,11 +55,11 @@ class CustomDrawer extends StatelessWidget {
             accountName: Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: Text(userName,
-                  style: GoogleFonts.anybody(
+                  style: GoogleFonts.roboto(
                       fontSize: 12, fontWeight: FontWeight.w600)),
             ),
             accountEmail: Text(userEmail,
-                style: GoogleFonts.anybody(
+                style: GoogleFonts.roboto(
                     fontSize: 12, fontWeight: FontWeight.w600)),
             currentAccountPicture: const CircleAvatar(
               child: Icon(Icons.person_4_outlined),
@@ -69,7 +69,7 @@ class CustomDrawer extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 22,vertical: 5),
             child: Text(
               'Personal',
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF414141)),

@@ -52,37 +52,44 @@ class liveFavourites extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CarDetailsPage(
-                                SellPrice:
-                                    tractor['sellPrice']?.toString() ?? '',
-                                brand: tractor['brand'] ?? '',
-                                model: tractor['model'] ?? '',
-                                RegYear: tractor['registrationYear'] ?? '',
-                                Pincode: tractor['pincode']?.toString() ?? '',
-                                HorsePower:
-                                    tractor['horsePower']?.toString() ?? '',
-                                Hours: tractor['hours'] ?? '',
-                                RegNum: tractor['registrationNumber'] ?? '',
-                                InsStatus: tractor['insuranceStatus'] ?? '',
-                                RearTire: tractor['rearTyre'] ?? '',
-                                Address: tractor['state'] ?? '',
-                                Break: tractor['break'] ?? '',
-                                Transmission: tractor['Transmission'] ?? '',
-                                PTO: tractor['Pto'] ?? '',
-                                CC: tractor['CC'] ?? '',
-                                Cooling: tractor['Cooling'] ?? '',
-                                LiftingCapacity:
-                                    tractor['Lifting Capacity'] ?? '',
-                                SteeringType: tractor['Steering Type'] ?? '',
-                                ClutchType: tractor['Clutch Type'] ?? '',
-                                OilCap: tractor['Engine Oil Capacity'] ?? '',
-                                RunningKM: tractor['Running KM'] ?? '',
-                                Fuel: tractor['Fuel'] ?? '',
-                                tractorId: tractor['tractorId'] ?? '',
+                                SellPrice: tractor['sellPrice'],
+                                brand: tractor['brand'],
+                                model: tractor['model'],
+                                RegYear: tractor['registrationYear'],
+                                Pincode: tractor['pincode'],
+                                HorsePower: tractor['horsePower'],
+                                Hours: tractor['hours'],
+                                RegNum: tractor['registrationNumber'],
+                                InsStatus: tractor['insuranceStatus'],
+                                RearTire: tractor['rearTyre'],
+                                Address: tractor['state'],
+                                Break: tractor['break'],
+                                PTO: tractor['Pto'],
+                                CC: tractor['CC'],
+                                Cooling: tractor['Cooling'],
+                                LiftingCapacity: tractor['Lifting Capacity'],
+                                SteeringType: tractor['Steering Type'],
+                                ClutchType: tractor['Clutch Type'],
+                                OilCap: tractor['Engine Oil Capacity'],
+                                RunningKM: tractor['Running KM'],
                                 description: tractor['description'] ?? '',
                                 state: tractor['state'] ?? "",
-                            docId: '',
-
-                          )));
+                                Fuel: tractor['Fuel'],
+                                tractorId: tractor['tractorId'],
+                            safetyfeature: tractor['safetyFeatures'] ?? "",
+                            warrenty: tractor['warranty'] ?? "",
+                            color: tractor['color'] ?? "",
+                            accessories: tractor['accessories'] ?? "",
+                            rpm: tractor['rpm'] ?? "",
+                            ptodirection: '' ?? "",
+                            battery: tractor['battery'] ?? "",
+                            cylinder: tractor['noOfCylinders'] ?? "",
+                            gearbox: tractor['gearBox'] ?? "",
+                            torque: '' ?? "",
+                            fronttyre: tractor['frontTyreSize'],
+                            clutch: tractor['clutch']?? "",
+                            pincode: tractor['pincode']?? " ",
+                              )));
                 },
                 child: Container(
                   height: size.height * 0.17,
@@ -122,7 +129,7 @@ class liveFavourites extends StatelessWidget {
                             children: [
                               Text(
                                 '${tractor['brand']} ${tractor['model']}',
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                     color: Colors.black),
@@ -136,7 +143,7 @@ class liveFavourites extends StatelessWidget {
                                   Flexible(
                                     child: Text(
                                       tractor['district'] ?? 'Unknown',
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 10,
                                           color: Colors.black),
@@ -149,7 +156,7 @@ class liveFavourites extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       '${tractor['hours']} hr' ?? 'Unknown',
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
                                           color: Colors.black),
@@ -161,7 +168,7 @@ class liveFavourites extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   '₹${tractor['sellPrice']}' ?? 'Unknown',
-                                  style: GoogleFonts.anybody(
+                                  style: GoogleFonts.roboto(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20,
                                       color: Colors.black),
@@ -252,7 +259,7 @@ class _PersonalAdsState extends State<PersonalAds> {
                 children: [
                   Text(
                     '|  Approved Ads',
-                    style: GoogleFonts.anybody(
+                    style: GoogleFonts.roboto(
                         color: const Color(0xFF414141),
                         fontSize: 15,
                         fontWeight: FontWeight.w600),
@@ -269,7 +276,7 @@ class _PersonalAdsState extends State<PersonalAds> {
                 children: [
                   Text(
                     '|  Pending Ads',
-                    style: GoogleFonts.anybody(
+                    style: GoogleFonts.roboto(
                         color: const Color(0xFF414141),
                         fontSize: 15,
                         fontWeight: FontWeight.w600),
@@ -318,7 +325,7 @@ class pendingFavourites extends StatelessWidget {
             return Center(
                 child: Text(
               "No Tractors are in Queue.",
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                   fontWeight: FontWeight.w300,
                   fontSize: 15,
                   color: Colors.black),
@@ -380,7 +387,7 @@ class pendingFavourites extends StatelessWidget {
                             children: [
                               Text(
                                 '${tractor['brand']} ${tractor['model']}',
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                     color: Colors.black),
@@ -394,7 +401,7 @@ class pendingFavourites extends StatelessWidget {
                                   Flexible(
                                     child: Text(
                                       tractor['district'] ?? 'Unknown',
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 10,
                                           color: Colors.black),
@@ -407,7 +414,7 @@ class pendingFavourites extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       '${tractor['hours']} hr' ?? 'Unknown',
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
                                           color: Colors.black),
@@ -419,7 +426,7 @@ class pendingFavourites extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   '₹${tractor['sellPrice']}' ?? 'Unknown',
-                                  style: GoogleFonts.anybody(
+                                  style: GoogleFonts.roboto(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20,
                                       color: Colors.black),

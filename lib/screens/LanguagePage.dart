@@ -39,7 +39,7 @@ class _LanguagePageState extends State<LanguagePage> {
                         },
                         child: Text(
                           "Skip",
-                          style: GoogleFonts.anybody(
+                          style: GoogleFonts.roboto(
                             color: Colors.white,
                             fontSize: 19.0,
                             fontWeight: FontWeight.w500,
@@ -57,7 +57,7 @@ class _LanguagePageState extends State<LanguagePage> {
             padding: const EdgeInsets.only(top: 20.0),
             child: Text(
               "Choose Your Language",
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                 color: const Color(0xFF252828),
                 fontSize: 24.0,
                 fontWeight: FontWeight.w400,
@@ -85,7 +85,7 @@ class _LanguagePageState extends State<LanguagePage> {
           const Spacer(),
           Text(
             "You can change language in settings",
-            style: GoogleFonts.anybody(
+            style: GoogleFonts.roboto(
               color: const Color(0xFF252828),
               fontSize: 12.0,
               fontWeight: FontWeight.w500,
@@ -112,7 +112,7 @@ class _LanguagePageState extends State<LanguagePage> {
                 ),
                 child: Text(
                   "Next",
-                  style: GoogleFonts.anybody(
+                  style: GoogleFonts.roboto(
                     color: Colors.white,
                     fontSize: 16.0,
                     fontWeight: FontWeight.w500,
@@ -146,7 +146,7 @@ class _LanguagePageState extends State<LanguagePage> {
           children: [
             Text(
               value,
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                 color: const Color(0xFF252828),
                 fontSize: 16.0,
                 fontWeight: FontWeight.w400,
@@ -154,7 +154,7 @@ class _LanguagePageState extends State<LanguagePage> {
             ),
             Text(
               label,
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                 color: Colors.grey,
                 fontSize: 14.0,
                 fontWeight: FontWeight.w400,

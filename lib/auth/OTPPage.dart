@@ -64,7 +64,7 @@ class _OTPPageState extends State<OTPPage> {
             Padding(
               padding: const EdgeInsets.all(0),
               child: Text('Login',
-                  style: GoogleFonts.anybody(
+                  style: GoogleFonts.roboto(
                     fontSize: 32,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF003B8F),
@@ -78,7 +78,7 @@ class _OTPPageState extends State<OTPPage> {
                 child: Column(
                   children: [
                     Text("Enter OTP",
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           fontSize: 32,
                           fontWeight: FontWeight.w700,
                           color: Color(0xFF003B8F),
@@ -143,7 +143,7 @@ class _OTPPageState extends State<OTPPage> {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text("Resend Code in : In 10:40 Sec",
-                          style: GoogleFonts.anybody(
+                          style: GoogleFonts.roboto(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Colors.black,
@@ -154,7 +154,7 @@ class _OTPPageState extends State<OTPPage> {
                       textScaleFactor: 1.1,
                       text: TextSpan(
                         text: 'Enter the ',
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: Colors.black,
@@ -162,21 +162,21 @@ class _OTPPageState extends State<OTPPage> {
                         children: [
                           TextSpan(
                               text: 'OTP code ',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFF414141),
                               )),
                           TextSpan(
                               text: 'we just sent \n you on your registered ',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.black,
                               )),
                           TextSpan(
                               text: 'mail/Phone number',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: Color(0xFF414141),
@@ -216,7 +216,7 @@ class _OTPPageState extends State<OTPPage> {
                         ),
                         child: Text(
                           'Verify',
-                          style: GoogleFonts.anybody(
+                          style: GoogleFonts.roboto(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
@@ -232,7 +232,7 @@ class _OTPPageState extends State<OTPPage> {
               textScaleFactor: 1.1,
               text: TextSpan(
                 text: "Don't have an account?",
-                style: GoogleFonts.anybody(
+                style: GoogleFonts.roboto(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
@@ -240,7 +240,7 @@ class _OTPPageState extends State<OTPPage> {
                 children: [
                   TextSpan(
                       text: 'Sign up',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: Color(0xFF003B8F),

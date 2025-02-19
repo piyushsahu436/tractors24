@@ -128,7 +128,7 @@ class _LoginPage2 extends State<Login2> {
                     Padding(
                       padding: const EdgeInsets.all(0),
                       child: Text('Login',
-                          style: GoogleFonts.anybody(
+                          style: GoogleFonts.roboto(
                             fontSize: 28,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xFF003B8F),
@@ -240,7 +240,7 @@ class _LoginPage2 extends State<Login2> {
                                     ),
                                     Text(
                                       'Facebook',
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w500,
                                           color: const Color(0xFF61677D)),
                                     )
@@ -266,7 +266,7 @@ class _LoginPage2 extends State<Login2> {
                                     Image.asset("assets/images/_Google.png"),
                                     Text(
                                       '  Google',
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w500,
                                           color: const Color(0xFF61677D)),
                                     )
@@ -324,7 +324,7 @@ class _LoginPage2 extends State<Login2> {
                           obscureText: true,
                           decoration: InputDecoration(
                             hintText: 'Password',
-                            hintStyle: GoogleFonts.anybody(
+                            hintStyle: GoogleFonts.roboto(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 15,
                                 color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -383,7 +383,7 @@ class _LoginPage2 extends State<Login2> {
                           Text(
                             "Don't have account? ",
                             style:
-                            GoogleFonts.anybody(fontWeight: FontWeight.w400),
+                            GoogleFonts.roboto(fontWeight: FontWeight.w400),
                           ),
                           TextButton(
                             onPressed: () {
@@ -396,7 +396,7 @@ class _LoginPage2 extends State<Login2> {
                             },
                             child: Text(
                               'Sign Up',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 color: const Color(0xFF003B8F),
                                 fontWeight: FontWeight.w400,
                               ),
@@ -422,14 +422,14 @@ Widget _buildClickableTexts(String clickText, String description) {
     children: [
       Text(
         '$clickText ',
-        style: GoogleFonts.anybody(
+        style: GoogleFonts.roboto(
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
           color: Color.fromRGBO(0, 59, 143, 1),
 
         ),
       ),
-      Text(description, style: GoogleFonts.anybody(
+      Text(description, style: GoogleFonts.roboto(
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
         color: Colors.black,

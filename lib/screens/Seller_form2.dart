@@ -78,7 +78,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Select Image Source',
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                 fontSize: 20,
               )),
           content: Column(
@@ -88,7 +88,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                 leading: const Icon(Icons.photo_library),
                 title: Text(
                   'Gallery',
-                  style: GoogleFonts.anybody(),
+                  style: GoogleFonts.roboto(),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -99,7 +99,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                 leading: const Icon(Icons.camera_alt),
                 title: Text(
                   'Camera',
-                  style: GoogleFonts.anybody(),
+                  style: GoogleFonts.roboto(),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -230,7 +230,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
         centerTitle: true,
         title: Text(
           'Seller Form',
-          style: GoogleFonts.anybody(
+          style: GoogleFonts.roboto(
             fontSize: 32,
             fontWeight: FontWeight.w600,
           ),
@@ -326,7 +326,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'Break',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -352,7 +352,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'Transmission',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -378,7 +378,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'PTO',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -404,7 +404,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'CC',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -431,7 +431,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'Cooling',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -458,7 +458,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'Lifting Capacity',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -484,7 +484,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'Steering Type',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -510,7 +510,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'Clutch Type',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -536,7 +536,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'Engine oil capacity',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -562,7 +562,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'Running KM',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -588,7 +588,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                         ),
                       ),
                       hintText: 'Fuel',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -616,7 +616,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                       ),
                       child: Text(
                         'Post',
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

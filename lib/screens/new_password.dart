@@ -40,13 +40,13 @@ class NewPassword extends StatelessWidget {
                       children: [
                     TextSpan(
                         text: '  Your ',
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 17,
                         )),
                     TextSpan(
                         text: 'New Password ',
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           color: const Color(0xFF003B8F),
                           fontWeight: FontWeight.w600,
                           fontSize: 17,
@@ -54,7 +54,7 @@ class NewPassword extends StatelessWidget {
                     TextSpan(
                         text:
                             'Must Be Different\n        From Previously Used Password',
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 17,
                         )),

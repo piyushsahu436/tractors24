@@ -63,40 +63,51 @@ class GridViewBuilderWidget extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CarDetailsPage(
-                            SellPrice:
-                            tractor['expectedPrice']?.toString() ?? '',
-                            brand: tractor['brand'] ?? '',
-                            model: tractor['model'] ?? '',
-                            RegYear: tractor['registrationYear'] ?? '',
-                            Pincode: tractor['pincode']?.toString() ?? '',
-                            HorsePower:
-                            tractor['horsePower']?.toString() ?? '',
-                            Hours: tractor['hoursDriven'] ?? '',
-                            RegNum: tractor['registrationNumber'] ?? '',
-                            InsStatus: tractor['insuranceStatus'] ?? '',
-                            RearTire: tractor['rearTyreSize'] ?? '',
-                            Address: tractor['location'] ?? '',
-                            Break: tractor['brakes'] ?? '',
-                            Transmission: tractor['transmissionType'] ?? '',
-                            PTO: tractor['ptoHP'] ?? '',
-                            CC: tractor['capacityCC'] ?? '',
-                            Cooling: tractor['coolingSystem'] ?? '',
-                            LiftingCapacity:
-                            tractor['liftingCapacity'] ?? '',
-                            SteeringType: tractor['steeringType'] ?? '',
-                            ClutchType: tractor['Clutch Type'] ?? '',
-                            OilCap: tractor['capacity'] ?? '',
-                            RunningKM: tractor['Running KM'] ?? '',
-                            Fuel: tractor['fuelType'] ?? '',
-                            tractorId: tractor['tractorId'] ?? '',
-                            imageUrls: (tractor['images'] as List<dynamic>?)
-                                ?.map((e) => e.toString())
-                                .toList() ??
-                                [],
-                            description: tractor['description'] ?? '',
-                            state: tractor['state'] ?? "",
-                            docId: docId,
-                          )));
+                                SellPrice:
+                                    tractor['expectedPrice']?.toString() ?? '',
+                                brand: tractor['brand'] ?? '',
+                                model: tractor['model'] ?? '',
+                                RegYear: tractor['registrationYear'] ?? '',
+                                Pincode: tractor['pincode']?.toString() ?? '',
+                                HorsePower:
+                                    tractor['horsePower']?.toString() ?? '',
+                                Hours: tractor['hoursDriven'] ?? '',
+                                RegNum: tractor['registrationNumber'] ?? '',
+                                InsStatus: tractor['insuranceStatus'] ?? '',
+                                RearTire: tractor['rearTyreSize'] ?? '',
+                                Address: tractor['location'] ?? '',
+                                Break: tractor['brakes'] ?? '',
+                                PTO: tractor['ptoHP'] ?? '',
+                                CC: tractor['capacityCC'] ?? '',
+                                Cooling: tractor['coolingSystem'] ?? '',
+                                LiftingCapacity:
+                                    tractor['liftingCapacity'] ?? '',
+                                SteeringType: tractor['steeringType'] ?? '',
+                                ClutchType: tractor['Clutch Type'] ?? '',
+                                OilCap: tractor['capacity'] ?? '',
+                                RunningKM: tractor['Running KM'] ?? '',
+                                Fuel: tractor['fuelType'] ?? '',
+                                tractorId: tractor['tractorId'] ?? '',
+                                imageUrls: (tractor['images'] as List<dynamic>?)
+                                        ?.map((e) => e.toString())
+                                        .toList() ??
+                                    [],
+                                description: tractor['description'] ?? '',
+                                state: tractor['state'] ?? "",
+                                safetyfeature: tractor['safetyFeatures'] ?? "",
+                                warrenty: tractor['warranty'] ?? "",
+                                color: tractor['color'] ?? "",
+                                accessories: tractor['accessories'] ?? "",
+                                rpm: tractor['rpm'] ?? "",
+                                ptodirection: '' ?? "",
+                                battery: tractor['battery'] ?? "",
+                                cylinder: tractor['noOfCylinders'] ?? "",
+                                gearbox: tractor['gearBox'] ?? "",
+                                torque: '' ?? "",
+                                fronttyre: tractor['frontTyreSize'],
+                                clutch: tractor['clutch']?? "",
+                                pincode: tractor['pincode']?? " ",
+                              )));
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -165,7 +176,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                             padding: const EdgeInsets.all(5.0),
                                             child: Text(
                                               " Great Price ",
-                                              style: GoogleFonts.anybody(
+                                              style: GoogleFonts.roboto(
                                                 color: Colors.white,
                                                 fontSize: 7,
                                                 fontWeight: FontWeight.w500,
@@ -226,7 +237,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                             // Title
                             Text(
                               '${tractor['brand']} ${tractor['model']}',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 color: const Color(0xFF050B20),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -248,7 +259,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                       SizedBox(width: size.width * 0.015),
                                       Text(
                                         tractor['location'] ?? 'Unknown',
-                                        style: GoogleFonts.anybody(
+                                        style: GoogleFonts.roboto(
                                           color: const Color(0xFF414141),
                                           fontSize: 9,
                                           fontWeight: FontWeight.w400,
@@ -267,8 +278,9 @@ class GridViewBuilderWidget extends StatelessWidget {
                                       ),
                                       SizedBox(width: size.width * 0.015),
                                       Text(
-                                        '${tractor['hoursDriven']} hr' ?? 'Unknown',
-                                        style: GoogleFonts.anybody(
+                                        '${tractor['hoursDriven']} hr' ??
+                                            'Unknown',
+                                        style: GoogleFonts.roboto(
                                           color: const Color(0xFF414141),
                                           fontSize: 9,
                                           fontWeight: FontWeight.w400,
@@ -284,7 +296,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                             // Price
                             Text(
                               '₹${tractor['expectedPrice']}' ?? 'Unknown',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 color: const Color(0xFF414141),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
@@ -318,7 +330,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                 ),
                                 child: Text(
                                   'Contact Seller',
-                                  style: GoogleFonts.anybody(
+                                  style: GoogleFonts.roboto(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                   ),
