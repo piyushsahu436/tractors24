@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:minio/io.dart';
+import 'package:minio/minio.dart';
 import 'package:tractors24/auth/login_page.dart';
 
 class PersonalInfoEditScreen extends StatefulWidget {
@@ -24,7 +26,25 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
   final TextEditingController _pinCodeprofileController =
       TextEditingController();
   String profileImageUrl = "";
+  File? selectedImages;
   bool isLoading = true;
+
+  final minio = Minio(
+    endPoint: 'sin1.contabostorage.com',
+    accessKey: '1eb0cbdee363c529fcbde7bf72e08ab3',
+    secretKey: '650b25c6c6612a691a65654dc4ca77b1',
+    useSSL: true,
+  );
+
+  Future<void> _pickImage(ImageSource source) async {
+    final XFile? pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile == null) return;
+
+    setState(() {
+      selectedImages = File(pickedFile.path);
+    });
+  }
+
 
   @override
   void initState() {
@@ -41,7 +61,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
       if (userDoc.exists) {
         setState(() {
           _nameprofileController.text = userDoc['name'];
-          _mobileprofileController.text = userDoc['mobile'];
+          _mobileprofileController.text = userDoc['phone'];
           _emailprofileController.text = userDoc['email'];
           _pinCodeprofileController.text = userDoc['pincode'];
           profileImageUrl = userDoc['profileImage'] ?? "";
@@ -53,6 +73,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
 
   Future<void> updateUserData() async {
     User? user = _auth.currentUser;
+    String? profileImageUrl = await  _uploadToContabo(selectedImages!);
     if (user != null) {
       await _firestore.collection('users').doc(user.uid).update({
         'name': _nameprofileController.text,
@@ -65,30 +86,20 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
           .showSnackBar(const SnackBar(content: Text('Profile Updated!')));
     }
   }
+  Future<String?> _uploadToContabo(File file) async {
+    try {
+      String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
 
-  Future<void> uploadProfileImage() async {
-    final ImagePicker picker = ImagePicker();
-    XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      await minio.fPutObject(
+        'tractor24',
+        fileName,
+        file.path,
+      );
 
-    if (pickedFile != null) {
-      File imageFile = File(pickedFile.path);
-      User? user = _auth.currentUser;
-      if (user != null) {
-        String filePath = 'profile_images/${user.uid}.jpg';
-        UploadTask uploadTask =
-            FirebaseStorage.instance.ref(filePath).putFile(imageFile);
-
-        TaskSnapshot snapshot = await uploadTask;
-        String downloadUrl = await snapshot.ref.getDownloadURL();
-
-        setState(() {
-          profileImageUrl = downloadUrl;
-        });
-
-        await _firestore.collection('users').doc(user.uid).update({
-          'profileImage': downloadUrl,
-        });
-      }
+      return 'https://sin1.contabostorage.com/d1fa3867924f4c149226431ef8cbe8ee:tractor24/$fileName';
+    } catch (e) {
+      print("Upload Error: $e");
+      return null;
     }
   }
 
@@ -97,19 +108,6 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
   File? _imageFile;
 
   // Function to pick image from gallery or camera
-  Future<void> _pickImage(ImageSource source) async {
-    try {
-      final XFile? pickedFile = await _picker.pickImage(source: source);
-      if (pickedFile != null) {
-        setState(() {
-          _imageFile = File(pickedFile.path);
-        });
-      }
-    } catch (e) {
-      debugPrint('Error picking image: $e');
-    }
-  }
-
   // Show image source selection dialog
   void _showImageSourceDialog() {
     showDialog(
@@ -286,15 +284,15 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                                 controller: _nameprofileController,
                                 prefixtext: '', validator: (String? value) {  },),
                             const SizedBox(height: 8),
-                            Form_field(
+                            NonEditFormField(
                                 hintText: 'Mobile Number',
                                 controller: _mobileprofileController,
-                                prefixtext: '', validator: (String? value) {  },),
+                                prefixtext: '', ),
                             const SizedBox(height: 8),
-                            Form_field(
+                            NonEditFormField(
                                 hintText: 'Email ID',
                                 controller: _emailprofileController,
-                                prefixtext: '', validator: (String? value) {  },),
+                                prefixtext: '', ),
                             const SizedBox(height: 8),
                             Form_field(
                                 hintText: 'Pin Code',
@@ -389,8 +387,8 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                       radius: 50,
                       backgroundColor: Colors.white,
                       backgroundImage:
-                          _imageFile != null ? FileImage(_imageFile!) : null,
-                      child: _imageFile == null
+                          selectedImages != null ? FileImage(selectedImages!) : null,
+                      child: selectedImages == null
                           ? const Icon(Icons.person,
                               size: 50, color: Colors.grey)
                           : null,

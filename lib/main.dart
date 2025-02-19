@@ -33,6 +33,7 @@ import 'package:tractors24/screens/avani.dart';
 import 'package:tractors24/splash_screen/SplashScreen2.dart';
 import 'package:tractors24/screens/forget_pass.dart';
 import 'package:tractors24/screens/otp_verification.dart';
+import 'package:tractors24/splash_screen/splashScreen1.dart';
 
 
 
@@ -85,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       Navigator.pushReplacement(
         context,
 
-        MaterialPageRoute(builder: (context) =>   LandingPage()),
+        MaterialPageRoute(builder: (context) =>   SplashScreen5()),
 
       );
     });
@@ -108,19 +109,10 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             FadeTransition(
               opacity: _controller.drive(CurveTween(curve: Curves.easeInOut)),
               child: Image.asset(
-                "assets/images/Tractors.png",
-                height: 250,
+                'assets/images/firstt.png',
+                height: 300,
                 width: 350,
                 fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Tractors 24',
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                color: Colors.blue,
               ),
             ),
           ],

@@ -18,7 +18,7 @@ class _LandingPageState extends State<LandingPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const HomePageF(),
+    HomePageF(),
     PersonalAds(),
     Wishlist(),
     PersonalInfoScreen()
