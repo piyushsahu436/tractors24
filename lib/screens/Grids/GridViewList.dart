@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -12,7 +13,8 @@ class GridViewBuilderWidget extends StatelessWidget {
   final int itemCount;
 
   final CollectionReference tractorsCollection =
-      FirebaseFirestore.instance.collection('tractors');
+  FirebaseFirestore.instance.collection('tractors');
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +47,15 @@ class GridViewBuilderWidget extends StatelessWidget {
               mainAxisSpacing: 10.0,
               childAspectRatio: 0.62,
             ),
-            itemCount: itemCount,
+            itemCount: itemCount ?? tractors.length,
             itemBuilder: (context, index) {
               var tractor = tractors[index].data() as Map<String, dynamic>;
+              var docSnapshot = snapshot.data!.docs[index];
+              String docId = docSnapshot.id;
               List<String> imageUrls = (tractor['images'] as List<dynamic>?)
-                      ?.map((e) => e.toString())
-                      .toList() ??
-                  [];
+                  ?.map((e) => e.toString())
+                  .toList() ?? [];
+              // var tid  = tractorsCollection.doc().get();
 
               return GestureDetector(
                 onTap: () {
@@ -119,6 +123,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
+
                       ClipRRect(
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(12.0),
@@ -127,8 +132,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                           height: size.height * 0.15,
                           width: double.infinity,
                           decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(12.0)),
+                            borderRadius:  BorderRadius.vertical(top: Radius.circular(12.0)),
                           ),
                           child: Stack(
                             fit: StackFit.expand,
@@ -136,8 +140,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                               // Blurred Background Image
                               if (imageUrls.isNotEmpty)
                                 ImageFiltered(
-                                  imageFilter:
-                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                                   child: Image.network(
                                     imageUrls[0],
                                     fit: BoxFit.cover,
@@ -149,12 +152,9 @@ class GridViewBuilderWidget extends StatelessWidget {
                               // Foreground Image with Proper Fit
                               Center(
                                 child: Image.network(
-                                  imageUrls.isNotEmpty
-                                      ? imageUrls[0]
-                                      : 'assets/images/default.png',
+                                  imageUrls.isNotEmpty ? imageUrls[0] : 'assets/images/default.png',
                                   fit: BoxFit.contain, // Keeps aspect ratio
-                                  width: size.width *
-                                      0.9, // Adjust width as needed
+                                  width: size.width * 0.9, // Adjust width as needed
                                   height: size.height * 0.15, // Adjust height
                                 ),
                               ),
@@ -163,17 +163,14 @@ class GridViewBuilderWidget extends StatelessWidget {
                               Column(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 12),
+                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                           decoration: BoxDecoration(
                                             color: const Color(0xFF003B8F),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
+                                            borderRadius: BorderRadius.circular(20),
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(5.0),
@@ -187,11 +184,39 @@ class GridViewBuilderWidget extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        const Image(
-                                          image: AssetImage(
-                                              "assets/images/favIcon.png"),
-                                          height: 18,
+                                        GestureDetector(
+                                          onTap: () async {
+                                            try {
+                                              // Get the current user's ID
+                                              String userId = FirebaseAuth.instance.currentUser?.uid ?? 'unknown_user';
+                                              String tractorId = tractors[index].id;
+
+
+                                              CollectionReference wishlistRef = FirebaseFirestore.instance.collection('wishlists');
+
+                                              // Save data in Firestore
+                                              await wishlistRef.doc('$userId-$tractorId').set({
+                                                'userId': userId,
+                                                'tractorId': tractorId,
+                                                'timestamp': FieldValue.serverTimestamp(),
+                                              });
+
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text('Added to Wishlist!')),
+                                              );
+                                            } catch (e) {
+                                              print("Error adding to wishlist: $e");
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text('Failed to add to Wishlist!')),
+                                              );
+                                            }
+                                          },
+                                          child: const Image(
+                                            image: AssetImage("assets/images/favIcon.png"),
+                                            height: 18,
+                                          ),
                                         ),
+
                                       ],
                                     ),
                                   ),
@@ -201,6 +226,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10.0, vertical: 10),
@@ -287,7 +313,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const ContactSellerScreen(),
+                                           ContactSellerScreen(docid: docId,),
                                     ),
                                   );
                                 },
@@ -326,6 +352,7 @@ class GridViewBuilderWidget extends StatelessWidget {
   }
 }
 
+
 class ImageSliderWidget extends StatefulWidget {
   final List<String>? imageUrls;
 
@@ -344,7 +371,7 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
     return Column(
       children: [
         SizedBox(
-          height: size.height * 0.25,
+          height: size.height*0.25,
           child: PageView.builder(
             controller: _pageController,
             itemCount: widget.imageUrls?.length ?? 1, // Avoid null error
@@ -377,11 +404,10 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
                         imageUrl,
                         fit: BoxFit.contain, // Maintains aspect ratio
                         width: MediaQuery.of(context).size.width * 0.9,
-                        height: size.height * 0.25,
+                        height:  size.height*0.25,
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) return child;
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                         },
                         errorBuilder: (context, error, stackTrace) {
                           return defaultImage();
