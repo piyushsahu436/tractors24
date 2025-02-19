@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
+import 'package:tractors24/screens/contact_seller.dart';
 import "package:tractors24/screens/loanEnquire.dart";
 import 'package:tractors24/screens/policies_screen.dart';
 
@@ -43,7 +44,7 @@ class CarDetailsPage extends StatelessWidget {
       required this.torque,
       this.imageUrls,
       required this.fronttyre,
-      required this.pincode, required this.clutch});
+      required this.pincode, required this.clutch, required this.docId});
   final String torque;
   final String clutch;
   final String cylinder;
@@ -82,28 +83,47 @@ class CarDetailsPage extends StatelessWidget {
   final String description;
   final List<String>? imageUrls;
   final String fronttyre;
-
+  final String docId;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xFF003B8F),
+          foregroundColor: Colors.white,
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                       ContactSellerScreen(docid: docId)));
+            },
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              side: const BorderSide(
+                  color: Color(0xFF003B8F), width: 1.5),
+              backgroundColor: const Color(0xFF003B8F),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+            child: Text(
+              'Contact Seller',
+              style: GoogleFonts.roboto(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white),
+            ),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: size.height * 0.1,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage("assets/images/vector5.png"))),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0, top: 0),
-                  child: headerTemp(text: ""),
-                ),
-              ),
               Container(
                 child: Row(
                   children: [

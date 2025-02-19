@@ -248,7 +248,8 @@ class GridViewWidget extends StatelessWidget {
             itemCount: tractors.length,
             itemBuilder: (context, index) {
               var tractor = tractors[index].data() as Map<String, dynamic>;
-
+              var docSnapshot = snapshot.data!.docs[index];
+              String docId =docSnapshot.id;
               List<String> imageUrls = (tractor['images'] as List<dynamic>?)
                   ?.map((e) => e.toString())
                   .toList() ??
@@ -260,6 +261,7 @@ class GridViewWidget extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>CarDetailsPage(
+                            docId: docId,
                             SellPrice:
                             tractor['expectedPrice']?.toString() ?? '',
                             brand: tractor['brand'] ?? '',
