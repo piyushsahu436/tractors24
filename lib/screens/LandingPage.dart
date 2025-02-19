@@ -3,6 +3,7 @@ import 'package:tractors24/screens/BottomNavigationBar/BottomBar.dart';
 import 'package:tractors24/screens/Grids/MyAds.dart';
 import 'package:tractors24/screens/HomePageF.dart';
 import 'package:tractors24/screens/Seller_Form.dart';
+import 'package:tractors24/screens/Wishlist.dart';
 import 'package:tractors24/screens/drawer.dart';
 import 'package:tractors24/screens/profile_screen.dart';
 
@@ -19,7 +20,7 @@ class _LandingPageState extends State<LandingPage> {
   final List<Widget> _pages = [
     const HomePageF(),
     PersonalAds(),
-    Scaffold(),
+    Wishlist(),
     PersonalInfoScreen()
   ];
 

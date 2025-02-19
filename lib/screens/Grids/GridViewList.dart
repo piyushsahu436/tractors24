@@ -213,7 +213,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                           },
                                           child: const Image(
                                             image: AssetImage("assets/images/favIcon.png"),
-                                            height: 18,
+                                            height: 22.5,
                                           ),
                                         ),
 
@@ -429,7 +429,7 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
           effect: ExpandingDotsEffect(
             dotHeight: 8,
             dotWidth: 8,
-            activeDotColor: Colors.blue,
+            activeDotColor: Color(0xFF003B8F),
             dotColor: Colors.grey.shade400,
           ),
         ),
