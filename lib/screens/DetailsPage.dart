@@ -112,7 +112,7 @@ class CarDetailsPage extends StatelessWidget {
                           horizontal: 20.0, vertical: 10),
                       child: Text(
                         '${brand} ${model}',
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
                             fontSize: 25),
@@ -136,7 +136,7 @@ class CarDetailsPage extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 10.0, top: 12.0),
                 child: Text(
                   'Description :',
-                  style: GoogleFonts.anybody(
+                  style: GoogleFonts.roboto(
                     fontSize: 16,
                     color: Color(0xFF003B8F),
                     fontWeight: FontWeight.w600,
@@ -148,7 +148,7 @@ class CarDetailsPage extends StatelessWidget {
                     const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
                 child: Text(
                   '${description}',
-                  style: GoogleFonts.anybody(fontSize: 12, color: Colors.black),
+                  style: GoogleFonts.roboto(fontSize: 12, color: Colors.black),
                 ),
               ),
               Padding(
@@ -185,7 +185,7 @@ class CarDetailsPage extends StatelessWidget {
                                   const SizedBox(height: 4.0),
                                   Text(
                                     '${Hours}',
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -193,7 +193,7 @@ class CarDetailsPage extends StatelessWidget {
                                   Text(
                                     "Hours",
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       color: Colors.grey[600],
                                       fontSize: 12.0,
                                     ),
@@ -227,7 +227,7 @@ class CarDetailsPage extends StatelessWidget {
                                   const SizedBox(height: 4.0),
                                   Text(
                                     '${RegYear}',
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -235,7 +235,7 @@ class CarDetailsPage extends StatelessWidget {
                                   Text(
                                     "Model",
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       color: Colors.grey[600],
                                       fontSize: 12.0,
                                     ),
@@ -269,7 +269,7 @@ class CarDetailsPage extends StatelessWidget {
                                   const SizedBox(height: 4.0),
                                   Text(
                                     Fuel,
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -277,7 +277,7 @@ class CarDetailsPage extends StatelessWidget {
                                   Text(
                                     "Fuel Type",
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       color: Colors.grey[600],
                                       fontSize: 12.0,
                                     ),
@@ -311,7 +311,7 @@ class CarDetailsPage extends StatelessWidget {
                                   const SizedBox(height: 4.0),
                                   Text(
                                     '${Address}',
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -319,7 +319,7 @@ class CarDetailsPage extends StatelessWidget {
                                   Text(
                                     "Location",
                                     textAlign: TextAlign.center,
-                                    style: GoogleFonts.anybody(
+                                    style: GoogleFonts.roboto(
                                       color: Colors.grey[600],
                                       fontSize: 12.0,
                                     ),
@@ -336,7 +336,7 @@ class CarDetailsPage extends StatelessWidget {
                         children: [
                           Text(
                             '₹ ${SellPrice}',
-                            style: GoogleFonts.anybody(
+                            style: GoogleFonts.roboto(
                               fontSize: 30,
                               fontWeight: FontWeight.w500,
                             ),
@@ -360,14 +360,14 @@ class CarDetailsPage extends StatelessWidget {
                             ),
                             child: Text(
                               'Apply loan',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: Colors.white),
                             ),
                           ),
                         ]),
-                    // Text('${Address} ',style: GoogleFonts.anybody(fontSize: 25,fontWeight: FontWeight.w500,),textAlign: TextAlign.start, )
+                    // Text('${Address} ',style: GoogleFonts.roboto(fontSize: 25,fontWeight: FontWeight.w500,),textAlign: TextAlign.start, )
                   ],
                 ),
               ),
@@ -520,7 +520,7 @@ class _TabBarSectionState extends State<TabBarSection> {
                       alignment: Alignment.center,
                       child: Text(
                         "Specifications",
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           color: isSpecificationSelected
                               ? Colors.white
                               : const Color(0xFF003B8F),
@@ -553,7 +553,7 @@ class _TabBarSectionState extends State<TabBarSection> {
                       alignment: Alignment.center,
                       child: Text(
                         "Features",
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           color: !isSpecificationSelected
                               ? Colors.white
                               : const Color(0xFF003B8F),
@@ -716,14 +716,14 @@ class DetailsSection extends StatelessWidget {
             children: [
               Text(
                 item['label']!,
-                style: GoogleFonts.anybody(
+                style: GoogleFonts.roboto(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: Colors.black),
               ),
               Text(
                 item['value']!,
-                style: GoogleFonts.anybody(
+                style: GoogleFonts.roboto(
                     fontSize: 14, fontWeight: FontWeight.w500),
               ),
             ],

@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.all(0),
               child: Text('Login',
-                  style: GoogleFonts.anybody(
+                  style: GoogleFonts.roboto(
                     fontSize: 32,
                     fontWeight: FontWeight.w600,
                     color: Color(0xFF003B8F),
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  style: GoogleFonts.anybody(
+                  style: GoogleFonts.roboto(
                     color: Colors.black,
                     fontSize: 14,
                   ),
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextSpan(text: 'By Logging in, you agree with '),
                     TextSpan(
                       text: 'User Agreement',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                         color: Color(0xFF003B8F),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextSpan(text: ', '),
                     TextSpan(
                       text: 'Privacy Policy',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                         color: Color(0xFF003B8F),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: Text(
                   'Send OTP',
-                  style: GoogleFonts.anybody(
+                  style: GoogleFonts.roboto(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
@@ -183,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                     )),
                 child: Text(
                   'Login with Password',
-                  style: GoogleFonts.anybody(
+                  style: GoogleFonts.roboto(
                       color: Colors.black, fontWeight: FontWeight.w500),
                 ),
               ),
@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
 
             Text(
               'Or',
-              style: GoogleFonts.anybody(),
+              style: GoogleFonts.roboto(),
             ),
 
             SizedBox(height: size.height * 0.01),
@@ -221,7 +221,7 @@ class _LoginPageState extends State<LoginPage> {
                               Image.asset("assets/images/_Facebook.png"),
                               Text(
                                 '  Facebook',
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                     fontWeight: FontWeight.w500,
                                     color: Color(0xFF61677D)),
                               )
@@ -247,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
                               Image.asset("assets/images/_Google.png"),
                               Text(
                                 '  Google',
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                     fontWeight: FontWeight.w500,
                                     color: Color(0xFF61677D)),
                               )
@@ -269,7 +269,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Text(
                     "Don't have account? ",
-                    style: GoogleFonts.anybody(fontWeight: FontWeight.w400),
+                    style: GoogleFonts.roboto(fontWeight: FontWeight.w400),
                   ),
                   TextButton(
                     onPressed: () {
@@ -282,7 +282,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Text(
                       'Sign Up',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                         color: Color(0xFF003B8F),
                         fontWeight: FontWeight.w400,
                       ),
@@ -379,7 +379,7 @@ class _Form_fieldState extends State<Form_field> {
           decoration: InputDecoration(
             fillColor: Colors.white,
             hintText: widget.hintText,
-            hintStyle: GoogleFonts.anybody(
+            hintStyle: GoogleFonts.roboto(
               fontWeight: FontWeight.w400,
               fontSize: 15,
               color: const Color.fromRGBO(124, 139, 160, 1.0),

@@ -153,14 +153,14 @@ class _LoanenquireState extends State<Loanenquire> {
                           text: TextSpan(children: [
                             TextSpan(
                               text: " By proceeding, you agree to Tractor24 ",
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: Colors.grey[600]),
                             ),
                             TextSpan(
                               text: "Terms of Service",
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: Color(0xFF003B8F)),
@@ -180,7 +180,7 @@ class _LoanenquireState extends State<Loanenquire> {
                           ),
                           child: Text(
                             'Send Enquiry',
-                            style: GoogleFonts.anybody(
+                            style: GoogleFonts.roboto(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500,

@@ -80,7 +80,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Select Image Source',
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                 fontSize: 20,
               )),
           content: Column(
@@ -90,7 +90,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                 leading: const Icon(Icons.photo_library),
                 title: Text(
                   'Gallery',
-                  style: GoogleFonts.anybody(),
+                  style: GoogleFonts.roboto(),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -101,7 +101,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                 leading: const Icon(Icons.camera_alt),
                 title: Text(
                   'Camera',
-                  style: GoogleFonts.anybody(),
+                  style: GoogleFonts.roboto(),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -123,7 +123,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
         centerTitle: true,
         title: Text(
           'ADD POST',
-          style: GoogleFonts.anybody(
+          style: GoogleFonts.roboto(
             fontSize: 32,
             fontWeight: FontWeight.w600,
           ),
@@ -227,7 +227,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Pincode',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -253,7 +253,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Brand',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -279,7 +279,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Model',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -306,7 +306,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Price',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -332,7 +332,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Registration Year',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -359,7 +359,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Horse Power',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -386,7 +386,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Hours',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -412,7 +412,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Registration Number',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -438,7 +438,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Insurance Status',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -464,7 +464,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Rear Tyre',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -490,7 +490,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Address',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -516,7 +516,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         ),
                       ),
                       hintText: 'Address',
-                      hintStyle: GoogleFonts.anybody(
+                      hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: const Color.fromRGBO(124, 139, 160, 1.0)),
@@ -567,7 +567,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       ),
                       child: Text(
                         'Next',
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

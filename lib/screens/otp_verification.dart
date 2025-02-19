@@ -45,7 +45,7 @@ class _OtpVerfState extends State<OtpVerf> {
             padding: const EdgeInsets.only(top: 30),
             child: Text(
               'Please Enter the 4 digit code sent to',
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
@@ -53,7 +53,7 @@ class _OtpVerfState extends State<OtpVerf> {
           ),
           Text(
             'Abc@gmail.com',
-            style: GoogleFonts.anybody(
+            style: GoogleFonts.roboto(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
                 color: const Color(0xFF003B8F)),
@@ -64,7 +64,7 @@ class _OtpVerfState extends State<OtpVerf> {
               child: Column(
                 children: [
                   Text("Enter OTP",
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
                         color: Color(0xFF003B8F),
@@ -129,7 +129,7 @@ class _OtpVerfState extends State<OtpVerf> {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text("Resend Code in : In 10:40 Sec",
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: Colors.black,
@@ -168,7 +168,7 @@ class _OtpVerfState extends State<OtpVerf> {
                       ),
                       child: Text(
                         'Verify',
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.w500),

@@ -178,7 +178,7 @@ class _HomePageFState extends State<HomePageF> {
                                         fillColor: Colors.white,
                                         filled: true,
                                         hintText: 'Search Tractor',
-                                        hintStyle: GoogleFonts.anybody(
+                                        hintStyle: GoogleFonts.roboto(
                                           color: Colors.grey[400],
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.w400,
@@ -209,7 +209,7 @@ class _HomePageFState extends State<HomePageF> {
                             Expanded(
                               child: Text(
                                 _currentAddress,
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                   color: Colors.white,
                                   fontSize: 13.0,
                                   fontWeight: FontWeight.w500,
@@ -247,7 +247,7 @@ class _HomePageFState extends State<HomePageF> {
                     const EdgeInsets.only(left: 16.0, top: 0, bottom: 8),
                     child: Text(
                       '|  Recently Added Tractor',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                           color: const Color(0xFF414141),
                           fontSize: 20,
                           fontWeight: FontWeight.w500),
@@ -271,7 +271,7 @@ class _HomePageFState extends State<HomePageF> {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
                       '|  Popular Tractor',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                           color: const Color(0xFF414141),
                           fontSize: 20,
                           fontWeight: FontWeight.w500),
@@ -306,7 +306,7 @@ class _HomePageFState extends State<HomePageF> {
                             Expanded(flex: 2,
                               child: Text(
                                 "Are You Looking For a Tractor ?",
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700),
@@ -327,7 +327,7 @@ class _HomePageFState extends State<HomePageF> {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
                       '|  Recommend Tractor',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                           color: const Color(0xFF414141),
                           fontSize: 20,
                           fontWeight: FontWeight.w500),
@@ -349,7 +349,7 @@ class _HomePageFState extends State<HomePageF> {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
                       '|  Certified Tractor',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                           color: const Color(0xFF414141),
                           fontSize: 20,
                           fontWeight: FontWeight.w500),
@@ -384,7 +384,7 @@ class _HomePageFState extends State<HomePageF> {
                             Expanded(flex: 2,
                               child: Text(
                                 "Are You Looking For a Tractor ?",
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700),
@@ -410,7 +410,7 @@ class _HomePageFState extends State<HomePageF> {
                       children: [
                         Text(
                           '|  Brand',
-                          style: GoogleFonts.anybody(
+                          style: GoogleFonts.roboto(
                               color: const Color(0xFF414141),
                               fontSize: 15,
                               fontWeight: FontWeight.w600),
@@ -421,7 +421,7 @@ class _HomePageFState extends State<HomePageF> {
                             },
                             child: Text(
                               'See More',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                   color: const Color(0xFF003B8F),
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400),
@@ -439,7 +439,7 @@ class _HomePageFState extends State<HomePageF> {
                       children: [
                         Text(
                           '|  Search Tractor By \n state',
-                          style: GoogleFonts.anybody(
+                          style: GoogleFonts.roboto(
                               color: const Color(0xFF414141),
                               fontSize: 15,
                               fontWeight: FontWeight.w600),
@@ -448,7 +448,7 @@ class _HomePageFState extends State<HomePageF> {
                             onPressed: () {},
                             child: Text(
                               'See More',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                   color: const Color(0xFF003B8F),
                                   fontSize: 15,
                                   fontWeight: FontWeight.w400),
@@ -484,7 +484,7 @@ class _HomePageFState extends State<HomePageF> {
                             Expanded(flex: 2,
                               child: Text(
                                 "Do You Want to Sell a Tractor ?",
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700),
@@ -500,7 +500,7 @@ class _HomePageFState extends State<HomePageF> {
                     padding: const EdgeInsets.all(15),
                     child: Text(
                       "FAQ's",
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                           color: const Color(0xFF414141),
                           fontSize: 15,
                           fontWeight: FontWeight.w600),
@@ -511,7 +511,7 @@ class _HomePageFState extends State<HomePageF> {
                         bottom: 15.0, right: 15, left: 15),
                     child: Text(
                       "Question Commonly Asked by Buyer's and Seller",
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                           color: const Color(0xFF414141),
                           fontSize: 15,
                           fontWeight: FontWeight.w400),

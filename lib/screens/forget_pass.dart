@@ -38,13 +38,13 @@ class ForgetPassword extends StatelessWidget {
                     TextSpan(style: TextStyle(color: Colors.black), children: [
               TextSpan(
                   text: 'Please Enter Your Email Address To \n     Receive A',
-                  style: GoogleFonts.anybody(
+                  style: GoogleFonts.roboto(
                     fontWeight: FontWeight.w400,
                     fontSize: 18,
                   )),
               TextSpan(
                   text: ' Verification Code',
-                  style: GoogleFonts.anybody(
+                  style: GoogleFonts.roboto(
                     color: const Color(0xFF003B8F),
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
@@ -77,7 +77,7 @@ class ForgetPassword extends StatelessWidget {
                 )),
             child: Text(
               'Send',
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
                   color: Colors.white),

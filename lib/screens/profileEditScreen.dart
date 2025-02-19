@@ -117,7 +117,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Select Image Source',
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                 fontSize: 20,
               )),
           content: Column(
@@ -127,7 +127,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                 leading: const Icon(Icons.photo_library),
                 title: Text(
                   'Gallery',
-                  style: GoogleFonts.anybody(),
+                  style: GoogleFonts.roboto(),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -138,7 +138,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                 leading: const Icon(Icons.camera_alt),
                 title: Text(
                   'Camera',
-                  style: GoogleFonts.anybody(),
+                  style: GoogleFonts.roboto(),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -236,7 +236,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                         padding: EdgeInsets.only(top: size.height * 0.1),
                         child: Text(
                           'Personal Info',
-                          style: GoogleFonts.anybody(
+                          style: GoogleFonts.roboto(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xFF0A2472),
@@ -462,7 +462,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
       children: [
         Text(
           '$clickText ',
-          style: GoogleFonts.anybody(
+          style: GoogleFonts.roboto(
             fontSize: 14.0,
             fontWeight: FontWeight.bold,
             color: const Color.fromRGBO(0, 59, 143, 1),
@@ -471,7 +471,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
         ),
         Text(
           description,
-          style: GoogleFonts.anybody(
+          style: GoogleFonts.roboto(
             fontSize: 16.0,
             fontWeight: FontWeight.w400,
             color: Colors.black,
@@ -517,7 +517,7 @@ class NonEditFormField extends StatelessWidget {
           decoration: InputDecoration(
             fillColor: Colors.white,
             hintText: hintText,
-            hintStyle: GoogleFonts.anybody(
+            hintStyle: GoogleFonts.roboto(
                 fontWeight: FontWeight.w400,
                 fontSize: 15,
                 color: const Color.fromRGBO(124, 139, 160, 1.0)),

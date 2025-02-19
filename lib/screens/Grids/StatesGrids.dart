@@ -95,7 +95,7 @@ class StateGrids extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               item.title,
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                   color: const Color(0xFF003B8F),
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14),
@@ -105,7 +105,7 @@ class StateGrids extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               item.subtitle,
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 11),

@@ -179,7 +179,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                             padding: const EdgeInsets.all(5.0),
                                             child: Text(
                                               " Great Price ",
-                                              style: GoogleFonts.anybody(
+                                              style: GoogleFonts.roboto(
                                                 color: Colors.white,
                                                 fontSize: 7,
                                                 fontWeight: FontWeight.w500,
@@ -211,7 +211,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                             // Title
                             Text(
                               '${tractor['brand']} ${tractor['model']}',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 color: const Color(0xFF050B20),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -233,7 +233,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                       SizedBox(width: size.width * 0.015),
                                       Text(
                                         tractor['location'] ?? 'Unknown',
-                                        style: GoogleFonts.anybody(
+                                        style: GoogleFonts.roboto(
                                           color: const Color(0xFF414141),
                                           fontSize: 9,
                                           fontWeight: FontWeight.w400,
@@ -254,7 +254,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                       Text(
                                         '${tractor['hoursDriven']} hr' ??
                                             'Unknown',
-                                        style: GoogleFonts.anybody(
+                                        style: GoogleFonts.roboto(
                                           color: const Color(0xFF414141),
                                           fontSize: 9,
                                           fontWeight: FontWeight.w400,
@@ -270,7 +270,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                             // Price
                             Text(
                               '₹${tractor['expectedPrice']}' ?? 'Unknown',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 color: const Color(0xFF414141),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
@@ -304,7 +304,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                 ),
                                 child: Text(
                                   'Contact Seller',
-                                  style: GoogleFonts.anybody(
+                                  style: GoogleFonts.roboto(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                   ),

@@ -58,7 +58,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
         centerTitle: true,
         title: Text(
           'Inquiry',
-          style: GoogleFonts.anybody(
+          style: GoogleFonts.roboto(
             fontSize: 29,
             fontWeight: FontWeight.w600,
           ),
@@ -92,7 +92,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                 children: [
                   Text(
                     'Mahindra Arjun 555 DI',
-                    style: GoogleFonts.anybody(
+                    style: GoogleFonts.roboto(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
                     ),
@@ -106,7 +106,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                       SizedBox(height: size.height * 0.01),
                       Text(
                         'Indore, Madhya Pradesh',
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                             fontSize: 14, fontWeight: FontWeight.w400),
                       ),
                     ],
@@ -114,7 +114,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                   SizedBox(height: size.height * 0.01),
                   Text(
                     '₹ 7,30,000',
-                    style: GoogleFonts.anybody(
+                    style: GoogleFonts.roboto(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                     ),
@@ -134,7 +134,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                         ),
                       ),
                       hintText: 'Full Name',
-                      hintStyle: GoogleFonts.anybody(),
+                      hintStyle: GoogleFonts.roboto(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -157,7 +157,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                         ),
                       ),
                       hintText: 'Phone Number',
-                      hintStyle: GoogleFonts.anybody(),
+                      hintStyle: GoogleFonts.roboto(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -181,7 +181,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                         ),
                       ),
                       hintText: 'PinCode',
-                      hintStyle: GoogleFonts.anybody(),
+                      hintStyle: GoogleFonts.roboto(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -197,7 +197,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                     controller: _messagecontactsellerController,
                     decoration: InputDecoration(
                       hintText: 'Message (Optional)',
-                      hintStyle: GoogleFonts.anybody(),
+                      hintStyle: GoogleFonts.roboto(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -224,7 +224,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                       ),
                       child: Text(
                         'Send Inquiry',
-                        style: GoogleFonts.anybody(
+                        style: GoogleFonts.roboto(
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

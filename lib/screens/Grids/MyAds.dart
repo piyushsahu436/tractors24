@@ -129,7 +129,7 @@ class liveFavourites extends StatelessWidget {
                             children: [
                               Text(
                                 '${tractor['brand']} ${tractor['model']}',
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                     color: Colors.black),
@@ -143,7 +143,7 @@ class liveFavourites extends StatelessWidget {
                                   Flexible(
                                     child: Text(
                                       tractor['district'] ?? 'Unknown',
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 10,
                                           color: Colors.black),
@@ -156,7 +156,7 @@ class liveFavourites extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       '${tractor['hours']} hr' ?? 'Unknown',
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
                                           color: Colors.black),
@@ -168,7 +168,7 @@ class liveFavourites extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   '₹${tractor['sellPrice']}' ?? 'Unknown',
-                                  style: GoogleFonts.anybody(
+                                  style: GoogleFonts.roboto(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20,
                                       color: Colors.black),
@@ -259,7 +259,7 @@ class _PersonalAdsState extends State<PersonalAds> {
                 children: [
                   Text(
                     '|  Approved Ads',
-                    style: GoogleFonts.anybody(
+                    style: GoogleFonts.roboto(
                         color: const Color(0xFF414141),
                         fontSize: 15,
                         fontWeight: FontWeight.w600),
@@ -276,7 +276,7 @@ class _PersonalAdsState extends State<PersonalAds> {
                 children: [
                   Text(
                     '|  Pending Ads',
-                    style: GoogleFonts.anybody(
+                    style: GoogleFonts.roboto(
                         color: const Color(0xFF414141),
                         fontSize: 15,
                         fontWeight: FontWeight.w600),
@@ -325,7 +325,7 @@ class pendingFavourites extends StatelessWidget {
             return Center(
                 child: Text(
               "No Tractors are in Queue.",
-              style: GoogleFonts.anybody(
+              style: GoogleFonts.roboto(
                   fontWeight: FontWeight.w300,
                   fontSize: 15,
                   color: Colors.black),
@@ -387,7 +387,7 @@ class pendingFavourites extends StatelessWidget {
                             children: [
                               Text(
                                 '${tractor['brand']} ${tractor['model']}',
-                                style: GoogleFonts.anybody(
+                                style: GoogleFonts.roboto(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
                                     color: Colors.black),
@@ -401,7 +401,7 @@ class pendingFavourites extends StatelessWidget {
                                   Flexible(
                                     child: Text(
                                       tractor['district'] ?? 'Unknown',
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 10,
                                           color: Colors.black),
@@ -414,7 +414,7 @@ class pendingFavourites extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       '${tractor['hours']} hr' ?? 'Unknown',
-                                      style: GoogleFonts.anybody(
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
                                           color: Colors.black),
@@ -426,7 +426,7 @@ class pendingFavourites extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   '₹${tractor['sellPrice']}' ?? 'Unknown',
-                                  style: GoogleFonts.anybody(
+                                  style: GoogleFonts.roboto(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20,
                                       color: Colors.black),
