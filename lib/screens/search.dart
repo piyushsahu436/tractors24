@@ -86,6 +86,20 @@ Future<List<String>> searchTractorsByStateOnly() async {
 
   return stateQuery.docs.map((doc) => doc.id).toList();
 }
+final TextEditingController searchController = TextEditingController();
+String searchQuery = '';
+
+Stream<QuerySnapshot> getTractorsStream() {
+  if (searchQuery.isEmpty) {
+    return FirebaseFirestore.instance.collection('tractors').snapshots();
+  } else {
+    return FirebaseFirestore.instance
+        .collection('tractors')
+        .where('name', isGreaterThanOrEqualTo: searchQuery)
+        .where('name', isLessThanOrEqualTo: searchQuery + '\uf8ff')
+        .snapshots();
+  }
+}
 class _searchState extends State<search> {
   final search = TextEditingController();
   final location = TextEditingController();
@@ -114,7 +128,7 @@ class _searchState extends State<search> {
                     padding: const EdgeInsets.only(top: 100.0, left: 20.0),
                     child: Text(
                       'Search Results :',
-                      style: GoogleFonts.anybody(
+                      style: GoogleFonts.roboto(
                           fontSize: 18.0, fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -141,9 +155,15 @@ class _searchState extends State<search> {
                   child: Column(
                     children: [
                       TextFormField(
+                        onChanged: (value) {
+                          setState(() {
+                            searchQuery = value;
+                          });
+                        },
+                        controller: searchController,
                         decoration: InputDecoration(
                             hintText: 'Brand Name',
-                            hintStyle: GoogleFonts.anybody(
+                            hintStyle: GoogleFonts.roboto(
                               fontSize: 15,
                               fontWeight: FontWeight.w400,
                               color: const Color.fromRGBO(124, 139, 160, 1.0),
@@ -166,7 +186,7 @@ class _searchState extends State<search> {
                         controller: location,
                         decoration: InputDecoration(
                             hintText: 'Location',
-                            hintStyle: GoogleFonts.anybody(
+                            hintStyle: GoogleFonts.roboto(
                               fontWeight: FontWeight.w400,
                               fontSize: 15,
                               color: const Color.fromRGBO(124, 139, 160, 1.0),
@@ -199,8 +219,8 @@ class GridViewWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-      child: FutureBuilder<List<DocumentSnapshot>>(
-        future: _fetchTractors(pincode), // Fetch tractors based on document IDs
+      child: StreamBuilder<QuerySnapshot>(
+        stream: getTractorsStream(),  // Fetch tractors based on document IDs
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -210,11 +230,11 @@ class GridViewWidget extends StatelessWidget {
             return Center(child: Text("Error: ${snapshot.error}"));
           }
 
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return const Center(child: Text("No data available"));
           }
 
-          var tractors = snapshot.data!;
+          var tractors = snapshot.data!.docs;
 
           return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
@@ -342,7 +362,7 @@ class GridViewWidget extends StatelessWidget {
                                             padding: const EdgeInsets.all(5.0),
                                             child: Text(
                                               " Great Price ",
-                                              style: GoogleFonts.anybody(
+                                              style: GoogleFonts.roboto(
                                                 color: Colors.white,
                                                 fontSize: 7,
                                                 fontWeight: FontWeight.w500,
@@ -371,7 +391,7 @@ class GridViewWidget extends StatelessWidget {
                           children: [
                             Text(
                               '${tractor['brand']} ${tractor['model']}',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 color: const Color(0xFF050B20),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
@@ -390,7 +410,7 @@ class GridViewWidget extends StatelessWidget {
                                       SizedBox(width: size.width * 0.015),
                                       Text(
                                         tractor['location'] ?? 'Unknown',
-                                        style: GoogleFonts.anybody(
+                                        style: GoogleFonts.roboto(
                                           color: const Color(0xFF414141),
                                           fontSize: 9,
                                           fontWeight: FontWeight.w400,
@@ -409,7 +429,7 @@ class GridViewWidget extends StatelessWidget {
                                       SizedBox(width: size.width * 0.015),
                                       Text(
                                         '${tractor['hoursDriven']} hr' ?? 'Unknown',
-                                        style: GoogleFonts.anybody(
+                                        style: GoogleFonts.roboto(
                                           color: const Color(0xFF414141),
                                           fontSize: 9,
                                           fontWeight: FontWeight.w400,
@@ -423,7 +443,7 @@ class GridViewWidget extends StatelessWidget {
                             SizedBox(height: size.height * 0.007),
                             Text(
                               '₹${tractor['expectedPrice']}' ?? 'Unknown',
-                              style: GoogleFonts.anybody(
+                              style: GoogleFonts.roboto(
                                 color: const Color(0xFF414141),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
@@ -602,7 +622,7 @@ class GridViewWidget extends StatelessWidget {
 //                                             padding: const EdgeInsets.all(5.0),
 //                                             child: Text(
 //                                               " Great Price ",
-//                                               style: GoogleFonts.anybody(
+//                                               style: GoogleFonts.roboto(
 //                                                 color: Colors.white,
 //                                                 fontSize: 7,
 //                                                 fontWeight: FontWeight.w500,
@@ -631,7 +651,7 @@ class GridViewWidget extends StatelessWidget {
 //                           children: [
 //                             Text(
 //                               '${tractor['brand']} ${tractor['model']}',
-//                               style: GoogleFonts.anybody(
+//                               style: GoogleFonts.roboto(
 //                                 color: const Color(0xFF050B20),
 //                                 fontSize: 12,
 //                                 fontWeight: FontWeight.w500,
@@ -650,7 +670,7 @@ class GridViewWidget extends StatelessWidget {
 //                                       SizedBox(width: size.width * 0.015),
 //                                       Text(
 //                                         tractor['location'] ?? 'Unknown',
-//                                         style: GoogleFonts.anybody(
+//                                         style: GoogleFonts.roboto(
 //                                           color: const Color(0xFF414141),
 //                                           fontSize: 9,
 //                                           fontWeight: FontWeight.w400,
@@ -669,7 +689,7 @@ class GridViewWidget extends StatelessWidget {
 //                                       SizedBox(width: size.width * 0.015),
 //                                       Text(
 //                                         '${tractor['hoursDriven']} hr' ?? 'Unknown',
-//                                         style: GoogleFonts.anybody(
+//                                         style: GoogleFonts.roboto(
 //                                           color: const Color(0xFF414141),
 //                                           fontSize: 9,
 //                                           fontWeight: FontWeight.w400,
@@ -683,7 +703,7 @@ class GridViewWidget extends StatelessWidget {
 //                             SizedBox(height: size.height * 0.007),
 //                             Text(
 //                               '₹${tractor['expectedPrice']}' ?? 'Unknown',
-//                               style: GoogleFonts.anybody(
+//                               style: GoogleFonts.roboto(
 //                                 color: const Color(0xFF414141),
 //                                 fontSize: 16,
 //                                 fontWeight: FontWeight.w700,
