@@ -35,7 +35,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     if (user != null) {
       await _firestore.collection('users').doc(user.uid).update({
         'name': _nameprofileController.text,
-        'mobile': _mobileprofileController.text,
+        'phone': _mobileprofileController.text,
         'email': _emailprofileController.text,
         'pincode': _pinCodeprofileController.text,
         'profileImage': profileImageUrl,
@@ -66,31 +66,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     }
   }
 
-  Future<void> uploadProfileImage() async {
-    final ImagePicker picker = ImagePicker();
-    XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      File imageFile = File(pickedFile.path);
-      User? user = _auth.currentUser;
-      if (user != null) {
-        String filePath = 'profile_images/${user.uid}.jpg';
-        UploadTask uploadTask =
-        FirebaseStorage.instance.ref(filePath).putFile(imageFile);
-
-        TaskSnapshot snapshot = await uploadTask;
-        String downloadUrl = await snapshot.ref.getDownloadURL();
-
-        setState(() {
-          profileImageUrl = downloadUrl;
-        });
-
-        await _firestore.collection('users').doc(user.uid).update({
-          'profileImage': downloadUrl,
-        });
-      }
-    }
-  }
   // Image picker instance
   final ImagePicker _picker = ImagePicker();
   File? _imageFile;
@@ -258,14 +234,12 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                         child: CircleAvatar(
                           radius: 50,
                           backgroundColor: Colors.white,
-                          backgroundImage:
-                          _imageFile != null ? FileImage(_imageFile!) : null,
-                          child: _imageFile == null
-                              ? const Icon(Icons.person,
-                              size: 50, color: Colors.grey)
+                          backgroundImage: profileImageUrl.isNotEmpty
+                              ? NetworkImage(profileImageUrl) as ImageProvider
                               : null,
-
+                          child: profileImageUrl.isEmpty ? const Icon(Icons.person, size: 50) : null,
                         ),
+
                       ),
                     ]
                 ),
