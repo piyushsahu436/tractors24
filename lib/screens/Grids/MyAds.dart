@@ -45,7 +45,8 @@ class liveFavourites extends StatelessWidget {
             itemCount: tractors.length,
             itemBuilder: (context, index) {
               var tractor = tractors[index].data() as Map<String, dynamic>;
-
+              var docSnapshot = snapshot.data!.docs[index];
+              String docId =docSnapshot.id;
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -89,6 +90,7 @@ class liveFavourites extends StatelessWidget {
                             fronttyre: tractor['frontTyreSize'],
                             clutch: tractor['clutch']?? "",
                             pincode: tractor['pincode']?? " ",
+                            docId: docId,
                               )));
                 },
                 child: Container(

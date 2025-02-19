@@ -70,7 +70,8 @@ Widget buildCustomCard(BuildContext context) {
               ),
               itemBuilder: (context, index) {
                 var tractor = tractors[index].data() as Map<String, dynamic>;
-
+                var docSnapshot = snapshot.data!.docs[index];
+                String docId =docSnapshot.id;
                 return Row(
                   children: [
                     GestureDetector(
@@ -128,6 +129,7 @@ Widget buildCustomCard(BuildContext context) {
                                       fronttyre: tractor['frontTyreSize'],
                                       clutch: tractor['clutch'] ?? "",
                                       pincode: tractor['pincode'] ?? " ",
+                                  docId: docId,
                                     )));
                       },
                       child: Card(
@@ -278,7 +280,7 @@ Widget buildCustomCard(BuildContext context) {
                                               (context),
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      ContactSellerScreen())); // Handle button press
+                                                      ContactSellerScreen(docid: '',))); // Handle button press
                                         },
                                         style: TextButton.styleFrom(
                                           backgroundColor: Colors.blue[300],

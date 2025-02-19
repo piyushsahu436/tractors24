@@ -58,6 +58,8 @@ class _AllItemsState extends State<AllItems> {
               List<String> imageUrls = (tractor['images'] as List<dynamic>?)
                   ?.map((e) => e.toString())
                   .toList() ?? [];
+              var docSnapshot = snapshot.data!.docs[index];
+              String docId =docSnapshot.id;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -69,38 +71,55 @@ class _AllItemsState extends State<AllItems> {
                               builder: (context) =>
                                   CarDetailsPage(
                                     SellPrice:
-                                    tractor['expectedPrice']?.toString() ?? '',
+                                    tractor['sellPrice']?.toString() ??
+                                        '',
+                                    description: tractor['description'] ?? '',
                                     brand: tractor['brand'] ?? '',
                                     model: tractor['model'] ?? '',
-                                    RegYear: tractor['registrationYear'] ?? '',
-                                    Pincode: tractor['pincode']?.toString() ?? '',
+                                    RegYear:
+                                    tractor['registrationYear'] ?? '',
+                                    Pincode:
+                                    tractor['pincode']?.toString() ?? '',
                                     HorsePower:
-                                    tractor['horsePower']?.toString() ?? '',
-                                    Hours: tractor['hoursDriven'] ?? '',
-                                    RegNum: tractor['registrationNumber'] ?? '',
-                                    InsStatus: tractor['insuranceStatus'] ?? '',
-                                    RearTire: tractor['rearTyreSize'] ?? '',
-                                    Address: tractor['location'] ?? '',
-                                    Break: tractor['brakes'] ?? '',
-                                    Transmission: tractor['transmissionType'] ?? '',
-                                    PTO: tractor['ptoHP'] ?? '',
-                                    CC: tractor['capacityCC'] ?? '',
-                                    Cooling: tractor['coolingSystem'] ?? '',
+                                    tractor['horsePower']?.toString() ??
+                                        '',
+                                    Hours: tractor['hours'] ?? '',
+                                    RegNum:
+                                    tractor['registrationNumber'] ?? '',
+                                    InsStatus:
+                                    tractor['insuranceStatus'] ?? '',
+                                    RearTire: tractor['rearTyre'] ?? '',
+                                    Address: tractor['state'] ?? '',
+                                    Break: tractor['break'] ?? '',
+                                    PTO: tractor['Pto'] ?? '',
+                                    CC: tractor['CC'] ?? '',
+                                    Cooling: tractor['Cooling'] ?? '',
                                     LiftingCapacity:
-                                    tractor['liftingCapacity'] ?? '',
-                                    SteeringType: tractor['steeringType'] ?? '',
+                                    tractor['Lifting Capacity'] ?? '',
+                                    SteeringType:
+                                    tractor['Steering Type'] ?? '',
                                     ClutchType: tractor['Clutch Type'] ?? '',
-                                    OilCap: tractor['capacity'] ?? '',
+                                    OilCap:
+                                    tractor['Engine Oil Capacity'] ?? '',
                                     RunningKM: tractor['Running KM'] ?? '',
-                                    Fuel: tractor['fuelType'] ?? '',
-                                    tractorId: tractor['tractorId'] ?? '',
-                                    imageUrls: (tractor['images'] as List<dynamic>?)
-                                        ?.map((e) => e.toString())
-                                        .toList() ??
-                                        [],
-                                    description: tractor['description'] ?? '',
+                                    Fuel: tractor['Fuel'] ?? '',
+                                    tractorId: tractor['tractorId'],
                                     state: tractor['state'] ?? "",
-                                    docId: '',
+                                    safetyfeature:
+                                    tractor['safetyFeatures'] ?? "",
+                                    warrenty: tractor['warranty'] ?? "",
+                                    color: tractor['color'] ?? "",
+                                    accessories: tractor['accessories'] ?? "",
+                                    rpm: tractor['rpm'] ?? "",
+                                    ptodirection: '' ?? "",
+                                    battery: tractor['battery'] ?? "",
+                                    cylinder: tractor['noOfCylinders'] ?? "",
+                                    gearbox: tractor['gearBox'] ?? "",
+                                    torque: '' ?? "",
+                                    fronttyre: tractor['frontTyreSize'],
+                                    clutch: tractor['clutch'] ?? "",
+                                    pincode: tractor['pincode'] ?? " ",
+                                    docId: docId,
                                   )));
                     },
                     child: Card(

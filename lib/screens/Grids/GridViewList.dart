@@ -107,6 +107,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                 fronttyre: tractor['frontTyreSize'],
                                 clutch: tractor['clutch']?? "",
                                 pincode: tractor['pincode']?? " ",
+                                docId: docId,
                               )));
                 },
                 child: Container(
