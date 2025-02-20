@@ -18,7 +18,6 @@ class search extends StatefulWidget {
   State<search> createState() => _searchState();
 }
 
-
 Future<List<DocumentSnapshot>> _fetchTractors(String pincode) async {
   List<String> tractorIds = await searchTractorsByPincode(pincode);
 
@@ -88,21 +87,63 @@ Future<List<String>> searchTractorsByStateOnly() async {
 }
 final TextEditingController searchController = TextEditingController();
 String searchQuery = '';
+String locationQuery = '';
 
-Stream<QuerySnapshot> getTractorsStream() {
-  if (searchQuery.isEmpty) {
-    return FirebaseFirestore.instance.collection('tractors').snapshots();
-  } else {
-    return FirebaseFirestore.instance
-        .collection('tractors')
+// Stream<QuerySnapshot> getTractorsStream() {
+//   if (searchQuery.isEmpty) {
+//     return FirebaseFirestore.instance.collection('tractors').snapshots();
+//   } else {
+//     return FirebaseFirestore.instance
+//         .collection('tractors')
+//         .where('name', isGreaterThanOrEqualTo: searchQuery)
+//         .where('name', isLessThanOrEqualTo: searchQuery + '\uf8ff')
+//         .snapshots();
+//   }
+// }
+// Stream<QuerySnapshot> getTractorsByLocationStream(String locationQuery) {
+//   if (locationQuery.isEmpty) {
+//     return FirebaseFirestore.instance.collection('tractors').snapshots();
+//   } else {
+//     return FirebaseFirestore.instance
+//         .collection('tractors')
+//         .where('state', isGreaterThanOrEqualTo: locationQuery)
+//         .where('state', isLessThanOrEqualTo: locationQuery + '\uf8ff')
+//         .snapshots();
+//   }
+//
+// }
+Stream<List<QueryDocumentSnapshot>> getTractorsStream({String searchQuery = '', String locationQuery = ''}) {
+  CollectionReference tractorsRef = FirebaseFirestore.instance.collection('tractors');
+
+  if (searchQuery.isEmpty && locationQuery.isEmpty) {
+    return tractorsRef.snapshots().map((snapshot) => snapshot.docs);
+  } else if (searchQuery.isNotEmpty && locationQuery.isEmpty) {
+    return tractorsRef
         .where('name', isGreaterThanOrEqualTo: searchQuery)
         .where('name', isLessThanOrEqualTo: searchQuery + '\uf8ff')
-        .snapshots();
+        .snapshots()
+        .map((snapshot) => snapshot.docs);
+  } else if (locationQuery.isNotEmpty && searchQuery.isEmpty) {
+    return tractorsRef
+        .where('state', isGreaterThanOrEqualTo: locationQuery)
+        .where('state', isLessThanOrEqualTo: locationQuery + '\uf8ff')
+        .snapshots()
+        .map((snapshot) => snapshot.docs);
+  } else {
+    return tractorsRef.snapshots().map((snapshot) {
+      return snapshot.docs.where((doc) {
+        final brand = (doc['name'] ?? '').toString().toLowerCase();
+        final state = (doc['state'] ?? '').toString().toLowerCase();
+        return brand.contains(searchQuery.toLowerCase()) || state.contains(locationQuery.toLowerCase());
+      }).toList();
+    });
   }
 }
+
+
 class _searchState extends State<search> {
-  final search = TextEditingController();
-  final location = TextEditingController();
+  TextEditingController search = TextEditingController();
+  TextEditingController location = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -160,7 +201,12 @@ class _searchState extends State<search> {
                             searchQuery = value;
                           });
                         },
-                        controller: searchController,
+                        // onChanged: (value) {
+                        //   setState(() {
+                        //     search = value.trim();
+                        //   });
+                        // },
+                        controller: search,
                         decoration: InputDecoration(
                             hintText: 'Brand Name',
                             hintStyle: GoogleFonts.roboto(
@@ -180,9 +226,19 @@ class _searchState extends State<search> {
                       ),
                       TextFormField(
                         onTap: () async {
-                          List<Object> results = await searchTractorsByPincode(widget.pincode);
-                          print(results); // Debugging, you can update UI with results
+                          // List<Object> results = await searchTractorsByPincode(widget.pincode);
+                          // print(results); // Debugging, you can update UI with results
                         },
+                        onChanged: (value){
+                          setState(() {
+                            locationQuery = value;
+                          });
+                        },
+                        // onChanged: (value) {
+                        //   setState(() {
+                        //     location = value.trim();
+                        //   });
+                        // },
                         controller: location,
                         decoration: InputDecoration(
                             hintText: 'Location',
@@ -219,8 +275,8 @@ class GridViewWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-      child: StreamBuilder<QuerySnapshot>(
-        stream: getTractorsStream(),  // Fetch tractors based on document IDs
+      child: StreamBuilder<List<QueryDocumentSnapshot>>(
+        stream: getTractorsStream(searchQuery: searchQuery,locationQuery: locationQuery),  // Fetch tractors based on document IDs
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -230,11 +286,11 @@ class GridViewWidget extends StatelessWidget {
             return Center(child: Text("Error: ${snapshot.error}"));
           }
 
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text("No data available"));
           }
 
-          var tractors = snapshot.data!.docs;
+          var tractors = snapshot.data!;
 
           return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
@@ -248,7 +304,7 @@ class GridViewWidget extends StatelessWidget {
             itemCount: tractors.length,
             itemBuilder: (context, index) {
               var tractor = tractors[index].data() as Map<String, dynamic>;
-              var docSnapshot = snapshot.data!.docs[index];
+              var docSnapshot = snapshot.data![index];
               String docId =docSnapshot.id;
               List<String> imageUrls = (tractor['images'] as List<dynamic>?)
                   ?.map((e) => e.toString())

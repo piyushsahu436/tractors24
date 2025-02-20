@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
 import 'package:tractors24/screens/faq_screen.dart';
+import 'package:tractors24/screens/notification.dart';
 import 'package:tractors24/screens/profile_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/testimonials.dart';
@@ -187,12 +188,26 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           builder: (context) => const EMICalculatorScreen()));
                 },
               ),
-              const SizedBox(height: 4),
-
               _buildMenuListTile(
-                icon: Icons.notifications,
-                title: 'Notifications',
-                onTap: () {},
+                icon: Icons.favorite_outline,
+                title: 'My Favourites',
+                onTap: () {
+                  Navigator.push(
+                      (context),
+                      MaterialPageRoute(
+                          builder: (context) =>const Favourite()));
+                },
+              ),
+              const SizedBox(height: 4),
+              _buildMenuListTile(
+                icon: Icons.favorite_outline,
+                title: 'News',
+                onTap: () {
+                  Navigator.push(
+                      (context),
+                      MaterialPageRoute(
+                          builder: (context) =>const News()));
+                },
               ),
               const SizedBox(height: 4),
               _buildMenuListTile(
