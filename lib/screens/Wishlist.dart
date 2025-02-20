@@ -28,7 +28,7 @@ class _WishlistState extends State<Wishlist> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(top: 20.0, left: 8),
+                padding: const EdgeInsets.only(top: 45.0, left: 8),
                 child: Row(
                   mainAxisAlignment:
                   MainAxisAlignment.start, // Aligns items from the start

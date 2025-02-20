@@ -17,6 +17,9 @@ class SellerformScreen extends StatefulWidget {
 }
 
 class _SellerformScreenState extends State<SellerformScreen> {
+
+  String? selectedBrand;
+
   final TextEditingController brandController = TextEditingController();
   final TextEditingController _modelNumbersellerformController =
       TextEditingController();
@@ -120,20 +123,18 @@ class _SellerformScreenState extends State<SellerformScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF003B8F),
+        foregroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'ADD POST',
+          'Add Post',
           style: GoogleFonts.roboto(
-            fontSize: 32,
-            fontWeight: FontWeight.w600,
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
+            color: Colors.white
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
+        
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -241,8 +242,13 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     ),
                   ),
                   SizedBox(height: size.height * 0.01),
-                  TextField(
-                    controller: brandController,
+                  DropdownButtonFormField<String>(
+                    value: selectedBrand,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedBrand = newValue;
+                      });
+                    },
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -265,10 +271,42 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         borderSide: BorderSide(color: Colors.grey.shade300),
                       ),
                     ),
+                    items: [
+                      "Eicher",
+                      "Escorts",
+                      "John Deere",
+                      "M&M",
+                      "New Holland",
+                      "Power Trac",
+                      "Preet",
+                      "Sonalika",
+                      "Swaraj",
+                      "TAFE",
+                      "Kubota",
+                      "Solis",
+                      "TMTL (Eicher)"
+                    ].map<DropdownMenuItem<String>>((String brand) {
+                      return DropdownMenuItem<String>(
+                        value: brand,
+                        child: Text(
+                          brand,
+                          style: GoogleFonts.roboto(fontSize: 16),
+                        ),
+                      );
+                    }).toList(),
                   ),
+
+
                   SizedBox(height: size.height * 0.01),
-                  TextField(
-                    controller: _modelNumbersellerformController,
+                  DropdownButtonFormField<String>(
+                    value: selectedBrand ?? null, // Ensure it is either a valid value or null
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          selectedBrand = newValue;
+                        });
+                      }
+                    },
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -280,9 +318,10 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       ),
                       hintText: 'Model',
                       hintStyle: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        color: const Color.fromRGBO(124, 139, 160, 1.0),
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -291,7 +330,206 @@ class _SellerformScreenState extends State<SellerformScreen> {
                         borderSide: BorderSide(color: Colors.grey.shade300),
                       ),
                     ),
+                    items: [
+                      "A211N",
+                      "Atom 26 4WD",
+                      "B2441",
+                      "DI - 55",
+                      "DI 35",
+                      "DI 35 MM",
+                      "DI 35 Rx",
+                      "DI 42",
+                      "DI 42 RX",
+                      "DI 47",
+                      "DI 50",
+                      "DI 60",
+                      "DI 60 MM",
+                      "DI 730",
+                      "DI 734",
+                      "DI 740",
+                      "DI 745III POWER PLUS",
+                      "DI 745III Rx POWER PLUS",
+                      "DI 750 III",
+                      "DI 750 III Rx",
+                      "E-241",
+                      "E-242",
+                      "E-312",
+                      "E-333",
+                      "E-364",
+                      "E-368",
+                      "E-380",
+                      "E-480",
+                      "E-485",
+                      "E-548",
+                      "E-551",
+                      "E-557",
+                      "E-5660",
+                      "EIC 5150",
+                      "EIC 650",
+                      "EIC557_4WD",
+                      "EIC650_4WD",
+                      "FARMTRAC 30 HERO",
+                      "FARMTRAC 35",
+                      "FARMTRAC 40",
+                      "FARMTRAC 41",
+                      "FARMTRAC 45",
+                      "FARMTRAC 60",
+                      "FARMTRAC 65",
+                      "FARMTRAC 6060",
+                      "FARMTRAC XP 37 CHAMPION",
+                      "Fram trac_39",
+                      "Fram trac_42",
+                      "FRAMTRAC 44",
+                      "FRAMTRAC CHAMPION",
+                      "FT 50",
+                      "FT 6045 LM",
+                      "FT 6045 SM",
+                      "FT 6050",
+                      "FT 6055",
+                      "FT 6055 Powermaxx",
+                      "FT 6055 Powermaxx 4 WD",
+                      "FT 60 Powermaxx",
+                      "FT 60 Powermaxx 4 WD",
+                      "FT-50 Powermaxx",
+                      "ITL 20",
+                      "ITL 26G",
+                      "ITL 32RX",
+                      "ITL 41 MM",
+                      "ITL 50 MM",
+                      "ITL MM 39",
+                      "JD 5005",
+                      "JD 5036",
+                      "JD 5038",
+                      "JD 5039",
+                      "JD 5041 C",
+                      "JD 5042",
+                      "JD 5045 D",
+                      "JD 5045D MFWD",
+                      "JD 5050 4WD",
+                      "JD 5050 D",
+                      "JD 5050 E",
+                      "JD 5055 4WD",
+                      "JD 5055 D",
+                      "JD 5055 E",
+                      "JD 5060",
+                      "JD 5103",
+                      "JD 5104",
+                      "JD 5104 4WD",
+                      "JD 5105",
+                      "JD 5204",
+                      "JD 5205",
+                      "JD 5210",
+                      "JD 5305",
+                      "JD 5310",
+                      "JD 5310 4WD",
+                      "JD 5405",
+                      "JD 5405 4WD",
+                      "MAHINDRA 215",
+                      "MAHINDRA 225",
+                      "MAHINDRA 255 DI",
+                      "MAHINDRA 265 DI",
+                      "MAHINDRA 275 DI",
+                      "MAHINDRA 295 DI",
+                      "MAHINDRA 365",
+                      "MAHINDRA 395 DI",
+                      "MAHINDRA 415",
+                      "MAHINDRA 475 DI",
+                      "MAHINDRA 555 DI",
+                      "MAHINDRA 575 DI",
+                      "MAHINDRA 585",
+                      "MAHINDRA 595 DI",
+                      "MAHINDRA 605 DI",
+                      "MF 1035 DI R",
+                      "MF 1035 DI TONNER",
+                      "MF 1035 Mahashakti",
+                      "MF 241 DI Mahashakti",
+                      "MF 241 DI PD",
+                      "MF 241 TONNER",
+                      "MF 245 DI",
+                      "MF 7250",
+                      "MF 9000 PD",
+                      "MU4501- 2WD - STD",
+                      "MU4501- 4WD",
+                      "MU5501",
+                      "MU5501 -4WD",
+                      "MU5502 - 2WD",
+                      "MU5502 - 4WD",
+                      "NH 3030",
+                      "NH 3037",
+                      "NH 3032",
+                      "NH 3230",
+                      "NH 3510",
+                      "NH 3600",
+                      "NH 3600-2",
+                      "NH 3600-2 4WD",
+                      "NH 3630",
+                      "NH 4010",
+                      "NH 4510",
+                      "NH 4710",
+                      "NH 5500",
+                      "NH 5620",
+                      "NH 6010",
+                      "NH 7500",
+                      "POWERTRAC 425",
+                      "POWERTRAC 434",
+                      "POWERTRAC 439",
+                      "POWERTRAC 445",
+                      "POWERTRAC 4455",
+                      "PT-430 Plus",
+                      "PT-435 Plus",
+                      "PT-437",
+                      "PT- EURO 37",
+                      "PT- EURO 41",
+                      "PT- EURO 42 PLUS",
+                      "PT- EURO 45 PLUS",
+                      "PT- EURO 50",
+                      "PT- EURO 55",
+                      "PT- EURO 60",
+                      "PT-EURO 47",
+                      "PT-EURO 55",
+                      "PTALT 3500",
+                      "PTALT 4000",
+                      "PT_EURO_55",
+                      "SOLIS 4215 2WD",
+                      "SOLIS 4215 4WD",
+                      "SOLIS 4215 EP",
+                      "SOLIS 4415 2WD",
+                      "SOLIS 4415 4WD",
+                      "SOLIS 4515",
+                      "SOLIS 5015 2WD",
+                      "SWARAJ 717",
+                      "SWARAJ 724",
+                      "SWARAJ 735 FE",
+                      "SWARAJ 744 FE",
+                      "SWARAJ 744 XT",
+                      "SWARAJ 825",
+                      "SWARAJ 834 FE",
+                      "SWARAJ 841",
+                      "SWARAJ 843 XM",
+                      "SWARAJ 855 FE",
+                      "SWARAJ 960PS",
+                      "SWARAJ 963",
+                      "SWARAJ742XT",
+                      "TAFE 30",
+                      "TAFE 9500",
+                      "TAFE 1030",
+                      "TAFE 1035 PD",
+                      "TAFE 1134",
+                      "TAFE 5245",
+                      "TAFE MF 246",
+                      "TAFE 245 SMART",
+                      "WORLDTRAC 60 RX",
+                    ].map((String brand) {
+                      return DropdownMenuItem<String>(
+                        value: brand,
+                        child: Text(
+                          brand,
+                          style: GoogleFonts.roboto(fontSize: 16),
+                        ),
+                      );
+                    }).toList(),
                   ),
+
                   SizedBox(height: size.height * 0.01),
 
                   TextField(
@@ -529,7 +767,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: size.height * 0.01),
+                  SizedBox(height: size.height * 0.03),
 
                   // Send Inquiry Button
                   SizedBox(
@@ -575,6 +813,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(height: size.height * 0.01),
                 ],
               ),
             ),

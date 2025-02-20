@@ -24,21 +24,12 @@ class _SignUp1 extends State<SignUp1> {
   final TextEditingController pincodeController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String userType = 'Customer';
-  bool isTermsAccepted = false;
   bool isLoading = false;
   bool isCustomerSelected = true;
+  bool isTermsAccepted = false;
+  String? termsError;
 
-  // void _login(BuildContext context) {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //
-  //   Future.delayed(const Duration(seconds: 2), () {
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   });
-  // }
+
   Future<void> _signUp() async {
     if (!formKey.currentState!.validate()) return;
 
@@ -309,34 +300,132 @@ class _SignUp1 extends State<SignUp1> {
 
                       SizedBox(height: size.height * 0.01),
 
-                      Form_field(
-                        hintText: "Name",
-                        controller: nameController,
-                        prefixtext: "", validator: (String? value) {  },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 3.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1), // Soft shadow
+                                blurRadius: 10,
+                                spreadRadius: 2,
+                                offset: const Offset(2, 4), // Slight bottom shadow
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            controller: nameController,
+                            decoration: InputDecoration(
+                              hintText: 'Name',
+                              hintStyle: GoogleFonts.roboto(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
+                                color: const Color.fromRGBO(124, 139, 160, 1.0),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 16),
+                              border: InputBorder.none,
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Name cannot be empty';
+                              }
+                              if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
+                                return 'Enter a valid name (letters only)';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
                       ),
-                      SizedBox(height: size.height * 0.001),
-                      Form_field(
-                        hintText: "Email",
-                        controller: emailController,
-                        prefixtext: "",
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
-                          } else if (!RegExp(
-                                  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
-                              .hasMatch(value)) {
-                            return 'Please enter a valid email';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: size.height * 0.0001),
-                      Form_field(
-                        hintText: "Phone Number",
-                        controller: phoneController,
-                        prefixtext: "", validator: (String? value) {  },
 
+                      SizedBox(height: size.height * 0.001),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 3.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1), // Soft shadow
+                                blurRadius: 10,
+                                spreadRadius: 2,
+                                offset: const Offset(2, 4), // Slight bottom shadow
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            controller: emailController,
+                            decoration: InputDecoration(
+                              hintText: 'Email',
+                              hintStyle: GoogleFonts.roboto(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
+                                color: const Color.fromRGBO(124, 139, 160, 1.0),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 16),
+                              border: InputBorder.none,
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email';
+                              } else if (!RegExp(
+                                  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                                  .hasMatch(value)) {
+                                return 'Please enter a valid email';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
                       ),
+
+                      SizedBox(height: size.height * 0.0001),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 3.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1), // Soft shadow
+                                blurRadius: 10,
+                                spreadRadius: 2,
+                                offset: const Offset(2, 4), // Slight bottom shadow
+                              ),
+                            ],
+                          ),
+                          child: TextFormField(
+                            controller: phoneController,
+                            keyboardType: TextInputType.phone,
+                            decoration: InputDecoration(
+                              hintText: 'Phone Number',
+                              hintStyle: GoogleFonts.roboto(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
+                                color: const Color.fromRGBO(124, 139, 160, 1.0),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 16, horizontal: 16),
+                              border: InputBorder.none,
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your phone number';
+                              } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
+                                return 'Enter a valid 10-digit phone number';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ),
+
                       SizedBox(height: size.height * 0.001),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -355,7 +444,7 @@ class _SignUp1 extends State<SignUp1> {
                               ),
                             ],
                           ),
-                          child: TextField(
+                          child: TextFormField(
                             controller: passwordController,
                             obscureText: true,
                             decoration: InputDecoration(
@@ -363,15 +452,22 @@ class _SignUp1 extends State<SignUp1> {
                               hintStyle: GoogleFonts.roboto(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
-                                  color:
-                                      const Color.fromRGBO(124, 139, 160, 1.0)),
-                              suffixIcon: const Icon(Icons.visibility_off,
-                                  color: Color(0xFF61677D)),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 16, horizontal: 16),
+                                  color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                              suffixIcon: const Icon(Icons.visibility_off, color: Color(0xFF61677D)),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                               border: InputBorder.none,
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Password cannot be empty";
+                              }
+                              if (value.length < 6) {
+                                return "Password must be at least 6 characters";
+                              }
+                              return null;
+                            },
                           ),
+
                         ),
                       ),
                       SizedBox(height: size.height * 0.001),
@@ -392,7 +488,7 @@ class _SignUp1 extends State<SignUp1> {
                               ),
                             ],
                           ),
-                          child: TextField(
+                          child: TextFormField(
                             controller: confirmPasswordController,
                             obscureText: true,
                             decoration: InputDecoration(
@@ -400,103 +496,143 @@ class _SignUp1 extends State<SignUp1> {
                               hintStyle: GoogleFonts.roboto(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 15,
-                                  color:
-                                      const Color.fromRGBO(124, 139, 160, 1.0)),
-                              suffixIcon: const Icon(Icons.visibility_off,
-                                  color: Color(0xFF61677D)),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 16, horizontal: 16),
+                                  color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                              suffixIcon: const Icon(Icons.visibility_off, color: Color(0xFF61677D)),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                               border: InputBorder.none,
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Confirm Password cannot be empty";
+                              }
+                              if (value != passwordController.text) {
+                                return "Passwords do not match";
+                              }
+                              return null;
+                            },
                           ),
+
                         ),
                       ),
                       SizedBox(height: size.height * 0.001),
                       Form_field(
                         hintText: "Pin Code",
                         controller: pincodeController,
-                        prefixtext: "", validator: (String? value) {  },
+                        prefixtext: "", validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return "Pin Code cannot be empty";
+                        }
+                        if (!RegExp(r'^[0-9]{6}$').hasMatch(value)) {
+                          return "Enter a valid 6-digit pin code";
+                        }
+                        return null;
+                      },
+
                       ),
-                      Row(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Transform.scale(
-                            scale: 1.3,
-                            child: Checkbox(
-                              value: isTermsAccepted,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  isTermsAccepted = value ?? false;
-                                });
-                              },
-                              splashRadius: 5,
-                              side: const BorderSide(
-                                color: Color(0xFF003B8F),
-                                width: 1.0,
-                              ),
-                              activeColor: const Color(
-                                  0xFF003B8F), // Optional: Color when the checkbox is checked
-                              checkColor: Colors.white,
-                            ),
-                          ),
-                          Expanded(
-                            child: RichText(
-                              text: TextSpan(
-                                style: const TextStyle(color: Colors.black),
-                                children: [
-                                  TextSpan(
-                                      text: "I'm agree to the ",
-                                      style: GoogleFonts.roboto(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w400)),
-                                  TextSpan(
-                                    text: "Term's of Service",
-                                    style: GoogleFonts.roboto(
-                                      color: const Color(0xFF003B8F),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                          Row(
+                            children: [
+                              Transform.scale(
+                                scale: 1.3,
+                                child: Checkbox(
+                                  value: isTermsAccepted,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      isTermsAccepted = value ?? false; // Update checkbox state
+                                      termsError = null; // Remove error when checked
+                                    });
+                                  },
+                                  splashRadius: 5,
+                                  side: const BorderSide(
+                                    color: Color(0xFF003B8F),
+                                    width: 1.0,
                                   ),
-                                  TextSpan(
-                                      text: " and ",
-                                      style: GoogleFonts.roboto(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w400)),
-                                  TextSpan(
-                                      text: "Privacy Policy",
-                                      style: GoogleFonts.roboto(
-                                        color: const Color(0xFF003B8F),
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14,
+                                  activeColor: const Color(0xFF003B8F),
+                                  checkColor: Colors.white,
+                                ),
+                              ),
+                              Expanded(
+                                child: RichText(
+                                  text: TextSpan(
+                                    style: const TextStyle(color: Colors.black),
+                                    children: [
+                                      TextSpan(
+                                          text: "I'm agree to the ",
+                                          style: GoogleFonts.roboto(
+                                              fontSize: 13, fontWeight: FontWeight.w400)),
+                                      TextSpan(
+                                        text: "Terms of Service",
+                                        style: GoogleFonts.roboto(
+                                          color: const Color(0xFF003B8F),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PoliciesScreen()),
-                                          );
-                                        }),
-                                ],
+                                      TextSpan(
+                                          text: " and ",
+                                          style: GoogleFonts.roboto(
+                                              fontSize: 13, fontWeight: FontWeight.w400)),
+                                      TextSpan(
+                                          text: "Privacy Policy",
+                                          style: GoogleFonts.roboto(
+                                            color: const Color(0xFF003B8F),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14,
+                                          ),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) => PoliciesScreen()),
+                                              );
+                                            }),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (termsError != null) // Show error message if not checked
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0, top: 4.0),
+                              child: Text(
+                                termsError!,
+                                style: TextStyle(color: Colors.red, fontSize: 12),
                               ),
                             ),
-                          ),
                         ],
                       ),
+
                       const SizedBox(height: 5),
                       Row(
                         children: [
                           Expanded(
                               child: ElevatedButton(
-                            onPressed: isLoading
-                                ? null
-                                : () {
-                                    if (isTermsAccepted &&
-                                        formKey.currentState!.validate()) {
-                                      _signUp(); // Ensure _signUp is defined in your class
-                                    }
-                                  },
-                            style: ElevatedButton.styleFrom(
+                                onPressed: isLoading
+                                    ? null
+                                    : () {
+                                  bool isFormValid = formKey.currentState!.validate();
+                                  if (!isTermsAccepted) { // If checkbox is not checked
+                                    setState(() {
+                                      termsError = "Please accept the Terms and Privacy Policy.";
+                                    });
+                                    return; // Stop the function, don't proceed
+                                  }
+
+                                  setState(() {
+                                    termsError = null; // Clear error if checkbox is checked
+                                  });
+
+                                  if (isFormValid && isTermsAccepted) {
+                                    _signUp(); // Call signup function
+                                  }
+                                },
+
+                                style: ElevatedButton.styleFrom(
+                              minimumSize: Size(double.infinity, 50),
                               backgroundColor: const Color(0xFF003B8F),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -508,7 +644,7 @@ class _SignUp1 extends State<SignUp1> {
                                 : Text(
                                     'Create Account',
                                     style: GoogleFonts.poppins(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       color: Colors.white,
                                     ),
                                   ),
