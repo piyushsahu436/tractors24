@@ -254,12 +254,13 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   GridViewBuilderWidget(
+                    category: 'recently-listed',
                     itemCount: 4,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(itemCount: 50,))));},
+                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(category: '',itemCount: 50,))));},
                         child: Image(
                           image: AssetImage("assets/images/seeImg.png"),
                           height: 26,
@@ -278,12 +279,13 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   GridViewBuilderWidget(
+                    category: "recently-listed",
                     itemCount: 2,
                   ),
                    Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(itemCount: 50,))));},
+                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(category: '',itemCount: 50,))));},
                         child: Image(
                           image: AssetImage("assets/images/seeImg.png"),
                           height: 26,
@@ -336,12 +338,13 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   GridViewBuilderWidget(
+                    category: "recommended",
                     itemCount: 2,
                   ),
                    Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(itemCount: 50,))));},
+                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(category: '',itemCount: 50,))));},
                         child: Image(
                           image: AssetImage("assets/images/seeImg.png"),
                           height: 26,
@@ -360,12 +363,13 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   GridViewBuilderWidget(
+                    category: "recommended",
                     itemCount: 2,
                   ),
                    Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(itemCount: 50,))));},
+                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(category: '',itemCount: 50,))));},
                         child: Image(
                           image: AssetImage("assets/images/seeImg.png"),
                           height: 26,

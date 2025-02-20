@@ -9,8 +9,9 @@ import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/contact_seller.dart';
 
 class GridViewBuilderWidget extends StatelessWidget {
-  GridViewBuilderWidget({super.key, required this.itemCount});
+  GridViewBuilderWidget({super.key, required this.itemCount, required this.category});
   final int itemCount;
+  final String category;
 
   final CollectionReference tractorsCollection =
   FirebaseFirestore.instance.collection('tractors');
@@ -22,7 +23,7 @@ class GridViewBuilderWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
       child: StreamBuilder<QuerySnapshot>(
-        stream: tractorsCollection.snapshots(),
+        stream: tractorsCollection.where('category', isEqualTo: category).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -45,9 +46,9 @@ class GridViewBuilderWidget extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
-              childAspectRatio: 0.62,
+              childAspectRatio: 0.59,
             ),
-            itemCount: itemCount ?? tractors.length,
+            itemCount: itemCount > tractors.length ? tractors.length : itemCount,
             itemBuilder: (context, index) {
               var tractor = tractors[index].data() as Map<String, dynamic>;
               var docSnapshot = snapshot.data!.docs[index];
