@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_page.dart';
@@ -14,17 +15,18 @@ class _TestimonialsState extends State<Testimonials> {
   final TextEditingController _namereview = TextEditingController();
   final TextEditingController _numberreview = TextEditingController();
   final TextEditingController _feedbackreview = TextEditingController();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
-        child: Stack(
-          children:[
-            Container(
+        child: Stack(children: [
+          Container(
             color: const Color(0xFF0A2472),
             child: Padding(
-              padding:  EdgeInsets.only(top: size.height*0.15),
+              padding: EdgeInsets.only(top: size.height * 0.15),
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -33,13 +35,14 @@ class _TestimonialsState extends State<Testimonials> {
                       topRight: Radius.circular(22)),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Divider(
-                      color: Colors.black,
+                        color: Colors.black,
                         thickness: 3,
                         endIndent: 150,
                         indent: 150,
@@ -56,14 +59,28 @@ class _TestimonialsState extends State<Testimonials> {
                       const SizedBox(height: 20),
                       // Name TextField
                       Form_field(
-                          hintText: 'Name',
-                          controller: _namereview,
-                          prefixtext: '', validator: (String? value) {  },),
+                        hintText: 'Name',
+                        controller: _namereview,
+                        prefixtext: '',
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          return null;
+                        },
+                      ),
                       const SizedBox(height: 12),
                       Form_field(
-                          hintText: 'Mobile Number',
-                          controller: _numberreview,
-                          prefixtext: "", validator: (String? value) {  },),
+                        hintText: 'Mobile Number',
+                        controller: _numberreview,
+                        prefixtext: "",
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your mobile number';
+                          }
+                          return null;
+                        },
+                      ),
                       const SizedBox(height: 20),
                       Text(
                         'How do you feel about our service?',
@@ -76,7 +93,7 @@ class _TestimonialsState extends State<Testimonials> {
                       Row(
                         children: List.generate(
                           5,
-                              (index) => GestureDetector(
+                          (index) => GestureDetector(
                             onTap: () {
                               setState(() {
                                 selectedRating = index + 1; // Update rating
@@ -113,22 +130,27 @@ class _TestimonialsState extends State<Testimonials> {
                           borderRadius: BorderRadius.circular(12.0),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1), // Soft shadow
+                              color:
+                                  Colors.black.withOpacity(0.1), // Soft shadow
                               blurRadius: 10,
                               spreadRadius: 2,
-                              offset: const Offset(2, 4), // Slight bottom shadow
+                              offset:
+                                  const Offset(2, 4), // Slight bottom shadow
                             ),
                           ],
                         ),
                         child: TextField(
+                          controller: _feedbackreview,
                           maxLines: 4,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 16),
                             hintText: 'Enter your feedback here...',
                             hintStyle: GoogleFonts.poppins(
                                 fontSize: 16,
-                                color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                                color:
+                                    const Color.fromRGBO(124, 139, 160, 1.0)),
                           ),
                         ),
                       ),
@@ -136,39 +158,6 @@ class _TestimonialsState extends State<Testimonials> {
                       Row(
                         children: [
                           // Profile Picture Upload
-                          Column(
-                            children: [
-                              Text(
-                                'Profile Picture Upload',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              OutlinedButton.icon(
-                                onPressed: () {
-                                  // Image picker logic
-                                },
-                                icon: const Icon(
-                                  Icons.upload,
-                                  color: Color(0xFF0A2472),
-                                ),
-                                label: Text(
-                                  'Upload',
-                                  style:
-                                  GoogleFonts.poppins(color: const Color(0xFF0A2472)),
-                                ),
-                                style: OutlinedButton.styleFrom(
-                                  minimumSize: const Size(150, 50),
-                                  side: BorderSide(color: const Color(0xFF0A2472)!),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
 
                           const SizedBox(width: 20),
                           // Media Upload
@@ -192,12 +181,13 @@ class _TestimonialsState extends State<Testimonials> {
                                 ),
                                 label: Text(
                                   'Upload',
-                                  style:
-                                  GoogleFonts.poppins(color: const Color(0xFF0A2472)),
+                                  style: GoogleFonts.poppins(
+                                      color: const Color(0xFF0A2472)),
                                 ),
                                 style: OutlinedButton.styleFrom(
                                   minimumSize: const Size(150, 50),
-                                  side: BorderSide(color: const Color(0xFF0A2472)!),
+                                  side: BorderSide(
+                                      color: const Color(0xFF0A2472)!),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -234,39 +224,43 @@ class _TestimonialsState extends State<Testimonials> {
               ),
             ),
           ),
-            Padding(
-              padding:  EdgeInsets.only(left: 8.0,top: size.height*0.05),
-              child: Row( mainAxisAlignment: MainAxisAlignment.start, // Aligns items from the start
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.only(left:8),
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                        size: 24,
-                      ),
+          Padding(
+            padding: EdgeInsets.only(left: 8.0, top: size.height * 0.05),
+            child: Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.start, // Aligns items from the start
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                      size: 24,
                     ),
                   ),
-                  Expanded(
-                    child: Text(
-                      'Testimonials',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                      ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Testimonials',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(width:20,),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+              ],
             ),
+          ),
         ]),
       ),
     );

@@ -117,7 +117,6 @@ class _SellerformScreenState extends State<SellerformScreen> {
       },
     );
   }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

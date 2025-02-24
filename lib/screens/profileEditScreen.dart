@@ -182,7 +182,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(22),
                         topRight: Radius.circular(22)),
-                    // image: DecorationImage(image: AssetImage("assets/images/profilebackground.png"),fit: BoxFit.cover),
+
                   ),
                   child: Column(
                     children: [
@@ -405,19 +405,7 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                   )
                 ]),
               ),
-              // Edit icon
-              // Positioned(
-              //   right: 0,
-              //   bottom: 0,
-              //   child: CircleAvatar(
-              //     backgroundColor: Colors.white,
-              //     radius: 18,
-              //     child: IconButton(
-              //       icon: const Icon(Icons.edit, size: 18, color: Colors.black,),
-              //       onPressed: _showImageSourceDialog,
-              //     ),
-              //   ),
-              // ),
+
             ]),
           ],
         ),
@@ -498,7 +486,7 @@ class NonEditFormField extends StatelessWidget {
           ),
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
-              return 'This field is required';
+              return 'This field is re';
             }
             return null; // No error
           },
@@ -507,3 +495,6 @@ class NonEditFormField extends StatelessWidget {
     );
   }
 }
+
+
+ 
