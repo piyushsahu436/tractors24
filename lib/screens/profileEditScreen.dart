@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:minio/io.dart';
 import 'package:minio/minio.dart';
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/forget_pass.dart';
 
 class PersonalInfoEditScreen extends StatefulWidget {
   const PersonalInfoEditScreen({super.key});
@@ -185,50 +186,6 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                   ),
                   child: Column(
                     children: [
-                      // Top curved container
-                      // Container(
-                      //   height: 120,
-                      //   decoration:  BoxDecoration(
-                      //     color: Colors.white,
-                      //     borderRadius: BorderRadius.only(topLeft: Radius.circular(22),topRight: Radius.circular(22)),
-                      //     image: DecorationImage(image: AssetImage("assets/images/profilebackground.png"),
-                      //         fit: BoxFit.cover),
-                      //
-                      //   ),
-                      //
-                      //   child: Center(
-                      //     child: Stack(
-                      //       alignment: Alignment.center,
-                      //       children: [
-                      //         // Profile image
-                      //         CircleAvatar(
-                      //           radius: 50,
-                      //           backgroundColor: Colors.white,
-                      //           backgroundImage:
-                      //           _imageFile != null ? FileImage(_imageFile!) : null,
-                      //           child: _imageFile == null
-                      //               ? const Icon(Icons.person,
-                      //               size: 50, color: Colors.grey)
-                      //               : null,
-                      //         ),
-                      //         // Edit icon
-                      //         Positioned(
-                      //           right: 0,
-                      //           bottom: 0,
-                      //           child: CircleAvatar(
-                      //             backgroundColor: Colors.white,
-                      //             radius: 18,
-                      //             child: IconButton(
-                      //               icon: const Icon(Icons.edit, size: 18, color: Colors.black,),
-                      //               onPressed: _showImageSourceDialog,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-
                       // Personal Info text
                       Padding(
                         padding: EdgeInsets.only(top: size.height * 0.1),
@@ -280,24 +237,32 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                         child: Column(
                           children: [
                             Form_field(
-                                hintText: 'Name',
-                                controller: _nameprofileController,
-                                prefixtext: '', validator: (String? value) {  },),
-                            const SizedBox(height: 8),
-                            NonEditFormField(
-                                hintText: 'Mobile Number',
-                                controller: _mobileprofileController,
-                                prefixtext: '', ),
-                            const SizedBox(height: 8),
-                            NonEditFormField(
-                                hintText: 'Email ID',
-                                controller: _emailprofileController,
-                                prefixtext: '', ),
+                              hintText: 'Name',
+                              controller: _nameprofileController,
+                              prefixtext: '',
+                              validator: (String? value) {},
+                            ),
                             const SizedBox(height: 8),
                             Form_field(
-                                hintText: 'Pin Code',
-                                controller: _pinCodeprofileController,
-                                prefixtext: '', validator: (String? value) {  },),
+                              hintText: 'Mobile Number',
+                              controller: _mobileprofileController,
+                              prefixtext: '',
+                              validator: (String? value) {},
+                            ),
+                            const SizedBox(height: 8),
+                            Form_field(
+                              hintText: 'Email ID',
+                              controller: _emailprofileController,
+                              prefixtext: '',
+                              validator: (String? value) {},
+                            ),
+                            const SizedBox(height: 8),
+                            Form_field(
+                              hintText: 'Pin Code',
+                              controller: _pinCodeprofileController,
+                              prefixtext: '',
+                              validator: (String? value) {},
+                            ),
                             const SizedBox(height: 15),
 
                             // Change Password button
@@ -309,7 +274,13 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: TextButton.icon(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ForgetPassword()));
+                                },
                                 icon: const Icon(
                                   Icons.lock_outline,
                                   color: Color(0xFF0A2472),

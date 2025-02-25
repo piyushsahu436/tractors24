@@ -46,7 +46,7 @@ class GridViewBuilderWidget extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
-              childAspectRatio: 0.59,
+              childAspectRatio: 0.62,
             ),
             itemCount: itemCount > tractors.length ? tractors.length : itemCount,
             itemBuilder: (context, index) {
@@ -215,7 +215,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                           },
                                           child: const Image(
                                             image: AssetImage("assets/images/favIcon.png"),
-                                            height: 22.5,
+                                            height: 18,
                                           ),
                                         ),
 

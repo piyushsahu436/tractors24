@@ -269,7 +269,7 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0,top: 20.0),
                     child: Text(
                       '|  Popular Tractor',
                       style: GoogleFonts.roboto(
@@ -328,7 +328,7 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0,top: 20.0),
                     child: Text(
                       '|  Recommend Tractor',
                       style: GoogleFonts.roboto(
@@ -353,7 +353,7 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0,top: 20.0),
                     child: Text(
                       '|  Certified Tractor',
                       style: GoogleFonts.roboto(
@@ -378,40 +378,6 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 0),
-                    child: Container(
-                      height: 132,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage("assets/images/BgImg.png"))),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(flex: 2,
-                              child: Text(
-                                "Are You Looking For a Tractor ?",
-                                style: GoogleFonts.roboto(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            const Expanded(
-                              child: Image(
-                                image: AssetImage("assets/images/clkButton.png"),
-                                height: 35,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
                     padding:
                     const EdgeInsets.only(left: 16.0, top: 20, right: 16),
                     child: Row(
@@ -422,7 +388,7 @@ class _HomePageFState extends State<HomePageF> {
                           '|  Brand',
                           style: GoogleFonts.roboto(
                               color: const Color(0xFF414141),
-                              fontSize: 15,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600),
                         ),
                         TextButton(
@@ -434,7 +400,7 @@ class _HomePageFState extends State<HomePageF> {
                               style: GoogleFonts.roboto(
                                   color: const Color(0xFF003B8F),
                                   fontSize: 15,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w500),
                             ))
                       ],
                     ),
@@ -448,10 +414,10 @@ class _HomePageFState extends State<HomePageF> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '|  Search Tractor By \n state',
+                          '|  Search Tractor By State',
                           style: GoogleFonts.roboto(
                               color: const Color(0xFF414141),
-                              fontSize: 15,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600),
                         ),
                         TextButton(
@@ -461,7 +427,7 @@ class _HomePageFState extends State<HomePageF> {
                               style: GoogleFonts.roboto(
                                   color: const Color(0xFF003B8F),
                                   fontSize: 15,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w500),
                             ))
                       ],
                     ),
@@ -512,7 +478,7 @@ class _HomePageFState extends State<HomePageF> {
                       "FAQ's",
                       style: GoogleFonts.roboto(
                           color: const Color(0xFF414141),
-                          fontSize: 15,
+                          fontSize: 20,
                           fontWeight: FontWeight.w600),
                     ),
                   ),

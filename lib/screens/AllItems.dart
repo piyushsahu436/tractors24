@@ -76,10 +76,8 @@ class _AllItemsState extends State<AllItems> {
                                     description: tractor['description'] ?? '',
                                     brand: tractor['brand'] ?? '',
                                     model: tractor['model'] ?? '',
-                                    RegYear:
-                                    tractor['registrationYear'] ?? '',
-                                    Pincode:
-                                    tractor['pincode']?.toString() ?? '',
+                                    RegYear: tractor['registrationYear'] ?? '',
+                                    Pincode: tractor['pincode']?.toString() ?? '',
                                     HorsePower:
                                     tractor['horsePower']?.toString() ??
                                         '',
@@ -102,8 +100,13 @@ class _AllItemsState extends State<AllItems> {
                                     OilCap:
                                     tractor['Engine Oil Capacity'] ?? '',
                                     RunningKM: tractor['Running KM'] ?? '',
-                                    Fuel: tractor['Fuel'] ?? '',
-                                    tractorId: tractor['tractorId'],
+                                    Fuel: tractor['fuelType'] ?? '',
+                                    tractorId: tractor['tractorId'] ?? '',
+                                    imageUrls: (tractor['images'] as List<dynamic>?)
+                                        ?.map((e) => e.toString())
+                                        .toList() ??
+                                        [],
+                                    description: tractor['description'] ?? '',
                                     state: tractor['state'] ?? "",
                                     safetyfeature:
                                     tractor['safetyFeatures'] ?? "",
