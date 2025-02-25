@@ -1,20 +1,17 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
-import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/screens/notification.dart';
 import 'package:tractors24/screens/profile_screen.dart';
-import 'package:tractors24/screens/update_profile_screen.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/testimonials.dart';
-import 'package:tractors24/auth/login_password.dart';
+
 import 'favorites_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tractors24/screens/Wishlist.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -79,20 +76,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Logout failed: ${e.toString()}")),
-          );
-      }
-    }
-
-  void _logout(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut(); // Firebase logout
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Login2()), // Redirect to login
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Logout failed: ${e.toString()}")),
       );
     }
@@ -114,7 +97,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           style: GoogleFonts.roboto(
               fontSize: 13,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF414141))),
+              color: const Color(0xFF414141))),
       trailing: const Icon(
         Icons.arrow_forward_ios,
         size: 18,
@@ -129,21 +112,35 @@ class _CustomDrawerState extends State<CustomDrawer> {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
-        children: [
-          // User Account Header
+        children: [ // User Account Header
           UserAccountsDrawerHeader(
             accountName: Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Text(userName,
+              padding: const EdgeInsets.only(top: 25.0),
+              child: Text(name,
                   style: GoogleFonts.roboto(
-                      fontSize: 12, fontWeight: FontWeight.w600)),
+                      color: const Color(0xFF414141),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500)),
             ),
-            accountEmail: Text(userEmail,
+            accountEmail: Text(email,
                 style: GoogleFonts.roboto(
-                    fontSize: 12, fontWeight: FontWeight.w600)),
-            currentAccountPicture: const CircleAvatar(
-              child: Icon(Icons.person_4_outlined),
+                    color: const Color(0xFF414141),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500)),
+            currentAccountPicture:CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.white,
+              backgroundImage: profileImageUrl.isNotEmpty
+                  ? NetworkImage(profileImageUrl) as ImageProvider
+                  : null,
+              child: profileImageUrl.isEmpty ? const Icon(Icons.person, size: 50) : null,
             ),
+          ),
+          const Divider(
+            color: Colors.grey,
+            thickness: 1.0,
+            indent: 16.0,
+            endIndent: 16.0,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22,vertical: 5),
@@ -152,19 +149,17 @@ class _CustomDrawerState extends State<CustomDrawer> {
               style: GoogleFonts.roboto(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF414141)),
+                  color: const Color(0xFF414141)),
             ),
-          ),
-
-          // Menu Items
+          ), // Menu Items
           _buildMenuListTile(
             icon: Icons.person,
             title: 'My Profile',
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInfoScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const PersonalInfoScreen()));
             },
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
 
           _buildMenuListTile(
             icon: Icons.favorite_outline,
@@ -173,17 +168,17 @@ class _CustomDrawerState extends State<CustomDrawer> {
               Navigator.push(
                   (context),
                   MaterialPageRoute(
-                      builder: (context) =>Wishlist()));
+                      builder: (context) =>const Favourite()));
             },
           ),
-          SizedBox(height: 4),
-          Divider(
+          const SizedBox(height: 4),
+          const Divider(
             color: Colors.grey,
             thickness: 1.0,
             indent: 16.0,
             endIndent: 16.0,
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           _buildMenuListTile(
             icon: Icons.calculate,
             title: 'EMI Calculator',
@@ -191,73 +186,81 @@ class _CustomDrawerState extends State<CustomDrawer> {
               Navigator.push(
                   (context),
                   MaterialPageRoute(
-                      builder: (context) => EMICalculatorScreen()));
+                      builder: (context) => const EMICalculatorScreen()));
             },
-          ), SizedBox(height: 4),
-
+          ),
           _buildMenuListTile(
-            icon: Icons.newspaper,
+            icon: Icons.favorite_outline,
+            title: 'My Favourites',
+            onTap: () {
+              Navigator.push(
+                  (context),
+                  MaterialPageRoute(
+                      builder: (context) =>const Favourite()));
+            },
+          ),
+          const SizedBox(height: 4),
+          _buildMenuListTile(
+            icon: Icons.favorite_outline,
             title: 'News',
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  (context),
+                  MaterialPageRoute(
+                      builder: (context) =>const News()));
+            },
           ),
-          SizedBox(height: 4),
-
-          _buildMenuListTile(
-            icon: Icons.notifications,
-            title: 'Notifications',
-            onTap: () {},
-          ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           _buildMenuListTile(
             icon: Icons.share,
             title: 'Share App',
             onTap: () {},
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           _buildMenuListTile(
             icon: Icons.reviews,
             title: 'Testimonials',
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Testimonials()));
+                  MaterialPageRoute(builder: (context) => const Testimonials()));
             },
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           _buildMenuListTile(
             icon: Icons.question_answer,
             title: 'Frequently Asked Questions',
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FAQScreen()),
+                MaterialPageRoute(builder: (context) => const FAQScreen()),
               );
             },
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           _buildMenuListTile(
             icon: Icons.policy,
             title: 'Policies',
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PoliciesScreen()),
+                MaterialPageRoute(builder: (context) => const PoliciesScreen()),
               );
             },
           ),
-          SizedBox(height: 4),
-          Divider(
+          const SizedBox(height: 4),
+          const Divider(
             color: Colors.grey,
             thickness: 1.0,
             indent: 16.0,
             endIndent: 16.0,
           ),
-          SizedBox(height: 4),
-          // Logout
+          const SizedBox(height: 4),
+// Logout
           ListTile(
-            leading: Icon(Icons.logout, color: const Color(0xFF0A2472), size: 20),
-            title: Text(
+            leading: const Icon(Icons.logout, color: Color(0xFF0A2472), size: 20),
+            title: const Text(
               'Logout',
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 14.0, fontWeight: FontWeight.bold, color: Color(0xFF0A2472)),
             ),
             onTap: () => _logout(context), // Calls logout function
@@ -265,5 +268,46 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ],
       ),
     );
+  }
+}
+
+
+
+class UserInfoWidget extends StatelessWidget {
+  const UserInfoWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<DocumentSnapshot>(
+      future: getCurrentUserData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasError) {
+          return Center(child: Text("Error: ${snapshot.error}"));
+        }
+
+        if (!snapshot.hasData || !snapshot.data!.exists) {
+          return const Center(child: Text("No user data found"));
+        }
+
+        var userData = snapshot.data!.data() as Map<String, dynamic>;
+        String name = userData['name'] ?? "No Name";
+        String email = userData['email'] ?? "No Email";
+
+        return Text("Name: $name\nEmail: $email", style: TextStyle(fontSize: 18));
+      },
+    );
+  }
+
+  Future<DocumentSnapshot> getCurrentUserData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+    } else {
+      throw Exception("No user logged in");
+    }
   }
 }

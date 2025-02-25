@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:tractors24/screens/contact_seller.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
@@ -63,7 +64,7 @@ class _AllItemsState extends State<AllItems> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   GestureDetector(
+                  GestureDetector(
                     onTap: () {
                       Navigator.push(
                           (context),
@@ -76,8 +77,10 @@ class _AllItemsState extends State<AllItems> {
                                     description: tractor['description'] ?? '',
                                     brand: tractor['brand'] ?? '',
                                     model: tractor['model'] ?? '',
-                                    RegYear: tractor['registrationYear'] ?? '',
-                                    Pincode: tractor['pincode']?.toString() ?? '',
+                                    RegYear:
+                                    tractor['registrationYear'] ?? '',
+                                    Pincode:
+                                    tractor['pincode']?.toString() ?? '',
                                     HorsePower:
                                     tractor['horsePower']?.toString() ??
                                         '',
@@ -100,13 +103,8 @@ class _AllItemsState extends State<AllItems> {
                                     OilCap:
                                     tractor['Engine Oil Capacity'] ?? '',
                                     RunningKM: tractor['Running KM'] ?? '',
-                                    Fuel: tractor['fuelType'] ?? '',
-                                    tractorId: tractor['tractorId'] ?? '',
-                                    imageUrls: (tractor['images'] as List<dynamic>?)
-                                        ?.map((e) => e.toString())
-                                        .toList() ??
-                                        [],
-                                    description: tractor['description'] ?? '',
+                                    Fuel: tractor['Fuel'] ?? '',
+                                    tractorId: tractor['tractorId'],
                                     state: tractor['state'] ?? "",
                                     safetyfeature:
                                     tractor['safetyFeatures'] ?? "",
@@ -273,7 +271,7 @@ class _AllItemsState extends State<AllItems> {
                                             (context),
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                ContactSellerScreen(docid: '',))); // Handle button press
+                                                    ContactSellerScreen(docid: '',))); // Handle button press
                                       },
                                       style: TextButton.styleFrom(
                                         backgroundColor:
