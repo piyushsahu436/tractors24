@@ -8,6 +8,10 @@ import 'package:minio/minio.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/data/ContaboImageHandling/Contabo_Image.dart';
 import 'package:tractors24/screens/Seller_form2.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:csv/csv.dart';
+
 
 class SellerformScreen extends StatefulWidget {
   SellerformScreen({super.key});
@@ -17,28 +21,25 @@ class SellerformScreen extends StatefulWidget {
 }
 
 class _SellerformScreenState extends State<SellerformScreen> {
-
-  String? selectedBrand;
-
   final TextEditingController brandController = TextEditingController();
   final TextEditingController _modelNumbersellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _registrationyearsellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _horsepowersellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _hourssellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _registratiosellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _insurancesellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _reartyresellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _pincodesellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _addresssellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _amountCont = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   List<String> uploadedUrls = [];
@@ -117,23 +118,105 @@ class _SellerformScreenState extends State<SellerformScreen> {
       },
     );
   }
+
+  Map<String, List<String>> tractors = {
+    "Eicher": [
+      "E-242", "E-5660", "E-551", "EIC557_4WD", "EIC650_4WD", "EIC - 650",
+      "E-241", "E-312", "E-333", "E-364", "E-380", "E-480", "E-485", "E-548", "E-557", "E-368", "EIC-188",
+      "EIC 5150", "EIC 650"
+    ],
+    "Escorts": [
+      "FARMTRAC 40", "FARMTRAC 45", "FARMTRAC 6060", "FT 6050", "FT 6045 SM",
+      "FRAMTRAC CHAMPION", "FT 6045 LM", "FRAMTRAC 44", "FT-60 Powermaxx 4 WD",
+      "FT-6055 Powermaxx", "FT-6055 Powermaxx 4 WD", "FT70", "FARMTRAC 30 HERO",
+      "FARMTRAC 60", "FARMTRAC 65", "FARMTRAC XP 37 CHAMPION", "FT 6055", "FARMTRAC 41",
+      "FT-50", "FT-60 Powermaxx", "FT-50 Powermaxx", "Fram trac_39", "Fram trac_42",
+      "FARMTRAC 35", "Atom 26 4WD"
+    ],
+    "John Deere": [
+      "JD 5039", "JD 5038", "JD 5103", "JD 5045D MFWD", "JD 5104", "JD 5104 4WD",
+      "JD 5050 E", "JD 5055 D", "JD 5204", "JD 5050 4WD", "JD 5310 4WD", "JD 5055 4WD",
+      "JD 5036", "JD-5005", "JD 5305", "JD_5405", "JD 5405 4WD", "JD 5045 D",
+      "JD 5042", "JD 5050D", "JD 5055 E", "JD 5310", "JD-5060", "JD-5210",
+      "JD 5105", "JD 5041 C", "JD 5205", "5075E"
+    ],
+    "M&M": [
+      "MAHINDRA 265 DI", "MAHINDRA 295 DI", "MAHINDRA 555 DI", "MAHINDRA 595 DI",
+      "MAHINDRA 395 DI", "MAHINDRA 365", "MAHINDRA 215", "MAHINDRA 255 DI", "MAHINDRA 275 DI",
+      "MAHINDRA 475 DI", "MAHINDRA 575 DI", "MAHINDRA 605 DI", "MAHINDRA 585", "MAHINDRA 415",
+      "MAHINDRA 225", "MM 445 ARJUN", "275 Yuvo", "405 YUVO TECH +", "405 4WD YUVO TECH +"
+    ],
+    "New Holland": [
+      "NH3510", "NH4010", "NH6010", "NH7500", "NH5620", "NH 3600-2 4WD",
+      "NH3037", "NH3032", "NH3600", "NH3230", "NH3630", "NH4510", "NH4710",
+      "NH5500", "NH 3600-2", "NH 3030"
+    ],
+    "Power Trac": [
+      "POWERTRAC 4455", "PT- EURO 41", "PT-430 Plus", "PTALT 3500", "PTALT 4000",
+      "POWERTRAC 425", "POWERTRAC 434", "POWERTRAC 445", "POWERTRAC 439", "PT-EURO 45 PLUS",
+      "PT Euro 50", "PT-435 Plus", "PT-437", "PT- EURO 42 PLUS", "PT- EURO 37",
+      "PT- EURO 55", "PT- EURO 60", "PT-EURO 47", "PT_EURO_55"
+    ],
+    "Preet": [
+      "PREET-4549", "PREET-955", "PREET-3549"
+    ],
+    "Sonalika": [
+      "DI-60 MM", "DI-60", "ITL 20", "ITL26G", "ITL32RX", "WORLDTRAC 60 RX", "ITL MM 39",
+      "DI-47", "DI 740", "DI 42", "DI-35 MM", "DI-35 Rx", "DI-730", "DI-734", "DI-745III POWER PLUS",
+      "DI-745III Rx POWER PLUS", "DI-750 III", "DI-750 III Rx", "ITL-50 MM", "DI - 55",
+      "ITL 41 MM", "DI 35", "DI 42 RX", "DI 50", "Solis 5015 2wd"
+    ],
+    "Swaraj": [
+      "SWARAJ 960PS", "SWARAJ 717", "SWARAJ 744 FE", "SWARAJ 724", "SWARAJ 735 FE",
+      "SWARAJ 744 XT", "SWARAJ 834 FE", "SWARAJ 843 XM", "SWARAJ 855 FE", "SWARAJ 841",
+      "SWARAJ742XT", "SWARAJ 825", "SWARAJ 963"
+    ],
+    "TAFE": [
+      "TAFE 9500", "TAFE 1030", "TAFE1035 PD", "TAFE 5245", "TAFE 30", "MF 1035 DI R",
+      "MF 1035 Mahashakti", "MF 241 DI Mahashakti", "MF 241 DI PD", "MF 245 DI", "MF 7250",
+      "MF 9000 PD", "MF 241 TONNER", "MF 1035 DI TONNER", "TAFE 245 SMART", "TAFE 1134",
+      "TAFE_MF_246", "MF 7235"
+    ],
+    "Kubota": [
+      "MU5501 -4WD", "MU5502 - 2WD", "MU5502 - 4WD", "B2441", "MU4501- 2WD - STD", "MU4501- 4WD", "MU5501", "A211N"
+    ],
+    "Solis": [
+      "SOLIS- 4515", "SOLIS 4215 2WD", "SOLIS 4215 4WD", "SOLIS 4215 EP", "SOLIS 4415 2WD", "SOLIS 4415 4WD"
+    ],
+    "TMTL (EICHER)": [
+      "EIC 650"
+    ]
+  };
+  List<String> regYear = [
+    '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017',
+    '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008',
+    '2007', '2006'
+  ];
+
+  String? selectedBrand;
+  String? selectedModel;
+  String? selectedYear;
+  String? price;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF003B8F),
-        foregroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'Add Post',
+          'ADD POST',
           style: GoogleFonts.roboto(
-            fontSize: 25,
-            fontWeight: FontWeight.w500,
-            color: Colors.white
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -149,29 +232,29 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     child: _isUploading
                         ? Center(child: CircularProgressIndicator())
                         : PageView.builder(
-                            itemCount: selectedImages.isNotEmpty
-                                ? selectedImages.length
-                                : uploadedUrls.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: selectedImages
-                                            .isNotEmpty // Check if local images exist
-                                        ? FileImage(selectedImages[index])
-                                            as ImageProvider
-                                        : (uploadedUrls
-                                                .isNotEmpty // Check if uploaded URLs exist
-                                            ? NetworkImage(uploadedUrls[index])
-                                                as ImageProvider
-                                            : const AssetImage(
-                                                'assets/images/Rectangle 23807.png')),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              );
-                            },
+                      itemCount: selectedImages.isNotEmpty
+                          ? selectedImages.length
+                          : uploadedUrls.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: selectedImages
+                                  .isNotEmpty // Check if local images exist
+                                  ? FileImage(selectedImages[index])
+                              as ImageProvider
+                                  : (uploadedUrls
+                                  .isNotEmpty // Check if uploaded URLs exist
+                                  ? NetworkImage(uploadedUrls[index])
+                              as ImageProvider
+                                  : const AssetImage(
+                                  'assets/images/Rectangle 23807.png')),
+                              fit: BoxFit.cover,
+                            ),
                           ),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 Positioned(
@@ -214,6 +297,115 @@ class _SellerformScreenState extends State<SellerformScreen> {
                   SizedBox(
                     height: size.height * 0.01,
                   ),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/brand-image.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                      hintText: 'Brand',
+                      hintStyle: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                    value: selectedBrand,
+                    items: tractors.keys.map((brand) {
+                      return DropdownMenuItem(value: brand, child: Text(brand));
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedBrand = value;
+                        selectedModel = null; // Reset model when brand changes
+                        price = null;
+                      });
+                    },
+                  ),
+                  SizedBox(height: size.height * 0.01),
+
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/tractor.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                      hintText: 'Model',
+                      hintStyle: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                    value: selectedModel,
+                    items: selectedBrand != null
+                        ? tractors[selectedBrand!]!.map((model) {
+                      return DropdownMenuItem(value: model, child: Text(model));
+                    }).toList()
+                        : [],
+                    onChanged: (value) {
+                      setState(() {
+                        selectedModel = value;
+                        price = null;
+                      });
+                    },
+                  ),
+                  SizedBox(height: size.height * 0.01),
+
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/calendar.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                      hintText: 'Registration Year',
+                      hintStyle: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                    value: selectedYear,
+                    items: regYear.map((year) {
+                      return DropdownMenuItem(value: year, child: Text(year));
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedYear = value;
+                      });
+                    },
+                  ),
+                  SizedBox(height: size.height * 0.01),
 
                   TextField(
                     controller: _pincodesellerformController,
@@ -241,296 +433,6 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     ),
                   ),
                   SizedBox(height: size.height * 0.01),
-                  DropdownButtonFormField<String>(
-                    value: selectedBrand,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedBrand = newValue;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          'assets/icons/brand-image.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      ),
-                      hintText: 'Brand',
-                      hintStyle: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
-                    items: [
-                      "Eicher",
-                      "Escorts",
-                      "John Deere",
-                      "M&M",
-                      "New Holland",
-                      "Power Trac",
-                      "Preet",
-                      "Sonalika",
-                      "Swaraj",
-                      "TAFE",
-                      "Kubota",
-                      "Solis",
-                      "TMTL (Eicher)"
-                    ].map<DropdownMenuItem<String>>((String brand) {
-                      return DropdownMenuItem<String>(
-                        value: brand,
-                        child: Text(
-                          brand,
-                          style: GoogleFonts.roboto(fontSize: 16),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-
-
-                  SizedBox(height: size.height * 0.01),
-                  DropdownButtonFormField<String>(
-                    value: selectedBrand ?? null, // Ensure it is either a valid value or null
-                    onChanged: (String? newValue) {
-                      if (newValue != null) {
-                        setState(() {
-                          selectedBrand = newValue;
-                        });
-                      }
-                    },
-                    decoration: InputDecoration(
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          'assets/icons/tractor.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      ),
-                      hintText: 'Model',
-                      hintStyle: GoogleFonts.roboto(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                        color: const Color.fromRGBO(124, 139, 160, 1.0),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
-                    items: [
-                      "A211N",
-                      "Atom 26 4WD",
-                      "B2441",
-                      "DI - 55",
-                      "DI 35",
-                      "DI 35 MM",
-                      "DI 35 Rx",
-                      "DI 42",
-                      "DI 42 RX",
-                      "DI 47",
-                      "DI 50",
-                      "DI 60",
-                      "DI 60 MM",
-                      "DI 730",
-                      "DI 734",
-                      "DI 740",
-                      "DI 745III POWER PLUS",
-                      "DI 745III Rx POWER PLUS",
-                      "DI 750 III",
-                      "DI 750 III Rx",
-                      "E-241",
-                      "E-242",
-                      "E-312",
-                      "E-333",
-                      "E-364",
-                      "E-368",
-                      "E-380",
-                      "E-480",
-                      "E-485",
-                      "E-548",
-                      "E-551",
-                      "E-557",
-                      "E-5660",
-                      "EIC 5150",
-                      "EIC 650",
-                      "EIC557_4WD",
-                      "EIC650_4WD",
-                      "FARMTRAC 30 HERO",
-                      "FARMTRAC 35",
-                      "FARMTRAC 40",
-                      "FARMTRAC 41",
-                      "FARMTRAC 45",
-                      "FARMTRAC 60",
-                      "FARMTRAC 65",
-                      "FARMTRAC 6060",
-                      "FARMTRAC XP 37 CHAMPION",
-                      "Fram trac_39",
-                      "Fram trac_42",
-                      "FRAMTRAC 44",
-                      "FRAMTRAC CHAMPION",
-                      "FT 50",
-                      "FT 6045 LM",
-                      "FT 6045 SM",
-                      "FT 6050",
-                      "FT 6055",
-                      "FT 6055 Powermaxx",
-                      "FT 6055 Powermaxx 4 WD",
-                      "FT 60 Powermaxx",
-                      "FT 60 Powermaxx 4 WD",
-                      "FT-50 Powermaxx",
-                      "ITL 20",
-                      "ITL 26G",
-                      "ITL 32RX",
-                      "ITL 41 MM",
-                      "ITL 50 MM",
-                      "ITL MM 39",
-                      "JD 5005",
-                      "JD 5036",
-                      "JD 5038",
-                      "JD 5039",
-                      "JD 5041 C",
-                      "JD 5042",
-                      "JD 5045 D",
-                      "JD 5045D MFWD",
-                      "JD 5050 4WD",
-                      "JD 5050 D",
-                      "JD 5050 E",
-                      "JD 5055 4WD",
-                      "JD 5055 D",
-                      "JD 5055 E",
-                      "JD 5060",
-                      "JD 5103",
-                      "JD 5104",
-                      "JD 5104 4WD",
-                      "JD 5105",
-                      "JD 5204",
-                      "JD 5205",
-                      "JD 5210",
-                      "JD 5305",
-                      "JD 5310",
-                      "JD 5310 4WD",
-                      "JD 5405",
-                      "JD 5405 4WD",
-                      "MAHINDRA 215",
-                      "MAHINDRA 225",
-                      "MAHINDRA 255 DI",
-                      "MAHINDRA 265 DI",
-                      "MAHINDRA 275 DI",
-                      "MAHINDRA 295 DI",
-                      "MAHINDRA 365",
-                      "MAHINDRA 395 DI",
-                      "MAHINDRA 415",
-                      "MAHINDRA 475 DI",
-                      "MAHINDRA 555 DI",
-                      "MAHINDRA 575 DI",
-                      "MAHINDRA 585",
-                      "MAHINDRA 595 DI",
-                      "MAHINDRA 605 DI",
-                      "MF 1035 DI R",
-                      "MF 1035 DI TONNER",
-                      "MF 1035 Mahashakti",
-                      "MF 241 DI Mahashakti",
-                      "MF 241 DI PD",
-                      "MF 241 TONNER",
-                      "MF 245 DI",
-                      "MF 7250",
-                      "MF 9000 PD",
-                      "MU4501- 2WD - STD",
-                      "MU4501- 4WD",
-                      "MU5501",
-                      "MU5501 -4WD",
-                      "MU5502 - 2WD",
-                      "MU5502 - 4WD",
-                      "NH 3030",
-                      "NH 3037",
-                      "NH 3032",
-                      "NH 3230",
-                      "NH 3510",
-                      "NH 3600",
-                      "NH 3600-2",
-                      "NH 3600-2 4WD",
-                      "NH 3630",
-                      "NH 4010",
-                      "NH 4510",
-                      "NH 4710",
-                      "NH 5500",
-                      "NH 5620",
-                      "NH 6010",
-                      "NH 7500",
-                      "POWERTRAC 425",
-                      "POWERTRAC 434",
-                      "POWERTRAC 439",
-                      "POWERTRAC 445",
-                      "POWERTRAC 4455",
-                      "PT-430 Plus",
-                      "PT-435 Plus",
-                      "PT-437",
-                      "PT- EURO 37",
-                      "PT- EURO 41",
-                      "PT- EURO 42 PLUS",
-                      "PT- EURO 45 PLUS",
-                      "PT- EURO 50",
-                      "PT- EURO 55",
-                      "PT- EURO 60",
-                      "PT-EURO 47",
-                      "PT-EURO 55",
-                      "PTALT 3500",
-                      "PTALT 4000",
-                      "PT_EURO_55",
-                      "SOLIS 4215 2WD",
-                      "SOLIS 4215 4WD",
-                      "SOLIS 4215 EP",
-                      "SOLIS 4415 2WD",
-                      "SOLIS 4415 4WD",
-                      "SOLIS 4515",
-                      "SOLIS 5015 2WD",
-                      "SWARAJ 717",
-                      "SWARAJ 724",
-                      "SWARAJ 735 FE",
-                      "SWARAJ 744 FE",
-                      "SWARAJ 744 XT",
-                      "SWARAJ 825",
-                      "SWARAJ 834 FE",
-                      "SWARAJ 841",
-                      "SWARAJ 843 XM",
-                      "SWARAJ 855 FE",
-                      "SWARAJ 960PS",
-                      "SWARAJ 963",
-                      "SWARAJ742XT",
-                      "TAFE 30",
-                      "TAFE 9500",
-                      "TAFE 1030",
-                      "TAFE 1035 PD",
-                      "TAFE 1134",
-                      "TAFE 5245",
-                      "TAFE MF 246",
-                      "TAFE 245 SMART",
-                      "WORLDTRAC 60 RX",
-                    ].map((String brand) {
-                      return DropdownMenuItem<String>(
-                        value: brand,
-                        child: Text(
-                          brand,
-                          style: GoogleFonts.roboto(fontSize: 16),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-
-                  SizedBox(height: size.height * 0.01),
-
                   TextField(
                     controller: _amountCont,
                     decoration: InputDecoration(
@@ -557,33 +459,6 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     ),
                   ),
                   SizedBox(height: size.height * 0.01),
-                  TextField(
-                    controller: _registrationyearsellerformController,
-                    decoration: InputDecoration(
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          'assets/icons/calendar.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      ),
-                      hintText: 'Registration Year',
-                      hintStyle: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.01),
-
                   TextField(
                     controller: _horsepowersellerformController,
                     decoration: InputDecoration(
@@ -766,7 +641,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: size.height * 0.03),
+                  SizedBox(height: size.height * 0.01),
 
                   // Send Inquiry Button
                   SizedBox(
@@ -778,22 +653,22 @@ class _SellerformScreenState extends State<SellerformScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SellerFormScreen2(
-                                      pincode: _pincodesellerformController,
-                                      brand: brandController,
-                                      model: _modelNumbersellerformController,
-                                      horsePower:
-                                          _horsepowersellerformController,
-                                      RegNum: _registratiosellerformController,
-                                      RegistrationYear:
-                                          _registrationyearsellerformController,
-                                      Hours: _hourssellerformController,
-                                      RearTyre: _reartyresellerformController,
-                                      InStatus: _insurancesellerformController,
-                                      Address: _addresssellerformController,
-                                      amount: _amountCont,
-                                      uploadedUrls: uploadedUrls,
-                                      selectedImages: selectedImages,
-                                    )));
+                                  pincode: _pincodesellerformController,
+                                  brand: selectedBrand ?? '',
+                                  model: selectedModel ?? '',
+                                  horsePower:
+                                  _horsepowersellerformController,
+                                  RegNum: _registratiosellerformController,
+                                  RegistrationYear:
+                                  selectedYear ?? '',
+                                  Hours: _hourssellerformController,
+                                  RearTyre: _reartyresellerformController,
+                                  InStatus: _insurancesellerformController,
+                                  Address: _addresssellerformController,
+                                  amount: _amountCont,
+                                  uploadedUrls: uploadedUrls,
+                                  selectedImages: selectedImages,
+                                )));
                         // Implement send inquiry logic
                       },
                       style: ElevatedButton.styleFrom(
@@ -812,7 +687,6 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: size.height * 0.01),
                 ],
               ),
             ),

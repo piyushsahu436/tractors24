@@ -24,9 +24,9 @@ class SellerFormScreen2 extends StatefulWidget {
       required this.uploadedUrls,
       required this.selectedImages});
   final TextEditingController pincode;
-  final TextEditingController brand;
-  final TextEditingController model;
-  final TextEditingController RegistrationYear;
+  final String brand;
+  final String model;
+  final String RegistrationYear;
   final TextEditingController horsePower;
   final TextEditingController Hours;
   final TextEditingController RegNum;
@@ -149,10 +149,10 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
       final tractorData = {
         "tractorId": docRef.id, // Store the generated document ID
         "uid": uid,
-        "brand": widget.brand.text.trim(),
-        "model": widget.model.text.trim(),
+        "brand": widget.brand.trim(),
+        "model": widget.model.trim(),
         "registrationNumber": widget.RegNum.text.trim(),
-        "registrationYear": widget.RegistrationYear.text.trim(),
+        "registrationYear": widget.RegistrationYear.trim(),
         "horsePower": widget.horsePower.text.trim(),
         "hours": widget.Hours.text.trim(),
         "category": "popular",
