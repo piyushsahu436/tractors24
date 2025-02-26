@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 
 class Wishlist extends StatefulWidget {
   const Wishlist({super.key});
@@ -28,7 +30,7 @@ class _WishlistState extends State<Wishlist> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(top: 20.0, left: 8),
+                padding: const EdgeInsets.only(top: 45.0, left: 8),
                 child: Row(
                   mainAxisAlignment:
                   MainAxisAlignment.start, // Aligns items from the start
@@ -137,42 +139,37 @@ class Favourites extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => CarDetailsPage(
                                 SellPrice:
-                                tractor['sellPrice']?.toString() ??
-                                    '',
-                                description: tractor['description'] ?? '',
+                                tractor['expectedPrice']?.toString() ?? '',
                                 brand: tractor['brand'] ?? '',
                                 model: tractor['model'] ?? '',
-                                RegYear:
-                                tractor['registrationYear'] ?? '',
-                                Pincode:
-                                tractor['pincode']?.toString() ?? '',
+                                RegYear: tractor['registrationYear'] ?? '',
+                                Pincode: tractor['pincode']?.toString() ?? '',
                                 HorsePower:
-                                tractor['horsePower']?.toString() ??
-                                    '',
-                                Hours: tractor['hours'] ?? '',
-                                RegNum:
-                                tractor['registrationNumber'] ?? '',
-                                InsStatus:
-                                tractor['insuranceStatus'] ?? '',
-                                RearTire: tractor['rearTyre'] ?? '',
-                                Address: tractor['state'] ?? '',
-                                Break: tractor['break'] ?? '',
-                                PTO: tractor['Pto'] ?? '',
-                                CC: tractor['CC'] ?? '',
-                                Cooling: tractor['Cooling'] ?? '',
+                                tractor['horsePower']?.toString() ?? '',
+                                Hours: tractor['hoursDriven'] ?? '',
+                                RegNum: tractor['registrationNumber'] ?? '',
+                                InsStatus: tractor['insuranceStatus'] ?? '',
+                                RearTire: tractor['rearTyreSize'] ?? '',
+                                Address: tractor['location'] ?? '',
+                                Break: tractor['brakes'] ?? '',
+                                PTO: tractor['ptoHP'] ?? '',
+                                CC: tractor['capacityCC'] ?? '',
+                                Cooling: tractor['coolingSystem'] ?? '',
                                 LiftingCapacity:
-                                tractor['Lifting Capacity'] ?? '',
-                                SteeringType:
-                                tractor['Steering Type'] ?? '',
+                                tractor['liftingCapacity'] ?? '',
+                                SteeringType: tractor['steeringType'] ?? '',
                                 ClutchType: tractor['Clutch Type'] ?? '',
-                                OilCap:
-                                tractor['Engine Oil Capacity'] ?? '',
+                                OilCap: tractor['capacity'] ?? '',
                                 RunningKM: tractor['Running KM'] ?? '',
-                                Fuel: tractor['Fuel'] ?? '',
-                                tractorId: tractor['tractorId'],
+                                Fuel: tractor['fuelType'] ?? '',
+                                tractorId: tractor['tractorId'] ?? '',
+                                imageUrls: (tractor['images'] as List<dynamic>?)
+                                    ?.map((e) => e.toString())
+                                    .toList() ??
+                                    [],
+                                description: tractor['description'] ?? '',
                                 state: tractor['state'] ?? "",
-                                safetyfeature:
-                                tractor['safetyFeatures'] ?? "",
+                                safetyfeature: tractor['safetyFeatures'] ?? "",
                                 warrenty: tractor['warranty'] ?? "",
                                 color: tractor['color'] ?? "",
                                 accessories: tractor['accessories'] ?? "",
@@ -183,106 +180,135 @@ class Favourites extends StatelessWidget {
                                 gearbox: tractor['gearBox'] ?? "",
                                 torque: '' ?? "",
                                 fronttyre: tractor['frontTyreSize'],
-                                clutch: tractor['clutch'] ?? "",
-                                pincode: tractor['pincode'] ?? " ",
+                                clutch: tractor['clutch']?? "",
+                                pincode: tractor['pincode']?? " ",
                                 docId: docId,
                               )));
                     },
-                    child: Container(
-                      height: size.height * 0.17,
-                      width: size.width * 0.8,
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 5,
-                            spreadRadius: 2,
+
+                    child: Column(
+                      children: [
+                        Slidable(
+                          key: ValueKey(docId), // Use a unique key for each item
+                          endActionPane: ActionPane(
+                            motion: const StretchMotion(),
+                            children: [
+                              CustomSlidableAction(
+                                onPressed: (context) async {
+                                  await FirebaseFirestore.instance.collection('wishlists').doc(docId).delete();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text("Item removed from wishlist")),
+                                  );
+                                },
+                                backgroundColor: Colors.white, // Background color of the button
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                  size: 30,
+                                ),
+                              ),
+
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              bottomLeft: Radius.circular(12),
+                          child: Container(
+                            height: size.height * 0.17,
+                            width: size.width * 0.9,
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 5,
+                                  spreadRadius: 2,
+                                ),
+                              ],
                             ),
-                            child: imageUrls.isNotEmpty
-                                ? Image.network(
-                              imageUrls[0],
-                              width: size.width * 0.45,
-                              height: size.height * 0.17,
-                              fit: BoxFit.cover,
-                            )
-                                : Image.asset(
-                              "assets/images/tracTemp.png",
-                              width: size.width * 0.45,
-                              height: size.height * 0.17,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '${tractor['brand']} ${tractor['model']}',
-                                    style: GoogleFonts.anybody(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15,
-                                        color: Colors.black),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(12),
+                                    bottomLeft: Radius.circular(12),
                                   ),
-                                  const SizedBox(height: 5),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.location_on, size: 16, color: Colors.grey),
-                                      const SizedBox(width: 4),
-                                      Flexible(
-                                        child: Text(
-                                          tractor['location'] ?? 'Unknown',
+                                  child: imageUrls.isNotEmpty
+                                      ? Image.network(
+                                    imageUrls[0],
+                                    width: size.width * 0.45,
+                                    height: size.height * 0.17,
+                                    fit: BoxFit.cover,
+                                  )
+                                      : Image.asset(
+                                    "assets/images/tracTemp.png",
+                                    width: size.width * 0.45,
+                                    height: size.height * 0.17,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '${tractor['brand']} ${tractor['model']}',
                                           style: GoogleFonts.anybody(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15,
                                               color: Colors.black),
                                         ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      const Icon(Icons.speed, size: 16, color: Colors.grey),
-                                      const SizedBox(width: 4),
-                                      Expanded(
-                                        child: Text(
-                                          '${tractor['hoursDriven']} hr' ?? 'Unknown',
-                                          style: GoogleFonts.anybody(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 12,
-                                              color: Colors.black),
+                                        const SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            const Icon(Icons.location_on, size: 16, color: Colors.grey),
+                                            const SizedBox(width: 4),
+                                            Flexible(
+                                              child: Text(
+                                                tractor['location'] ?? 'Unknown',
+                                                style: GoogleFonts.anybody(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 10,
+                                                    color: Colors.black),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 10),
+                                            const Icon(Icons.speed, size: 16, color: Colors.grey),
+                                            const SizedBox(width: 4),
+                                            Expanded(
+                                              child: Text(
+                                                '${tractor['hoursDriven']} hr' ?? 'Unknown',
+                                                style: GoogleFonts.anybody(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12,
+                                                    color: Colors.black),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 5),
-                                  Expanded(
-                                    child: Text(
-                                      '₹${tractor['expectedPrice']}' ?? 'Unknown',
-                                      style: GoogleFonts.anybody(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 20,
-                                          color: Colors.black),
+                                        const SizedBox(height: 5),
+                                        Expanded(
+                                          child: Text(
+                                            '₹${tractor['expectedPrice']}' ?? 'Unknown',
+                                            style: GoogleFonts.anybody(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 20,
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      ],
+                    )
+
                   );
                 },
               );

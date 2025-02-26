@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:geolocator/geolocator.dart';
@@ -9,6 +10,7 @@ import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/Grids/StatesGrids.dart';
 import 'package:tractors24/screens/faq_list.dart';
+import 'package:tractors24/screens/notification.dart';
 import 'package:tractors24/screens/search.dart';
 
 class HomePageF extends StatefulWidget {
@@ -39,7 +41,8 @@ class _HomePageFState extends State<HomePageF> {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Location services are disabled. Please enable the services')));
+          content: Text(
+              'Location services are disabled. Please enable the services')));
       return false;
     }
 
@@ -86,7 +89,8 @@ class _HomePageFState extends State<HomePageF> {
 
       print(place);
       setState(() {
-        _currentAddress = place.locality ?? place.subAdministrativeArea ?? "Unknown location";
+        _currentAddress =
+            place.locality ?? place.subAdministrativeArea ?? "Unknown location";
         _pincode = place.postalCode;
       });
     } catch (e) {
@@ -119,14 +123,14 @@ class _HomePageFState extends State<HomePageF> {
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
-                                  AssetImage('assets/images/car2_page.png'),
+                                      AssetImage('assets/images/car2_page.png'),
                                   fit: BoxFit.fill)),
                         ),
                         Container(
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
-                                  AssetImage('assets/images/car3_page.png'),
+                                      AssetImage('assets/images/car3_page.png'),
                                   fit: BoxFit.cover)),
                         ),
                       ],
@@ -148,57 +152,57 @@ class _HomePageFState extends State<HomePageF> {
                           children: [
                             Padding(
                               padding:
-                              const EdgeInsets.only(right: 08.0, left: 0),
+                                  const EdgeInsets.only(right: 08.0, left: 0),
                               child: InkWell(
                                 onTap: () {
                                   Scaffold.of(context).openDrawer();
                                 },
                                 child: const Image(
                                     image:
-                                    AssetImage("assets/images/grp29.png")),
+                                        AssetImage("assets/images/grp29.png")),
                               ),
                             ),
                             SizedBox(
-                                height: 45,
-                                width: size.width * 0.6,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              search(pincode: _pincode ?? ""),
-                                      ), // Navigate to your new page
-                                    );
-                                  },
-                                  child: AbsorbPointer(
-                                    // Prevents user input in this TextField
-                                    child: TextField(
-                                      decoration: InputDecoration(
-                                        fillColor: Colors.white,
-                                        filled: true,
-                                        hintText: 'Search Tractor',
-                                        hintStyle: GoogleFonts.roboto(
-                                          color: Colors.grey[400],
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        prefixIcon: const Icon(
-                                          Icons.search,
-                                          color: Colors.black,
-                                        ),
-                                        contentPadding:
-                                        const EdgeInsets.symmetric(
-                                            horizontal: 16, vertical: 10),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(24.0),
-                                        ),
+                              height: 45,
+                              width: size.width * 0.6,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          search(pincode: _pincode ?? ""),
+                                    ), // Navigate to your new page
+                                  );
+                                },
+                                child: AbsorbPointer(
+                                  // Prevents user input in this TextField
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      hintText: 'Search Tractor',
+                                      hintStyle: GoogleFonts.roboto(
+                                        color: Colors.grey[400],
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      prefixIcon: const Icon(
+                                        Icons.search,
+                                        color: Colors.black,
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 16, vertical: 10),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(24.0),
                                       ),
                                     ),
                                   ),
                                 ),
-                                ),
+                              ),
+                            ),
                             const Padding(
                               padding: EdgeInsets.only(left: 5, right: 3),
                               child: Image(
@@ -244,7 +248,7 @@ class _HomePageFState extends State<HomePageF> {
                 children: [
                   Padding(
                     padding:
-                    const EdgeInsets.only(left: 16.0, top: 0, bottom: 8),
+                        const EdgeInsets.only(left: 16.0, top: 0, bottom: 8),
                     child: Text(
                       '|  Recently Added Tractor',
                       style: GoogleFonts.roboto(
@@ -260,7 +264,17 @@ class _HomePageFState extends State<HomePageF> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(category: '',itemCount: 50,))));},
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Scaffold(
+                                          body: GridViewBuilderWidget(
+                                        category: 'recently-listed',
+                                        itemCount: 50,
+                                      ))));
+                        },
                         child: Image(
                           image: AssetImage("assets/images/seeImg.png"),
                           height: 26,
@@ -269,7 +283,7 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0, top: 20.0),
                     child: Text(
                       '|  Popular Tractor',
                       style: GoogleFonts.roboto(
@@ -282,10 +296,16 @@ class _HomePageFState extends State<HomePageF> {
                     category: "recently-listed",
                     itemCount: 2,
                   ),
-                   Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(category: '',itemCount: 50,))));},
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>  GridViewBuilderWidget(itemCount: 50,category: 'recently-added',)),);
+                        },
                         child: Image(
                           image: AssetImage("assets/images/seeImg.png"),
                           height: 26,
@@ -307,7 +327,8 @@ class _HomePageFState extends State<HomePageF> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(flex: 2,
+                            Expanded(
+                              flex: 2,
                               child: Text(
                                 "Are You Looking For a Tractor ?",
                                 style: GoogleFonts.roboto(
@@ -318,7 +339,8 @@ class _HomePageFState extends State<HomePageF> {
                             ),
                             const Expanded(
                               child: Image(
-                                image: AssetImage("assets/images/clkButton.png"),
+                                image:
+                                    AssetImage("assets/images/clkButton.png"),
                                 height: 35,
                               ),
                             )
@@ -328,7 +350,7 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0, top: 20.0),
                     child: Text(
                       '|  Recommend Tractor',
                       style: GoogleFonts.roboto(
@@ -341,10 +363,20 @@ class _HomePageFState extends State<HomePageF> {
                     category: "recommended",
                     itemCount: 2,
                   ),
-                   Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(category: '',itemCount: 50,))));},
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Scaffold(
+                                          body: GridViewBuilderWidget(
+                                        category: 'recommended',
+                                        itemCount: 50,
+                                      ))));
+                        },
                         child: Image(
                           image: AssetImage("assets/images/seeImg.png"),
                           height: 26,
@@ -353,7 +385,7 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
+                    padding: const EdgeInsets.only(left: 16.0, top: 20.0),
                     child: Text(
                       '|  Certified Tractor',
                       style: GoogleFonts.roboto(
@@ -366,10 +398,20 @@ class _HomePageFState extends State<HomePageF> {
                     category: "recommended",
                     itemCount: 2,
                   ),
-                   Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Center(
-                      child: InkWell(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(body: GridViewBuilderWidget(category: '',itemCount: 50,))));},
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Scaffold(
+                                          body: GridViewBuilderWidget(
+                                        category: '',
+                                        itemCount: 50,
+                                      ))));
+                        },
                         child: Image(
                           image: AssetImage("assets/images/seeImg.png"),
                           height: 26,
@@ -378,42 +420,8 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 0),
-                    child: Container(
-                      height: 132,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage("assets/images/BgImg.png"))),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(flex: 2,
-                              child: Text(
-                                "Are You Looking For a Tractor ?",
-                                style: GoogleFonts.roboto(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            const Expanded(
-                              child: Image(
-                                image: AssetImage("assets/images/clkButton.png"),
-                                height: 35,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
                     padding:
-                    const EdgeInsets.only(left: 16.0, top: 20, right: 16),
+                        const EdgeInsets.only(left: 16.0, top: 20, right: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -422,36 +430,163 @@ class _HomePageFState extends State<HomePageF> {
                           '|  Brand',
                           style: GoogleFonts.roboto(
                               color: const Color(0xFF414141),
-                              fontSize: 15,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600),
                         ),
                         TextButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const BrandsPage()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const BrandsPage()));
                             },
                             child: Text(
                               'See More',
                               style: GoogleFonts.roboto(
                                   color: const Color(0xFF003B8F),
                                   fontSize: 15,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w500),
                             ))
                       ],
                     ),
                   ),
-                  BrandGrids(itemCount: 8,),
+                  BrandGrids(
+                    itemCount: 8,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 16.0, top: 25, right: 16, bottom: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '|  Blog & Videos',
+                          style: GoogleFonts.roboto(
+                              color: const Color(0xFF414141),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const News()));
+                            },
+                            child: Text(
+                              'See More',
+                              style: GoogleFonts.roboto(
+                                  color: const Color(0xFF003B8F),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500),
+                            ))
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 300, // Keep height fixed for horizontal scrolling
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection("news")
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                              child:
+                                  CircularProgressIndicator()); // Loading state
+                        }
+
+                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                          return Center(
+                              child: Text(
+                                  "No news available")); // Handle empty state
+                        }
+
+                        return ListView(
+                          scrollDirection:
+                              Axis.horizontal, // Enable horizontal scrolling
+                          children: snapshot.data!.docs.map((doc) {
+                            return Container(
+                              width: 250,
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white,
+                                    blurRadius: 6,
+                                    spreadRadius: 2,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(15)),
+                                    child: Image.network(
+                                      doc['image'], // Fetch image from Firestore
+                                      height: 100,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          doc['title'], // Fetch title from Firestore
+                                          style: GoogleFonts.roboto(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text.rich(
+                                          TextSpan(
+                                            text: doc[
+                                                'content'], // Fetch content from Firestore
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 14,
+                                                color: Colors.black),
+                                          ),
+                                          maxLines: 3, // Display only 2 lines
+                                          overflow: TextOverflow
+                                              .ellipsis, // Add "..."
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
+                  ),
+
                   Padding(
                     padding:
-                    const EdgeInsets.only(left: 16.0, top: 20, right: 16),
+                        const EdgeInsets.only(left: 16.0, top: 20, right: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '|  Search Tractor By \n state',
+                          '|  Search Tractor By State',
                           style: GoogleFonts.roboto(
                               color: const Color(0xFF414141),
-                              fontSize: 15,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600),
                         ),
                         TextButton(
@@ -461,7 +596,7 @@ class _HomePageFState extends State<HomePageF> {
                               style: GoogleFonts.roboto(
                                   color: const Color(0xFF003B8F),
                                   fontSize: 15,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w500),
                             ))
                       ],
                     ),
@@ -486,12 +621,14 @@ class _HomePageFState extends State<HomePageF> {
                           children: [
                             const Expanded(
                               child: Image(
-                                image: AssetImage("assets/images/clkButton.png"),
+                                image:
+                                    AssetImage("assets/images/clkButton.png"),
                                 height: 35,
                               ),
                             ),
                             const SizedBox(width: 10),
-                            Expanded(flex: 2,
+                            Expanded(
+                              flex: 2,
                               child: Text(
                                 "Do You Want to Sell a Tractor ?",
                                 style: GoogleFonts.roboto(
@@ -505,14 +642,138 @@ class _HomePageFState extends State<HomePageF> {
                       ),
                     ),
                   ),
+
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 16.0, top: 20, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '| Testimonial',
+                          style: GoogleFonts.roboto(
+                              color: const Color(0xFF414141),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'See More',
+                              style: GoogleFonts.roboto(
+                                  color: const Color(0xFF003B8F),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500),
+                            ))
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 270, // Fixed height for horizontal scrolling
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection("YourCollection")
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+
+                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                          return Center(child: Text("No data available"));
+                        }
+
+                        return ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: snapshot.data!.docs.map((doc) {
+                            return Container(
+                              width: 250,
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 6,
+                                    spreadRadius: 2,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Image Section
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(15)),
+                                    child: Image.network(
+                                      doc['imageUrl'],
+                                      height: 150,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) => Icon(
+                                              Icons.broken_image,
+                                              size: 150,
+                                              color: Colors.grey),
+                                    ),
+                                  ),
+
+                                  // Text Section
+                                  Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // Title
+                                        Text(
+                                          doc['title'],
+                                          style: GoogleFonts.roboto(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 5),
+
+                                        // Content (First 2 lines + "...")
+                                        Text(
+                                          doc['content'],
+                                          style: GoogleFonts.roboto(
+                                            fontSize: 14,
+                                            color: Colors.black54,
+                                          ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
+                  ),
+
                   // FAQScreen(),
                   Padding(
-                    padding: const EdgeInsets.all(15),
+                    padding:
+                        const EdgeInsets.only(left: 16.0, top: 30, right: 16),
                     child: Text(
                       "FAQ's",
                       style: GoogleFonts.roboto(
                           color: const Color(0xFF414141),
-                          fontSize: 15,
+                          fontSize: 20,
                           fontWeight: FontWeight.w600),
                     ),
                   ),

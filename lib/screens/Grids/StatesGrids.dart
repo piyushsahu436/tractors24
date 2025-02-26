@@ -60,7 +60,7 @@ class StateGrids extends StatelessWidget {
           crossAxisCount: 2, // Number of columns
           crossAxisSpacing: 10.0, // Spacing between columns
           mainAxisSpacing: 2.0, // Spacing between rows
-          childAspectRatio: 0.7, // Aspect ratio of each item
+          childAspectRatio: 0.9, // Aspect ratio of each item
         ),
         itemCount: stateItems.length, // Number of items
         itemBuilder: (context, index) {
