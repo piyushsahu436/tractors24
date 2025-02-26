@@ -13,10 +13,10 @@ class BrandGrids extends StatelessWidget {
   final int itemCount;
 
   final List<GridItem> gridItems = [
-
+    GridItem(imageUrl: 'assets/images/JohnDeerL.png', title: 'John Deer'),
     GridItem(imageUrl: 'assets/images/mahindraL.png', title: 'Mahindra'),
     GridItem(imageUrl: 'assets/images/PreetL.png', title: 'Preet Tractors'),
-
+    GridItem(imageUrl: 'assets/images/SonalikaL.png', title: 'Sonalika'),
     GridItem(imageUrl: 'assets/images/marut.jpg', title: 'SMEA'),
     GridItem(imageUrl: 'assets/images/a-c-e-.jpg', title: 'ACE'),
     GridItem(imageUrl: 'assets/images/agri-king.jpg', title: 'Agri King'),
@@ -44,8 +44,6 @@ class BrandGrids extends StatelessWidget {
     GridItem(imageUrl: 'assets/images/trakstar.jpg', title: 'TRAKSTAR'),
     GridItem(imageUrl: 'assets/images/valdo.jpg', title: 'Valdo'),
     GridItem(imageUrl: 'assets/images/vst-shakti.jpg', title: 'VST Shakti'),
-    GridItem(imageUrl: 'assets/images/JohnDeerL.png', title: 'John Deer'),
-    GridItem(imageUrl: 'assets/images/SonalikaL.png', title: 'Sonalika'),
   ];
 
   @override

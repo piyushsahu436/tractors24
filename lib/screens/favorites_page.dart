@@ -20,7 +20,7 @@ class _FavouriteState extends State<Favourite> {
             image: DecorationImage(image:AssetImage('assets/images/vector7.png'),
                 fit: BoxFit.cover)
         ),
-        child: headerTemp(text: 'F'),
+        child: headerTemp(text: 'Favourite'),
       ) ,
     );
   }
