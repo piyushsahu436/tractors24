@@ -1,8 +1,10 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/auth/login_password.dart';
+import 'package:tractors24/screens/Wishlist.dart';
 import 'package:tractors24/screens/dealer_dashboard/emi_cal.dart';
 import 'package:tractors24/screens/faq_screen.dart';
 import 'package:tractors24/screens/notification.dart';
@@ -75,10 +77,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Logout failed: ${e.toString()}")),
-          );
-      }
+        SnackBar(content: Text("Logout failed: ${e.toString()}")),
+      );
     }
+  }
 
   // Custom MenuListTile Widget
   Widget _buildMenuListTile({
@@ -160,100 +162,91 @@ class _CustomDrawerState extends State<CustomDrawer> {
               ),
               const SizedBox(height: 4),
 
-              _buildMenuListTile(
-                icon: Icons.favorite_outline,
-                title: 'My Favourites',
-                onTap: () {
-                  Navigator.push(
-                      (context),
-                      MaterialPageRoute(
-                          builder: (context) =>const Favourite()));
-                },
-              ),
-              const SizedBox(height: 4),
-              const Divider(
-                color: Colors.grey,
-                thickness: 1.0,
-                indent: 16.0,
-                endIndent: 16.0,
-              ),
-              const SizedBox(height: 4),
-              _buildMenuListTile(
-                icon: Icons.calculate,
-                title: 'EMI Calculator',
-                onTap: () {
-                  Navigator.push(
-                      (context),
-                      MaterialPageRoute(
-                          builder: (context) => const EMICalculatorScreen()));
-                },
-              ),
-              _buildMenuListTile(
-                icon: Icons.favorite_outline,
-                title: 'My Favourites',
-                onTap: () {
-                  Navigator.push(
-                      (context),
-                      MaterialPageRoute(
-                          builder: (context) =>const Favourite()));
-                },
-              ),
-              const SizedBox(height: 4),
-              _buildMenuListTile(
-                icon: Icons.favorite_outline,
-                title: 'News',
-                onTap: () {
-                  Navigator.push(
-                      (context),
-                      MaterialPageRoute(
-                          builder: (context) =>const News()));
-                },
-              ),
-              const SizedBox(height: 4),
-              _buildMenuListTile(
-                icon: Icons.share,
-                title: 'Share App',
-                onTap: () {},
-              ),
-              const SizedBox(height: 4),
-              _buildMenuListTile(
-                icon: Icons.reviews,
-                title: 'Testimonials',
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Testimonials()));
-                },
-              ),
-              const SizedBox(height: 4),
-              _buildMenuListTile(
-                icon: Icons.question_answer,
-                title: 'Frequently Asked Questions',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const FAQScreen()),
-                  );
-                },
-              ),
-              const SizedBox(height: 4),
-              _buildMenuListTile(
-                icon: Icons.policy,
-                title: 'Policies',
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const PoliciesScreen()),
-                  );
-                },
-              ),
-              const SizedBox(height: 4),
-              const Divider(
-                color: Colors.grey,
-                thickness: 1.0,
-                indent: 16.0,
-                endIndent: 16.0,
-              ),
-              const SizedBox(height: 4),
+          _buildMenuListTile(
+            icon: Icons.favorite_outline,
+            title: 'My Favourites',
+            onTap: () {
+              Navigator.push(
+                  (context),
+                  MaterialPageRoute(
+                      builder: (context) =>const Wishlist()));
+            },
+          ),
+          const SizedBox(height: 4),
+          const Divider(
+            color: Colors.grey,
+            thickness: 1.0,
+            indent: 16.0,
+            endIndent: 16.0,
+          ),
+          const SizedBox(height: 4),
+          _buildMenuListTile(
+            icon: Icons.calculate,
+            title: 'EMI Calculator',
+            onTap: () {
+              Navigator.push(
+                  (context),
+                  MaterialPageRoute(
+                      builder: (context) => const EMICalculatorScreen()));
+            },
+          ),
+
+          const SizedBox(height: 4),
+          _buildMenuListTile(
+            icon: Icons.newspaper,
+            title: 'News',
+            onTap: () {
+              Navigator.push(
+                  (context),
+                  MaterialPageRoute(
+                      builder: (context) =>const News()));
+            },
+          ),
+          const SizedBox(height: 4),
+          _buildMenuListTile(
+            icon: Icons.share,
+            title: 'Share App',
+            onTap: () {},
+          ),
+          const SizedBox(height: 4),
+          _buildMenuListTile(
+            icon: Icons.reviews,
+            title: 'Testimonials',
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Testimonials()));
+            },
+          ),
+          const SizedBox(height: 4),
+          _buildMenuListTile(
+            icon: Icons.question_answer,
+            title: 'Frequently Asked Questions',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FAQScreen()),
+              );
+            },
+          ),
+          const SizedBox(height: 4),
+          _buildMenuListTile(
+            icon: Icons.policy,
+            title: 'Policies',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PoliciesScreen()),
+              );
+            },
+          ),
+          const SizedBox(height: 4),
+          const Divider(
+            color: Colors.grey,
+            thickness: 1.0,
+            indent: 16.0,
+            endIndent: 16.0,
+          ),
+          const SizedBox(height: 4),
 // Logout
               ListTile(
                 leading: const Icon(Icons.logout, color: Color(0xFF0A2472), size: 20),

@@ -252,14 +252,19 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                     child: _isUploading
                         ? Center(child: CircularProgressIndicator())
                         : PageView.builder(
-                      itemCount: widget.selectedImages.isNotEmpty ? widget.selectedImages.length : 1,
+                      itemCount: widget.selectedImages.isNotEmpty
+                          ? widget.selectedImages.length
+                          : widget.uploadedUrls.length,
                       itemBuilder: (context, index) {
                         return Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: widget.selectedImages.isNotEmpty
+                              image: widget.selectedImages.isNotEmpty  // Check if local images exist
                                   ? FileImage(widget.selectedImages[index]) as ImageProvider
-                                  : const AssetImage('assets/images/Rectangle 23807.png'),
+                                  : (widget.uploadedUrls.isNotEmpty // Check if uploaded URLs exist
+                                  ? NetworkImage(widget.uploadedUrls[index]) as ImageProvider
+                                  : const AssetImage('assets/images/Rectangle 23807.png')
+                              ),
                               fit: BoxFit.cover,
                             ),
                           ),
