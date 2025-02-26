@@ -270,7 +270,7 @@ class _AllItemsState extends State<AllItems> {
                                             (context),
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                ContactSellerScreen(docid: '',))); // Handle button press
+                                                    ContactSellerScreen(docid: '',))); // Handle button press
                                       },
                                       style: TextButton.styleFrom(
                                         backgroundColor:
