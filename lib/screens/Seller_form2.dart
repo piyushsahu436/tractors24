@@ -227,20 +227,16 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF003B8F),
+        foregroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'Seller Form',
+          'Add Post',
           style: GoogleFonts.roboto(
-            fontSize: 32,
-            fontWeight: FontWeight.w600,
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -596,7 +592,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
                       ),
                     ),
                   ),
-                  SizedBox(height: size.height * 0.01),
+                  SizedBox(height: size.height * 0.03),
                   // Send Inquiry Button
                   SizedBox(
                     width: double.infinity,

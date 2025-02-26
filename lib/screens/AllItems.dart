@@ -63,7 +63,7 @@ class _AllItemsState extends State<AllItems> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   GestureDetector(
+                  GestureDetector(
                     onTap: () {
                       Navigator.push(
                           (context),
