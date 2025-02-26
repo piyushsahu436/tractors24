@@ -616,32 +616,6 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     ),
                   ),
                   SizedBox(height: size.height * 0.01),
-                  TextField(
-                    controller: _addresssellerformController,
-                    decoration: InputDecoration(
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          'assets/icons/placeholder.png',
-                          width: 24,
-                          height: 24,
-                        ),
-                      ),
-                      hintText: 'Address',
-                      hintStyle: GoogleFonts.roboto(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.01),
 
                   // Send Inquiry Button
                   SizedBox(
@@ -685,8 +659,10 @@ class _SellerformScreenState extends State<SellerformScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
+
                     ),
                   ),
+                  SizedBox(height: size.height * 0.03),
                 ],
               ),
             ),
