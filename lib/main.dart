@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:rive/rive.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
@@ -62,38 +63,33 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Tractors 24'),
+      home: const anime(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+late RiveAnimationController _controller;
+
 
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3), // Set duration to 3 seconds
-    );
+    _controller = SimpleAnimation('Timeline 1');
 
     // Start the animation and navigate on completion
-    _controller.forward().whenComplete(() {
+    Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
-
-        MaterialPageRoute(builder: (context) =>   SplashScreen5()),
-
+        MaterialPageRoute(builder: (context) => const search(pincode: '452009')),
       );
     });
   }
@@ -107,22 +103,14 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Apply the FadeTransition for the twinkle effect
-            FadeTransition(
-              opacity: _controller.drive(CurveTween(curve: Curves.easeInOut)),
-              child: Image.asset(
-                'assets/images/firstt.png',
-                height: 300,
-                width: 350,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ],
-        ),
+      body: Stack(
+        children: [
+          // At the end of the video i will show you
+          // How to create that animation on Rive
+          // Let's add blur
+
+          RiveAnimation.asset("assets/animations/splash", fit: BoxFit.cover,controllers: [_controller],),
+        ], // Stack
       ),
     );
   }
