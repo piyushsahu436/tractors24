@@ -317,7 +317,7 @@ class Favourites extends StatelessWidget {
                                                 ),
                                               ),
                                             ],
-                                          ),f
+                                          ),
                                           const SizedBox(height: 5),
                                           Expanded(
                                             child: Text(
