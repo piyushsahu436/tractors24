@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+
 class Wishlist extends StatefulWidget {
   const Wishlist({super.key});
 

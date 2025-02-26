@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -54,47 +53,31 @@ class liveFavourites extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CarDetailsPage(
-                            SellPrice: tractor['expectedPrice']
-                                ?.toString() ??
-                                '',
-                            brand: tractor['brand'] ?? '',
-                            model: tractor['model'] ?? '',
-                            RegYear:
-                            tractor['registrationYear'] ?? '',
-                            Pincode:
-                            tractor['pincode']?.toString() ?? '',
-                            HorsePower:
-                            tractor['horsePower']?.toString() ??
-                                '',
-                            Hours: tractor['hoursDriven'] ?? '',
-                            RegNum:
-                            tractor['registrationNumber'] ?? '',
-                            InsStatus:
-                            tractor['insuranceStatus'] ?? '',
-                            RearTire: tractor['rearTyreSize'] ?? '',
-                            Address: tractor['location'] ?? '',
-                            Break: tractor['brakes'] ?? '',
-                            PTO: tractor['ptoHP'] ?? '',
-                            CC: tractor['capacityCC'] ?? '',
-                            Cooling: tractor['coolingSystem'] ?? '',
-                            LiftingCapacity:
-                            tractor['liftingCapacity'] ?? '',
-                            SteeringType:
-                            tractor['steeringType'] ?? '',
-                            ClutchType: tractor['Clutch Type'] ?? '',
-                            OilCap: tractor['capacity'] ?? '',
-                            RunningKM: tractor['Running KM'] ?? '',
-                            Fuel: tractor['fuelType'] ?? '',
-                            tractorId: tractor['tractorId'] ?? '',
-                            imageUrls:
-                            (tractor['images'] as List<dynamic>?)
-                                ?.map((e) => e.toString())
-                                .toList() ??
-                                [],
-                            description: tractor['description'] ?? '',
-                            state: tractor['state'] ?? "",
-                            safetyfeature:
-                            tractor['safetyFeatures'] ?? "",
+                                SellPrice: tractor['sellPrice'],
+                                brand: tractor['brand'],
+                                model: tractor['model'],
+                                RegYear: tractor['registrationYear'],
+                                Pincode: tractor['pincode'],
+                                HorsePower: tractor['horsePower'],
+                                Hours: tractor['hours'],
+                                RegNum: tractor['registrationNumber'],
+                                InsStatus: tractor['insuranceStatus'],
+                                RearTire: tractor['rearTyre'],
+                                Address: tractor['state'],
+                                Break: tractor['break'],
+                                PTO: tractor['Pto'],
+                                CC: tractor['CC'],
+                                Cooling: tractor['Cooling'],
+                                LiftingCapacity: tractor['Lifting Capacity'],
+                                SteeringType: tractor['Steering Type'],
+                                ClutchType: tractor['Clutch Type'],
+                                OilCap: tractor['Engine Oil Capacity'],
+                                RunningKM: tractor['Running KM'],
+                                description: tractor['description'] ?? '',
+                                state: tractor['state'] ?? "",
+                                Fuel: tractor['Fuel'],
+                                tractorId: tractor['tractorId'],
+                            safetyfeature: tractor['safetyFeatures'] ?? "",
                             warrenty: tractor['warranty'] ?? "",
                             color: tractor['color'] ?? "",
                             accessories: tractor['accessories'] ?? "",
@@ -105,10 +88,10 @@ class liveFavourites extends StatelessWidget {
                             gearbox: tractor['gearBox'] ?? "",
                             torque: '' ?? "",
                             fronttyre: tractor['frontTyreSize'],
-                            clutch: tractor['clutch'] ?? "",
-                            pincode: tractor['pincode'] ?? " ",
+                            clutch: tractor['clutch']?? "",
+                            pincode: tractor['pincode']?? " ",
                             docId: docId,
-                          )));
+                              )));
                 },
                 child: Container(
                   height: size.height * 0.17,
@@ -174,9 +157,8 @@ class liveFavourites extends StatelessWidget {
                                   const SizedBox(width: 4),
                                   Expanded(
                                     child: Text(
-                                        '${tractor['hours'] ?? 'Unknown'} hr',
-
-                                        style: GoogleFonts.roboto(
+                                      '${tractor['hours']} hr' ?? 'Unknown',
+                                      style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
                                           color: Colors.black),
@@ -187,9 +169,8 @@ class liveFavourites extends StatelessWidget {
                               const SizedBox(height: 5),
                               Expanded(
                                 child: Text(
-                              '₹${tractor['sellPrice'] ?? 'Unknown'}',
-
-              style: GoogleFonts.roboto(
+                                  '₹${tractor['sellPrice']}' ?? 'Unknown',
+                                  style: GoogleFonts.roboto(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20,
                                       color: Colors.black),
@@ -399,7 +380,6 @@ class pendingFavourites extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
-
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(10),

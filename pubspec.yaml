@@ -61,6 +61,10 @@ dependencies:
   csv: ^6.0.0
   lottie: ^3.3.1
   rive: ^0.13.20
+  dropdown_search: ^6.0.2
+  flutter_typeahead: ^5.2.0
+  searchfield: ^1.2.4
+  drop_down_search_field: ^1.1.2+2
 
 
 dev_dependencies:
