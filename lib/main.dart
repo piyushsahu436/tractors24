@@ -15,6 +15,7 @@ import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/loanEnquire.dart';
 import 'package:tractors24/screens/new_password.dart';
 import 'package:tractors24/screens/recommedWidget.dart';
+import 'package:tractors24/screens/test.dart';
 import 'package:tractors24/screens/update_profile_screen.dart';
 import 'package:tractors24/screens/contact_seller.dart';
 import 'package:tractors24/screens/profile_screen.dart';
@@ -91,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       Navigator.pushReplacement(
         context,
 
-        MaterialPageRoute(builder: (context) => GridViewBuilderWidget(itemCount: 50,category: 'popular',)),
+        MaterialPageRoute(builder: (context) =>   SplashScreen5()),
 
       );
     });
