@@ -23,23 +23,23 @@ class SellerformScreen extends StatefulWidget {
 class _SellerformScreenState extends State<SellerformScreen> {
   final TextEditingController brandController = TextEditingController();
   final TextEditingController _modelNumbersellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _registrationyearsellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _horsepowersellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _hourssellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _registratiosellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _insurancesellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _reartyresellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _pincodesellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _addresssellerformController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _amountCont = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   List<String> uploadedUrls = [];
@@ -232,29 +232,29 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     child: _isUploading
                         ? Center(child: CircularProgressIndicator())
                         : PageView.builder(
-                            itemCount: selectedImages.isNotEmpty
-                                ? selectedImages.length
-                                : uploadedUrls.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: selectedImages
-                                            .isNotEmpty // Check if local images exist
-                                        ? FileImage(selectedImages[index])
-                                            as ImageProvider
-                                        : (uploadedUrls
-                                                .isNotEmpty // Check if uploaded URLs exist
-                                            ? NetworkImage(uploadedUrls[index])
-                                                as ImageProvider
-                                            : const AssetImage(
-                                                'assets/images/Rectangle 23807.png')),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              );
-                            },
+                      itemCount: selectedImages.isNotEmpty
+                          ? selectedImages.length
+                          : uploadedUrls.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: selectedImages
+                                  .isNotEmpty // Check if local images exist
+                                  ? FileImage(selectedImages[index])
+                              as ImageProvider
+                                  : (uploadedUrls
+                                  .isNotEmpty // Check if uploaded URLs exist
+                                  ? NetworkImage(uploadedUrls[index])
+                              as ImageProvider
+                                  : const AssetImage(
+                                  'assets/images/Rectangle 23807.png')),
+                              fit: BoxFit.cover,
+                            ),
                           ),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 Positioned(
@@ -403,7 +403,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       setState(() {
                         selectedYear = value;
                       });
-                      },
+                    },
                   ),
                   SizedBox(height: size.height * 0.01),
 
@@ -653,22 +653,22 @@ class _SellerformScreenState extends State<SellerformScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SellerFormScreen2(
-                                      pincode: _pincodesellerformController,
-                                      brand: selectedBrand ?? '',
-                                      model: selectedModel ?? '',
-                                      horsePower:
-                                          _horsepowersellerformController,
-                                      RegNum: _registratiosellerformController,
-                                      RegistrationYear:
-                                          selectedYear ?? '',
-                                      Hours: _hourssellerformController,
-                                      RearTyre: _reartyresellerformController,
-                                      InStatus: _insurancesellerformController,
-                                      Address: _addresssellerformController,
-                                      amount: _amountCont,
-                                      uploadedUrls: uploadedUrls,
-                                      selectedImages: selectedImages,
-                                    )));
+                                  pincode: _pincodesellerformController,
+                                  brand: selectedBrand ?? '',
+                                  model: selectedModel ?? '',
+                                  horsePower:
+                                  _horsepowersellerformController,
+                                  RegNum: _registratiosellerformController,
+                                  RegistrationYear:
+                                  selectedYear ?? '',
+                                  Hours: _hourssellerformController,
+                                  RearTyre: _reartyresellerformController,
+                                  InStatus: _insurancesellerformController,
+                                  Address: _addresssellerformController,
+                                  amount: _amountCont,
+                                  uploadedUrls: uploadedUrls,
+                                  selectedImages: selectedImages,
+                                )));
                         // Implement send inquiry logic
                       },
                       style: ElevatedButton.styleFrom(
