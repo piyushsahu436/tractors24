@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const anime(),
+      home:  MyHomePage(),
     );
   }
 }
@@ -81,10 +81,10 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     _controller = SimpleAnimation('Timeline 1');
 
     // Start the animation and navigate on completion
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 6), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const search(pincode: '452009')),
+        MaterialPageRoute(builder: (context) => const SplashScreen5()),
       );
     });
   }
@@ -110,3 +110,4 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     );
   }
 }
+
