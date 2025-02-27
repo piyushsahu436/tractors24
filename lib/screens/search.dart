@@ -272,6 +272,8 @@ class _searchState extends State<search> {
   TextEditingController modelController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController cityController = TextEditingController();
+  bool isDropdownOpen = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -332,38 +334,60 @@ class _searchState extends State<search> {
                       children: [
                   Row(
                   children: [
-                    Expanded(
-                      child: DropDownSearchField<String>(
-                        suggestionsCallback: (pattern) async {
-                          return brands
-                              .where((brand) => brand.toLowerCase().contains(pattern.toLowerCase()))
-                              .toList();
-                        },
-                        textFieldConfiguration: TextFieldConfiguration(
-                          controller:brandController,
-                      
+                  Expanded(
+                  child: GestureDetector(
+                      onTap: () {
+                setState(() {
+                isDropdownOpen = !isDropdownOpen; // Toggle animation state
+                });
+                },
+                    child: DropDownSearchField<String>(
+                      suggestionsCallback: (pattern) async {
+                        return brands
+                            .where((brand) => brand.toLowerCase().contains(pattern.toLowerCase()))
+                            .toList();
+                      },
+                      textFieldConfiguration: TextFieldConfiguration(
+                        controller: brandController,
+                        decoration: InputDecoration(
+                          hintText: "Brand",
+                          hintStyle: GoogleFonts.anybody(),
+                          prefixIcon: AnimatedRotation(
+                            turns: isDropdownOpen ? 0.5 : 0, // Rotate 180° when open
+                            duration: Duration(milliseconds: 300),
+                            child: Icon(Icons.keyboard_arrow_down_outlined),
+                          ),
                         ),
-                        itemBuilder: (context, suggestion) {
-                          return ListTile(
-                            title: Text(suggestion),
-                          );
-                        },
-                        onSuggestionSelected: (suggestion) {
-                          setState(() {
-                            selectedBrand = suggestion;
-                            brandController.text = suggestion;
-                            selectedModel = null;
-                            selectedState = null;
-                            selectedCity = null;
-                            models.clear();
-                            states.clear();
-                            cities.clear();
-                          });
-                          fetchModels(suggestion);
-                        },
-                        displayAllSuggestionWhenTap: true,
-                        isMultiSelectDropdown: false,
                       ),
+                      itemBuilder: (context, suggestion) {
+                        return ListTile(
+                          title: Text(suggestion),
+                        );
+                      },
+                      onSuggestionSelected: (suggestion) {
+                        setState(() {
+                          selectedBrand = suggestion;
+                          brandController.text = suggestion;
+                          selectedModel = null;
+                          selectedState = null;
+                          selectedCity = null;
+                          models.clear();
+                          states.clear();
+                          cities.clear();
+                        });
+                        fetchModels(suggestion);
+                      },
+                      displayAllSuggestionWhenTap: true,
+                      isMultiSelectDropdown: false,
+                    ),
+
+                ),
+              ),
+                    Container(
+                      width: 1.5, // Thickness of the divider
+                      height: 30, // Height to match TextField height
+                      color: Colors.grey, // Color of the divider
+                      margin: EdgeInsets.symmetric(horizontal: 12), // Space around divider
                     ),
                     Expanded(
                       child: DropDownSearchField<String>(
@@ -374,6 +398,11 @@ class _searchState extends State<search> {
                         },
                         textFieldConfiguration: TextFieldConfiguration(
                           controller:modelController,
+                          decoration: InputDecoration(
+                            prefixIcon:Icon(Icons.keyboard_arrow_down) ,
+                            hintText: 'Model',
+                            hintStyle: GoogleFonts.anybody(),
+                          )
                       
                         ),
                         itemBuilder: (context, suggestion) {
@@ -411,6 +440,11 @@ class _searchState extends State<search> {
                           },
                           textFieldConfiguration: TextFieldConfiguration(
                             controller:stateController,
+                            decoration: InputDecoration(
+                              hintText: "State",
+                              hintStyle: GoogleFonts.anybody(),
+                              prefixIcon: Icon(Icons.keyboard_arrow_down_outlined),
+                            )
                         
                           ),
                           itemBuilder: (context, suggestion) {
@@ -431,7 +465,13 @@ class _searchState extends State<search> {
                           isMultiSelectDropdown: false,
                         ),
                       ),
-                      const VerticalDivider(color: Colors.grey),
+
+                      Container(
+                        width: 1.5, // Thickness of the divider
+                        height: 30, // Height to match TextField height
+                        color: Colors.grey, // Color of the divider
+                        margin: EdgeInsets.symmetric(horizontal: 12), // Space around divider
+                      ),
                       Expanded(
                         child: DropDownSearchField<String>(
                           suggestionsCallback: (pattern) async {
@@ -441,6 +481,11 @@ class _searchState extends State<search> {
                           },
                           textFieldConfiguration: TextFieldConfiguration(
                             controller:cityController,
+                            decoration: InputDecoration(
+                              hintText: 'City',
+                              hintStyle: GoogleFonts.anybody(),
+                              prefixIcon: Icon(Icons.keyboard_arrow_down_outlined),
+                            )
                         
                           ),
                           itemBuilder: (context, suggestion) {
