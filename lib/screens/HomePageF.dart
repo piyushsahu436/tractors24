@@ -171,7 +171,7 @@ class _HomePageFState extends State<HomePageF> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          search(pincode: _pincode ?? ""),
+                                          search(),
                                     ), // Navigate to your new page
                                   );
                                 },

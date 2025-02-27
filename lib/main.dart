@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     Future.delayed(const Duration(seconds: 6), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>  SplashScreen5( )),
+        MaterialPageRoute(builder: (context) => const SplashScreen5()),
       );
     });
   }
@@ -115,3 +115,4 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     );
   }
 }
+
