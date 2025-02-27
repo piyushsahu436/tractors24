@@ -4,10 +4,123 @@ import 'package:drop_down_search_field/drop_down_search_field.dart';
 import 'package:rive/rive.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/screens/LanguagePage.dart';
 import 'package:tractors24/screens/search.dart';
 
+import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
+
+import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
+
+class FullScreenAnimation extends StatefulWidget {
+  final Widget page;
+  final String image;
+
+  const FullScreenAnimation({super.key, required this.page, required this.image});
+
+  @override
+  _FullScreenAnimationState createState() => _FullScreenAnimationState();
+}
+
+class _FullScreenAnimationState extends State<FullScreenAnimation> {
+  StateMachineController? _stateMachineController;
+  SMITrigger? _trigger;
+
+
+  void _onRiveInit(Artboard artboard) {
+    print('✅ Artboard loaded successfully');
+
+    final controller = StateMachineController.fromArtboard(artboard, 'State Machine 1');
+    final SMIInput<dynamic>? input = controller?.findInput<dynamic>('Trigger 1');
+    if (input != null && input is SMITrigger) {
+      _trigger = input;  // Assigning the correct type
+      print("✅ Trigger assigned successfully");
+      Future.delayed(Duration(milliseconds: 100), () {
+        _trigger!.fire();
+      });
+    } else {
+      print("❌ Found input but it's not an SMITrigger: $input");
+    }
+
+
+
+    if (controller == null) {
+      print('❌ State Machine Controller not found');
+      return;
+    }
+
+    artboard.addController(controller);
+
+    // Print all available inputs
+    for (var input in controller.inputs) {
+      print("🔹 Input Name: '${input.name}', Type: ${input.runtimeType}");
+    }
+
+    _trigger = controller.findInput<SMITrigger>('Trigger 1') as SMITrigger?;
+
+    if (_trigger != null) {
+      print("✅ Trigger found: $_trigger");
+      Future.delayed(Duration(milliseconds: 100), () {
+        _trigger!.fire();
+      });
+    } else {
+      print("❌ Trigger still null");
+    }
+
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Navigate after animation delay
+    Future.delayed(const Duration(milliseconds: 650), () {
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            transitionDuration: Duration(milliseconds: 650), // Smooth transition
+            pageBuilder: (context, animation, secondaryAnimation) => widget.page,
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          SizedBox.expand(
+            child: RiveAnimation.asset(
+              'assets/animations/${widget.image}',
+              fit: BoxFit.cover,
+              onInit: _onRiveInit,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
 class anime extends StatefulWidget {
-  const anime({super.key});
+  const anime({super.key, required this.image, required this.seconds, required this.nextClass});
+
+  final String image;
+  final int seconds;
+  final Widget nextClass;
 
   @override
   State<anime> createState() => _animeState();
@@ -22,10 +135,10 @@ class _animeState extends State<anime> {
     super.initState();
     __controller = SimpleAnimation('Timeline 1');// Check animation name in Rive file
 
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed( Duration(seconds: widget.seconds), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const search()),
+        MaterialPageRoute(builder: (context) =>  widget.nextClass),
       );
     });
   }
@@ -40,7 +153,7 @@ class _animeState extends State<anime> {
           // How to create that animation on Rive
           // Let's add blur
 
-          RiveAnimation.asset("assets/animations/splash", fit: BoxFit.cover,controllers: [__controller],),
+          RiveAnimation.asset("assets/animations/${widget.image}", fit: BoxFit.cover,controllers: [__controller],),
         ], // Stack
       ),
     );
@@ -48,6 +161,8 @@ class _animeState extends State<anime> {
 }
 
 class TractorFilterPage extends StatefulWidget {
+  const TractorFilterPage({super.key});
+
   @override
   _TractorFilterPageState createState() => _TractorFilterPageState();
 }

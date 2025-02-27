@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/auth/sign_up1.dart';
 import 'package:tractors24/screens/HomePageF.dart';
@@ -37,6 +38,7 @@ class _LoginPage2 extends State<Login2> {
       });
     });
   }
+
   Future<void> _login(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
 
@@ -65,6 +67,9 @@ class _LoginPage2 extends State<Login2> {
         builder: (_) => userType == 'Customer' ? const LandingPage() :  DealerDashboard(),
       );
 
+      // ✅ Save login status in SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isFirstTime', false);
       Navigator.pushReplacement(context, route);
 
     } on FirebaseAuthException catch (e) {
