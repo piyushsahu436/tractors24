@@ -124,6 +124,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
       },
     );
   }
+
   List<Map<String, dynamic>> priceData = [];
   Set<String> brands = {}; // Use Set to keep unique brands
   List<String> models = [];
@@ -139,9 +140,11 @@ class _SellerformScreenState extends State<SellerformScreen> {
     super.initState();
     loadCSV();
   }
+
   Future<void> loadCSV() async {
     final rawData = await rootBundle.loadString('assets/data/priceSheet.csv');
-    List<List<dynamic>> csvTable = const CsvToListConverter(eol: "\n").convert(rawData);
+    List<List<dynamic>> csvTable =
+        const CsvToListConverter(eol: "\n").convert(rawData);
 
     if (csvTable.isEmpty) {
       print("⚠️ CSV is empty or not loaded correctly!");
@@ -213,14 +216,14 @@ class _SellerformScreenState extends State<SellerformScreen> {
 
   // 📌 Get price based on brand, model, and year
   void fetchPrice() {
-    if (selectedBrand == null || selectedModel == null || selectedYear == null) return;
+    if (selectedBrand == null || selectedModel == null || selectedYear == null)
+      return;
 
-    print("🔍 Searching: Brand = $selectedBrand, Model = $selectedModel, Year = $selectedYear");
+    print(
+        "🔍 Searching: Brand = $selectedBrand, Model = $selectedModel, Year = $selectedYear");
 
     final match = priceData.firstWhere(
-          (row) =>
-      row['MAKE'] == selectedBrand &&
-          row['MODEL'] == selectedModel,
+      (row) => row['MAKE'] == selectedBrand && row['MODEL'] == selectedModel,
       orElse: () => {},
     );
 
@@ -268,20 +271,24 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     child: _isUploading
                         ? Center(child: CircularProgressIndicator())
                         : PageView.builder(
-                      itemCount: selectedImages.isNotEmpty ? selectedImages.length : 1,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: selectedImages.isNotEmpty
-                                  ? FileImage(selectedImages[index]) as ImageProvider
-                                  : const AssetImage('assets/images/Rectangle 23807.png'),
-                              fit: BoxFit.cover,
-                            ),
+                            itemCount: selectedImages.isNotEmpty
+                                ? selectedImages.length
+                                : 1,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: selectedImages.isNotEmpty
+                                        ? FileImage(selectedImages[index])
+                                            as ImageProvider
+                                        : const AssetImage(
+                                            'assets/images/Rectangle 23807.png'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   ),
                 ),
                 Positioned(
