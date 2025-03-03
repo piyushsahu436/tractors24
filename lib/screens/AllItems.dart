@@ -270,7 +270,14 @@ class _AllItemsState extends State<AllItems> {
                                             (context),
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ContactSellerScreen(docid: '',))); // Handle button press
+                                                    ContactSellerScreen(
+                                                      docid: docId,
+                                                      brand: '${tractor['brand']}',
+                                                      price: '₹${tractor['expectedPrice']}',
+                                                      location:
+                                                      tractor['location'] ?? 'Unknown',
+                                                      model: ' ${tractor['model']}',
+                                                    ),)); // Handle button press
                                       },
                                       style: TextButton.styleFrom(
                                         backgroundColor:

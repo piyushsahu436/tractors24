@@ -100,7 +100,14 @@ class CarDetailsPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                       ContactSellerScreen(docid: docId)));
+                          ContactSellerScreen(
+                            docid: docId,
+                            brand: brand,
+                            price: SellPrice,
+                            location:
+                            Address,
+                            model: model,
+                          ),));
             },
             style: ElevatedButton.styleFrom(
               elevation: 0,

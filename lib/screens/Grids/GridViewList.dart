@@ -9,13 +9,16 @@ import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/contact_seller.dart';
 
 class GridViewBuilderWidget extends StatelessWidget {
-  GridViewBuilderWidget({super.key, required this.itemCount, required this.category, required this.scrolled});
+  GridViewBuilderWidget(
+      {super.key,
+      required this.itemCount,
+      required this.category,
+      required this.scrolled});
   final int itemCount;
   final String category;
   final ScrollPhysics scrolled;
   final CollectionReference tractorsCollection =
-  FirebaseFirestore.instance.collection('tractors');
-
+      FirebaseFirestore.instance.collection('tractors');
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,9 @@ class GridViewBuilderWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
       child: StreamBuilder<QuerySnapshot>(
-        stream: tractorsCollection.where('category', isEqualTo: category).snapshots(),
+        stream: tractorsCollection
+            .where('category', isEqualTo: category)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -48,14 +53,16 @@ class GridViewBuilderWidget extends StatelessWidget {
               mainAxisSpacing: 10.0,
               childAspectRatio: 0.59,
             ),
-            itemCount: itemCount > tractors.length ? tractors.length : itemCount,
+            itemCount:
+                itemCount > tractors.length ? tractors.length : itemCount,
             itemBuilder: (context, index) {
               var tractor = tractors[index].data() as Map<String, dynamic>;
               var docSnapshot = snapshot.data!.docs[index];
               String docId = docSnapshot.id;
               List<String> imageUrls = (tractor['images'] as List<dynamic>?)
-                  ?.map((e) => e.toString())
-                  .toList() ?? [];
+                      ?.map((e) => e.toString())
+                      .toList() ??
+                  [];
               // var tid  = tractorsCollection.doc().get();
 
               return GestureDetector(
@@ -64,52 +71,52 @@ class GridViewBuilderWidget extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CarDetailsPage(
-                            SellPrice:
-                            tractor['expectedPrice']?.toString() ?? '',
-                            brand: tractor['brand'] ?? '',
-                            model: tractor['model'] ?? '',
-                            RegYear: tractor['registrationYear'] ?? '',
-                            Pincode: tractor['pincode']?.toString() ?? '',
-                            HorsePower:
-                            tractor['horsePower']?.toString() ?? '',
-                            Hours: tractor['hoursDriven'] ?? '',
-                            RegNum: tractor['registrationNumber'] ?? '',
-                            InsStatus: tractor['insuranceStatus'] ?? '',
-                            RearTire: tractor['rearTyreSize'] ?? '',
-                            Address: tractor['location'] ?? '',
-                            Break: tractor['brakes'] ?? '',
-                            PTO: tractor['ptoHP'] ?? '',
-                            CC: tractor['capacityCC'] ?? '',
-                            Cooling: tractor['coolingSystem'] ?? '',
-                            LiftingCapacity:
-                            tractor['liftingCapacity'] ?? '',
-                            SteeringType: tractor['steeringType'] ?? '',
-                            ClutchType: tractor['Clutch Type'] ?? '',
-                            OilCap: tractor['capacity'] ?? '',
-                            RunningKM: tractor['Running KM'] ?? '',
-                            Fuel: tractor['fuelType'] ?? '',
-                            tractorId: tractor['tractorId'] ?? '',
-                            imageUrls: (tractor['images'] as List<dynamic>?)
-                                ?.map((e) => e.toString())
-                                .toList() ??
-                                [],
-                            description: tractor['description'] ?? '',
-                            state: tractor['state'] ?? "",
-                            safetyfeature: tractor['safetyFeatures'] ?? "",
-                            warrenty: tractor['warranty'] ?? "",
-                            color: tractor['color'] ?? "",
-                            accessories: tractor['accessories'] ?? "",
-                            rpm: tractor['rpm'] ?? "",
-                            ptodirection: '' ?? "",
-                            battery: tractor['battery'] ?? "",
-                            cylinder: tractor['noOfCylinders'] ?? "",
-                            gearbox: tractor['gearBox'] ?? "",
-                            torque: '' ?? "",
-                            fronttyre: tractor['frontTyreSize'],
-                            clutch: tractor['clutch']?? "",
-                            pincode: tractor['pincode']?? " ",
-                            docId: docId,
-                          )));
+                                SellPrice:
+                                    tractor['expectedPrice']?.toString() ?? '',
+                                brand: tractor['brand'] ?? '',
+                                model: tractor['model'] ?? '',
+                                RegYear: tractor['registrationYear'] ?? '',
+                                Pincode: tractor['pincode']?.toString() ?? '',
+                                HorsePower:
+                                    tractor['horsePower']?.toString() ?? '',
+                                Hours: tractor['hoursDriven'] ?? '',
+                                RegNum: tractor['registrationNumber'] ?? '',
+                                InsStatus: tractor['insuranceStatus'] ?? '',
+                                RearTire: tractor['rearTyreSize'] ?? '',
+                                Address: tractor['location'] ?? '',
+                                Break: tractor['brakes'] ?? '',
+                                PTO: tractor['ptoHP'] ?? '',
+                                CC: tractor['capacityCC'] ?? '',
+                                Cooling: tractor['coolingSystem'] ?? '',
+                                LiftingCapacity:
+                                    tractor['liftingCapacity'] ?? '',
+                                SteeringType: tractor['steeringType'] ?? '',
+                                ClutchType: tractor['Clutch Type'] ?? '',
+                                OilCap: tractor['capacity'] ?? '',
+                                RunningKM: tractor['Running KM'] ?? '',
+                                Fuel: tractor['fuelType'] ?? '',
+                                tractorId: tractor['tractorId'] ?? '',
+                                imageUrls: (tractor['images'] as List<dynamic>?)
+                                        ?.map((e) => e.toString())
+                                        .toList() ??
+                                    [],
+                                description: tractor['description'] ?? '',
+                                state: tractor['state'] ?? "",
+                                safetyfeature: tractor['safetyFeatures'] ?? "",
+                                warrenty: tractor['warranty'] ?? "",
+                                color: tractor['color'] ?? "",
+                                accessories: tractor['accessories'] ?? "",
+                                rpm: tractor['rpm'] ?? "",
+                                ptodirection: '' ?? "",
+                                battery: tractor['battery'] ?? "",
+                                cylinder: tractor['noOfCylinders'] ?? "",
+                                gearbox: tractor['gearBox'] ?? "",
+                                torque: '' ?? "",
+                                fronttyre: tractor['frontTyreSize'],
+                                clutch: tractor['clutch'] ?? "",
+                                pincode: tractor['pincode'] ?? " ",
+                                docId: docId,
+                              )));
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -125,7 +132,6 @@ class GridViewBuilderWidget extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-
                       ClipRRect(
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(12.0),
@@ -134,7 +140,8 @@ class GridViewBuilderWidget extends StatelessWidget {
                           height: size.height * 0.15,
                           width: double.infinity,
                           decoration: const BoxDecoration(
-                            borderRadius:  BorderRadius.vertical(top: Radius.circular(12.0)),
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(12.0)),
                           ),
                           child: Stack(
                             fit: StackFit.expand,
@@ -142,7 +149,8 @@ class GridViewBuilderWidget extends StatelessWidget {
                               // Blurred Background Image
                               if (imageUrls.isNotEmpty)
                                 ImageFiltered(
-                                  imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                  imageFilter:
+                                      ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                                   child: Image.network(
                                     imageUrls[0],
                                     fit: BoxFit.cover,
@@ -154,9 +162,12 @@ class GridViewBuilderWidget extends StatelessWidget {
                               // Foreground Image with Proper Fit
                               Center(
                                 child: Image.network(
-                                  imageUrls.isNotEmpty ? imageUrls[0] : 'assets/images/default.png',
+                                  imageUrls.isNotEmpty
+                                      ? imageUrls[0]
+                                      : 'assets/images/default.png',
                                   fit: BoxFit.contain, // Keeps aspect ratio
-                                  width: size.width * 0.9, // Adjust width as needed
+                                  width: size.width *
+                                      0.9, // Adjust width as needed
                                   height: size.height * 0.15, // Adjust height
                                 ),
                               ),
@@ -165,14 +176,17 @@ class GridViewBuilderWidget extends StatelessWidget {
                               Column(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 12),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                           decoration: BoxDecoration(
                                             color: const Color(0xFF003B8F),
-                                            borderRadius: BorderRadius.circular(20),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(5.0),
@@ -190,35 +204,51 @@ class GridViewBuilderWidget extends StatelessWidget {
                                           onTap: () async {
                                             try {
                                               // Get the current user's ID
-                                              String userId = FirebaseAuth.instance.currentUser?.uid ?? 'unknown_user';
-                                              String tractorId = tractors[index].id;
+                                              String userId = FirebaseAuth
+                                                      .instance
+                                                      .currentUser
+                                                      ?.uid ??
+                                                  'unknown_user';
+                                              String tractorId =
+                                                  tractors[index].id;
 
-
-                                              CollectionReference wishlistRef = FirebaseFirestore.instance.collection('wishlists');
+                                              CollectionReference wishlistRef =
+                                                  FirebaseFirestore.instance
+                                                      .collection('wishlists');
 
                                               // Save data in Firestore
-                                              await wishlistRef.doc('$userId-$tractorId').set({
+                                              await wishlistRef
+                                                  .doc('$userId-$tractorId')
+                                                  .set({
                                                 'userId': userId,
                                                 'tractorId': tractorId,
-                                                'timestamp': FieldValue.serverTimestamp(),
+                                                'timestamp': FieldValue
+                                                    .serverTimestamp(),
                                               });
 
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(content: Text('Added to Wishlist!')),
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                    content: Text(
+                                                        'Added to Wishlist!')),
                                               );
                                             } catch (e) {
-                                              print("Error adding to wishlist: $e");
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(content: Text('Failed to add to Wishlist!')),
+                                              print(
+                                                  "Error adding to wishlist: $e");
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                    content: Text(
+                                                        'Failed to add to Wishlist!')),
                                               );
                                             }
                                           },
                                           child: const Image(
-                                            image: AssetImage("assets/images/favIcon.png"),
+                                            image: AssetImage(
+                                                "assets/images/favIcon.png"),
                                             height: 22.5,
                                           ),
                                         ),
-
                                       ],
                                     ),
                                   ),
@@ -228,7 +258,6 @@ class GridViewBuilderWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10.0, vertical: 10),
@@ -315,8 +344,14 @@ class GridViewBuilderWidget extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          ContactSellerScreen(docid: docId,),
+                                      builder: (context) => ContactSellerScreen(
+                                        docid: docId,
+                                        brand: '${tractor['brand']}',
+                                        price: '${tractor['expectedPrice']}',
+                                        location:
+                                            tractor['location'] ?? 'Unknown',
+                                        model: ' ${tractor['model']}',
+                                      ),
                                     ),
                                   );
                                 },
@@ -355,7 +390,6 @@ class GridViewBuilderWidget extends StatelessWidget {
   }
 }
 
-
 class ImageSliderWidget extends StatefulWidget {
   final List<String>? imageUrls;
 
@@ -374,7 +408,7 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
     return Column(
       children: [
         SizedBox(
-          height: size.height*0.25,
+          height: size.height * 0.25,
           child: PageView.builder(
             controller: _pageController,
             itemCount: widget.imageUrls?.length ?? 1, // Avoid null error
@@ -407,10 +441,11 @@ class _ImageSliderWidgetState extends State<ImageSliderWidget> {
                         imageUrl,
                         fit: BoxFit.contain, // Maintains aspect ratio
                         width: MediaQuery.of(context).size.width * 0.9,
-                        height:  size.height*0.25,
+                        height: size.height * 0.25,
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) return child;
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         },
                         errorBuilder: (context, error, stackTrace) {
                           return defaultImage();
