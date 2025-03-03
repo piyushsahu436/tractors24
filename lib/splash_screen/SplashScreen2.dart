@@ -36,7 +36,7 @@ class SplashScreen5 extends StatelessWidget {
                     'Skip',
                     style:  GoogleFonts.roboto(
                       color: Colors.white,
-                      fontSize: 18.0,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -101,7 +101,7 @@ class SplashScreen5 extends StatelessWidget {
                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(width:76,height:4 ,
-                            child: const Image(image: AssetImage("assets/images/Group 1.png"))),
+                            child: const Image(image: AssetImage("assets/images/grp1.png"))),
                       ],
                     ),
                   ),

@@ -239,20 +239,16 @@ class _SellerformScreenState extends State<SellerformScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF003B8F),
+        foregroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'ADD POST',
+          'Add Post',
           style: GoogleFonts.roboto(
-            fontSize: 32,
-            fontWeight: FontWeight.w600,
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -507,7 +503,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
-                          'assets/icons/power.png',
+                          'assets/icons/rupee.png',
                           width: 24,
                           height: 24,
                         ),

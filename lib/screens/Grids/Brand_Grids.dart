@@ -59,7 +59,7 @@ class BrandGrids extends StatelessWidget {
           crossAxisCount: 4, // Number of columns
           crossAxisSpacing: 10.0, // Spacing between columns
           mainAxisSpacing: 20.0, // Spacing between rows
-          childAspectRatio: 0.7, // Aspect ratio of each item
+          childAspectRatio: 0.6, // Aspect ratio of each item
         ),
         itemCount: itemCount, // Number of items
         itemBuilder: (context, index) {
@@ -101,7 +101,7 @@ class BrandGrids extends StatelessWidget {
                         padding: const EdgeInsets.all(5.0),
                         child: Text(item.title,style: GoogleFonts.roboto(
                             fontWeight: FontWeight.w500,
-                            fontSize: 8
+                            fontSize: 12
                         ),),
                       ),
                     ),
