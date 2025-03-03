@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:minio/io.dart';
+import 'package:minio/minio.dart';
 import 'package:tractors24/auth/login_page.dart';
 
 class Testimonials extends StatefulWidget {
@@ -15,7 +21,125 @@ class _TestimonialsState extends State<Testimonials> {
   final TextEditingController _namereview = TextEditingController();
   final TextEditingController _numberreview = TextEditingController();
   final TextEditingController _feedbackreview = TextEditingController();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final ImagePicker _picker = ImagePicker();
+  late File selectedImage;
+  bool _isUploading = false;
+  File? _imageFile;
+
+
+
+  final minio = Minio(
+    endPoint: 'sin1.contabostorage.com',
+    accessKey: '1eb0cbdee363c529fcbde7bf72e08ab3',
+    secretKey: '650b25c6c6612a691a65654dc4ca77b1',
+    useSSL: true,
+  );
+
+  Future<void> _pickImage(ImageSource source) async {
+    final XFile? pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile == null) return;
+
+    setState(() {
+      selectedImage = File(pickedFile.path);
+    });
+  }
+
+// Show image source selection dialog
+  void _showImageSourceDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Select Image Source',
+            style: GoogleFonts.roboto(fontSize: 20),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: Text('Gallery', style: GoogleFonts.roboto()),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: Text('Camera', style: GoogleFonts.roboto()),
+                onTap: () {
+                  Navigator.pop(context);
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> addTestimonial() async {
+    try {
+      // Get the current user's UID
+      setState(() {
+        _isUploading = true;
+      });
+      String? uploadedUrl = await uploadSingleFile(selectedImage);
+      if (uploadedUrl != null) {
+        print("✅ File uploaded: $uploadedUrl");
+      } else {
+        print("❌ Upload failed");
+      }
+
+      String? uid = FirebaseAuth.instance.currentUser?.uid;
+      if (uid == null) {
+        throw 'User not authenticated!';
+      }
+
+      // Generate a new document reference (random ID)
+      DocumentReference docRef =
+      FirebaseFirestore.instance.collection('testimonials').doc();
+      final tractorData = {
+      "name":_namereview.text.trim(),
+      "mobile_number" : _numberreview.text.trim(),
+      "feedback": _feedbackreview.text.trim(),
+      "rating": selectedRating.toInt(),
+      "image": uploadedUrl
+      };
+
+      await docRef.set(tractorData);
+      setState(() {
+        _isUploading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Tractor added successfully!'),
+      ));
+      Navigator.pop(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Failed to add tractor: $e'),
+      ));
+    }
+  }
+
+  Future<String?> uploadSingleFile(File file) async {
+    try {
+      String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+      await minio.fPutObject(
+        'tractor24',
+        fileName,
+        file.path,
+      );
+
+      return 'https://sin1.contabostorage.com/d1fa3867924f4c149226431ef8cbe8ee:tractor24/$fileName';
+    } catch (e) {
+      print("Upload Error: $e");
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +285,7 @@ class _TestimonialsState extends State<Testimonials> {
 
                           const SizedBox(width: 20),
                           // Media Upload
-                          Column(
+                          Column(mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 'Media Upload',
@@ -174,6 +298,7 @@ class _TestimonialsState extends State<Testimonials> {
                               OutlinedButton.icon(
                                 onPressed: () {
                                   // Media picker logic
+                                  _showImageSourceDialog();
                                 },
                                 icon: const Icon(
                                   Icons.upload,
@@ -201,9 +326,7 @@ class _TestimonialsState extends State<Testimonials> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Navigator.pop(context);
-                          },
+                          onPressed: _isUploading ? null : addTestimonial,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF0A2472),
                             padding: const EdgeInsets.symmetric(vertical: 15),
