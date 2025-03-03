@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tractors24/auth/auth_service.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/auth/sign_up1.dart';
 import 'package:tractors24/screens/HomePageF.dart';
@@ -24,6 +25,7 @@ class _LoginPage2 extends State<Login2> {
   final TextEditingController passwordloginController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final AuthService _authService = AuthService();
 
   bool isTermsAccepted = false;
   bool isLoading = false;
@@ -233,42 +235,45 @@ class _LoginPage2 extends State<Login2> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        // Expanded(
+                        //   child: Container(
+                        //     height: size.height * 0.06,
+                        //     child: ElevatedButton(
+                        //       onPressed: () {
+                        //         // Facebook login will be added later
+                        //       },
+                        //       style: ElevatedButton.styleFrom(
+                        //         shape: RoundedRectangleBorder(
+                        //           borderRadius: BorderRadius.circular(10),
+                        //         ),
+                        //       ),
+                        //       child: Row(
+                        //           mainAxisAlignment:
+                        //               MainAxisAlignment.spaceEvenly,
+                        //           children: [
+                        //             Image.asset(
+                        //               "assets/images/_Facebook.png",
+                        //             ),
+                        //             Text(
+                        //               'Facebook',
+                        //               style: GoogleFonts.roboto(
+                        //                   fontWeight: FontWeight.w500,
+                        //                   color: const Color(0xFF61677D)),
+                        //             )
+                        //           ]),
+                        //     ),
+                        //   ),
+                        // ),
+                       // SizedBox(width: size.width * 0.05),
                         Expanded(
                           child: Container(
                             height: size.height * 0.06,
                             child: ElevatedButton(
-                              onPressed: () {
-                                // Facebook login will be added later
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Image.asset(
-                                      "assets/images/_Facebook.png",
-                                    ),
-                                    Text(
-                                      'Facebook',
-                                      style: GoogleFonts.roboto(
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xFF61677D)),
-                                    )
-                                  ]),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: size.width * 0.05),
-                        Expanded(
-                          child: Container(
-                            height: size.height * 0.06,
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  // Google login will be added later
+                                onPressed: () async {
+                                  final user = await _authService.signInWithGoogle();
+                                  if (user != null) {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> LandingPage()));
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -276,6 +281,7 @@ class _LoginPage2 extends State<Login2> {
                                   ),
                                 ),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset("assets/images/_Google.png"),
                                     Text(
