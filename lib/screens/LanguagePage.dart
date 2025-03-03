@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rive/rive.dart' as rive;
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/test.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});
@@ -98,11 +100,14 @@ class _LanguagePageState extends State<LanguagePage> {
               height: size.height * 0.05,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: (){
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                       builder: (context) =>  LoginPage(),),);
+                  anime(image: 'third', seconds: 2, nextClass: LoginPage());
+
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=> FullScreen(nextScreen: LoginPage(), image: 'thirdF')));
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -163,6 +168,66 @@ class _LanguagePageState extends State<LanguagePage> {
           ],
         )
       ],
+    );
+  }
+}
+
+class FullScreen extends StatefulWidget {
+  final Widget nextScreen;
+  final String image;
+
+  const FullScreen({super.key, required this.nextScreen, required this.image});
+
+  @override
+  _FullScreenState createState() => _FullScreenState();
+}
+
+class _FullScreenState extends State<FullScreen> {
+  rive.SMITrigger? _trigger;
+  late rive.RiveAnimationController _controller;
+
+  void _onRiveInit(rive.Artboard artboard) {
+    final controller = rive.StateMachineController.fromArtboard(artboard, 'State Machine 1');
+    if (controller != null) {
+      artboard.addController(controller);
+      final triggerInput = controller.findInput<rive.SMITrigger>('Trigger 1');
+      if (triggerInput != null) {
+        _trigger = triggerInput as rive.SMITrigger?;
+        print("✅ Trigger assigned successfully");
+      } else {
+        print("❌ Trigger not found");
+      }
+
+    }
+  }
+
+  void _playAnimationAndNavigate() {
+    if (_trigger != null) {
+      print("🔥 Firing trigger...");
+      _trigger!.fire();
+      Future.delayed(const Duration(seconds: 2), () {  // Adjust time based on animation duration
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => widget.nextScreen),
+        );
+      });
+    } else {
+      print("❌ Cannot play animation: Trigger is null");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          rive.RiveAnimation.asset(
+            'assets/animations/${widget.image}',
+            fit: BoxFit.cover,
+            onInit: _onRiveInit,
+          ),
+        ],
+      ),
     );
   }
 }
