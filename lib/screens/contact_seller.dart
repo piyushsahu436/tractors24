@@ -3,8 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ContactSellerScreen extends StatefulWidget {
-  const ContactSellerScreen({super.key, required this.docid});
+  const ContactSellerScreen(
+      {super.key,
+      required this.docid,
+      required this.brand,
+      required this.model,
+      required this.price,
+      required this.location});
   final String docid;
+  final String brand;
+  final String model;
+  final String price;
+  final String location;
 
   @override
   State<ContactSellerScreen> createState() => _ContactSellerScreenState();
@@ -33,7 +43,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
         'PinCode': _pincodecontactsellerController.text.trim(),
         'status': "pending",
         'timestamp': FieldValue.serverTimestamp(),
-        'tractorid': widget.docid// Optional for sorting
+        'tractorid': widget.docid // Optional for sorting
       });
 
       // Clear input fields
@@ -93,7 +103,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Mahindra Arjun 555 DI',
+                    '${widget.brand} ${widget.model}',
                     style: GoogleFonts.roboto(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
@@ -107,7 +117,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                       ),
                       SizedBox(height: size.height * 0.01),
                       Text(
-                        'Indore, Madhya Pradesh',
+                        widget.location,
                         style: GoogleFonts.roboto(
                             fontSize: 14, fontWeight: FontWeight.w400),
                       ),
@@ -115,7 +125,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                   ),
                   SizedBox(height: size.height * 0.01),
                   Text(
-                    '₹ 7,30,000',
+                    "₹${widget.price}",
                     style: GoogleFonts.roboto(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -217,7 +227,7 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
                     width: double.infinity,
                     height: 48,
                     child: ElevatedButton(
-                      onPressed:() => addEnquiry(context),
+                      onPressed: () => addEnquiry(context),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF003B8F),
                         shape: RoundedRectangleBorder(
