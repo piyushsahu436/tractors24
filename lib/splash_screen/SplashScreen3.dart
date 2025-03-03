@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tractors24/screens/LanguagePage.dart';
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/screens/test.dart';
 
 class SplashScreen3 extends StatelessWidget {
   const SplashScreen3({super.key});
@@ -28,7 +29,7 @@ class SplashScreen3 extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           // Replace NextScreen with your actual next screen
-                          builder: (context) =>  LanguagePage(),
+                          builder: (context) =>  const LanguagePage(),
                         ),
                       );
                     },
@@ -110,15 +111,25 @@ class SplashScreen3 extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10),
                       child: TextButton(
                         onPressed: () {
-                          // Add navigation to next screen
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              // Replace NextScreen with your actual next screen
-                              builder: (context) => LanguagePage(),
+                              builder: (context) => FullScreenAnimation(page: LanguagePage(),image: 'secondF',),
                             ),
                           );
                         },
+                          // Add navigation to next screen
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     // Replace NextScreen with your actual next screen
+                          //     builder: (context) => LanguagePage(),
+                          //   ),
+                          // );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => TransitionScreen(nextScreen: LanguagePage(), image: 'second',)),
+                          // );
                         child: Text(
                           'Next',
                           style:  GoogleFonts.roboto(

@@ -48,29 +48,26 @@ class liveFavourites extends StatelessWidget {
               var tractor = tractors[index].data() as Map<String, dynamic>;
               var docSnapshot = snapshot.data!.docs[index];
               String docId =docSnapshot.id;
+              List<String> imageUrls = (tractor['images'] as List<dynamic>?)
+                  ?.map((e) => e.toString())
+                  .toList() ?? [];
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => CarDetailsPage(
-                            SellPrice: tractor['expectedPrice']
-                                ?.toString() ??
-                                '',
+                            SellPrice:
+                            tractor['expectedPrice']?.toString() ?? '',
                             brand: tractor['brand'] ?? '',
                             model: tractor['model'] ?? '',
-                            RegYear:
-                            tractor['registrationYear'] ?? '',
-                            Pincode:
-                            tractor['pincode']?.toString() ?? '',
+                            RegYear: tractor['registrationYear'] ?? '',
+                            Pincode: tractor['pincode']?.toString() ?? '',
                             HorsePower:
-                            tractor['horsePower']?.toString() ??
-                                '',
+                            tractor['horsePower']?.toString() ?? '',
                             Hours: tractor['hoursDriven'] ?? '',
-                            RegNum:
-                            tractor['registrationNumber'] ?? '',
-                            InsStatus:
-                            tractor['insuranceStatus'] ?? '',
+                            RegNum: tractor['registrationNumber'] ?? '',
+                            InsStatus: tractor['insuranceStatus'] ?? '',
                             RearTire: tractor['rearTyreSize'] ?? '',
                             Address: tractor['location'] ?? '',
                             Break: tractor['brakes'] ?? '',
@@ -79,22 +76,19 @@ class liveFavourites extends StatelessWidget {
                             Cooling: tractor['coolingSystem'] ?? '',
                             LiftingCapacity:
                             tractor['liftingCapacity'] ?? '',
-                            SteeringType:
-                            tractor['steeringType'] ?? '',
+                            SteeringType: tractor['steeringType'] ?? '',
                             ClutchType: tractor['Clutch Type'] ?? '',
                             OilCap: tractor['capacity'] ?? '',
                             RunningKM: tractor['Running KM'] ?? '',
                             Fuel: tractor['fuelType'] ?? '',
                             tractorId: tractor['tractorId'] ?? '',
-                            imageUrls:
-                            (tractor['images'] as List<dynamic>?)
+                            imageUrls: (tractor['images'] as List<dynamic>?)
                                 ?.map((e) => e.toString())
                                 .toList() ??
                                 [],
                             description: tractor['description'] ?? '',
                             state: tractor['state'] ?? "",
-                            safetyfeature:
-                            tractor['safetyFeatures'] ?? "",
+                            safetyfeature: tractor['safetyFeatures'] ?? "",
                             warrenty: tractor['warranty'] ?? "",
                             color: tractor['color'] ?? "",
                             accessories: tractor['accessories'] ?? "",
@@ -355,12 +349,21 @@ class pendingFavourites extends StatelessWidget {
 
           var tractors = snapshot.data!.docs;
 
+
           return ListView.builder(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             itemCount: tractors.length,
             itemBuilder: (context, index) {
               var tractor = tractors[index].data() as Map<String, dynamic>;
+              // var tractor =
+              // tractorSnapshot.data!.data() as Map<String, dynamic>;
+              List<String> imageUrls = (tractor['images'] as List<dynamic>?)
+                  ?.map((e) => e.toString())
+                  .toList() ??
+                  [];
+              var docSnapshot = snapshot.data!.docs[index];
+              String docId = docSnapshot.id;
 
               return GestureDetector(
                 onTap: () {
@@ -368,7 +371,59 @@ class pendingFavourites extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => //CarDetailsPage()
-                              Scaffold()));
+                          CarDetailsPage(
+                            SellPrice: tractor['expectedPrice']
+                                ?.toString() ??
+                                '',
+                            brand: tractor['brand'] ?? '',
+                            model: tractor['model'] ?? '',
+                            RegYear:
+                            tractor['registrationYear'] ?? '',
+                            Pincode:
+                            tractor['pincode']?.toString() ?? '',
+                            HorsePower:
+                            tractor['horsePower']?.toString() ??
+                                '',
+                            Hours: tractor['hoursDriven'] ?? '',
+                            RegNum:
+                            tractor['registrationNumber'] ?? '',
+                            InsStatus:
+                            tractor['insuranceStatus'] ?? '',
+                            RearTire: tractor['rearTyreSize'] ?? '',
+                            Address: tractor['location'] ?? '',
+                            Break: tractor['brakes'] ?? '',
+                            PTO: tractor['ptoHP'] ?? '',
+                            CC: tractor['capacityCC'] ?? '',
+                            Cooling: tractor['coolingSystem'] ?? '',
+                            LiftingCapacity:
+                            tractor['liftingCapacity'] ?? '',
+                            SteeringType:
+                            tractor['steeringType'] ?? '',
+                            ClutchType: tractor['Clutch Type'] ?? '',
+                            OilCap: tractor['capacity'] ?? '',
+                            RunningKM: tractor['Running KM'] ?? '',
+                            Fuel: tractor['fuelType'] ?? '',
+                            tractorId: tractor['tractorId'] ?? '',
+                            imageUrls:
+                            imageUrls ?? [],
+                            description: tractor['description'] ?? '',
+                            state: tractor['state'] ?? "",
+                            safetyfeature:
+                            tractor['safetyFeatures'] ?? "",
+                            warrenty: tractor['warranty'] ?? "",
+                            color: tractor['color'] ?? "",
+                            accessories: tractor['accessories'] ?? "",
+                            rpm: tractor['rpm'] ?? "",
+                            ptodirection: '' ?? "",
+                            battery: tractor['battery'] ?? "",
+                            cylinder: tractor['noOfCylinders'] ?? "",
+                            gearbox: tractor['gearBox'] ?? "",
+                            torque: '' ?? "",
+                            fronttyre: tractor['frontTyreSize'] ?? "",
+                            clutch: tractor['clutch'] ?? "",
+                            pincode: tractor['pincode'] ?? " ",
+                            docId: docId ?? '',
+                          )));
                 },
                 child: Container(
                   height: size.height * 0.17,
@@ -392,14 +447,20 @@ class pendingFavourites extends StatelessWidget {
                           topLeft: Radius.circular(12),
                           bottomLeft: Radius.circular(12),
                         ),
-                        child: Image.asset(
+                        child: imageUrls.isNotEmpty
+                            ? Image.network(
+                          imageUrls[0],
+                          width: size.width * 0.45,
+                          height: size.height * 0.17,
+                          fit: BoxFit.cover,
+                        )
+                            : Image.asset(
                           "assets/images/tracTemp.png",
                           width: size.width * 0.45,
                           height: size.height * 0.17,
                           fit: BoxFit.cover,
                         ),
                       ),
-
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(10),

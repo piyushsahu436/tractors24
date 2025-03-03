@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:rive/rive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/screens/DetailsPage.dart';
@@ -83,16 +84,28 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    _controller = SimpleAnimation('Timeline 1');
-
-    // Start the animation and navigate on completion
-    Future.delayed(const Duration(seconds: 6), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Loanenquire()),
-      );
-    });
+    _controller = SimpleAnimation('Timeline 1');  // Start Rive animation
+    _startSplashSequence();  // Check login status after animation
   }
+
+  Future<void> _startSplashSequence() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isFirstTime = prefs.getBool('isFirstTime') ?? true;
+
+    // Wait for the animation to complete (4s)
+    await Future.delayed(const Duration(seconds: 4));
+
+    if (!mounted) return;
+
+    // Navigate based on login status
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => isFirstTime ? SplashScreen5() : LoginPage(),
+      ),
+    );
+  }
+
 
   @override
   void dispose() {
