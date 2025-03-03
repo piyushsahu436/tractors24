@@ -12,7 +12,6 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:csv/csv.dart';
 
-
 class SellerformScreen extends StatefulWidget {
   SellerformScreen({super.key});
 
@@ -40,8 +39,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
       TextEditingController();
   final TextEditingController _addresssellerformController =
       TextEditingController();
-  final TextEditingController OurPriceController =
-  TextEditingController();
+  final TextEditingController OurPriceController = TextEditingController();
   final TextEditingController _amountCont = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   List<String> uploadedUrls = [];
@@ -120,6 +118,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
       },
     );
   }
+
   List<Map<String, dynamic>> priceData = [];
   Set<String> brands = {}; // Use Set to keep unique brands
   List<String> models = [];
@@ -135,9 +134,11 @@ class _SellerformScreenState extends State<SellerformScreen> {
     super.initState();
     loadCSV();
   }
+
   Future<void> loadCSV() async {
     final rawData = await rootBundle.loadString('assets/data/priceSheet.csv');
-    List<List<dynamic>> csvTable = const CsvToListConverter(eol: "\n").convert(rawData);
+    List<List<dynamic>> csvTable =
+        const CsvToListConverter(eol: "\n").convert(rawData);
 
     if (csvTable.isEmpty) {
       print("⚠️ CSV is empty or not loaded correctly!");
@@ -188,7 +189,6 @@ class _SellerformScreenState extends State<SellerformScreen> {
     print("✅ Brands loaded: $brands");
   }
 
-
   // 📌 Fetch models based on selected brand
   void updateModels() {
     if (selectedBrand == null) return;
@@ -209,14 +209,14 @@ class _SellerformScreenState extends State<SellerformScreen> {
 
   // 📌 Get price based on brand, model, and year
   void fetchPrice() {
-    if (selectedBrand == null || selectedModel == null || selectedYear == null) return;
+    if (selectedBrand == null || selectedModel == null || selectedYear == null)
+      return;
 
-    print("🔍 Searching: Brand = $selectedBrand, Model = $selectedModel, Year = $selectedYear");
+    print(
+        "🔍 Searching: Brand = $selectedBrand, Model = $selectedModel, Year = $selectedYear");
 
     final match = priceData.firstWhere(
-          (row) =>
-      row['MAKE'] == selectedBrand &&
-          row['MODEL'] == selectedModel,
+      (row) => row['MAKE'] == selectedBrand && row['MODEL'] == selectedModel,
       orElse: () => {},
     );
 
@@ -264,20 +264,24 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     child: _isUploading
                         ? Center(child: CircularProgressIndicator())
                         : PageView.builder(
-                      itemCount: selectedImages.isNotEmpty ? selectedImages.length : 1,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: selectedImages.isNotEmpty
-                                  ? FileImage(selectedImages[index]) as ImageProvider
-                                  : const AssetImage('assets/images/Rectangle 23807.png'),
-                              fit: BoxFit.cover,
-                            ),
+                            itemCount: selectedImages.isNotEmpty
+                                ? selectedImages.length
+                                : 1,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: selectedImages.isNotEmpty
+                                        ? FileImage(selectedImages[index])
+                                            as ImageProvider
+                                        : const AssetImage(
+                                            'assets/images/Rectangle 23807.png'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   ),
                 ),
                 Positioned(
@@ -697,8 +701,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                                       horsePower:
                                           _horsepowersellerformController,
                                       RegNum: _registratiosellerformController,
-                                      RegistrationYear:
-                                          selectedYear ?? '',
+                                      RegistrationYear: selectedYear ?? '',
                                       Hours: _hourssellerformController,
                                       RearTyre: _reartyresellerformController,
                                       InStatus: _insurancesellerformController,
@@ -723,7 +726,6 @@ class _SellerformScreenState extends State<SellerformScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-
                     ),
                   ),
                   SizedBox(height: size.height * 0.03),

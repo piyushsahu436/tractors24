@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/auth/auth_service.dart';
 import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/auth/otpScreen.dart';
 import 'package:tractors24/auth/sign_up1.dart';
+import 'package:tractors24/screens/LandingPage.dart';
 import 'package:tractors24/screens/policies_screen.dart';
 import 'package:tractors24/screens/test.dart';
 
@@ -19,6 +21,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // Making a controller for mobile number input
   final mobileController = TextEditingController();
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -235,8 +238,11 @@ class _LoginPageState extends State<LoginPage> {
                     child: Container(
                       height: size.height * 0.06,
                       child: ElevatedButton(
-                          onPressed: () {
-                            // Google login will be added later
+                          onPressed: () async {
+                            final user = await _authService.signInWithGoogle();
+                            if (user != null) {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> LandingPage()));
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(

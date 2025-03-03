@@ -9,10 +9,10 @@ import 'package:tractors24/screens/DetailsPage.dart';
 import 'package:tractors24/screens/contact_seller.dart';
 
 class GridViewBuilderWidget extends StatelessWidget {
-  GridViewBuilderWidget({super.key, required this.itemCount, required this.category});
+  GridViewBuilderWidget({super.key, required this.itemCount, required this.category, required this.scrolled});
   final int itemCount;
   final String category;
-
+  final ScrollPhysics scrolled;
   final CollectionReference tractorsCollection =
   FirebaseFirestore.instance.collection('tractors');
 
@@ -40,8 +40,8 @@ class GridViewBuilderWidget extends StatelessWidget {
           var tractors = snapshot.data!.docs;
 
           return GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
+            physics: scrolled,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 10.0,
