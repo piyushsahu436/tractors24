@@ -75,7 +75,7 @@ class _HomePageFState extends State<HomePageF> {
       setState(() => _currentPosition = position);
       await _getAddressFromLatLng();
     } catch (e) {
-      debugPrint(e.toString());
+  debugPrint(e.toString());
     }
   }
 

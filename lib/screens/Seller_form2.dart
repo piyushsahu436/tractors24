@@ -22,9 +22,14 @@ class SellerFormScreen2 extends StatefulWidget {
       required this.Address,
       required this.amount,
       required this.uploadedUrls,
-      required this.selectedImages});
+      required this.selectedImages,
+      required this.state,
+        required this.city,
+      });
   final TextEditingController pincode;
   final String brand;
+  final TextEditingController city;
+  final TextEditingController state;
   final String model;
   final String RegistrationYear;
   final TextEditingController horsePower;
@@ -185,6 +190,7 @@ class _SellerFormScreen2State extends State<SellerFormScreen2> {
         "Fuel": _sffuel.text.trim(),
         "Running KM": _sfKm.text.trim(),
         "images": uploadedUrls,
+        "location" : widget.city.text.trim(),
         // "viewCount": 0,
       };
 

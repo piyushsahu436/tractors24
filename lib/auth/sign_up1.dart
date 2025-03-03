@@ -75,7 +75,8 @@ class _SignUp1 extends State<SignUp1> {
       SnackBar(content: Text(message)),
     );
   }
-
+  bool isObscure = true;
+  bool isObscure2 = true;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -123,36 +124,36 @@ class _SignUp1 extends State<SignUp1> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Container(
-                            height: size.height * 0.06,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                // Facebook login will be added later
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Image.asset(
-                                      "assets/images/_Facebook.png",
-                                    ),
-                                    Text(
-                                      'Facebook',
-                                      style: GoogleFonts.roboto(
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xFF61677D)),
-                                    )
-                                  ]),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: size.width * 0.05),
+                        // Expanded(
+                        //   child: Container(
+                        //     height: size.height * 0.06,
+                        //     child: ElevatedButton(
+                        //       onPressed: () {
+                        //         // Facebook login will be added later
+                        //       },
+                        //       style: ElevatedButton.styleFrom(
+                        //         shape: RoundedRectangleBorder(
+                        //           borderRadius: BorderRadius.circular(10),
+                        //         ),
+                        //       ),
+                        //       child: Row(
+                        //           mainAxisAlignment:
+                        //               MainAxisAlignment.spaceEvenly,
+                        //           children: [
+                        //             Image.asset(
+                        //               "assets/images/_Facebook.png",
+                        //             ),
+                        //             Text(
+                        //               'Facebook',
+                        //               style: GoogleFonts.roboto(
+                        //                   fontWeight: FontWeight.w500,
+                        //                   color: const Color(0xFF61677D)),
+                        //             )
+                        //           ]),
+                        //     ),
+                        //   ),
+                        // ),
+                        // SizedBox(width: size.width * 0.05),
                         Expanded(
                           child: Container(
                             height: size.height * 0.06,
@@ -166,6 +167,7 @@ class _SignUp1 extends State<SignUp1> {
                                   ),
                                 ),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset("assets/images/_Google.png"),
                                     Text(
@@ -451,7 +453,7 @@ class _SignUp1 extends State<SignUp1> {
                         ),
                         child: TextFormField(
                           controller: passwordController,
-                          obscureText: true,
+                          obscureText: isObscure,
                           decoration: InputDecoration(
                             hintText: 'Password',
                             hintStyle: GoogleFonts.roboto(
@@ -459,11 +461,24 @@ class _SignUp1 extends State<SignUp1> {
                                 fontSize: 15,
                                 color:
                                     const Color.fromRGBO(124, 139, 160, 1.0)),
-                            suffixIcon: const Icon(Icons.visibility_off,
-                                color: Color(0xFF61677D)),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 16, horizontal: 16),
                             border: InputBorder.none,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isObscure =
+                                  !isObscure; // ✅ Toggle visibility state
+                                });
+                              },
+                              icon: Icon(
+                                isObscure
+                                    ? Icons.visibility_off
+                                    : Icons
+                                    .visibility, // ✅ Change icon dynamically
+                                color: const Color(0xFF61677D),
+                              ),
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -497,7 +512,7 @@ class _SignUp1 extends State<SignUp1> {
                         ),
                         child: TextFormField(
                           controller: confirmPasswordController,
-                          obscureText: true,
+                          obscureText: isObscure2,
                           decoration: InputDecoration(
                             hintText: 'Confirm Password',
                             hintStyle: GoogleFonts.roboto(
@@ -505,11 +520,25 @@ class _SignUp1 extends State<SignUp1> {
                                 fontSize: 15,
                                 color:
                                     const Color.fromRGBO(124, 139, 160, 1.0)),
-                            suffixIcon: const Icon(Icons.visibility_off,
-                                color: Color(0xFF61677D)),
+
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 16, horizontal: 16),
                             border: InputBorder.none,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isObscure2 =
+                                  !isObscure2; // ✅ Toggle visibility state
+                                });
+                              },
+                              icon: Icon(
+                                isObscure2
+                                    ? Icons.visibility_off
+                                    : Icons
+                                    .visibility, // ✅ Change icon dynamically
+                                color: const Color(0xFF61677D),
+                              ),
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
