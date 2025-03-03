@@ -158,9 +158,11 @@ class _HomePageFState extends State<HomePageF> {
                                 onTap: () {
                                   Scaffold.of(context).openDrawer();
                                 },
-                                child: const Image(
-                                    image:
-                                        AssetImage("assets/images/grp29.png")),
+                                child: Container(
+                                  child: const Image(
+                                      image:
+                                          AssetImage("assets/images/grp29.png")),
+                                ),
                               ),
                             ),
                             SizedBox(
