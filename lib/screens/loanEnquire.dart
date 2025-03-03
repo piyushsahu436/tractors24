@@ -16,6 +16,7 @@ class _LoanenquireState extends State<Loanenquire> {
   final TextEditingController _emailloan = TextEditingController();
   final TextEditingController _amountloan = TextEditingController();
   final TextEditingController _vehicleloan = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -124,110 +125,134 @@ class _LoanenquireState extends State<Loanenquire> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Form_field(
-                    hintText: 'Name',
-                    controller: _nameloan,
-                    prefixtext: "",
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Name cannot be empty';
-                      }
-                      if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
-                        return 'Enter a valid name (letters only)';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  Form_field(
-                    hintText: 'Mobile Number',
-                    controller: _mobilenumberloan,
-                    prefixtext: '',
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Form_field(
+                      hintText: 'Name',
+                      controller: _nameloan,
+                      prefixtext: "",
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Name cannot be empty';
+                        }
+                        if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
+                          return 'Enter a valid name (letters only)';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    Form_field(
+                      hintText: 'Mobile Number',
+                      controller: _mobilenumberloan,
+                      prefixtext: '',
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
                           return 'Please enter your phone number';
-                        } else if (!RegExp(r'^[0-9]{10}$')
-                            .hasMatch(value)) {
+                        }
+                        if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
                           return 'Enter a valid 10-digit phone number';
                         }
                         return null;
                       },
-                  ),
-                  const SizedBox(height: 8),
-                  Form_field(
-                    hintText: 'Email-ID (Optional)',
-                    controller: _emailloan,
-                    prefixtext: '',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      } else if (!RegExp(
-                          r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
-                          .hasMatch(value)) {
-                        return 'Please enter a valid email';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  Form_field(
-                    hintText: 'Enter Amount',
-                    controller: _amountloan,
-                    prefixtext: '',
-                    validator: (String? value) {},
-                  ),
-                  const SizedBox(height: 8),
-                  Form_field(
-                    hintText: 'Vehicle Details',
-                    controller: _vehicleloan,
-                    prefixtext: '',
-                    validator: (String? value) {},
-                  ),
-                  const SizedBox(height: 20),
-                  RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                      text: " By proceeding, you agree to Tractor24 ",
-                      style: GoogleFonts.roboto(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey[600]),
                     ),
-                    TextSpan(
-                      text: "Terms of Service",
-                      style: GoogleFonts.roboto(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF003B8F)),
-                    )
-                  ])),
-                  const SizedBox(height: 16.0),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      onPressed: () => addLoanEnquiry(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF003B8F),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Text(
-                        'Send Enquiry',
+                    const SizedBox(height: 8),
+                    Form_field(
+                      hintText: 'Email-ID (Optional)',
+                      controller: _emailloan,
+                      prefixtext: '',
+                      validator: (value) {
+                        if (value != null && value.trim().isNotEmpty) {
+                          if (!RegExp(
+                                  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                              .hasMatch(value)) {
+                            return 'Please enter a valid email';
+                          }
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    Form_field(
+                      hintText: 'Enter Amount',
+                      controller: _amountloan,
+                      prefixtext: '',
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter an amount';
+                        }
+                        if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                          return 'Enter a valid amount (numbers only)';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    Form_field(
+                      hintText: 'Vehicle Details',
+                      controller: _vehicleloan,
+                      prefixtext: '',
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter vehicle details';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    RichText(
+                        text: TextSpan(children: [
+                      TextSpan(
+                        text: " By proceeding, you agree to Tractor24 ",
                         style: GoogleFonts.roboto(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey[600]),
+                      ),
+                      TextSpan(
+                        text: "Terms of Service",
+                        style: GoogleFonts.roboto(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF003B8F)),
+                      )
+                    ])),
+                    const SizedBox(height: 16.0),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save(); // Ensures fields are updated
+                              addLoanEnquiry(context);
+                            } else {
+                              print("Validation failed, not submitting");
+                            }
+                          },
+
+                          style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF003B8F),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          'Send Enquiry',
+                          style: GoogleFonts.roboto(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                ],
+                    const SizedBox(height: 20),
+                  ],
+                ),
               ),
             ),
           ],

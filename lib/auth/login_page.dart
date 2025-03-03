@@ -207,33 +207,33 @@ class _LoginPageState extends State<LoginPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Container(
-                      height: size.height * 0.06,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Facebook login will be added later
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9),
-                          ),
-                        ),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset("assets/images/_Facebook.png"),
-                              Text(
-                                '  Facebook',
-                                style: GoogleFonts.roboto(
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF61677D)),
-                              )
-                            ]),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: size.width * 0.05),
+                  // Expanded(
+                  //   child: Container(
+                  //     height: size.height * 0.06,
+                  //     child: ElevatedButton(
+                  //       onPressed: () {
+                  //         // Facebook login will be added later
+                  //       },
+                  //       style: ElevatedButton.styleFrom(
+                  //         shape: RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.circular(9),
+                  //         ),
+                  //       ),
+                  //       child: Row(
+                  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //           children: [
+                  //             Image.asset("assets/images/_Facebook.png"),
+                  //             Text(
+                  //               '  Facebook',
+                  //               style: GoogleFonts.roboto(
+                  //                   fontWeight: FontWeight.w500,
+                  //                   color: Color(0xFF61677D)),
+                  //             )
+                  //           ]),
+                  //     ),
+                  //   ),
+                  // ),
+                 // SizedBox(width: size.width * 0.05),
                   Expanded(
                     child: Container(
                       height: size.height * 0.06,
@@ -250,6 +250,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset("assets/images/_Google.png"),
                               Text(
@@ -318,8 +319,7 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 }
-
-class Form_field extends StatefulWidget {
+class Form_field extends StatelessWidget {
   const Form_field({
     super.key,
     required this.hintText,
@@ -332,44 +332,6 @@ class Form_field extends StatefulWidget {
   final TextEditingController controller;
   final String prefixtext;
   final FormFieldValidator<String> validator;
-
-  @override
-  _Form_fieldState createState() => _Form_fieldState();
-}
-
-class _Form_fieldState extends State<Form_field> {
-  String? errorText;
-  late FocusNode _focusNode;
-  bool _showError = false; // Track when to show the error
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-
-    // Remove error when the field is tapped (focused)
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-        setState(() {
-          _showError = false; // Hide the error message
-        });
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  void validateField() {
-    final result = widget.validator(widget.controller.text);
-    setState(() {
-      errorText = result;
-      _showError = result != null; // Show error only if validation fails
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -389,24 +351,22 @@ class _Form_fieldState extends State<Form_field> {
           ],
         ),
         child: TextFormField(
-          controller: widget.controller,
-          focusNode: _focusNode,
+          controller: controller,
+          validator: validator,
           decoration: InputDecoration(
             fillColor: Colors.white,
-            hintText: widget.hintText,
+            hintText: hintText,
             hintStyle: GoogleFonts.roboto(
               fontWeight: FontWeight.w400,
               fontSize: 15,
               color: const Color.fromRGBO(124, 139, 160, 1.0),
             ),
-            prefixText: widget.prefixtext,
+            prefixText: prefixtext,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
             border: InputBorder.none,
-            errorText: _showError
-                ? errorText
-                : null, // Show error only when login is pressed
+            // Allow the TextFormField to handle errors naturally
           ),
         ),
       ),

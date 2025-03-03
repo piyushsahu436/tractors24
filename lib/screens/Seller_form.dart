@@ -12,6 +12,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:csv/csv.dart';
 
+
 class SellerformScreen extends StatefulWidget {
   SellerformScreen({super.key});
 
@@ -39,7 +40,12 @@ class _SellerformScreenState extends State<SellerformScreen> {
       TextEditingController();
   final TextEditingController _addresssellerformController =
       TextEditingController();
-  final TextEditingController OurPriceController = TextEditingController();
+  final TextEditingController _statesellerformController =
+  TextEditingController();
+  final TextEditingController _citysellerformController =
+  TextEditingController();
+  final TextEditingController OurPriceController =
+  TextEditingController();
   final TextEditingController _amountCont = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   List<String> uploadedUrls = [];
@@ -188,6 +194,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
 
     print("✅ Brands loaded: $brands");
   }
+
 
   // 📌 Fetch models based on selected brand
   void updateModels() {
@@ -659,7 +666,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                   ),
                   SizedBox(height: size.height * 0.01),
                   TextField(
-                    controller: _addresssellerformController,
+                    controller: _statesellerformController,
                     decoration: InputDecoration(
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -669,7 +676,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                           height: 24,
                         ),
                       ),
-                      hintText: 'Address',
+                      hintText: 'State',
                       hintStyle: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
@@ -684,7 +691,31 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     ),
                   ),
                   SizedBox(height: size.height * 0.01),
-
+                  TextField(
+                    controller: _citysellerformController,
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          'assets/icons/placeholder.png',
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                      hintText: 'City',
+                      hintStyle: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          color: const Color.fromRGBO(124, 139, 160, 1.0)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                  ),
                   // Send Inquiry Button
                   SizedBox(
                     width: double.infinity,
@@ -695,13 +726,16 @@ class _SellerformScreenState extends State<SellerformScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SellerFormScreen2(
+                                  state: _statesellerformController ,
+                                      city: _citysellerformController,
                                       pincode: _pincodesellerformController,
                                       brand: selectedBrand ?? '',
                                       model: selectedModel ?? '',
                                       horsePower:
                                           _horsepowersellerformController,
                                       RegNum: _registratiosellerformController,
-                                      RegistrationYear: selectedYear ?? '',
+                                      RegistrationYear:
+                                          selectedYear ?? '',
                                       Hours: _hourssellerformController,
                                       RearTyre: _reartyresellerformController,
                                       InStatus: _insurancesellerformController,
@@ -726,6 +760,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
+
                     ),
                   ),
                   SizedBox(height: size.height * 0.03),

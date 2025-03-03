@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +49,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
           setState(() {
             name = data['name'] ?? "No Name";
             email = data['email'] ?? "No Email";
-            profileImageUrl = data['profileImage'] ?? ""; // Ensure profileImageUrl is retrieved
+            profileImageUrl = data['profileImage'] ??
+                ""; // Ensure profileImageUrl is retrieved
           });
         }
       }
@@ -73,13 +73,41 @@ class _CustomDrawerState extends State<CustomDrawer> {
       await FirebaseAuth.instance.signOut(); // Firebase logout
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Login2()), // Redirect to login
+        MaterialPageRoute(
+            builder: (context) => const Login2()), // Redirect to login
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Logout failed: ${e.toString()}")),
       );
     }
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title:Text("Logout Confirmation",style: GoogleFonts.roboto(fontSize: 20,fontWeight: FontWeight.w500),),
+          content: Text("Are you sure you want to logout?",style: GoogleFonts.roboto(fontSize: 15,fontWeight: FontWeight.w400),),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child:  Text("No",style: GoogleFonts.roboto(fontSize: 14,fontWeight: FontWeight.w500,color: Color(0xFF0A2472)),),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _logout(context);
+              },
+              child:  Text("Yes",style: GoogleFonts.roboto(fontSize: 13,fontWeight: FontWeight.w500,color: Color(0xFF0A2472)),),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   // Custom MenuListTile Widget
@@ -110,66 +138,70 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   Widget build(BuildContext context) {
-   return Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [ // User Account Header
-              UserAccountsDrawerHeader(
-                accountName: Padding(
-                  padding: const EdgeInsets.only(top: 25.0),
-                  child: Text(name,
-                      style: GoogleFonts.roboto(
-                          color: const Color(0xFF414141),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500)),
-                ),
-                accountEmail: Text(email,
-                    style: GoogleFonts.roboto(
-                        color: const Color(0xFF414141),
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500)),
-                currentAccountPicture:CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                  backgroundImage: profileImageUrl.isNotEmpty
-                      ? NetworkImage(profileImageUrl) as ImageProvider
-                      : null,
-                  child: profileImageUrl.isEmpty ? const Icon(Icons.person, size: 50) : null,
-                ),
-              ),
-              const Divider(
-                color: Colors.grey,
-                thickness: 1.0,
-                indent: 16.0,
-                endIndent: 16.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22,vertical: 5),
-                child: Text(
-                  'Personal',
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          // User Account Header
+          UserAccountsDrawerHeader(
+            accountName: Padding(
+              padding: const EdgeInsets.only(top: 25.0),
+              child: Text(name,
                   style: GoogleFonts.roboto(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF414141)),
-                ),
-              ), // Menu Items
-              _buildMenuListTile(
-                icon: Icons.person,
-                title: 'My Profile',
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const PersonalInfoScreen()));
-                },
-              ),
-              const SizedBox(height: 4),
+                      color: const Color(0xFF414141),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500)),
+            ),
+            accountEmail: Text(email,
+                style: GoogleFonts.roboto(
+                    color: const Color(0xFF414141),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500)),
+            currentAccountPicture: CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.white,
+              backgroundImage: profileImageUrl.isNotEmpty
+                  ? NetworkImage(profileImageUrl) as ImageProvider
+                  : null,
+              child: profileImageUrl.isEmpty
+                  ? const Icon(Icons.person, size: 50)
+                  : null,
+            ),
+          ),
+          const Divider(
+            color: Colors.grey,
+            thickness: 1.0,
+            indent: 16.0,
+            endIndent: 16.0,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 5),
+            child: Text(
+              'Personal',
+              style: GoogleFonts.roboto(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xFF414141)),
+            ),
+          ), // Menu Items
+          _buildMenuListTile(
+            icon: Icons.person,
+            title: 'My Profile',
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PersonalInfoScreen()));
+            },
+          ),
+          const SizedBox(height: 4),
 
           _buildMenuListTile(
             icon: Icons.favorite_outline,
             title: 'My Favourites',
             onTap: () {
-              Navigator.push(
-                  (context),
-                  MaterialPageRoute(
-                      builder: (context) =>const Wishlist()));
+              Navigator.push((context),
+                  MaterialPageRoute(builder: (context) => const Wishlist()));
             },
           ),
           const SizedBox(height: 4),
@@ -196,10 +228,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
             icon: Icons.newspaper,
             title: 'News',
             onTap: () {
-              Navigator.push(
-                  (context),
-                  MaterialPageRoute(
-                      builder: (context) =>const News()));
+              Navigator.push((context),
+                  MaterialPageRoute(builder: (context) => const News()));
             },
           ),
           const SizedBox(height: 4),
@@ -213,8 +243,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
             icon: Icons.reviews,
             title: 'Testimonials',
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Testimonials()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Testimonials()));
             },
           ),
           const SizedBox(height: 4),
@@ -248,22 +280,26 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ),
           const SizedBox(height: 4),
 // Logout
-              ListTile(
-                leading: const Icon(Icons.logout, color: Color(0xFF0A2472), size: 20),
-                title: const Text(
-                  'Logout',
-                  style: TextStyle(
-                      fontSize: 14.0, fontWeight: FontWeight.bold, color: Color(0xFF0A2472)),
-                ),
-                onTap: () => _logout(context), // Calls logout function
+          ListTile(
+            leading:
+                const Icon(Icons.logout, color: Color(0xFF0A2472), size: 20),
+            title: const Text(
+              'Logout',
+              style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF0A2472),
               ),
-            ],
+            ),
+            onTap: () {
+              _showLogoutDialog(context);
+            },
           ),
-        );
-      }
+        ],
+      ),
+    );
+  }
 }
-
-
 
 class UserInfoWidget extends StatelessWidget {
   const UserInfoWidget({super.key});
@@ -289,7 +325,8 @@ class UserInfoWidget extends StatelessWidget {
         String name = userData['name'] ?? "No Name";
         String email = userData['email'] ?? "No Email";
 
-        return Text("Name: $name\nEmail: $email", style: TextStyle(fontSize: 18));
+        return Text("Name: $name\nEmail: $email",
+            style: TextStyle(fontSize: 18));
       },
     );
   }

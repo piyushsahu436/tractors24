@@ -227,7 +227,7 @@ class Favourites extends StatelessWidget {
                                   child: Icon(
                                     Icons.delete,
                                     color: Colors.red,
-                                    size: 30,
+                                    size: 40,
                                   ),
                                 ),
                               ],
