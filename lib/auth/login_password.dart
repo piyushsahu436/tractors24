@@ -233,36 +233,36 @@ class _LoginPage2 extends State<Login2> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Container(
-                            height: size.height * 0.06,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                // Facebook login will be added later
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Image.asset(
-                                      "assets/images/_Facebook.png",
-                                    ),
-                                    Text(
-                                      'Facebook',
-                                      style: GoogleFonts.roboto(
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xFF61677D)),
-                                    )
-                                  ]),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: size.width * 0.05),
+                        // Expanded(
+                        //   child: Container(
+                        //     height: size.height * 0.06,
+                        //     child: ElevatedButton(
+                        //       onPressed: () {
+                        //         // Facebook login will be added later
+                        //       },
+                        //       style: ElevatedButton.styleFrom(
+                        //         shape: RoundedRectangleBorder(
+                        //           borderRadius: BorderRadius.circular(10),
+                        //         ),
+                        //       ),
+                        //       child: Row(
+                        //           mainAxisAlignment:
+                        //               MainAxisAlignment.spaceEvenly,
+                        //           children: [
+                        //             Image.asset(
+                        //               "assets/images/_Facebook.png",
+                        //             ),
+                        //             Text(
+                        //               'Facebook',
+                        //               style: GoogleFonts.roboto(
+                        //                   fontWeight: FontWeight.w500,
+                        //                   color: const Color(0xFF61677D)),
+                        //             )
+                        //           ]),
+                        //     ),
+                        //   ),
+                        // ),
+                       // SizedBox(width: size.width * 0.05),
                         Expanded(
                           child: Container(
                             height: size.height * 0.06,
@@ -276,6 +276,7 @@ class _LoginPage2 extends State<Login2> {
                                   ),
                                 ),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset("assets/images/_Google.png"),
                                     Text(
