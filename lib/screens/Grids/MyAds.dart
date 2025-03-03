@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -98,8 +99,8 @@ class liveFavourites extends StatelessWidget {
                             gearbox: tractor['gearBox'] ?? "",
                             torque: '' ?? "",
                             fronttyre: tractor['frontTyreSize'],
-                            clutch: tractor['clutch']?? "",
-                            pincode: tractor['pincode']?? " ",
+                            clutch: tractor['clutch'] ?? "",
+                            pincode: tractor['pincode'] ?? " ",
                             docId: docId,
                           )));
                 },
@@ -167,8 +168,9 @@ class liveFavourites extends StatelessWidget {
                                   const SizedBox(width: 4),
                                   Expanded(
                                     child: Text(
-                                      '${tractor['hours']} hr' ?? 'Unknown',
-                                      style: GoogleFonts.roboto(
+                                        '${tractor['hours'] ?? 'Unknown'} hr',
+
+                                        style: GoogleFonts.roboto(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
                                           color: Colors.black),
@@ -179,8 +181,9 @@ class liveFavourites extends StatelessWidget {
                               const SizedBox(height: 5),
                               Expanded(
                                 child: Text(
-                                  '₹${tractor['sellPrice']}' ?? 'Unknown',
-                                  style: GoogleFonts.roboto(
+                              '₹${tractor['sellPrice'] ?? 'Unknown'}',
+
+              style: GoogleFonts.roboto(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20,
                                       color: Colors.black),

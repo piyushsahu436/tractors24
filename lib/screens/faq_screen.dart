@@ -308,7 +308,7 @@ class _FAQScreenState extends State<FAQScreen> {
             ),
             Icon(
               expandedQuestionIndex == questionIndex ? Icons.remove : Icons.add,
-              color: Colors.blue,
+              color: Color(0xFF003B8F),
             ),
           ],
         ),

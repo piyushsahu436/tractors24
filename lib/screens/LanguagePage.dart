@@ -43,7 +43,7 @@ class _LanguagePageState extends State<LanguagePage> {
                           "Skip",
                           style: GoogleFonts.roboto(
                             color: Colors.white,
-                            fontSize: 19.0,
+                            fontSize: 20.0,
                             fontWeight: FontWeight.w500,
                           ),
                         ))),

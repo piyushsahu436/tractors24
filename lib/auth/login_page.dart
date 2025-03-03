@@ -264,31 +264,39 @@ class _LoginPageState extends State<LoginPage> {
 
             // Sign up text and button
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    "Don't have account? ",
-                    style: GoogleFonts.roboto(fontWeight: FontWeight.w400),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SignUp1(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Sign Up',
+
+                  RichText(
+                    text: TextSpan(
+                      text: "Do you have an account? ",
                       style: GoogleFonts.roboto(
-                        color: Color(0xFF003B8F),
+                        fontSize: 16,
                         fontWeight: FontWeight.w400,
+                        color: Colors.black, // Ensure text color is set
                       ),
+                      children: [
+                        TextSpan(
+                          text: "Sign Up",
+                          style: GoogleFonts.roboto(
+                            color: const Color(0xFF003B8F),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignUp1(),
+                                ),
+                              );
+                            },
+                        ),
+                      ],
                     ),
-                  ),
+                  )
                 ],
               ),
             ),

@@ -9,6 +9,7 @@ import 'package:tractors24/screens/AllItems.dart';
 import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/Grids/StatesGrids.dart';
+import 'package:tractors24/screens/Seller_Form.dart';
 import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/notification.dart';
 import 'package:tractors24/screens/search.dart';
@@ -117,14 +118,14 @@ class _HomePageFState extends State<HomePageF> {
                               image: DecorationImage(
                                   image: AssetImage(
                                       'assets/images/first_carou.png'),
-                                  fit: BoxFit.fill)),
+                                  fit: BoxFit.cover)),
                         ),
                         Container(
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
                                       AssetImage('assets/images/car2_page.png'),
-                                  fit: BoxFit.fill)),
+                                  fit: BoxFit.cover)),
                         ),
                         Container(
                           decoration: const BoxDecoration(
@@ -144,7 +145,7 @@ class _HomePageFState extends State<HomePageF> {
                       Padding(
                         padding: const EdgeInsets.only(
                           top: 15,
-                          left: 16,
+                          left: 20,
                           right: 20,
                         ),
                         child: Row(
@@ -152,7 +153,7 @@ class _HomePageFState extends State<HomePageF> {
                           children: [
                             Padding(
                               padding:
-                                  const EdgeInsets.only(right: 08.0, left: 0),
+                                  const EdgeInsets.only(right: 20.0, left: 0.0),
                               child: InkWell(
                                 onTap: () {
                                   Scaffold.of(context).openDrawer();
@@ -164,14 +165,13 @@ class _HomePageFState extends State<HomePageF> {
                             ),
                             SizedBox(
                               height: 45,
-                              width: size.width * 0.6,
+                              width: size.width * 0.5,
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          search(),
+                                      builder: (context) => search(),
                                     ), // Navigate to your new page
                                   );
                                 },
@@ -293,7 +293,7 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   GridViewBuilderWidget(
-                    category: "recently-listed",
+                    category: "popular",
                     itemCount: 2,
                   ),
                   Padding(
@@ -304,7 +304,11 @@ class _HomePageFState extends State<HomePageF> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>  GridViewBuilderWidget(itemCount: 50,category: 'recently-added',)),);
+                                  builder: (context) => Scaffold(
+                                      body: GridViewBuilderWidget(
+                                        category: 'popular',
+                                        itemCount: 50,
+                                      ))));
                         },
                         child: Image(
                           image: AssetImage("assets/images/seeImg.png"),
@@ -337,11 +341,20 @@ class _HomePageFState extends State<HomePageF> {
                                     fontWeight: FontWeight.w700),
                               ),
                             ),
-                            const Expanded(
-                              child: Image(
-                                image:
-                                    AssetImage("assets/images/clkButton.png"),
-                                height: 35,
+                             Expanded(
+                              child: GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> Scaffold(
+                                      body: GridViewBuilderWidget(
+                                        category: 'recently-listed',
+                                        itemCount: 50,
+                                      ))));
+                                },
+                                child: Image(
+                                  image:
+                                      AssetImage("assets/images/clkButton.png"),
+                                  height: 35,
+                                ),
                               ),
                             )
                           ],
@@ -395,7 +408,7 @@ class _HomePageFState extends State<HomePageF> {
                     ),
                   ),
                   GridViewBuilderWidget(
-                    category: "recommended",
+                    category: "recently-listed",
                     itemCount: 2,
                   ),
                   Padding(
@@ -408,7 +421,7 @@ class _HomePageFState extends State<HomePageF> {
                               MaterialPageRoute(
                                   builder: (context) => Scaffold(
                                           body: GridViewBuilderWidget(
-                                        category: '',
+                                        category: 'recently-listed',
                                         itemCount: 50,
                                       ))));
                         },
@@ -519,9 +532,12 @@ class _HomePageFState extends State<HomePageF> {
                                 borderRadius: BorderRadius.circular(15),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.white,
-                                    blurRadius: 6,
+                                    color: Colors.white
+                                        .withOpacity(0.1), // Soft shadow
+                                    blurRadius: 10,
                                     spreadRadius: 2,
+                                    offset:
+                                    const Offset(2, 4), // Slight bottom shadow
                                   ),
                                 ],
                               ),
@@ -589,15 +605,20 @@ class _HomePageFState extends State<HomePageF> {
                               fontSize: 20,
                               fontWeight: FontWeight.w600),
                         ),
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'See More',
-                              style: GoogleFonts.roboto(
-                                  color: const Color(0xFF003B8F),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500),
-                            ))
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> StateGrids()));
+                              },
+                              child: Text(
+                                'See More',
+                                style: GoogleFonts.roboto(
+                                    color: const Color(0xFF003B8F),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                              )),
+                        )
                       ],
                     ),
                   ),
@@ -619,11 +640,16 @@ class _HomePageFState extends State<HomePageF> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Expanded(
-                              child: Image(
-                                image:
-                                    AssetImage("assets/images/clkButton.png"),
-                                height: 35,
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SellerformScreen() ));
+    },
+                                child: Image(
+                                  image:
+                                      AssetImage("assets/images/clkButton.png"),
+                                  height: 35,
+                                ),
                               ),
                             ),
                             const SizedBox(width: 10),

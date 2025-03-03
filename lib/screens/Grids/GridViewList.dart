@@ -270,6 +270,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                     ],
                                   ),
                                 ),
+                                SizedBox(width: size.width * 0.015),
                                 Expanded(
                                   child: Row(
                                     children: [

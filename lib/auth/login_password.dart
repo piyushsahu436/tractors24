@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +45,8 @@ class _LoginPage2 extends State<Login2> {
 
     setState(() => isLoading = true);
     try {
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: nameloginController.text.trim(),
         password: passwordloginController.text.trim(),
       );
@@ -64,14 +66,14 @@ class _LoginPage2 extends State<Login2> {
 
       final userType = userDoc.data()?['userType'] as String?;
       final route = MaterialPageRoute(
-        builder: (_) => userType == 'Customer' ? const LandingPage() :  DealerDashboard(),
+        builder: (_) =>
+            userType == 'Customer' ? const LandingPage() : DealerDashboard(),
       );
 
       // ✅ Save login status in SharedPreferences
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isFirstTime', false);
       Navigator.pushReplacement(context, route);
-
     } on FirebaseAuthException catch (e) {
       final message = switch (e.code) {
         'user-not-found' => 'No user found for that email',
@@ -92,11 +94,11 @@ class _LoginPage2 extends State<Login2> {
       SnackBar(content: Text(message)),
     );
   }
+
   bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -132,7 +134,7 @@ class _LoginPage2 extends State<Login2> {
                             fit: BoxFit.fill,
                             image: AssetImage('assets/images/Wave.png')),
                       ),
-                      height: size.width * 0.25,
+                      height: size.width * 0.23,
                       width: size.width * 0.25,
                     ),
                     Padding(
@@ -144,7 +146,9 @@ class _LoginPage2 extends State<Login2> {
                             color: const Color(0xFF003B8F),
                           )),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -243,7 +247,7 @@ class _LoginPage2 extends State<Login2> {
                               ),
                               child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Image.asset(
                                       "assets/images/_Facebook.png",
@@ -286,6 +290,7 @@ class _LoginPage2 extends State<Login2> {
                         ),
                       ],
                     ),
+                    SizedBox(height: size.height * 0.01),
                     Row(
                       children: [
                         Expanded(
@@ -310,19 +315,22 @@ class _LoginPage2 extends State<Login2> {
                     ),
 
                     Form_field(
-                        hintText: "Email",
-                        controller: nameloginController,
-                        prefixtext: "", validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Email is required";
-                      }
-                      // Regular Expression for validating email format
-                      final emailRegex = RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
-                      if (!emailRegex.hasMatch(value)) {
-                        return "Enter a valid email address";
-                      }
-                      return null; // Validation passed
-                    },),
+                      hintText: "Email",
+                      controller: nameloginController,
+                      prefixtext: "",
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return "Email is required";
+                        }
+                        // Regular Expression for validating email format
+                        final emailRegex = RegExp(
+                            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+                        if (!emailRegex.hasMatch(value)) {
+                          return "Enter a valid email address";
+                        }
+                        return null; // Validation passed
+                      },
+                    ),
                     SizedBox(height: size.height * 0.001),
 
                     Padding(
@@ -333,65 +341,75 @@ class _LoginPage2 extends State<Login2> {
                           borderRadius: BorderRadius.circular(12.0),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1), // Soft shadow
+                              color:
+                                  Colors.black.withOpacity(0.1), // Soft shadow
                               blurRadius: 10,
                               spreadRadius: 2,
-                              offset: const Offset(2, 4), // Slight bottom shadow
+                              offset:
+                                  const Offset(2, 4), // Slight bottom shadow
                             ),
                           ],
                         ),
                         child: TextField(
-                        controller: passwordloginController,
-                        obscureText: isObscure,  // ✅ Toggle visibility
-                        decoration: InputDecoration(
-                          hintText: 'Password',
-                          hintStyle: GoogleFonts.roboto(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                            color: const Color.fromRGBO(124, 139, 160, 1.0),
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isObscure = !isObscure;  // ✅ Toggle visibility state
-                              });
-                            },
-                            icon: Icon(
-                              isObscure ? Icons.visibility_off : Icons.visibility,  // ✅ Change icon dynamically
-                              color: const Color(0xFF61677D),
+                          controller: passwordloginController,
+                          obscureText: isObscure, // ✅ Toggle visibility
+                          decoration: InputDecoration(
+                            hintText: 'Password',
+                            hintStyle: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15,
+                              color: const Color.fromRGBO(124, 139, 160, 1.0),
                             ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isObscure =
+                                      !isObscure; // ✅ Toggle visibility state
+                                });
+                              },
+                              icon: Icon(
+                                isObscure
+                                    ? Icons.visibility_off
+                                    : Icons
+                                        .visibility, // ✅ Change icon dynamically
+                                color: const Color(0xFF61677D),
+                              ),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 16),
+                            border: InputBorder.none,
                           ),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                          border: InputBorder.none,
                         ),
                       ),
-
-
-                    ),
                     ),
                     Row(
                       children: [
-                        SizedBox(height: 50,),
-_buildClickableTexts("Forget Password", '',  () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => ForgetPassword ()), // ✅ Redirects to another page
-  );
-})
+                        SizedBox(
+                          height: 50,
+                        ),
+                        _buildClickableTexts(" Forget Password", '', () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ForgetPassword()), // ✅ Redirects to another page
+                          );
+                        })
                       ],
                     ),
-                    const SizedBox(height: 5),
+                  SizedBox(height: size.height*0.001),
                     Container(
                       width: 340,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed:isLoading
+                        onPressed: isLoading
                             ? null
                             : () {
-                          if (formKey.currentState!.validate()) {
-                            _login(context);  // Call sign-up function only if valid
-                          }
-                        },
+                                if (formKey.currentState!.validate()) {
+                                  _login(
+                                      context); // Call sign-up function only if valid
+                                }
+                              },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF003B8F),
                           shape: RoundedRectangleBorder(
@@ -399,46 +417,53 @@ _buildClickableTexts("Forget Password", '',  () {
                           ),
                         ),
                         child: isLoading
-                            ? const CircularProgressIndicator(color: Colors.white)
+                            ? const CircularProgressIndicator(
+                                color: Colors.white)
                             : const Text(
-                          'Login',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
+                                'Login',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
                       ),
                     ),
-                    SizedBox(height: size.height * 0.01),
+                    SizedBox(height: size.height * 0.001),
 
                     // Sign up text and button
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 10 , vertical: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Don't have account? ",
-                            style:
-                            GoogleFonts.roboto(fontWeight: FontWeight.w400),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SignUp1(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'Sign Up',
+                          RichText(
+                            text: TextSpan(
+                              text: "Do you have an account? ",
                               style: GoogleFonts.roboto(
-                                color: const Color(0xFF003B8F),
+                                fontSize: 16,
                                 fontWeight: FontWeight.w400,
+                                color: Colors.black, // Ensure text color is set
                               ),
+                              children: [
+                                TextSpan(
+                                  text: "Sign Up",
+                                  style: GoogleFonts.roboto(
+                                    color: const Color(0xFF003B8F),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const SignUp1(),
+                                        ),
+                                      );
+                                    },
+                                ),
+                              ],
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),
@@ -453,18 +478,19 @@ _buildClickableTexts("Forget Password", '',  () {
   }
 }
 
-
-Widget _buildClickableTexts(String clickText, String description, VoidCallback onTap) {
+Widget _buildClickableTexts(
+    String clickText, String description, VoidCallback onTap) {
   return Row(
     children: [
       GestureDetector(
-        onTap: onTap,  // ✅ Handles the click event
+        onTap: onTap, // ✅ Handles the click event
         child: Text(
           '$clickText ',
           style: GoogleFonts.roboto(
             fontSize: 14.0,
             fontWeight: FontWeight.bold,
-            color: Color.fromRGBO(0, 59, 143, 1), // ✅ Highlighted clickable text
+            color:
+                Color.fromRGBO(0, 59, 143, 1), // ✅ Highlighted clickable text
           ),
         ),
       ),

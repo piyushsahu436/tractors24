@@ -185,7 +185,7 @@ class _FAQListState extends State<FAQList> {
                     fontWeight: FontWeight.w500),
               ),
             ),
-            Icon(expandedQuestionIndex == questionIndex ? Icons.remove : Icons.add, color: Colors.blue),
+            Icon(expandedQuestionIndex == questionIndex ? Icons.remove : Icons.add, color: Color(0xFF003B8F)),
           ],
         ),
       ),
