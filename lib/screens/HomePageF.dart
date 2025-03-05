@@ -9,6 +9,7 @@ import 'package:tractors24/screens/AllItems.dart';
 import 'package:tractors24/screens/Grids/Brand_Grids.dart';
 import 'package:tractors24/screens/Grids/GridViewList.dart';
 import 'package:tractors24/screens/Grids/StatesGrids.dart';
+import 'package:tractors24/screens/NewsDetails.dart';
 import 'package:tractors24/screens/Seller_Form.dart';
 import 'package:tractors24/screens/faq_list.dart';
 import 'package:tractors24/screens/notification.dart';
@@ -276,7 +277,7 @@ class _HomePageFState extends State<HomePageF> {
                                       appBar: AppBar(
                                         backgroundColor: Color(0xFF003B8F),
                                         foregroundColor: Colors.white,
-                                        title: const Text('More Tractors'),
+                                        title: const Text('Recently Added Tractor'),
                                         centerTitle: true,
                                       ),
                                           body: GridViewBuilderWidget(
@@ -285,9 +286,9 @@ class _HomePageFState extends State<HomePageF> {
                                         itemCount: 50,
                                       ))));
                         },
-                        child: const Image(
+                        child: const Image(fit: BoxFit.fill,
                           image: AssetImage("assets/images/seeImg.png"),
-                          height: 26,
+                          height: 30,
                         ),
                       ),
                     ),
@@ -319,7 +320,7 @@ class _HomePageFState extends State<HomePageF> {
                                       appBar: AppBar(
                                         backgroundColor: Color(0xFF003B8F),
                                         foregroundColor: Colors.white,
-                                        title: const Text('More Tractors'),
+                                        title: const Text('Popular Tractor'),
                                         centerTitle: true,
                                       ),
                                           body: GridViewBuilderWidget(
@@ -328,9 +329,9 @@ class _HomePageFState extends State<HomePageF> {
                                         itemCount: 50,
                                       ))));
                         },
-                        child: const Image(
+                        child:  const Image(fit: BoxFit.fill,
                           image: AssetImage("assets/images/seeImg.png"),
-                          height: 26,
+                          height: 30,
                         ),
                       ),
                     ),
@@ -418,7 +419,7 @@ class _HomePageFState extends State<HomePageF> {
                                       appBar: AppBar(
                                         backgroundColor: Color(0xFF003B8F),
                                         foregroundColor: Colors.white,
-                                        title: const Text('More Tractors'),
+                                        title: const Text('Recommended Tractors'),
                                         centerTitle: true,
                                       ),
                                           body: GridViewBuilderWidget(
@@ -427,9 +428,9 @@ class _HomePageFState extends State<HomePageF> {
                                         itemCount: 50,
                                       ))));
                         },
-                        child: const Image(
+                        child:  const Image(fit: BoxFit.fill,
                           image: AssetImage("assets/images/seeImg.png"),
-                          height: 26,
+                          height: 30,
                         ),
                       ),
                     ),
@@ -461,7 +462,7 @@ class _HomePageFState extends State<HomePageF> {
                                       appBar: AppBar(
                                         backgroundColor: Color(0xFF003B8F),
                                         foregroundColor: Colors.white,
-                                        title: const Text('More Tractors'),
+                                        title: const Text('Certified Tractor'),
                                         centerTitle: true,
                                       ),
                                           body: GridViewBuilderWidget(
@@ -470,9 +471,9 @@ class _HomePageFState extends State<HomePageF> {
                                         itemCount: 50,
                                       ))));
                         },
-                        child: const Image(
+                        child:  const Image(fit: BoxFit.fill,
                           image: AssetImage("assets/images/seeImg.png"),
-                          height: 26,
+                          height: 30,
                         ),
                       ),
                     ),
@@ -570,65 +571,75 @@ class _HomePageFState extends State<HomePageF> {
                           scrollDirection:
                               Axis.horizontal, // Enable horizontal scrolling
                           children: snapshot.data!.docs.map((doc) {
-                            return Container(
-                              width: 250,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white
-                                        .withOpacity(0.1), // Soft shadow
-                                    blurRadius: 10,
-                                    spreadRadius: 2,
-                                    offset: const Offset(
-                                        2, 4), // Slight bottom shadow
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.vertical(
-                                        top: Radius.circular(15)),
-                                    child: Image.network(
-                                      doc['image'], // Fetch image from Firestore
-                                      height: 100,
-                                      width: double.infinity,
-                                      fit: BoxFit.cover,
+                            return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      (context),
+                                      MaterialPageRoute(
+                                          builder: (context) => NewsDetails(
+                                              image: doc['image'],
+                                              title: doc['title'],
+                                              content: doc['content'])));
+                                },
+                              child: Container(
+                                width: 250,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white
+                                          .withOpacity(0.1), // Soft shadow
+                                      blurRadius: 10,
+                                      spreadRadius: 2,
+                                      offset: const Offset(
+                                          2, 4), // Slight bottom shadow
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          doc['title'], // Fetch title from Firestore
-                                          style: GoogleFonts.roboto(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Text.rich(
-                                          TextSpan(
-                                            text: doc[
-                                                'content'], // Fetch content from Firestore
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: const BorderRadius.vertical(
+                                          top: Radius.circular(15)),
+                                      child: Image.network(
+                                        doc['image'], // Fetch image from Firestore
+                                        height: 100,
+                                        width: double.infinity,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            doc['title'], // Fetch title from Firestore
                                             style: GoogleFonts.roboto(
-                                                fontSize: 14,
-                                                color: Colors.black),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
                                           ),
-                                          maxLines: 3, // Display only 2 lines
-                                          overflow: TextOverflow
-                                              .ellipsis, // Add "..."
-                                        ),
-                                      ],
+                                          const SizedBox(height: 5),
+                                          Text.rich(
+                                            TextSpan(
+                                              text: doc['content'], // Fetch content from Firestore
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 14,
+                                                  color: Colors.black),
+                                            ),
+                                            maxLines: 3, // Display only 2 lines
+                                            overflow: TextOverflow
+                                                .ellipsis, // Add "..."
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           }).toList(),
@@ -662,10 +673,17 @@ class _HomePageFState extends State<HomePageF> {
                                             appBar: AppBar(
                                               backgroundColor: Color(0xFF003B8F),
                                               foregroundColor: Colors.white,
-                                              title: const Text('More Tractors'),
+                                              title: const Text('States'),
                                               centerTitle: true,
                                             ),
-                                            body:StateGrids())));
+                                            body:Column(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top: 70),
+                                                  child: StateGrids(),
+                                                ),
+                                              ],
+                                            ))));
                               },
                               child: Text(
                                 'See More',

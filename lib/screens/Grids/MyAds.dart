@@ -35,7 +35,13 @@ class liveFavourites extends StatelessWidget {
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text("No data available"));
+            return Center(child:Text(
+              "No Tractors are in Queue.",
+              style: GoogleFonts.roboto(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 15,
+                  color: Colors.black),
+            ));
           }
 
           var tractors = snapshot.data!.docs;

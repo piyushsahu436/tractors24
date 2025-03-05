@@ -281,6 +281,10 @@ Widget buildCustomCard(BuildContext context) {
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       ContactSellerScreen(
+                                                        imageUrls: (tractor['images'] as List<dynamic>?)
+                                                            ?.map((e) => e.toString())
+                                                            .toList() ??
+                                                            [],
                                                         docid: docId,
                                                         brand: '${tractor['brand']}',
                                                         price: '${tractor['expectedPrice']}',

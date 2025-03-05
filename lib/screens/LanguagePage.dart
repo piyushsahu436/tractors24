@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/screens/test.dart';
 
 class LanguagePage extends StatefulWidget {
@@ -37,7 +38,7 @@ class _LanguagePageState extends State<LanguagePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>  LoginPage(),),);
+                              builder: (context) =>  Login2(),),);
                         },
                         child: Text(
                           "Skip",
@@ -104,8 +105,8 @@ class _LanguagePageState extends State<LanguagePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                      builder: (context) =>  LoginPage(),),);
-                  anime(image: 'third', seconds: 2, nextClass: LoginPage());
+                      builder: (context) =>  Login2(),),);
+                  // anime(image: 'third', seconds: 2, nextClass: LoginPage());
 
                   // Navigator.push(context, MaterialPageRoute(builder: (context)=> FullScreen(nextScreen: LoginPage(), image: 'thirdF')));
                 },

@@ -50,7 +50,7 @@ class GridViewBuilderWidget extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 10.0,
-              mainAxisSpacing: 10.0,
+              mainAxisSpacing: 20.0,
               childAspectRatio: 0.59,
             ),
             itemCount:
@@ -194,7 +194,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                               " Great Price ",
                                               style: GoogleFonts.roboto(
                                                 color: Colors.white,
-                                                fontSize: 7,
+                                                fontSize: 9,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
@@ -345,6 +345,10 @@ class GridViewBuilderWidget extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => ContactSellerScreen(
+                                        imageUrls: (tractor['images'] as List<dynamic>?)
+                                          ?.map((e) => e.toString())
+                                          .toList() ??
+                                          [],
                                         docid: docId,
                                         brand: '${tractor['brand']}',
                                         price: '${tractor['expectedPrice']}',
@@ -369,7 +373,7 @@ class GridViewBuilderWidget extends StatelessWidget {
                                 child: Text(
                                   'Contact Seller',
                                   style: GoogleFonts.roboto(
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),

@@ -64,50 +64,47 @@ class BrandGrids extends StatelessWidget {
         itemCount: itemCount, // Number of items
         itemBuilder: (context, index) {
           final item = gridItems[index];
-          return GestureDetector(
-            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>const Scaffold()));},
-            child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      offset: Offset(0.5, 0.99),
-                      blurRadius: 6,
-                    ),
-                  ],
-                ),
-                child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(8),
-                          ),
-                          child: Image.asset(
-                            item.imageUrl,
-                            fit: BoxFit.fill,
-                            width: double.infinity,
-                          ),
+          return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(0.5, 0.99),
+                    blurRadius: 6,
+                  ),
+                ],
+              ),
+              child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(8),
+                        ),
+                        child: Image.asset(
+                          item.imageUrl,
+                          fit: BoxFit.fill,
+                          width: double.infinity,
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Text(item.title,style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12
-                        ),),
-                      ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(item.title,style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12
+                      ),),
                     ),
-                  ],
-                )
-            ),
+                  ),
+                ],
+              )
           );
         },
       ),

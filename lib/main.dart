@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tractors24/auth/login_page.dart';
+import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/screens/LandingPage.dart';
 import 'package:tractors24/screens/testimonials.dart';
 import 'package:tractors24/splash_screen/SplashScreen2.dart';
@@ -65,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => isFirstTime ? SplashScreen5() : LoginPage(),
+        builder: (context) => isFirstTime ? SplashScreen5() : Login2(),
       ),
     );
   }

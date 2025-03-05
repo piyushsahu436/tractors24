@@ -51,7 +51,7 @@ class _WishlistState extends State<Wishlist> {
                     ),
                     Expanded(
                       child: Text(
-                        'Favourites',
+                        'Wishlist',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
                           color: Colors.white,

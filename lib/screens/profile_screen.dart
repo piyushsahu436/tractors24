@@ -184,18 +184,18 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                             const SizedBox(height: 30),
 
                             // KYC Documents link
-                            _buildClickableText(
-                                'Click Here', 'To Upload KYC Documents'),
-
-                            const SizedBox(height: 10),
-
-                            // Deactivate Account link
-                            _buildClickableText(
-                                'Click Here', 'Deactivate Your Account'),
-
-                            const SizedBox(height: 20),
-
-                            // Save Details button
+                            // _buildClickableText(
+                            //     'Click Here', 'To Upload KYC Documents'),
+                            //
+                            // const SizedBox(height: 10),
+                            //
+                            // // Deactivate Account link
+                            // _buildClickableText(
+                            //     'Click Here', 'Deactivate Your Account'),
+                            //
+                            // const SizedBox(height: 20),
+                            //
+                            // // Save Details button
                             Container(
                               width: double.infinity,
                               child: ElevatedButton(

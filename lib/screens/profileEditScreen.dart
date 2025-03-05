@@ -74,19 +74,28 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
 
   Future<void> updateUserData() async {
     User? user = _auth.currentUser;
-    String? profileImageUrl = await  _uploadToContabo(selectedImages!);
+
+    // Check if selectedImages is null before calling _uploadToContabo
+    String? profileImageUrl;
+    if (selectedImages != null) {
+      profileImageUrl = await _uploadToContabo(selectedImages!);
+    }
+
     if (user != null) {
       await _firestore.collection('users').doc(user.uid).update({
         'name': _nameprofileController.text,
-        'mobile': _mobileprofileController.text,
         'email': _emailprofileController.text,
+        'mobile': _mobileprofileController.text,
         'pincode': _pinCodeprofileController.text,
-        'profileImage': profileImageUrl,
+        // Only update profileImage if a new image was uploaded
+        if (profileImageUrl != null) 'profileImage': profileImageUrl,
       });
+
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Profile Updated!')));
     }
   }
+
   Future<String?> _uploadToContabo(File file) async {
     try {
       String fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
@@ -243,18 +252,18 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                               validator: (String? value) {},
                             ),
                             const SizedBox(height: 8),
-                            Form_field(
+                            NonEditFormField(
                               hintText: 'Mobile Number',
                               controller: _mobileprofileController,
                               prefixtext: '',
-                              validator: (String? value) {},
+                              // validator: (String? value) {},
                             ),
                             const SizedBox(height: 8),
-                            Form_field(
+                            NonEditFormField(
                               hintText: 'Email ID',
                               controller: _emailprofileController,
                               prefixtext: '',
-                              validator: (String? value) {},
+                              // validator: (String? value) {},
                             ),
                             const SizedBox(height: 8),
                             Form_field(
@@ -263,55 +272,55 @@ class _PersonalInfoEditScreenState extends State<PersonalInfoEditScreen> {
                               prefixtext: '',
                               validator: (String? value) {},
                             ),
-                            const SizedBox(height: 15),
+                            // const SizedBox(height: 15),
 
                             // Change Password button
-                            Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: const Color(0xFF0A2472)),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: TextButton.icon(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ForgetPassword()));
-                                },
-                                icon: const Icon(
-                                  Icons.lock_outline,
-                                  color: Color(0xFF0A2472),
-                                ),
-                                label: Text(
-                                  'Change Password',
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                style: TextButton.styleFrom(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 15),
-                                ),
-                              ),
-                            ),
+                            // Container(
+                            //   width: double.infinity,
+                            //   decoration: BoxDecoration(
+                            //     border:
+                            //         Border.all(color: const Color(0xFF0A2472)),
+                            //     borderRadius: BorderRadius.circular(10),
+                            //   ),
+                            //   child: TextButton.icon(
+                            //     onPressed: () {
+                            //       Navigator.push(
+                            //           context,
+                            //           MaterialPageRoute(
+                            //               builder: (context) =>
+                            //                   ForgetPassword()));
+                            //     },
+                            //     icon: const Icon(
+                            //       Icons.lock_outline,
+                            //       color: Color(0xFF0A2472),
+                            //     ),
+                            //     label: Text(
+                            //       'Change Password',
+                            //       style: GoogleFonts.poppins(
+                            //           color: Colors.black,
+                            //           fontSize: 16,
+                            //           fontWeight: FontWeight.w500),
+                            //     ),
+                            //     style: TextButton.styleFrom(
+                            //       padding:
+                            //           const EdgeInsets.symmetric(vertical: 15),
+                            //     ),
+                            //   ),
+                            // ),
 
                             const SizedBox(height: 30),
 
-                            // KYC Documents link
-                            _buildClickableText(
-                                'Click Here', 'To Upload KYC Documents'),
-
-                            const SizedBox(height: 10),
-
-                            // Deactivate Account link
-                            _buildClickableText(
-                                'Click Here', 'Deactivate Your Account'),
-
-                            const SizedBox(height: 20),
+                            // // KYC Documents link
+                            // _buildClickableText(
+                            //     'Click Here', 'To Upload KYC Documents'),
+                            //
+                            // const SizedBox(height: 10),
+                            //
+                            // // Deactivate Account link
+                            // _buildClickableText(
+                            //     'Click Here', 'Deactivate Your Account'),
+                            //
+                            // const SizedBox(height: 20),
 
                             // Save Details button
                             Container(
