@@ -271,6 +271,10 @@ class _AllItemsState extends State<AllItems> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     ContactSellerScreen(
+                                                      imageUrls: (tractor['images'] as List<dynamic>?)
+                                                          ?.map((e) => e.toString())
+                                                          .toList() ??
+                                                          [],
                                                       docid: docId,
                                                       brand: '${tractor['brand']}',
                                                       price: '₹${tractor['expectedPrice']}',

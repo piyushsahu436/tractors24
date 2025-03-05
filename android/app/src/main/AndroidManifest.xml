@@ -6,7 +6,7 @@
 
 
     <application
-        android:label="tractors24"
+        android:label="Tractors24"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

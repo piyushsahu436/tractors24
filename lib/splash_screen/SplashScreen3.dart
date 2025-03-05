@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/auth/login_password.dart';
 import 'package:tractors24/screens/LanguagePage.dart';
 import 'package:tractors24/auth/login_page.dart';
 import 'package:tractors24/screens/test.dart';
@@ -29,7 +30,7 @@ class SplashScreen3 extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           // Replace NextScreen with your actual next screen
-                          builder: (context) =>  const LanguagePage(),
+                          builder: (context) =>  const Login2(),
                         ),
                       );
                     },
@@ -114,7 +115,7 @@ class SplashScreen3 extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => FullScreenAnimation(page: LanguagePage(),image: 'secondF',),
+                              builder: (context) => FullScreenAnimation(page: Login2(),image: 'secondF',),
                             ),
                           );
                         },

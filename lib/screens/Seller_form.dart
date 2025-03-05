@@ -717,6 +717,7 @@ class _SellerformScreenState extends State<SellerformScreen> {
                     ),
                   ),
                   // Send Inquiry Button
+                  SizedBox(height: size.height * 0.03),
                   SizedBox(
                     width: double.infinity,
                     height: 48,

@@ -159,12 +159,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     fontWeight: FontWeight.w500)),
             currentAccountPicture: CircleAvatar(
               radius: 30,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.grey[300], // Light grey background
               backgroundImage: profileImageUrl.isNotEmpty
                   ? NetworkImage(profileImageUrl) as ImageProvider
                   : null,
               child: profileImageUrl.isEmpty
-                  ? const Icon(Icons.person, size: 50)
+                  ? const Icon(Icons.person, size: 50, color: Colors.black54) // Icon visible if no image
                   : null,
             ),
           ),
@@ -232,12 +232,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   MaterialPageRoute(builder: (context) => const News()));
             },
           ),
-          const SizedBox(height: 4),
-          _buildMenuListTile(
-            icon: Icons.share,
-            title: 'Share App',
-            onTap: () {},
-          ),
+          // const SizedBox(height: 4),
+          // _buildMenuListTile(
+          //   icon: Icons.share,
+          //   title: 'Share App',
+          //   onTap: () {},
+          // ),
           const SizedBox(height: 4),
           _buildMenuListTile(
             icon: Icons.reviews,

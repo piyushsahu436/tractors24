@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tractors24/screens/Grids/GridViewList.dart';
 
 class ContactSellerScreen extends StatefulWidget {
   const ContactSellerScreen(
@@ -9,12 +10,14 @@ class ContactSellerScreen extends StatefulWidget {
       required this.brand,
       required this.model,
       required this.price,
-      required this.location});
+      required this.location,
+      required this.imageUrls});
   final String docid;
   final String brand;
   final String model;
   final String price;
   final String location;
+  final List<String>? imageUrls;
 
   @override
   State<ContactSellerScreen> createState() => _ContactSellerScreenState();
@@ -86,16 +89,16 @@ class _ContactSellerScreenState extends State<ContactSellerScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: 200,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/Rectangle 23807.png'),
-                  fit: BoxFit.cover,
+            Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 0),
+                  child: ImageSliderWidget(
+                    imageUrls: widget.imageUrls,
+                  ),
                 ),
-              ),
+              ],
             ),
-
             // Product details
             Padding(
               padding: const EdgeInsets.all(16.0),

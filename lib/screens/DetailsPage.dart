@@ -44,7 +44,9 @@ class CarDetailsPage extends StatelessWidget {
       required this.torque,
       this.imageUrls,
       required this.fronttyre,
-      required this.pincode, required this.clutch, required this.docId});
+      required this.pincode,
+      required this.clutch,
+      required this.docId});
   final String torque;
   final String clutch;
   final String cylinder;
@@ -99,20 +101,19 @@ class CarDetailsPage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          ContactSellerScreen(
-                            docid: docId,
-                            brand: brand,
-                            price: SellPrice,
-                            location:
-                            Address,
-                            model: model,
-                          ),));
+                    builder: (context) => ContactSellerScreen(
+                      imageUrls: imageUrls,
+                      docid: docId,
+                      brand: brand,
+                      price: SellPrice,
+                      location: Address,
+                      model: model,
+                    ),
+                  ));
             },
             style: ElevatedButton.styleFrom(
               elevation: 0,
-              side: const BorderSide(
-                  color: Color(0xFF003B8F), width: 1.5),
+              side: const BorderSide(color: Color(0xFF003B8F), width: 1.5),
               backgroundColor: const Color(0xFF003B8F),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
@@ -757,7 +758,6 @@ class DetailsSection extends StatelessWidget {
           ),
         );
       }).toList(),
-
     );
   }
 }

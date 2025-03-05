@@ -24,7 +24,6 @@ class _LoginPage2 extends State<Login2> {
   final TextEditingController nameloginController = TextEditingController();
   final TextEditingController passwordloginController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final AuthService _authService = AuthService();
 
   bool isTermsAccepted = false;
@@ -61,6 +60,8 @@ class _LoginPage2 extends State<Login2> {
           .get();
 
       if (!userDoc.exists) {
+
+
         throw 'User data not found';
       }
 
@@ -110,7 +111,7 @@ class _LoginPage2 extends State<Login2> {
           child: Column(
             children: [
               Container(
-                  height: size.height * 0.3,
+                  height: size.height * 0.25,
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
@@ -152,82 +153,82 @@ class _LoginPage2 extends State<Login2> {
                       height: 10,
                     ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isCustomerSelected = true;
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 30),
-                              decoration: BoxDecoration(
-                                color: isCustomerSelected
-                                    ? const Color(0xFF003B8F)
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                    color: const Color(0xFF003B8F), width: 2),
-                              ),
-                              child: Text(
-                                "Customer",
-                                style: GoogleFonts.poppins(
-                                  color: isCustomerSelected
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isCustomerSelected = false;
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 30),
-                              decoration: BoxDecoration(
-                                color: !isCustomerSelected
-                                    ? const Color(0xFF003B8F)
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                    color: const Color(0xFF003B8F), width: 2),
-                              ),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        "Dealer",
-                                        style: GoogleFonts.poppins(
-                                          color: !isCustomerSelected
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     Expanded(
+                    //       child: GestureDetector(
+                    //         onTap: () {
+                    //           setState(() {
+                    //             isCustomerSelected = true;
+                    //           });
+                    //         },
+                    //         child: Container(
+                    //           padding: const EdgeInsets.symmetric(
+                    //               vertical: 12, horizontal: 30),
+                    //           decoration: BoxDecoration(
+                    //             color: isCustomerSelected
+                    //                 ? const Color(0xFF003B8F)
+                    //                 : Colors.white,
+                    //             borderRadius: BorderRadius.circular(8),
+                    //             border: Border.all(
+                    //                 color: const Color(0xFF003B8F), width: 2),
+                    //           ),
+                    //           child: Text(
+                    //             "Customer",
+                    //             style: GoogleFonts.poppins(
+                    //               color: isCustomerSelected
+                    //                   ? Colors.white
+                    //                   : Colors.black,
+                    //               fontWeight: FontWeight.w500,
+                    //               fontSize: 16,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(width: 12),
+                    //     Expanded(
+                    //       child: GestureDetector(
+                    //         onTap: () {
+                    //           setState(() {
+                    //             isCustomerSelected = false;
+                    //           });
+                    //         },
+                    //         child: Container(
+                    //           padding: const EdgeInsets.symmetric(
+                    //               vertical: 12, horizontal: 30),
+                    //           decoration: BoxDecoration(
+                    //             color: !isCustomerSelected
+                    //                 ? const Color(0xFF003B8F)
+                    //                 : Colors.white,
+                    //             borderRadius: BorderRadius.circular(8),
+                    //             border: Border.all(
+                    //                 color: const Color(0xFF003B8F), width: 2),
+                    //           ),
+                    //           child: Row(
+                    //             children: [
+                    //               Expanded(
+                    //                 child: Center(
+                    //                   child: Text(
+                    //                     "Dealer",
+                    //                     style: GoogleFonts.poppins(
+                    //                       color: !isCustomerSelected
+                    //                           ? Colors.white
+                    //                           : Colors.black,
+                    //                       fontWeight: FontWeight.w500,
+                    //                       fontSize: 16,
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
 
                     SizedBox(height: size.height * 0.01),
 
@@ -296,7 +297,7 @@ class _LoginPage2 extends State<Login2> {
                         ),
                       ],
                     ),
-                    SizedBox(height: size.height * 0.01),
+                    SizedBox(height: size.height * 0.03),
                     Row(
                       children: [
                         Expanded(
@@ -319,7 +320,7 @@ class _LoginPage2 extends State<Login2> {
                         ),
                       ],
                     ),
-
+                    SizedBox(height: size.height * 0.03),
                     Form_field(
                       hintText: "Email",
                       controller: nameloginController,
@@ -337,7 +338,7 @@ class _LoginPage2 extends State<Login2> {
                         return null; // Validation passed
                       },
                     ),
-                    SizedBox(height: size.height * 0.001),
+                    SizedBox(height: size.height * 0.01),
 
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -405,7 +406,7 @@ class _LoginPage2 extends State<Login2> {
                     ),
                   SizedBox(height: size.height*0.001),
                     Container(
-                      width: 340,
+                      width: size.width* 1,
                       height: 50,
                       child: ElevatedButton(
                         onPressed: isLoading
@@ -455,7 +456,7 @@ class _LoginPage2 extends State<Login2> {
                                   text: "Sign Up",
                                   style: GoogleFonts.roboto(
                                     color: const Color(0xFF003B8F),
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w800,
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
